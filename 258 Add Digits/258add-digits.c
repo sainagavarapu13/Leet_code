@@ -1,14 +1,7 @@
-int addDigits(int n) {
-   unsigned int sum;
-   if(n/10==0) sum=n;
-    while(n/10){
-        sum=0;
-        while(n){
-            int k=n%10;
-            sum+=k;
-            n=n/10;
-        }
-        n=sum;
+int addDigits(int num) {
+    if (num == 0) {
+        return 0;
+    } else {
+        return 1 + (num - 1) % 9;
     }
-    return sum;
 }
