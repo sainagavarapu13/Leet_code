@@ -1,25 +1,34 @@
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
-int* searchRange(int* nums, int numsSize, int target, int* returnSize) {
-    * returnSize =2;
-    int * res = (int *)malloc(2*sizeof(int));
-    res[0]=-1;
-    res[1]=-1;
-    if( numsSize==0){
-        return res;
-    }
-    for( int i=0;i<numsSize;i++){
-        if( nums[i]== target){
-            res[0]=i;
-            break;
+int* searchRange(int* a, int n, int k, int* returnSize) {
+    int *result = (int*)malloc(2 * sizeof(int)); // allocate memory for the result array
+    *returnSize = 2; // The result will always be a pair of values (start, end)
+
+    // Find the first occurrence of k
+    int left = -1, right = -1;
+    for (int i = 0; i < n; i++) {
+        if (a[i] == k) {
+            left = i;
+            break;  // First occurrence found, break the loop
         }
     }
-    for( int i=numsSize-1;i>=0;i--){
-        if( nums[i]== target){
-            res[1]=i;
-            break;
+
+    // If no occurrence is found, return [-1, -1]
+    if (left == -1) {
+        result[0] = -1;
+        result[1] = -1;
+        return result;
+    }
+
+    // Find the last occurrence of k
+    for (int i = n - 1; i >= 0; i--) {
+        if (a[i] == k) {
+            right = i;
+            break;  // Last occurrence found, break the loop
         }
     }
-    return res;
+
+    // Set the result with the first and last positions
+    result[0] = left;
+    result[1] = right;
+    
+    return result;
 }
