@@ -1,8 +1,8 @@
 int scoreOfString(char* s) {
-    int sum=0,i;
-    int len=strlen(s);
-    for(i=0;i<len;i++){
-       if(i<len-1) sum+=abs(s[i]-s[i+1]);
+    int d = 0,i=0;
+    while(s[i+1]!='\0'){
+        d = d + abs(s[i]-s[i+1]);
+        i++;
     }
-    return sum;
+    return d;
 }
