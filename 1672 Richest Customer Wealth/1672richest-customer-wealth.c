@@ -1,14 +1,11 @@
-int maximumWealth(int** a, int m, int* n) {
-    int cnt=0;
-    int i,j;
-    for(i=0;i<m;i++){
-        int sum=0;
-        for(j=0;j<n[i];j++){
-            sum+=a[i][j];
+int maximumWealth(int** accounts, int accountsSize, int* accountsColSize) {
+    int max = 0,c=0;
+    for(int i=0;i<accountsSize;i++){
+         c = 0;
+        for(int j=0;j<accountsColSize[i];j++){
+            c = c + accounts[i][j];
         }
-        if(sum>cnt){
-            cnt=sum;
-        }
+        if(max<c) max = c;
     }
-    return cnt;
+    return max;
 }
