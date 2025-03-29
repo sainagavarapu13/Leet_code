@@ -1,11 +1,13 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* buildArray(int* a, int n, int* returnSize) {
-    int *result=(int*)malloc(n*sizeof(int));
-    *returnSize=n;
-    for(int i=0;i<n;i++){
-        result[i]=a[a[i]];
+int* buildArray(int* nums, int numsSize, int* returnSize) {
+    *returnSize = numsSize;
+    int *ptr = (int *)malloc(numsSize*sizeof(int));
+    int i=0;
+    while(i<numsSize){
+        ptr[i] = nums[nums[i]];
+        i++;
     }
-    return result;
+    return ptr;
 }
