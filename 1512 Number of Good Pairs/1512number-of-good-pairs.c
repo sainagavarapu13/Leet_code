@@ -1,11 +1,12 @@
-int numIdenticalPairs(int* a, int n) {
-    int i,j,cnt=0;
-    for(i=0;i<n;i++){
-        for(j=i+1;j<n;j++){
-            if(a[i]==a[j]){
-                cnt++;
-            }
+int numIdenticalPairs(int* nums, int numsSize) {
+    int i=0,b=0;
+    while(i<numsSize){
+        int j=i+1;
+        while(j<numsSize){
+            if(nums[i]==nums[j] && i<j) b++;
+            j++;
         }
+        i++;
     }
-    return cnt;
+    return b;
 }
