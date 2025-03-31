@@ -1,8 +1,8 @@
 int differenceOfSums(int n, int m) {
-    int i,d=0,nd=0;
-    for(i=1;i<=n;i++){
-        if(i%m==0) d+=i;
-        else nd+=i;
+    long a=0,b=0,i;
+    for( i=1;i<=n;i++){
+        if(i%m==0) a+=i;
+        else b+=i;
     }
-    return nd-d;
+    return b-a;
 }
