@@ -1,20 +1,13 @@
-int digit(int n){
-    int sum=0;
-    while(n){
-        int k=n%10;
-        sum+=k;
-        n=n/10;
+int differenceOfSum(int* nums, int numsSize) {
+    int nsum = 0,dsum =0;
+    for(int i=0;i<numsSize;i++){
+        nsum = nsum + nums[i];
+        int n = nums[i];
+        while(n){
+            int c = n%10;
+            dsum = dsum +c;
+            n /=10;
+        }
     }
-    return sum;
-}
-int differenceOfSum(int* a, int n) {
-    int ele=0,digi=0;
-    for(int i=0;i<n;i++){
-        ele+=a[i];
-    }
-    for(int i=0;i<n;i++){
-        digi+=digit(a[i]);
-    }
-   if(ele>digi) return ele-digi;
-   else return digi-ele;
+    return abs(nsum-dsum);
 }
