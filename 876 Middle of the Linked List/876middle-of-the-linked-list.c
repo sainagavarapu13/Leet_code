@@ -4,19 +4,18 @@
  *     int val;
  *     struct ListNode *next;
  * };
- */
- typedef struct ListNode node;
+ */typedef struct ListNode node;
 struct ListNode* middleNode(struct ListNode* head) {
-    node * temp = head;
-    int cnt =0;
+    int cnt=0;
+    node *temp =head;
     while(temp){
-        temp= temp->next;
         cnt++;
+        temp=temp->next;
     }
-    int key = cnt/2;
-    while( key!=0){
-        key--;
-         head=head->next;
+    int mid=cnt/2;
+    while(mid!=0){
+mid--;
+        head=head->next;
 
     }
     return head;
