@@ -1,16 +1,7 @@
 int commonFactors(int a, int b) {
-    int m;
-    if(a>b){
-        m=a;
+    int d=0,c = a>b ? b : a;
+    for(int i=1;i<=c;i++){
+        if(a%i==0 && b%i==0) d++;;
     }
-    else{
-        m=b;
-    }
-    int i,cnt=0;
-    for(i=1;i<=m;i++){
-        if(a%i==0&&b%i==0){
-            cnt++;
-        }
-    }
-    return cnt;
+    return d;
 }
