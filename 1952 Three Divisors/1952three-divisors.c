@@ -1,10 +1,9 @@
 bool isThree(int n) {
-    int i,cnt=0;
-    for(i=1;i<=n;i++){
-        if(n%i==0){
-            cnt++;
-        }
+    int fac = 1;
+    for(int i=2;i<=n;i++){
+        if(fac>3) return false;
+        if(n%i==0) fac++;
     }
-    if(cnt==3) return 1;
-    else return 0;
+    if(fac==3) return true;
+    return false;
 }
