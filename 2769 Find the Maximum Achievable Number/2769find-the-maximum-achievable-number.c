@@ -1,5 +1,4 @@
 int theMaximumAchievableX(int num, int t) {
-    int x = num + 2*t;
-    return x;
-    
+    int ans=2*t+num;
+    return ans;
 }
