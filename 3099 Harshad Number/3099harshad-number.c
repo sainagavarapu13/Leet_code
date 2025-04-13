@@ -1,11 +1,9 @@
 int sumOfTheDigitsOfHarshadNumber(int x) {
-    int t=x;
-    int sum=0;
-    while(x!=0){
-        int k=x%10;
-        sum+=k;
-        x=x/10;
+    int c = x,d=0,e;
+    while(c>0){
+        d = d+c%10;
+        c/=10;
     }
-    if(t%sum==0) return sum;
+    if(x%d==0) return d;
     else return -1;
 }
