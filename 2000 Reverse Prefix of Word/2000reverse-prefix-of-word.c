@@ -1,46 +1,21 @@
-int  stack[300];
-int top;
-void push(int val){
-if(top!=299){
-	top++;
-	stack[top]=val;
-}
-
-}
-void pop(){
-if(top!=-1){
-top--;
-}
-
-}
-
-char* reversePrefix(char* a, char ch) {
-    top=-1;
-    int i=0;
-    while(a[i]!='\0'&&a[i]!=ch){
-        push(a[i]);
-        i++;
+void rev(char * word,int c)
+{
+    for(int i=0;i<c/2+1;i++){
+        char temp = word[i];
+        word[i] = word[c-i];
+        word[c-i] = temp;
     }
-   if (a[i] == ch) {
-        push(a[i]);
-        i++;  // Include ch and move past it
-    } else {
-        // ch not found: return original string
-        return a;
+}
+char* reversePrefix(char* word, char ch) {
+    int c=0;
+    for(int i=0;word[i]!='\0';i++){
+        if(word[i]==ch){
+            c = i;
+            break;
+        }
+        //if(c==0) return word;
     }
-    static char ans[300];
-int j=0;
-   while(top!=-1){
-    ans[j++]=stack[top];
-   
-    pop();
-   }
-   while(a[i] != '\0') {
-        ans[j++] = a[i++];
-    }
-   ans[j]='\0';
-   
-   	
-return ans;
-   
+    rev(word,c);
+    if(c==0) return word;
+    return word;
 }
