@@ -1,19 +1,17 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* findWordsContaining(char** a, int n, char ch, int* returnSize) {
-    int i,j;
-    int *res=(int*)malloc(n*sizeof(int));
-    * returnSize=n;
-    int k=0,p=0;
-    for(i=0;i<n;i++){
-        for(j=0;a[i][j]!='\0';j++){
-            if(a[i][j]==ch){
-                res[k++]=i;
+int* findWordsContaining(char** ch, int wordsSize, char x, int* returnSize) {
+    int *ptr = (int*)malloc(wordsSize*sizeof(int));
+    int k=0;
+    for(int i=0;i<wordsSize;i++){
+        for(int j=0;ch[i][j]!='\0';j++){
+            if(ch[i][j]==x){
+                ptr[k++] = i;
                 break;
             }
         }
     }
-    * returnSize=k;
-    return res;
+    *returnSize = k;
+    return ptr;
 }
