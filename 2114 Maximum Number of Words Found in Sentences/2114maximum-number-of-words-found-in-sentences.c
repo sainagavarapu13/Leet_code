@@ -1,15 +1,11 @@
-int mostWordsFound(char** a, int n) {
-    int i,j,cnt,sec=0;
-    for(i=0;i<n;i++){
-        cnt=1;
-        for(j=0;a[i][j]!='\0';j++){
-           if(a[i][j]==' '){
-            cnt++;
-           }
-           if(cnt>=sec){
-            sec=cnt;
-           }
+int mostWordsFound(char** sentences, int sentencesSize) {
+    int min=0;
+    for(int i=0;i<sentencesSize;i++){
+        int a=0;
+        for(int j=0;sentences[i][j]!='\0';j++){
+            if(sentences[i][j]==' ') a++;
         }
+        if(min<a) min = a;
     }
-    return sec;
+    return min+1;
 }
