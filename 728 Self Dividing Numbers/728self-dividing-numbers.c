@@ -1,25 +1,28 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
- int check( int a){
-    int t = a;
-    while(t){
-        int rem = t%10;
-        if( rem ==0) return 0;
-       else if( a % rem!=0){
-         return 0;
-        }
-        t=t/10;
-    } return 1;
-    
- }
-int* selfDividingNumbers(int l, int r, int* rs) {
-    int *res = (int *) malloc( (r-l+1)*sizeof(int));
-    int k =0;
-    for( int i=l;i<=r;i++){
-    if( check(i)==1) res[k++]=i;
+ int rev(int n){
+    int m=n,len=0,cnt=0;
+    while(m){
+        len++;
+        int k=m%10;
+       if(k!=0) {if(n%k==0){
+            cnt++;
+        }}
+        m=m/10;
     }
-    *rs = k;
-    return res;
-    
+    if(cnt==len) return 1;
+    else return 0;
+ }
+int* selfDividingNumbers(int left, int right, int* returnSize) {
+    int *result =(int*)malloc((right-left+1)*sizeof(int));
+   
+    int i,p=0;
+    for(i=left;i<=right;i++){
+    	if(rev(i)){
+    		result[p++]=i;
+		}
+	}
+    *returnSize=p;
+	return result;
 }
