@@ -1,9 +1,6 @@
 int smallestEvenMultiple(int n) {
-    int mul;
-    if( n%2==0){
-        mul = n;
-    }else{
-        mul = n*2;
+    while(n%2!=0){
+        n=2*n;
     }
-    return mul;
+    return n;
 }
