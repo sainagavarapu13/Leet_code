@@ -1,7 +1,8 @@
-int minOperations(int* a, int n, int k) {
-    int sum=0;
-    for(int i=0;i<n;i++){
-        sum+=a[i];
+int minOperations(int* nums, int numsSize, int k) {
+    int sum = 0;
+    for(int i=0;i<numsSize;i++){
+        sum += nums[i];
     }
-    return sum%k;
+    int temp = sum%k;
+    return temp;
 }
