@@ -1,16 +1,13 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* runningSum(int* a, int n, int* returnSize) {
-    int *result=(int*)malloc(n*sizeof(int));
-    *returnSize=n;
+int* runningSum(int* nums, int numsSize, int* returnSize) {
+    *returnSize = numsSize;
+    int* ptr = (int *)malloc(numsSize*sizeof(int));
     int sum=0;
-    int i,p=0;
-    int k=n;
-    while(k--){
-        sum+=a[p];
-    result[p]=sum;
-    p++;
+    for(int i=0;i<numsSize;i++){
+        sum = sum + nums[i];
+        ptr[i] = sum;        
     }
-    return result;
+    return ptr;
 }
