@@ -1,8 +1,7 @@
 int pivotInteger(int n) {
-    int sum = (n+1)*n/2;
-    float k = sqrt(sum);
-    int l = k;
-    if( k-l ==0) return l;
+    int ans=n*(n+1)/2;
+    float an= sqrt(ans);
+    int anss=sqrt(ans);
+    if(an==anss) return anss;
     else return -1;
-    
 }
