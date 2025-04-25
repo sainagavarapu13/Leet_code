@@ -1,9 +1,22 @@
-bool canAliceWin(int* a, int ns) {
-    int sum1=0,sum2=0;
-    for( int i=0;i<ns;i++){
-        if( (int)log10(a[i])+1 >1) sum2+=a[i];
-        else sum1+=a[i];
+int digi(int n){
+    int cnt=0;
+    while(n!=0){
+    cnt++;
+    n=n/10;
     }
-    if( sum1 != sum2) return 1;
-    else return 0;
+    return cnt;
+ }
+bool canAliceWin(int* a, int n) {
+    int sum1=0,sum2=0;
+  int i;
+  for(i=0;i<n;i++){
+    if(digi(a[i])==1){
+        sum1+=a[i];
+    }
+    else{
+        sum2+=a[i];
+    }
+  }
+  if(sum1==sum2) return 0;
+  else return 1;
 }
