@@ -1,12 +1,12 @@
-int countDigits(int num) {
-     int x = num;
-     int dig=0;
-     while( x){
-        int rem = x%10;
-        if( num%rem ==0){
-            dig++;
+int countDigits(int n) {
+    int t=n;
+    int cnt=0;
+    while(n!=0){
+        int k=n%10;
+        if(t%k==0){
+            cnt++;
         }
-        x/=10;
-     }
-     return dig;
+        n=n/10;
+    }
+    return cnt;
 }
