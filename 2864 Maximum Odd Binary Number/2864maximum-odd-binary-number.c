@@ -1,29 +1,21 @@
-void reverseString(char* str) {
-    int length = strlen(str);
-    for (int i = 0; i < length / 2; i++) {
-        char temp = str[i];
-        str[i] = str[length - i - 1];
-        str[length - i - 1] = temp;
-    }
-}
 char* maximumOddBinaryNumber(char* s) {
-    int o=0,z=0;
-    for( int i=0;s[i]!=0;i++){
-        if( s[i]=='1')o++;
-        else z++;
+    int c1=0,c0=0,k=0,len=0;
+    for(int i=0;s[i]!='\0';i++){
+        len++;
+        if(s[i]=='0') c0++;
+        else c1++;
     }
-    s[0]='1';
-    o--;
-    int k=1;
-    for(int i=1;s[i]!='\0' && z!=0;i++) {
-        s[i]='0';
-        z--;
-        k++;
-    } 
-    while(o!=0){
+    while(c1>1){
         s[k++]='1';
-        o--;
-    } 
-   reverseString(s);
+        c1--;
+    }
+   
+   
+    while(c0!=0){
+        s[k++]='0';
+       c0--;
+    }
+    s[k]='1';
     return s;
+  
 }
