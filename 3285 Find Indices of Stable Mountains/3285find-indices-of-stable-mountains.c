@@ -1,14 +1,15 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* stableMountains(int* a, int n, int k, int* returnSize) {
-    int *res=(int*)malloc(n*sizeof(int));
-    int i,idx=0;
-    for(i=1;i<n;i++){
-        if(a[i-1]>k){
-            res[idx++]=i;
+int* stableMountains(int* height, int heightSize, int threshold, int* returnSize) {
+    *returnSize = 0;
+    int *A = (int *)malloc(heightSize*sizeof(int));
+    int i=0,k=0;
+    for(i=0;i<heightSize-1;i++){
+        if(threshold<height[i]){
+            A[(*returnSize)++] = i +1;
         }
     }
-    * returnSize=idx;
-    return res;
+    A = (int*)realloc(A, (*returnSize) * sizeof(int));
+    return A;
 }
