@@ -1,10 +1,11 @@
-int sumOfTheDigitsOfHarshadNumber(int n) {
-    int temp =n;
+int sumOfTheDigitsOfHarshadNumber(int x) {
+    int t=x;
     int sum=0;
-    while( n!=0){
-        sum+=n%10;
-        n/=10;
+    while(x!=0){
+        int k=x%10;
+        sum+=k;
+        x=x/10;
     }
-    if( temp%sum==0) return sum;
+    if(t%sum==0) return sum;
     else return -1;
 }
