@@ -7,25 +7,25 @@
  */
  typedef struct ListNode node;
 struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
-    node *temp = head;
+    node *temp=head;
     int cnt=0;
-    while(temp){
-        temp=temp->next;
+    while(temp!=NULL){
         cnt++;
+        temp=temp->next;
     }
-    temp = head;
+    temp=head;
     int p=cnt-n;
-    if( p==0){
-        node * l = head;
-        head = head->next;
-        free(l);
-        return head;
+    if(p==0) {
+         node *l=head;
+         head=head->next;
+         free(l);
+         return head;
     }
-     for( int i=1;i<p;i++){
-        temp = temp->next;
-     }  
-     node * pol = temp->next;
-     temp->next = temp->next->next;
-    free(pol);
+    for(int i=1;i<p;i++){
+        temp=temp->next;
+    }
+    node *t=temp->next;
+    temp->next=temp->next->next;
+    free(t);
     return head;
 }
