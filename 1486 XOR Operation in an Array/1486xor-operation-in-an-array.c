@@ -1,12 +1,13 @@
-int xorOperation(int n, int s) {
-    int x;
-    int a[n];
-    a[0] = s;
-    x = a[0];
-    for( int i=1;i<n;i++){
-        a[i]= s + 2*i;
-        x = x^a[i];
+int xorOperation(int n, int start) {
+    int a[n],i;
+    for( i=0;i<n;i++){
+        a[i]=start+2*i;
     }
-    return x;
-    
+    int p=0;
+    int ans=a[0];
+   while(p<n-1){
+ ans=ans^a[p+1];
+    p++;
+   }
+   return ans;
 }
