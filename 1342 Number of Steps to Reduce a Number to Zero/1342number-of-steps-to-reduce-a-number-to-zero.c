@@ -1,14 +1,11 @@
-int numberOfSteps(int num) {
+int numberOfSteps(int n) {
     int cnt=0;
-    while(num>0){
-         cnt++;
-        if( num%2==0){
-            num= num/2;
-            
-        }else{
-            num=(num-1);
+    while(n!=0){
+        cnt++;
+        if(n%2==0){
+            n=n/2;
         }
-       
+        else n=n-1;
     }
     return cnt;
 }
