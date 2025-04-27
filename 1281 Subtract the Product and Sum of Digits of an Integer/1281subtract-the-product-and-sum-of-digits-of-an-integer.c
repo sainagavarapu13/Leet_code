@@ -1,9 +1,12 @@
 int subtractProductAndSum(int n) {
-    int pro =1,sum=0;
-    while( n){
-        pro*=n%10;
-        sum+=n%10;
-        n/=10;
+    int p=1;
+    int sum=0;
+    while(n!=0){
+        int k=n%10;
+        sum+=k;
+        p=p*k;
+        n=n/10;
     }
-    return pro-sum;
+    int ans=p-sum;
+    return ans;
 }
