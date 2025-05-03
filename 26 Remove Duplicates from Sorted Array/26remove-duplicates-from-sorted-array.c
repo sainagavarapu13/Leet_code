@@ -1,17 +1,12 @@
-int removeDuplicates(int* a, int n) {
-    int i,cnt=0;
-   int b[n];
-   int k=0;
-    for(i=0;i<n;i++){
-        if(i!=n-1&&a[i]==a[i+1]) continue;
-        else {
-            cnt++;
-            b[k++]=a[i];
+int removeDuplicates(int* nums, int numsSize) {
+    if(numsSize==0) return 0;
+    int cnt=1,j=0,i=0;
+    for(i=0;i<numsSize-1;i++){
+        if(nums[i]!=nums[i+1]){
+            nums[j]=nums[i];
+            j++;
         }
     }
-    for(i=0;i<cnt;i++){
-        a[i]=b[i];
-    }
-    return cnt;
-   // return b;
+    nums[j++] = nums[i];
+    return j;
 }
