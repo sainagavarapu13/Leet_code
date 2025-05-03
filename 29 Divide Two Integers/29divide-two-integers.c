@@ -1,8 +1,8 @@
-    int divide(int dividend, int divisor) {
-        int min=-2147483648 ;
-        int max=2147483647 ;
-    if(dividend==min&&divisor==-1) {
-        return max;
+int divide(long long int dividend,long long int divisor) {
+    if(dividend/divisor > pow(2,31)-1){
+        return(pow(2,31)-1);
     }
-    else return dividend/divisor;
+    else{
+        return (dividend/divisor);
+    }
 }
