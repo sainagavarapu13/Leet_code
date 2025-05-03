@@ -1,47 +1,22 @@
-int  stack[200];
-int top=-1;
-
-void push(int val){
-if(top!=199){
-top++;
-	stack[top]=val;
-}
-
-}
-void pop(){
-if(top!=-1){
-	top--;
-}
-}
-
-char* clearDigits(char* a) {
-    int i;
-    for(i=0;a[i]!='\0';i++){
-        if(a[i]>='a'&&a[i]<='z'){
-            push(a[i]);
-        }
-        else{
-            pop();
+char* clearDigits(char* s) {
+    int n = strlen(s),k=0;
+    char *ch = (char*)malloc(101*sizeof(char));
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='.') continue;
+        if(s[i]>='0'&&s[i]<='9'){
+            for(int j=i-1;j>=0;j--){
+                if(s[j]>='a' && s[j]<='z'){
+                    s[j] = '.';
+                    s[i] = '.';
+                    break;
+                }
+            }
         }
     }
-    static char ans[200];
-    int k=0;
-    while(top!=-1){
-        ans[k++]=stack[top];
-        pop();
+    for(int i=0;i<n;i++){
+        if(s[i]=='.') continue;
+        ch[k++] = s[i];
     }
-    ans[k]='\0';
-    int len=0;
-    k=0;
-    for (k = 0; ans[k] != '\0'; k++) {
-        len++;
-    }
-
-    // Reverse the string using index manipulation
-    for (k = 0; k < len / 2; k++) {
-        char temp = ans[k];
-        ans[k] = ans[len - k - 1];
-        ans[len - k - 1] = temp;
-    }
-    return ans;
+    ch[k] = '\0';
+    return ch;
 }
