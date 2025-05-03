@@ -1,4 +1,3 @@
-double myPow(double x, int n) {
-   double ans=pow(x,n);
-    return ans;
+long double myPow(double x, int n) {
+    return pow(x,n);
 }
