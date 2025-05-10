@@ -1,7 +1,9 @@
-int numberOfEmployeesWhoMetTarget(int* h, int x, int t) {
-    int cnt =0;
-    for( int i=0;i<x;i++){
-        if( h[i]>=t) cnt++;
+int numberOfEmployeesWhoMetTarget(int* a, int n, int k) {
+    int cnt=0,i;
+    for(i=0;i<n;i++){
+        if(a[i]>=k){
+            cnt++;
+        }
     }
-    return cnt ;
+    return cnt;
 }
