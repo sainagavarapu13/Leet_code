@@ -1,18 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+char* defangIPaddr(const char* a) {
+    int len = strlen(a);
+    // Max size = original length + 2 extra chars for each '.' (i.e., 3 chars total instead of 1)
+    char* b = (char*)malloc(len * 3 + 1);
+    int p = 0;
 
-char * defangIPaddr(char * s){
-    int len = strlen(s);
-    int ne = len+2*3;
-    int k=0;
-    char *a =( char*)malloc(ne+1);
-    for( int i=0;s[i]!='\0';i++){
-        if( s[i]=='.'){
-            a[k++] ='[';
-            a[k++] ='.';
-            a[k++] =']';
-        }else a[k++]=s[i];
+    for (int i = 0; i < len; i++) {
+        if (a[i] != '.') {
+            b[p++] = a[i];
+        } else {
+            b[p++] = '[';
+            b[p++] = '.';
+            b[p++] = ']';
+        }
     }
-    a[k]='\0';
-    return a;
 
+    b[p] = '\0';
+    return b;
 }
