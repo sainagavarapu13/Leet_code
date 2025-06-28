@@ -1,12 +1,15 @@
-int mostWordsFound(char** s, int l) {
-    int max =-1;
-    for( int i=0;i<l;i++){
-        int cnt =0;
-        for( int j=0;s[i][j]!='\0';j++){
-            if( s[i][j]==' ') cnt++;
+int mostWordsFound(char** a, int n) {
+    int i,j,cnt,sec=0;
+    for(i=0;i<n;i++){
+        cnt=1;
+        for(j=0;a[i][j]!='\0';j++){
+           if(a[i][j]==' '){
+            cnt++;
+           }
+           if(cnt>=sec){
+            sec=cnt;
+           }
         }
-        cnt++;
-        if( cnt > max) max =cnt;
     }
-    return max;
+    return sec;
 }
