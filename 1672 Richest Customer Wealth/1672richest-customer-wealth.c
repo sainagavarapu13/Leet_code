@@ -1,12 +1,14 @@
-int maximumWealth(int** a, int x, int* y) {
-     int max=-1;
-    for( int i=0;i<x;i++){
+int maximumWealth(int** a, int m, int* n) {
+    int cnt=0;
+    int i,j;
+    for(i=0;i<m;i++){
         int sum=0;
-        for( int j=0;j<y[i];j++){
+        for(j=0;j<n[i];j++){
             sum+=a[i][j];
         }
-        if( sum>max) max=sum;
+        if(sum>cnt){
+            cnt=sum;
+        }
     }
-
-    return max;
+    return cnt;
 }
