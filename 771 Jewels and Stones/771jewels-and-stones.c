@@ -1,17 +1,11 @@
-int numJewelsInStones(char* j, char* s) {
-    int f[123],sum=0 ;
-    memset(f,0,123);
-     for( int i=0;s[i]!='\0';i++){
-        f[s[i]-'0']++;
-        
+int numJewelsInStones(char* a, char* b) {
+    int i,cnt=0,j;
+    for(i=0;a[i]!='\0';i++){
+        for(j=0;b[j]!='\0';j++){
+            if(a[i]==b[j]){
+                cnt++;
+            }
+        }
     }
-    for(int i=0;j[i]!='\0';i++){
-        sum+=f[j[i]-'0'];
-        
-    }
-   
-    
-    
-    return sum;
-    
+    return cnt;
 }
