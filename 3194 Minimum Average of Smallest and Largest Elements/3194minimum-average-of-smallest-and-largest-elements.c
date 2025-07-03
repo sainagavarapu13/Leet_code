@@ -1,54 +1,30 @@
-void Merge (int a[],int start ,int mid,int end,int n){
-	int i=start;
-	int j=mid+1;
-	int b[end-start+1];
-	int k=0;
-	//getting elements into other array in order
-	while(i<=mid&&j<=end){
-		if(a[i]<a[j]){
-			b[k]=a[i];
-			k++;
-			i++;
-		}
-	else{
-		b[k]=a[j];
-		k++;
-		j++;
-		
-	}}
-	//getting remaining elements into array
-	while(i<=mid) b[k++]=a[i++]; 
-	while(j<=end) b[k++]=a[j++]; 
-	k=0;
-	//returning elements back into original array
-	for(i=start;i<=end;i++){
-		a[i]=b[k++];
-	}
-}
-void mergesort(int a[],int n,int start,int end){
-	//base case
-	if(start>=end) return;
-	//array breaking into two parts
-	int mid=(start+end)/2;
-	//breaking first part until subarray is one element
-	mergesort(a,n,start,mid);
-	//second part 
-	mergesort(a,n,mid+1,end);
-	// merging recusion call
-	Merge(a,start,mid,end,n);
-}
-double minimumAverage(int* n, int x) {
-   mergesort( n,x,0,x-1);
-   int k = x/2;
-   float a[k];
-   float min = 100.9;
-   int l=0;
-   int sum=0;
-    for( int i=0;i<x/2;i++){
-        a[l++]=(n[i]+n[x-i-1])/2.0;
-        if( a[i]<min) min = a[i];
+double minimumAverage(int* a, int n) {
+    double *res=(double*)malloc((n/2)*sizeof(double));
+    int xi,ni;
+    float min,max;
+    int i,k=0;
+    for(int j=0;j<n/2;j++){
+         max=-1,min=9876;
+        for(i=0;i<n;i++){
+            if (a[i] == -1) continue;
+        if(a[i]>max){
+            max=a[i];
+            xi=i;
+        }
+        if(a[i]<min){
+            min=a[i];
+            ni=i;
+        }
     }
-    
-    
-    return min;
+    res[k++]=(max+min)/2;
+    a[xi]=-1;
+    a[ni]=-1;
+    }
+    double small=98765;
+    for(i=0;i<n/2;i++){
+        if(res[i]<small){
+            small=res[i];
+        }
+    }
+    return small;
 }
