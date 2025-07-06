@@ -1,46 +1,32 @@
-void Merge (int a[],int start ,int mid,int end,int n){
-	int i=start;
-	int j=mid+1;
-	int b[end-start+1];
-	int k=0;
-	//getting elements into other array in order
-	while(i<=mid&&j<=end){
-		if(a[i]<a[j]){
-			b[k]=a[i];
-			k++;
-			i++;
-		}
-	else{
-		b[k]=a[j];
-		k++;
-		j++;
-		
-	}}
-	//getting remaining elements into array
-	while(i<=mid) b[k++]=a[i++]; 
-	while(j<=end) b[k++]=a[j++]; 
-	k=0;
-	//returning elements back into original array
-	for(i=start;i<=end;i++){
-		a[i]=b[k++];
-	}
+int mini(int a[],int n){
+    int i,min=98765,idx;
+    for(i=0;i<n;i++){
+        if(a[i]!=-1&&a[i]<min){
+            min=a[i];
+            idx=i;
+        }
+    }
+    a[idx]=98765;
+    return min;
 }
-void mergesort(int a[],int n,int start,int end){
-	//base case
-	if(start>=end) return;
-	//array breaking into two parts
-	int mid=(start+end)/2;
-	//breaking first part until subarray is one element
-	mergesort(a,n,start,mid);
-	//second part 
-	mergesort(a,n,mid+1,end);
-	// merging recusion call
-	Merge(a,start,mid,end,n);
+int maxi(int a[],int n){
+    int i,max=-1,idx;
+    for(i=0;i<n;i++){
+        if(a[i]>max){
+            max=a[i];
+            idx=i;
+        }
+    }
+    a[idx]=-1;
+    return max;
 }
 int maxProductDifference(int* a, int n){
-    mergesort(a,n,0,n-1);
-    
-    int min = (a[n-1]*a[n-2])-(a[0]*a[1]);
-   
-    return min;
+int ans;
+ int maxi1=maxi(a,n);
+ int maxi2=maxi(a,n);
+ int mini1=mini(a,n);
+ int mini2=mini(a,n);
+ ans=(maxi1*maxi2)-(mini1*mini2);
+ return ans;
+
 }
