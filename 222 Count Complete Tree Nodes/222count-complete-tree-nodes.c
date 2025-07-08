@@ -6,7 +6,12 @@
  *     struct TreeNode *right;
  * };
  */
+ int cnt(struct TreeNode* root){
+   	if(root==NULL) return 0;
+   return 1 + cnt(root->left) + cnt(root->right);
+    
+ }
 int countNodes(struct TreeNode* root) {
-    if( root == NULL)return 0;
-    return 1+countNodes(root->left)+countNodes(root->right);
+    int ans=cnt( root);
+    return ans;
 }
