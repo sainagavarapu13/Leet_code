@@ -1,20 +1,23 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* getFinalState(int* nums, int x, int k, int multiplier, int* returnSize) {
-    *returnSize = x;
-    int *a = (int*)malloc(x*sizeof(int));
-    for( int i=0;i<x;i++){
-        a[i]= nums[i];
-    }while( k--){
-        int min = a[0],ind=0;
-        for( int i=0;i<x;i++){
-                if( min > a[i]){ min = a[i];
-                ind = i;
-                }
+ int mini(int a[],int n){
+    int i,min=987654,idx;
+    for(i=0;i<n;i++){
+        if(a[i]<min){
+            min=a[i];
+            idx=i;
         }
-        a[ind] = min * multiplier;
     }
+    return idx;
+ }
+int* getFinalState(int* a, int n, int k, int m, int* returnSize) {
+    *returnSize=n;
 
+   while(k--){
+        int idx= mini(a,n);
+        a[idx]=a[idx]*m;
+
+    }
     return a;
 }
