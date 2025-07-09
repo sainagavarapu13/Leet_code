@@ -1,9 +1,17 @@
-int finalValueAfterOperations(char** s, int x) {
-    int val =0;
-    for( int i=0;i<x;i++){
-        if( s[i][0] =='-' || s[i][2] =='-') val-=1;
-        else val++;
+int finalValueAfterOperations(char** a, int n) {
+    int i,j;
+    int x=0;
+    for(i=0;i<n;i++){
+        for(j=0;a[i][j]!='\0';j++){
+            if(a[i][j]=='-'){
+                x=x-1;
+                break;
+            }
+            else if(a[i][j]=='+'){
+                x=x+1;
+                break;
+            }
+        }
     }
-    return val;
-    
+    return x;
 }
