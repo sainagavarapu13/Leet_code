@@ -1,20 +1,22 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* transformArray(int* n, int x, int* rs) {
-    *rs = x;
-    int cnte=0,cnto=0;
-    int * res = (int *) malloc(x*sizeof(int));
-    for( int i=0;i<x;i++){
-        if( n[i]%2==0) cnte++;
-        else cnto++;
+int* transformArray(int* a, int n, int* returnSize) {
+    int *b=(int*)malloc(n*sizeof(int));
+    * returnSize=n;
+
+    int ec=0,oc=0,i;
+    for(i=0;i<n;i++){
+        if(a[i]%2==0) ec++;
+        else oc++;
     }
+    
     int k=0;
-    while(cnte){
-        res[k++]=0;
-        cnte--;
-    }while(cnto--){
-        res[k++] =1;
+    while(ec--){
+        b[k++]=0;
     }
-    return res;
+    while(oc--){
+        b[k++]=1;
+    }
+    return b;
 }
