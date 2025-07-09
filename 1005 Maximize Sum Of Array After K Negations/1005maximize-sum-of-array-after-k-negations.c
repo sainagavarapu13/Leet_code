@@ -1,18 +1,22 @@
-int largestSumAfterKNegations(int* a, int x, int k) {
-    int sum=0;
-    while(k--){
-        int  min = 101;
-        int ind;
-     
-        for( int i=0;i<x;i++){
-            
-            if( min > a[i]){min = a[i];
-                ind =i;
-            }
+int mini(int a[],int n){
+    int i,min=9876;
+    int idx;
+    for(i=0;i<n;i++){
+        if(a[i]<min){
+            min=a[i];
+            idx=i;
         }
-        a[ind]= -min;
     }
-    for( int i=0;i<x;i++) sum+=a[i];
+    return idx;
+}
+int largestSumAfterKNegations(int* a, int n, int k) {
+    while(k--){
+       int idx=mini(a,n);
+       a[idx]=0-a[idx];
+    }
+    int sum=0;
+    for(int i=0;i<n;i++){
+        sum+=a[i];
+    }
     return sum;
-
 }
