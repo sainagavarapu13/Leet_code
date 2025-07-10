@@ -1,20 +1,25 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* findMissingAndRepeatedValues(int** m, int x, int* y, int* rs) {
-    *rs =2;
-    int *res = (int *)malloc(2*sizeof(int));
-   int n= x*x;
-   int *f = (int *)calloc(n+1,sizeof(int));
-    for( int i=0;i<x;i++){
-        for(int j=0;j<x;j++){
-            f[m[i][j]]++;
+int* findMissingAndRepeatedValues(int** a, int n, int* m, int* returnSize) {
+    int *res=(int*)malloc(2*sizeof(int));
+    * returnSize = 2;
+    int i,j;
+    int req=n*n+1;
+    int f[req];
+    for(i=0;i<req;i++){
+        f[i]=0;
+    }
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            f[a[i][j]]++;
         }
     }
-    for( int i=1;i<=n;i++){
-        if( f[i]==2) res[0]=i;
-        if( f[i]==0) res[1]=i;
+    for(i=0;i<req;i++){
+        if(f[i]==2&&i<=n*n) res[0]=i;
+        else if(f[i]==0&&i<=n*n){
+            res[1]=i;
+        }
     }
-    free(f);
     return res;
- }
+}
