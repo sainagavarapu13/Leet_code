@@ -1,31 +1,76 @@
-int romanToInt(char* s) {
+int value(char c) {
+    switch (c) {
+        case 'I': return 1;
+        case 'V': return 5;
+        case 'X': return 10;
+        case 'L': return 50;
+        case 'C': return 100;
+        case 'D': return 500;
+        case 'M': return 1000;
+        default: return 0;
+    }
+}
+int romanToInt(char* a) {
+    int i;
     int sum=0;
-    for( int i=0;s[i]!='\0';i++){
-        int c=0;
-         if( s[i]== 'I') c=1;
-        else if( s[i]=='V') c=5;
-        else if( s[i]=='X') c=10;
-        else if( s[i]=='L') c=50;
-        else if( s[i]=='C') c=100;
-        else if( s[i]=='D') c=500;
-        else c=1000;
-        if(s[i+1]!='\0'){
-            int n=0;
-            if( s[i+1]=='I') n = 1;
-            else if( s[i+1]=='V') n=5;
-            else if( s[i+1]=='X') n=10;
-            else if( s[i+1]=='L') n=50;
-            else if( s[i+1]=='C') n=100;
-            else if( s[i+1]=='D') n=500;
-            else if( s[i+1]=='M') n=1000;
-        if( c<n) sum-=c;
-        else sum+=c;
-            
+    int len=strlen(a);
+    for(i=len-1;i>=0;i--){
+        if(a[i]=='I'){
+            if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-1;
+            }
+            else{
+                sum+=1;
+            }
         }
-        else sum+=c;
-        
-
-        
+         if(a[i]=='V'){
+            if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-5;
+            }
+            else{
+                sum+=5;
+            }
+        }
+         if(a[i]=='X'){
+           if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-10;
+            }
+            else{
+                sum+=10;
+            }
+        }
+        if(a[i]=='L'){
+          if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-50;
+            }
+            else{
+                sum+=50;
+            }
+        }
+        if(a[i]=='C'){
+          if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-100;
+            }
+            else{
+                sum+=100;
+            }
+        }
+        if(a[i]=='D'){
+          if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-500;
+            }
+            else{
+                sum+=500;
+            }
+        }
+        if(a[i]=='M'){
+            if(i!=len-1&&value(a[i+1])>value(a[i])){
+                sum+=0-1000;
+            }
+            else{
+                sum+=1000;
+            }
+        }
     }
     return sum;
 }
