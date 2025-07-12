@@ -1,0 +1,54 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+ void Merge (int a[],int start ,int mid,int end,int n){
+	int i=start;
+	int j=mid+1;
+	int b[end-start+1];
+	int k=0;
+	//getting elements into other array in order
+	while(i<=mid&&j<=end){
+		if(a[i]<a[j]){
+			b[k]=a[i];
+			k++;
+			i++;
+		}
+	else{
+		b[k]=a[j];
+		k++;
+		j++;
+		
+	}}
+	//getting remaining elements into array
+	while(i<=mid) b[k++]=a[i++]; 
+	while(j<=end) b[k++]=a[j++]; 
+	k=0;
+	//returning elements back into original array
+	for(i=start;i<=end;i++){
+		a[i]=b[k++];
+	}
+}
+void mergesort(int a[],int n,int start,int end){
+	//base case
+	if(start>=end) return;
+	//array breaking into two parts
+	int mid=(start+end)/2;
+	//breaking first part until subarray is one element
+	mergesort(a,n,start,mid);
+	//second part 
+	mergesort(a,n,mid+1,end);
+	// merging recusion call
+	Merge(a,start,mid,end,n);
+}
+int* numberGame(int* a, int x, int* returnSize) {
+    * returnSize = x;
+    int *rs = ( int *) malloc( x * sizeof(int));
+    mergesort(a,x,0,x-1);
+    for( int i=0;i<x-1;i+=2){
+        rs[i]= a[i+1];
+        rs[i+1] = a[i];
+        
+    }
+    return rs;
+    
+}
