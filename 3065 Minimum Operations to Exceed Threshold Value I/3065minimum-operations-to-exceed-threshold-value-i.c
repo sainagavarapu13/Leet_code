@@ -1,7 +1,9 @@
-int minOperations(int* a, int x, int k) {
-    int cnt=0;
-    for( int i=0;i<x;i++){  
-        if( a[i]<k) cnt++;
+int minOperations(int* a, int n, int k) {
+    int i,cnt=0;
+    for(i=0;i<n;i++){
+        if(a[i]<k){
+            cnt++;
+        }
     }
-    return cnt ;
+    return cnt;
 }
