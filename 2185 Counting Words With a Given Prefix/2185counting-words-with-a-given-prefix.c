@@ -1,16 +1,16 @@
-int prefixCount(char** a, int n, char* k) {
-    int i,j,cnt,ar=0,l;
-    for(i=0;i<n;i++){
-        cnt=0;
-        l=0;
-        for(j=0;a[i][j]!='\0';j++){
-            if((k[l]!='\0')&&(a[i][j]==k[l++])){
-                cnt++;
+int prefixCount(char** words, int wordsSize, char* pref) {
+    int b=strlen(pref),c=0;
+    for(int i=0;i<wordsSize;i++){
+        int a = 0;
+        for(int j=0;pref[j]!='\0';j++){
+            if(pref[j]==words[i][j]){
+                a++;
+            }
+            else{
+                break;
             }
         }
-        if(cnt==strlen(k)){
-            ar++;
-        }
+        if(b==a) c++;
     }
-    return ar;
+    return c;
 }
