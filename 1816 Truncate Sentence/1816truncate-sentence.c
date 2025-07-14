@@ -1,18 +1,10 @@
 char* truncateSentence(char* s, int k) {
-    int cnt=0;
-    int i;
-    static char ans[5000000];
-    for(i=0;s[i]!='\0';i++){
+    int a = 0;
+    for(int i=0;s[i]!='\0';i++){
         if(s[i]==' '){
-            cnt++;
+            a++;
         }
-        if(cnt==k){
-            break;
-        }
-        if(cnt!=k){
-            ans[i]=s[i];
-        }
+        if(a==k) s[i]='\0';
     }
-    ans[i]='\0';
-    return ans;
+    return s;
 }
