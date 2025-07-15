@@ -1,24 +1,20 @@
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
-int* pivotArray(int* a, int n, int pivot, int* returnSize) {
-    int *result=(int*)malloc(n*sizeof(int));
-    *returnSize=n;
-    int i,b[n],p=0;
-    for(i=0;i<n;i++){
-        if(a[i]<pivot){
-            result[p++]=a[i];
-        }
+int* pivotArray(int* nums, int n, int pivot, int* returnSize) {
+    int totalPivot = 0;
+    int idx = 0;
+    int* ans = (int*)malloc(sizeof(int) * n);
+    for (int i = 0; i < n; i++) {
+        if (nums[i] < pivot)
+            ans[idx++] = nums[i];
+        else if (nums[i] == pivot)
+            totalPivot++;
     }
-    for(i=0;i<n;i++){
-        if(a[i]==pivot){
-            result[p++]=a[i];
-        }
+    for (int i = 0; i < totalPivot; i++) {
+        ans[idx++] = pivot;
     }
-     for(i=0;i<n;i++){
-        if(a[i]>pivot){
-            result[p++]=a[i];
-        }
-     }
-     return result;
+    for (int i = 0; i < n; i++) {
+        if (nums[i] > pivot)
+            ans[idx++] = nums[i];
+    }
+    *returnSize = n;
+    return ans;
 }
