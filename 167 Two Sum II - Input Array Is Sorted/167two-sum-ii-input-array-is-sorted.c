@@ -1,19 +1,24 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* twoSum(int* a, int x, int t, int* res) {
-    * res =2;
-    int*rs = (int *) malloc(2*sizeof( int));
-    int l =0;
-    int r = x-1;
-    while(l<r){
-        int sum=a[l]+a[r];
-        if( sum== t){
-            rs[0]=l+1;
-            rs[1]=r+1;
-            return rs;
-        }else if( sum<t) l++;
-        else r--;
+int* twoSum(int* a, int n, int k, int* returnSize) {
+    int i,j;
+    int *res=(int*)malloc(2*sizeof(int));
+    int sum;
+    * returnSize=2;
+    int left=0,right=n-1;
+    while(left<right){
+       sum=a[left]+a[right];
+       if(sum==k){
+        res[0]=left+1;
+        res[1]=right+1;
+        break;
+       }
+       else if(k<sum) {
+        right--;
+       }
+       else left++;
+
     }
-     return rs;
+    return res;
 }
