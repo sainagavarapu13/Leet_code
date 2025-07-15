@@ -1,23 +1,27 @@
-bool isValid(char* s) {
-    int a[3]={0};
-    int cnt =0;
-    if( strlen(s)<3) return false;
-    for( int i=0;s[i]!='\0';i++){
-        
-         if( s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U') a[2]++;
-         else if( (s[i] >='A' && s[i]<='Z') || (s[i] >='a' && s[i]<='z')) a[1]++;
-        else if (isdigit(s[i]) ) cnt++;
-      
-        else a[0]++;
-    }
-    int flg =1;
+int issym(char ch){
+    if(ch=='@'||ch=='#'||ch=='$') return 1;
+    else return 0;
+}
+int iscon(char s){
+if((s>='a'&&s<='z')||(s>='A'&&s<='Z')) return 1;
+else return 0;
+}
+int isvol(char s){
+    int i;
     
-    for( int i=1;i<3;i++){
-        if( a[i]==0){
-            flg =0;
-            return false;
-        }
+        if(s=='a'||s=='A'||s=='e'||s=='E'||s=='i'||s=='I'||s=='o'||s=='O'||s=='u'||s=='U') return 1;
+        else return 0;
     }
-    if( a[0]==0 ) return true;
-    else return false;
+
+bool isValid(char* s) {
+    if(strlen(s)<3) return 0;
+    int i,vol=0,con=0,sym=0;
+    for(i=0;s[i]!='\0';i++){
+        if(isvol(s[i])) vol++;
+       else if(iscon(s[i])) con++;
+       else if(issym(s[i])) sym++;
+    }
+    printf("%d %d %d",vol,con,sym);
+    if(vol>=1&&con>=1&&sym==0) return 1;
+    else return 0;
 }
