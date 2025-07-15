@@ -1,30 +1,20 @@
-double minimumAverage(int* a, int n) {
-    double *res=(double*)malloc((n/2)*sizeof(double));
-    int xi,ni;
-    float min,max;
-    int i,k=0;
-    for(int j=0;j<n/2;j++){
-         max=-1,min=9876;
-        for(i=0;i<n;i++){
-            if (a[i] == -1) continue;
-        if(a[i]>max){
-            max=a[i];
-            xi=i;
-        }
-        if(a[i]<min){
-            min=a[i];
-            ni=i;
+double minimumAverage(int* nums, int numsSize) {
+    double min=100000000;
+    for(int i =0; i <numsSize; i ++){
+        for(int j =0; j < numsSize-1; j++){
+            if(nums[j] > nums[ j+1]){
+                int temp = nums[ j];
+                nums[ j] = nums[ j+1];
+                nums[ j+1]= temp;
+            }
         }
     }
-    res[k++]=(max+min)/2;
-    a[xi]=-1;
-    a[ni]=-1;
-    }
-    double small=98765;
-    for(i=0;i<n/2;i++){
-        if(res[i]<small){
-            small=res[i];
+    for( int i=0, j= numsSize-1;i < numsSize, j>=0; i++, j--){
+        float average  = (nums[ i]+nums[j])/2.0;
+        if( average < min){
+            min = average;
         }
     }
-    return small;
+    return min;
+
 }
