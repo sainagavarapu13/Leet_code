@@ -1,20 +1,24 @@
 
+int ispre(char ch,char *s){
+    int i,cnt=0;
+    for(i=0;s[i]!='\0';i++){
+        if(s[i]==ch) return 1;
 
-int countConsistentStrings(char * a, char ** w, int x){
-    int f[26]={0};
-    for( int i=0;i<strlen(a);i++){
-        f[a[i]-'a']=1;
     }
-    int cnt=0;
-    for( int i=0;i<x;i++){
-        int flg =1;
-        for( int j=0;w[i][j]!='\0';j++){
-            if(f[w[i][j]-'a']!=1){
-                flg =0;
-                break;
-            }
+    return 0;
+}
+int countConsistentStrings(char * b, char ** a, int n){
+int i,j;
+int cnt,sum=0;
+    for(i=0;i<n;i++){
+            cnt=0;
+    for(j=0;a[i][j]!='\0';j++){
+        if(ispre(a[i][j],b))
+        cnt++;
         }
-        if( flg ==1) cnt++;
+        if(cnt==strlen(a[i])){
+            sum++;
+        }
     }
-    return cnt ;
+    return sum;
 }
