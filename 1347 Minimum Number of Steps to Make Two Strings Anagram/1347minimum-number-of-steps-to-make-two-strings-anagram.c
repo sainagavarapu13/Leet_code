@@ -1,20 +1,11 @@
 int minSteps(char* s, char* t) {
-    int fs[26]={0};
-    int ft[26]={0};
-    int i;
+    int i,a=0,A[26]={0},b[26]={0};
     for(i=0;s[i]!='\0';i++){
-        fs[s[i]-'a']++;
-        ft[t[i]-'a']++;
-    }
-    int ans[26]={0};
-    int k=0,sum=0;
-    for(i=0;i<26;i++){
-        ans[k++]=fs[i]-ft[i];
+        A[s[i]-'a']++;
+        b[t[i]-'a']++;
     }
     for(i=0;i<26;i++){
-        if(ans[i]>=0){
-            sum+=ans[i];
-        }
+        a = a+abs(A[i]-b[i]);
     }
-    return sum;
+    return a/2;
 }
