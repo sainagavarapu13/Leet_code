@@ -1,15 +1,15 @@
-double findMaxAverage(int* a, int x, int k) {
-    double sum=0;
-    for( int i=0;i<k;i++){
-        sum+=a[i];
+double findMaxAverage(int* a, int n, int k) {
+    int i=0,j,cnt;
+    double max,sum=0;
+    for(i=0;i<k;i++){
+       sum+=a[i];
     }
-    double avg = sum/k;
-    double max =avg;
-    for( int i=0;i<x-k;i++){
-        
-        sum=sum-a[i]+a[i+k];
-        avg = sum/k;
-        if( max < avg) max = avg;
+    max=sum;
+    for(i=k;i<n;i++){
+        sum+=a[i]-a[i-k];
+        if(sum>max)
+        max=sum;
     }
-    return max;
+
+ return max/k;
 }
