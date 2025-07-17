@@ -1,22 +1,13 @@
-int dominantIndex(int* a, int n) {
-    int i,max=-1,idx;
-    for(i=0;i<n;i++){
-        if(a[i]>max)
-       { max=a[i];
-        idx=i;}
+int dominantIndex(int* nums, int numsSize) {
+    int max = nums[0],i=0,b=0;
+    for(i=1;i<numsSize;i++){
+        if(max<nums[i]){
+            max = nums[i];
+            b = i;
+        }
     }
-   // printf("%d %d",max,idx);
-  for(i=0;i<n;i++){
-    if(a[i]==max) continue;
-    else{
-        a[i]=2*a[i];
+    for(i=0;i<numsSize;i++){
+        if(2*nums[i]>max && b!=i) return -1;
     }
-  }
-  int om=-1;
-  for(i=0;i<n;i++){
-    if(a[i]>om)
-        om=a[i];
-  }
-  if(om==max) return idx;
-  else return -1;
+    return b;
 }
