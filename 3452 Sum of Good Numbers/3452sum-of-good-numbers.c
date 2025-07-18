@@ -1,18 +1,14 @@
-int sumOfGoodNumbers(int* a, int n, int k) {
-    int i,sum=0;
-    for(i=0;i<n;i++){
-        if((i+k>=n)&&(i-k<0))sum+=a[i];
-        else if((i+k>=n)||(i-k<0)){
-            if(i+k>=n) {
-                if(a[i]>a[i-k]) sum+=a[i];
-            }
-            else {
-                if(a[i]>a[i+k]) sum+=a[i];
-            }
+int sumOfGoodNumbers(int* nums, int numsSize, int k) {
+    int i=0,sum=0;
+    for(int i=0;i<numsSize;i++){
+        int a=0,b=0;
+        if((i-k)<0 || nums[i-k]<nums[i]){
+            a=1;
         }
-        else {
-            if((a[i]>a[i+k])&&(a[i]>a[i-k])) sum+=a[i];
+        if((i+k)>=numsSize || nums[i+k]<nums[i]){
+            b=1;
         }
+        if(a==1 && b==1) sum = sum + nums[i];
     }
     return sum;
 }
