@@ -5,28 +5,45 @@
  *     struct ListNode *next;
  * };
  */
- typedef struct ListNode node;
+ struct ListNode* creat_node(int data){
+    struct ListNode *nn=(struct ListNode*)malloc(sizeof(struct ListNode));
+    nn->val=data;
+    nn->next=NULL;
+    return nn;
+ }
+ struct ListNode *h=NULL;
+ struct ListNode *t=NULL;
+ void insert(int data){
+    struct ListNode*nn=creat_node(data);
+      struct ListNode *temp=h;
+    if(h==NULL){
+        h=nn;
+        t=nn;
+    }
+    else{
+       t->next=nn;
+       t=nn;
+    }
+ }
 struct ListNode* mergeNodes(struct ListNode* head) {
-    if( head == NULL && head->next == NULL) return NULL;
-    node * dum = (node*)malloc(sizeof(node));
-    dum->val =0;
-    dum->next = NULL;
-    node * tail = dum;
-    node * temp = head->next;
-    int sum=0;
-    while(temp){
-        if( temp->val == 0){
-            node * nn = (node*)malloc(sizeof(node));
-            nn->val = sum;
-            nn->next = NULL;
-            tail->next = nn;
-            tail = nn;
-            sum=0;
-        }else{
-            sum+=temp->val;
-        }
+  
+    struct ListNode *temp=head;
+    h=NULL;
+    t=NULL;
+    while (temp && temp->val == 0) {
         temp = temp->next;
     }
-    dum= dum->next;
-    return dum;
+    while(temp){
+        int sum=0;
+        // if(temp->val==0){
+        //     temp=temp->next;
+        // }
+        while(temp&&temp->val!=0){
+            sum+=temp->val;
+            temp=temp->next;
+        }
+       if(sum!=0) insert(sum);
+        if(temp) temp=temp->next;
+    }
+    return h;
 }
