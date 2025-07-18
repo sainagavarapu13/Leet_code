@@ -1,19 +1,21 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* sortArrayByParity(int* a, int n, int* returnSize) {
-    int *res=(int*)malloc(n*sizeof(int));
-    * returnSize=n;
-    int i,k=0;
-    for(i=0;i<n;i++){
-        if(a[i]%2==0){
-            res[k++]=a[i];
+int* sortArrayByParity(int* nums, int numsSize, int* returnSize) {
+    *returnSize = numsSize;
+    int* ptr = (int*)malloc(numsSize*sizeof(int));
+    int A[numsSize],k=0,a=0;
+    for(int i=0;i<numsSize;i++){
+        if(nums[i]%2==0){
+            ptr[k++] = nums[i];
+        }
+        else{
+            A[a++] = nums[i];
         }
     }
-    for(i=0;i<n;i++){
-        if(a[i]%2!=0){
-            res[k++]=a[i];
-        }
+    a = 0;
+    for(k;k<numsSize;k++){
+        ptr[k] = A[a++];
     }
-    return res;
+    return ptr;
 }
