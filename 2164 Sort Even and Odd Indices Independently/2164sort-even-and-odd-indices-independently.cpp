@@ -1,25 +1,23 @@
 class Solution {
 public:
-    vector<int> sortEvenOdd(vector<int>& nums) {
-         vector<int> even, odd;
-        for (int i = 0; i < nums.size(); i++) {
-            if (i % 2 == 0) {
-                even.push_back(nums[i]); 
-            } else {
-                odd.push_back(nums[i]);  
+    vector<int> sortEvenOdd(vector<int>& a) {
+        vector<int> eve,odd,res;
+        int i;
+        for(i=0;i<a.size();i++){
+            if(i%2==0) eve.push_back(a[i]);
+            else odd.push_back(a[i]);
+        }
+        sort(eve.begin(),eve.end());
+        sort(odd.begin(),odd.end(),greater<int>());
+        int k=0,l=0;
+        for(i=0;i<a.size();i++){
+            if(i%2==0) {
+                res.push_back(eve[k++]);
+            }
+            else{
+                res.push_back(odd[l++]);
             }
         }
-        sort(even.begin(), even.end());
-        sort(odd.begin(), odd.end(), greater<int>());
-        int e = 0, o = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            if (i % 2 == 0) {
-                nums[i] = even[e++];
-            } else {
-                nums[i] = odd[o++];
-            }
-        }
-        
-        return nums;
+        return res;
     }
 };
