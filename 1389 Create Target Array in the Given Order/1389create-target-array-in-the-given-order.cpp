@@ -1,10 +1,10 @@
 class Solution {
 public:
-    vector<int> createTargetArray(vector<int>& n, vector<int>& ind) {
-        vector<int>target;
-        for(int i=0;i<n.size();i++){
-            target.insert(target.begin()+ind[i],n[i]);
+    vector<int> createTargetArray(vector<int>& a, vector<int>& I) {
+        vector<int>res;
+        for(int i=0;i<a.size();i++){
+            res.insert(res.begin()+I[i],a[i]);
         }
-        return target;
+        return res;
     }
 };
