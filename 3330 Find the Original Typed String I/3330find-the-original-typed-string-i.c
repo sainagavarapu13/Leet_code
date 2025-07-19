@@ -1,7 +1,9 @@
 int possibleStringCount(char* a) {
-    int cnt =1;
-    for( int i=1;a[i]!='\0';i++){
-        if( a[i-1] == a[i]) cnt++;
+    int sum=0;
+    int f[26]={0};
+    for(int i=0;a[i]!='\0';i++){
+       if(a[i]==a[i+1]) sum++;
     }
-    return cnt;
+    
+    return sum+1;
 }
