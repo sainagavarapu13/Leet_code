@@ -1,13 +1,11 @@
-int findLucky(int* a, int n) {
-    int i,f[501];
-    for(i=0;i<n;i++){
-        f[a[i]]++;
+int findLucky(int* arr, int n) {
+    int freq[501] = {0},max=0;
+    for(int i=0;i<n;i++){
+        freq[arr[i]]++;
+        if(arr[i]>max) max = arr[i];
     }
-    for(i=500;i>=1;i--){
-        if(i==f[i]){
-            return i;
-            break;
-        }
+    for(int i=max;i>0;i--){
+        if(freq[i]==i) return i;
     }
     return -1;
 }
