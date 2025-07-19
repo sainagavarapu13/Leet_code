@@ -9,17 +9,17 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
- int a[101];
- int k=0;
- void inorder(struct TreeNode* root){
-    if(root==NULL) return;
-    inorder(root->left);
-    a[k++]=root->val;
-    inorder(root->right);
+ int size = 0;
+ void inorder(struct TreeNode* root,int *ptr){
+    if(root == NULL) return;
+    inorder(root->left,ptr);
+    ptr[size++] = root->val;
+    inorder(root->right,ptr);
  }
 int* inorderTraversal(struct TreeNode* root, int* returnSize) {
-    k=0;
-    inorder(root);
-    * returnSize=k;
-    return a;
+    int *ptr = (int*)malloc(100*sizeof(int));
+    size = 0;
+    inorder(root,ptr);
+    *returnSize = size;
+    return ptr;
 }
