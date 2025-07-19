@@ -6,15 +6,15 @@
  *     struct TreeNode *right;
  * };
  */
- int sum=0;
- void cnt(struct TreeNode* root, int low, int high){
+ int b=0;
+ void post(struct TreeNode* root,int low,int right){
     if(root==NULL) return;
-    cnt(root->left,low,high);
-    if((root->val)>=low&&(root->val)<=high) sum+=root->val;
-    cnt(root->right,low,high);
+    post(root->left,low,right);
+    post(root->right,low,right);
+    if(root->val >=low && root->val <=right) b= b+ root->val;
  }
 int rangeSumBST(struct TreeNode* root, int low, int high) {
-    sum=0;
-    cnt(root,low,high);
-    return sum;
+    b = 0;
+    post(root,low,high);
+    return b;
 }
