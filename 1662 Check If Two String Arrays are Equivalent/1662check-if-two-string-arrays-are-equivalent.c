@@ -1,18 +1,21 @@
-bool arrayStringsAreEqual(char** a, int n, char** b, int m) {
-    char s1[1001];
-    char s2[1001];
-    int i,j,k=0;
-    for(i=0;i<n;i++){
-        for(j=0;a[i][j]!='\0';j++){
-        s1[k++]=a[i][j];
+bool arrayStringsAreEqual(char** word1, int word1Size, char** word2, int word2Size) {
+    char A[1000001],B[1000001];
+    int i,j,a=0,b=0;
+    for(i=0;i<word1Size;i++){
+        for(j=0;word1[i][j]!='\0';j++){
+            A[a++] = word1[i][j];
         }
     }
-    k=0;
-    for(i=0;i<m;i++){
-        for(j=0;b[i][j]!='\0';j++){
-        s2[k++]=b[i][j];
+    A[a] = '\0';
+    for(i=0;i<word2Size;i++){
+        for(j=0;word2[i][j]!='\0';j++){
+            B[b++] = word2[i][j];
         }
     }
-    if(strcmp(s1,s2)==0) return 1;
-    else return 0;
+    B[b] = '\0';
+    if(a!=b) return false;
+    for(i=0;i<a;i++){
+        if(A[i]!=B[i]) return false;
+    }
+    return true;
 }
