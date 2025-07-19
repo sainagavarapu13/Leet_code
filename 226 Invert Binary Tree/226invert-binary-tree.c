@@ -6,18 +6,12 @@
  *     struct TreeNode *right;
  * };
  */
- void invert(struct TreeNode* root){
-    if(root==NULL) return;
-  
-        struct TreeNode *temp=root->left;
-        root->left=root->right;
-        root->right=temp;
-
-        invert(root->left);
-        invert(root->right);
-    
- }
 struct TreeNode* invertTree(struct TreeNode* root) {
-    invert(root);
+    if(root==NULL) return root;
+    struct TreeNode* temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+    invertTree(root->left);
+    invertTree(root->right);
     return root;
 }
