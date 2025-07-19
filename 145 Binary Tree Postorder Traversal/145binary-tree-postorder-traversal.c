@@ -9,17 +9,17 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
- int a[101];
- int k=0;
- void postorder(struct TreeNode* root){
+ int b=0;
+ void post(struct TreeNode* root,int *ptr){
     if(root==NULL) return;
-    postorder(root->left);
-    postorder(root->right);
-    a[k++]=root->val;
+    post(root->left,ptr);
+    post(root->right,ptr);
+    ptr[b++] =root->val;
  }
 int* postorderTraversal(struct TreeNode* root, int* returnSize) {
-    k=0;
-    postorder(root);
-    * returnSize=k;
-    return a;
+    int* ptr = (int*)malloc(101*sizeof(int));
+    b = 0;
+    post(root,ptr);
+    *returnSize = b;
+    return ptr;
 }
