@@ -1,32 +1,22 @@
-int mini(int a[],int n){
-    int i,min=98765,idx;
-    for(i=0;i<n;i++){
-        if(a[i]!=-1&&a[i]<min){
-            min=a[i];
-            idx=i;
+int maxProductDifference(int* nums, int numsSize){
+    int max1=0,max2=0,min1=100000,min2=100000,a,b;
+    for(int i=0;i<numsSize;i++){
+        if(max1<nums[i]) {
+            max1 = nums[i];
+            a = i;
+        }
+        if(min1>nums[i]) {
+            min1 = nums[i];
+            b = i;
         }
     }
-    a[idx]=98765;
-    return min;
-}
-int maxi(int a[],int n){
-    int i,max=-1,idx;
-    for(i=0;i<n;i++){
-        if(a[i]>max){
-            max=a[i];
-            idx=i;
+    for(int i=0;i<numsSize;i++){
+        if(max2<nums[i] && i!=a) {
+            max2 = nums[i];
+        }
+        if(min2>nums[i] && i!=b) {
+            min2 = nums[i];
         }
     }
-    a[idx]=-1;
-    return max;
-}
-int maxProductDifference(int* a, int n){
-int ans;
- int maxi1=maxi(a,n);
- int maxi2=maxi(a,n);
- int mini1=mini(a,n);
- int mini2=mini(a,n);
- ans=(maxi1*maxi2)-(mini1*mini2);
- return ans;
-
+    return ((max1*max2) - (min1)*(min2));
 }
