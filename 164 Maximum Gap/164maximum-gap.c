@@ -1,42 +1,32 @@
-void MERGE(int a[],int n,int start,int mid,int  end){
-    int i=start;
-    int j=mid+1;
-    int b[n];
-    int k=0;
-    while(i<=mid&&j<=end){
-        if(a[i]<a[j]){
-            b[k++]=a[i++];
-        }
-        else b[k++]=a[j++];
-    }
-    while(i<=mid) b[k++]=a[i++];
-    while(j<=end) b[k++]=a[j++];
-    	k=0;
-	//returning elements back into original array
-	for(i=start;i<=end;i++){
-		a[i]=b[k++];
+void merge(int A[],int mid,int left,int right){
+	int i = left;
+	int j = mid+1;
+	int B[right-left+1],k=0;
+	while(i<=mid && j<=right){
+		if(A[i]<=A[j]) B[k++] = A[i++];
+		else B[k++] = A[j++];
+	}
+	while(i<=mid) B[k++] = A[i++];
+	while(j<=right) B[k++] = A[j++];
+	k = 0;
+	for(i=left;i<=right;i++){
+		A[i] = B[k++];
 	}
 }
-void mergesort(int a[],int n,int start,int end){
-    if(start==end) return;
-    int mid=(start+end)/2;
-    mergesort(a,n,start,mid);
-      mergesort(a,n,mid+1,end);
-      MERGE(a,n,start,mid,end);
+void mergesort(int A[],int left,int right){
+	if(left>=right) return;
+	int mid = (left+right)/2;
+	mergesort(A,left,mid);
+	mergesort(A,mid+1,right);
+	merge(A,mid,left,right);
 }
-int maximumGap(int* a, int n) {
-    if(n<2) return 0;
-    if(n==2) return abs(a[0]-a[1]);
-    mergesort(a,n,0,n-1);
-    int diff[n-1];
-    int i;
-    int k=0;
-    int max=-1;
-    for(i=0;i<n-1;i++){
-        diff[i]=abs(a[k]-a[k+1]);
-        if(diff[i]>max)
-       max=diff[i];
-        k++;
+int maximumGap(int* nums, int numsSize) {
+    if(numsSize<2) return 0;
+    mergesort(nums,0,numsSize-1);
+    int max = 0;
+    for(int i=0;i<numsSize-1;i++){
+        int d = abs(nums[i]-nums[i+1]);
+        if(max<d) max = d;
     }
-   return max;
+    return max;
 }
