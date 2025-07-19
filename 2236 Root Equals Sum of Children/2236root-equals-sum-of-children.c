@@ -7,8 +7,6 @@
  * };
  */
 bool checkTree(struct TreeNode* root) {
-    int ans=root->left->val+root->right->val;
-    if(ans==root->val)
-    return 1;
-    else return 0;
+    if(root->val==((root->left->val)+(root->right->val))) return true;
+    return false;
 }
