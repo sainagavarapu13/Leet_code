@@ -1,8 +1,14 @@
-int numberOfPairs(int* a, int x, int* b, int y, int k) {
-    int cnt =0;
-    for( int i=0;i<x;i++){
-        for( int j=0;j<y;j++){
-            if( a[i]%(b[j]*k)==0) cnt++;
+int numberOfPairs(int* a, int n, int* b, int m, int k) {
+    int i;
+    for(i=0;i<m;i++){
+        b[i]=b[i]*k;
+    }
+    int j,cnt=0;
+    for(i=0;i<n;i++){
+        for(j=0;j<m;j++){
+            if(a[i]%b[j]==0){
+                cnt++;
+            }
         }
     }
     return cnt;
