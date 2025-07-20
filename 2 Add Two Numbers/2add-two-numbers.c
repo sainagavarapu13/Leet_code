@@ -5,34 +5,44 @@
  *     struct ListNode *next;
  * };
  */
-typedef struct ListNode node;
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    node *dummy = (node*)malloc(sizeof(node));
-    dummy->val = 0;
-    dummy->next = NULL;
-    node *tail = dummy;
-    int carry = 0;
-    
-    while (l1 != NULL || l2 != NULL || carry != 0) {
-        int sum = carry;
-        if (l1 != NULL) {
-            sum += l1->val;
-            l1 = l1->next;
-        }
-        if (l2 != NULL) {
-            sum += l2->val;
-            l2 = l2->next;
-        }
-        
-        carry = sum / 10;
-        node *newNode = (node*)malloc(sizeof(node));
-        newNode->val = sum % 10;
-        newNode->next = NULL;
-        tail->next = newNode;
-        tail = newNode;
+ struct ListNode *head;
+ struct ListNode *tail;
+ struct ListNode *creat_node(int val){
+    struct ListNode *nn=(struct ListNode *)malloc(sizeof(struct ListNode ));
+    nn->val=val;
+    nn->next=NULL;
+    return nn;
+ }
+ void insert(int val){
+    struct ListNode *nn=creat_node(val);
+    if(head==NULL){
+        head=nn;
+        tail=nn;
     }
-    
-    node *result = dummy->next;
-    free(dummy);
-    return result;
+    else{
+        tail->next=nn;
+        tail=nn;
+    }
+ }
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+    head=NULL;
+    tail=NULL;
+    long long carry=0,sum;
+    struct ListNode *temp1=l1;
+    struct ListNode *temp2=l2;
+    long long a,b;
+    while(temp1!=NULL||temp2!=NULL||carry){
+        sum=0;
+        if(temp1!=NULL) a=temp1->val;
+        else a=0;
+        if(temp2!=NULL)  b=temp2->val;
+        else b=0;
+        
+        sum=carry+a+b;
+        carry=sum/10;
+        insert(sum%10);
+      if(temp1!=NULL)  temp1=temp1->next;
+     if(temp2!=NULL)   temp2=temp2->next;
+    }
+    return head;
 }
