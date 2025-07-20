@@ -1,11 +1,10 @@
-int diagonalSum(int** m, int x, int* y) {
-    int sum=0;
-    for( int i=0;i<x;i++){
-        for( int j=0;j<y[i];j++){
-            if( i==j) sum+=m[i][j];
-           else if( i+j == x-1) sum+=m[i][j];
+int diagonalSum(int** a, int n, int* m) {
+    int i,j,sum=0;
+    for(i=0;i<n;i++){
+        for(j=0;j<m[i];j++){
+            if(i==j) sum+=a[i][j];
+            else if(i+j==n-1) sum+=a[i][j]; 
         }
     }
     return sum;
-    
 }
