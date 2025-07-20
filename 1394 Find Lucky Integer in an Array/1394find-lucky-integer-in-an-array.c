@@ -1,13 +1,13 @@
-int findLucky(int* a, int x) {
-    int f[501]={0};
-    for( int i=0;i<x;i++){
+int findLucky(int* a, int n) {
+    int i,f[501];
+    for(i=0;i<n;i++){
         f[a[i]]++;
     }
-    int max =-1;
-    for( int i=0;i<x;i++){
-        if( f[a[i]]==a[i]){
-        if( max <a[i]) max = a[i];
+    for(i=500;i>=1;i--){
+        if(i==f[i]){
+            return i;
+            break;
+        }
     }
-    }
-     return max;
+    return -1;
 }
