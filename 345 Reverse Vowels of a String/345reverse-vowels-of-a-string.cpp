@@ -1,20 +1,20 @@
+
 class Solution {
 public:
+    bool isvol(char ch){
+    if(ch=='a'||ch=='A'||ch=='e'||ch=='E'||ch=='i'||ch=='I'||ch=='o'||ch=='O'||ch=='u'||ch=='U') return true;
+    else return false;
+}
     string reverseVowels(string s) {
-        int l =0;
-        int k = s.length()-1;
-        while(l<k){
-            char t = tolower(s[l]);
-            char r = tolower(s[k]);
-            if((t=='a' || t=='e' || t== 'i' || t=='o'||t=='u') && (r=='a' || r=='e' || r== 'i' || r=='o'||r=='u') ){
-                char temp = s[l];
-                s[l]=s[k];
-                s[k]= temp;
-                l++;
-                k--;
-
-            }else if( (t=='a' || t=='e' || t== 'i' || t=='o'||t=='u') ) k--;
-            else l++;
+        int i=0;
+        int start=0;
+            int end=s.size()-1;
+        while(start<end){
+            while(start<end&&!isvol(s[start])) start++;
+            while(start<end&&!isvol(s[end])) end--;
+            swap(s[start],s[end]);
+           start++;
+           end--;
         }
         return s;
     }
