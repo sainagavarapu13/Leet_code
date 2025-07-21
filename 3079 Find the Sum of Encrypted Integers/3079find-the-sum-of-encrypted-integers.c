@@ -1,20 +1,22 @@
-int dig(int n){
-    int cnt=0,max =-1;
- while(n){
-    cnt++;
-    if( max < n%10) max = n%10;
-    n/=10;
-}
-    int d =0;
-    while( cnt--){
-        d = d*10 + max;
+int need(int n){
+    int i,max=-1;
+    int m=n;
+    while(n){
+        int k=n%10;
+        if(k>max) max=k;
+        n=n/10;
     }
-    return d;
-}
-int sumOfEncryptedInt(int* a, int x) {
-    int sum=0;
-    for( int i=0;i<x;i++){
-        sum+=dig(a[i]);
+    int b=0;
+    while(m){
+        b=b*10+max;
+        m=m/10;
     }
-    return sum;
+    return b;
+}
+int sumOfEncryptedInt(int* a, int n) {
+  int i,sum=0;
+  for(i=0;i<n;i++){
+    sum+=need(a[i]);
+  }
+  return sum;
 }
