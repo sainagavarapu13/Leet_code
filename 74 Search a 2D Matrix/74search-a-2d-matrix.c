@@ -1,8 +1,11 @@
-bool searchMatrix(int** m, int x, int* y, int t) {
-    for( int i=0;i<x;i++){
-        for( int j=0;j<y[i];j++){
-            if( m[i][j]==t) return 1;
-
+bool searchMatrix(int** a, int n, int* m, int k) {
+    int i,j;
+    for(i=0;i<n;i++){
+        for(j=0;j<m[i];j++){
+            if(a[i][j]==k){
+                return 1;
+                break;
+            }
         }
     }
     return 0;
