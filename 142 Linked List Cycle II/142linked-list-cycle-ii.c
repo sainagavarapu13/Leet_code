@@ -5,22 +5,22 @@
  *     struct ListNode *next;
  * };
  */
- typedef struct ListNode node;
 struct ListNode *detectCycle(struct ListNode *head) {
-       if(head==NULL || head->next == NULL) return NULL;
-       node* s = head;
-      node* f = head;
-       while(f && f->next){
-        f = f->next->next;
-        s = s->next;
-        if(s==f){
-            s = head;
-            while(s!=f){
-                s = s->next;
-                f = f->next;
+    if(head==NULL ) return NULL;
+    struct ListNode *slow=head;
+     struct    ListNode *fast=head;
+      struct  ListNode *temp=head;
+        
+        while(fast!=NULL&&fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast){
+               while (temp != slow) {
+                temp = temp->next;
+                slow = slow->next;
             }
-            return s;
+            return temp; 
+            }
         }
-       }
-       return NULL;
+    return NULL;
 }
