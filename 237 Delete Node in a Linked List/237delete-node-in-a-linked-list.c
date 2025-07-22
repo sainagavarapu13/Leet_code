@@ -5,9 +5,15 @@
  *     struct ListNode *next;
  * };
  */
- typedef struct ListNode node;
 void deleteNode(struct ListNode* n) {
-     node* temp = n->next;
-    n->val = temp->val;
-    n->next = temp->next;  
+    struct ListNode *node=n;
+    while(node->next->next){
+        node->val=node->next->val;
+        node=node->next;
+    }
+    node->val=node->next->val;
+    
+
+    node->next=NULL;
+    
 }
