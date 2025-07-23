@@ -1,17 +1,14 @@
-int search(int* n, int x, int t) {
-    int h = x-1;
-    int l = 0;
-    int mid;
-    
-    while (l <= h) {
-        mid = l + (h - l) / 2; 
-        if (n[mid] < t) {
-            l = mid + 1;
-        } else if (n[mid] == t) {
-            return mid;
-        } else {
-            h = mid - 1;
+int search(int* a, int n, int k) {
+    int start=0;
+    int end=n-1;
+    if(n==1&&a[0]==k) return 0;
+    while(start<=end){
+        int mid=(start+end)/2;
+        if(a[mid]==k) return mid;
+        else if(a[mid]>k){
+            end=mid-1;
         }
+        else start=mid+1;
     }
     return -1;
 }
