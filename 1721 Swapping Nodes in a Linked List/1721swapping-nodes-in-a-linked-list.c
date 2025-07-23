@@ -5,28 +5,27 @@
  *     struct ListNode *next;
  * };
  */
-typedef struct ListNode node;
 struct ListNode* swapNodes(struct ListNode* head, int k) {
-    if (head == NULL || head->next == NULL) {
-        return head;
+    struct ListNode *temp=head;
+    int cnt=0;
+    while(temp){
+        
+        cnt++;
+        temp=temp->next;
     }
-    node *temp = head;
-    int length = 0;
-    while (temp != NULL) {
-        length++;
-        temp = temp->next;
+    printf("%d",cnt);
+    struct ListNode *t1=head;
+    struct ListNode *t2=head;
+     int m=k-1;
+    while(m--){
+        t1=t1->next;
     }
-    node *first = head;
-    for (int i = 1; i < k; i++) {
-        first = first->next;
+    m=cnt-k;
+     while(m--){
+         t2=t2->next;
     }
-    node *second = head;
-    for (int i = 1; i < length - k + 1; i++) {
-        second = second->next;
-    }
-    int temp_val = first->val;
-    first->val = second->val;
-    second->val = temp_val;
-    
-    return head;
+   int tem=t2->val;
+   t2->val=t1->val;
+   t1->val=tem;
+   return head;
 }
