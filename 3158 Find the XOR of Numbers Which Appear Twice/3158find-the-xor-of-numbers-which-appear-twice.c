@@ -1,19 +1,23 @@
-int duplicateNumbersXOR(int* n, int x) {
-    int f[51];
-    int max =-1;
-    for(int i=0;i<x;i++){
-        f[n[i]]++;
-        if( max < n[i]) max = n[i];
+int duplicateNumbersXOR(int* a, int n) {
+    int f[51]={0};
+    int i;
+    for(i=0;i<n;i++){
+        f[a[i]]++;
     }
-    int k =0,cnt=0;
-    for( int i = 0 ;i<=max;i++){
-        if( f[i]==2){
-        if( cnt==0){
-        k=i;
-        cnt++;
-        }else{
-            k^=i;
-        }}
+    int x=0;
+    for(i=0;i<51;i++){
+        if(f[i]==2){
+            x=i;
+            break;
+        }
     }
-    return k;
+    
+    for(int j=i+1;j<51;j++){
+      
+        if(f[j]==2){
+           x=x^j;
+        }
+        
+    }
+    return x;
 }
