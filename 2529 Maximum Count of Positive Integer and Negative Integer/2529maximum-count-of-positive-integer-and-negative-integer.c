@@ -1,9 +1,11 @@
-int maximumCount(int* a, int x) {
-    int cnt =0,pos=0;
-    for( int i=0;i<x;i++){
-        if( a[i]<0) cnt++;
-        else if( a[i]>0) pos++;
-    }
+int maximumCount(int* a, int n) {
+    int i,j,pos=0,neg=0;
+    for(i=0;i<n;i++){
+       
+            if(a[i]>0) pos++;
+            else if(a[i]<0) neg++;
+        }
     
-    return pos>cnt ? pos : cnt;
+    if(pos>neg) return pos;
+    else return neg;
 }
