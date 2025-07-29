@@ -1,29 +1,40 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* getRow(int rowIndex, int* returnSize) {
-    *returnSize = rowIndex + 1;
-    int** m = (int**)malloc((rowIndex + 1) * sizeof(int*));
-    
-    for (int i = 0; i <= rowIndex; i++) {
-        m[i] = (int*)malloc((i + 1) * sizeof(int));
-        for (int j = 0; j <= i; j++) {
-            if (j == 0 || j == i) {
-                m[i][j] = 1; 
-            } else {
-                m[i][j] = m[i-1][j-1] + m[i-1][j]; 
+int* getRow(int n, int* returnSize) {
+     int i,j;
+     
+      int **a=(int**)malloc((n+1)*(sizeof(int*)));
+       for (int i = 0; i <= n; i++) {
+        a[i] = (int*)malloc((i + 1) * sizeof(int)); // Row size is i + 1
+    }
+
+   
+     *returnSize=n+1;
+    for(i=0;i<=n;i++){
+        
+        for(j=0;j<=i;j++){
+           
+            if(i==j){
+                a[i][j]=1;
+            }
+            else if(j==0){
+                a[i][j]=1;
+            }
+            else if(i>j){
+                a[i][j]=a[i-1][j-1]+a[i-1][j];
             }
         }
     }
-    int* result = (int*)malloc((rowIndex + 1) * sizeof(int));
-    for (int j = 0; j <= rowIndex; j++) {
-        result[j] = m[rowIndex][j];
-    }
+    int *arr=(int *)malloc((n+1)*sizeof(int));
     
-    for (int i = 0; i <= rowIndex; i++) {
-        free(m[i]);
-    }
-    free(m);
-    
-    return result;
+       
+        for(j=0;j<=n;j++){
+           arr[j]= a[n][j];
+        }
+           for(i=0;i<=n;i++){
+            free(a[i]);
+           }
+    free(a);
+    return arr;
 }
