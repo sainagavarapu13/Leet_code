@@ -1,17 +1,18 @@
 class Solution {
 public:
-    int st(string s){
-        string res = s;
-        reverse(s.begin(),s.end());
-        if( res ==s) return 1;
+    int ispalin(string s){
+        string rev=s;
+        reverse(rev.begin(),rev.end());
+        if(s==rev) return 1;
         else return 0;
     }
-    string firstPalindrome(vector<string>& w) {
-        for( string c : w){
-            if( st(c)) return c;
-            
+    string firstPalindrome(vector<string>& a) {
+        int i;
+        for(i=0;i<a.size();i++){
+            if(ispalin(a[i])){
+                return a[i];
+            }
         }
         return "";
-        
     }
 };
