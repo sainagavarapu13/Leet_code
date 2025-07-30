@@ -1,19 +1,26 @@
 class Solution {
 public:
     vector<int> maxSubsequence(vector<int>& a, int k) {
-        if( a.size()==k) return a;
-        vector<pair<int,int>> b;
-        for( int i=0;i<a.size();i++) b.push_back({a[i],i});
-        sort(b.begin(),b.end(),[](auto& x,auto& y){
-            return x.first > y.first;
-        });
-         sort(b.begin(),b.begin()+k,[](auto& x,auto& y){
-            return x.second < y.second;
-        });
-        vector<int> res;
-        for( int i=0;i<k;i++){
-            res.push_back(b[i].first);
+        vector<pair<int,int>>p;
+        for(int i=0;i<a.size();i++){
+            p.push_back({a[i],i});
         }
-        return res;
+        sort(p.begin(),p.end(),[](auto& x,auto& y){
+            return x.first>y.first;
+
+        });
+        sort(p.begin(),p.begin()+k,[](auto& x,auto& y){
+            return x.second<y.second;
+            
+        });
+        vector<int>arr;
+       for(auto& i:p){
+        if(k){
+        arr.push_back(i.first);
+        k--;
+        }
+    
+       }
+    return arr;
     }
 };
