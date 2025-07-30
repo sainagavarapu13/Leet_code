@@ -1,20 +1,34 @@
 class Solution {
 public:
-    string customSortString(string a, string s) {
-        map<char , int>f;
-        for( auto&  i : s){
-            f[i]++;
+
+    int ispre(char ch,string s){
+        int i,cnt=0;
+        for(i=0;i<s.size();i++){
+            if(s[i]==ch) cnt++;
+
         }
-        string c;
-        for(auto& i : a ){
-            if( f.count(i)){
-                c+=string(f[i],i);
-                f.erase(i);
+        return cnt;
+    }
+   
+    string customSortString(string o, string s) {
+        int i;
+        string ans;
+        for(i=0;i<o.size();i++)
+            {
+                 int k=ispre(o[i],s);
+                    while(k--){
+                        ans.push_back(o[i]);
+                    }
+                
+            }
+           for (int i = 0; i < s.size(); i++) {
+            if (o.find(s[i]) == string::npos) { // If character not in o
+                ans.push_back(s[i]);
             }
         }
-        for( auto& [x,y]:f){
-            c+=string(y,x);
-        }
-        return c;
+
+       
+    
+     return ans;
     }
 };
