@@ -1,8 +1,11 @@
 class Solution {
 public:
-    int findNonMinOrMax(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        if( nums.size() == 1 || nums.size() == 2) return -1;
-        else return nums[1];
+    int findNonMinOrMax(vector<int>& a) {
+        sort(a.begin(),a.end());
+        int len=a.size();
+        if(len>2){
+            return a[1];
+        }
+        else return -1;
     }
 };
