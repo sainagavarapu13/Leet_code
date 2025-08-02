@@ -2,15 +2,15 @@ class Solution {
 public:
     int hIndex(vector<int>& a) {
         sort(a.begin(),a.end(),greater<>());
-        int k=0;
-        int n = a.size();
-        for (int i = 0; i < n; ++i) {
-            if (a[i] >= i + 1) {
-                k = i + 1;
-            } else {
-                break;
+        int i,cnt=0;
+        for(i=0;i<a.size();i++){
+            if((i+1)<=a[i]){
+                cout<<a[i];
+                cnt=i+1;
+               // break;
             }
+            else break;
         }
-        return k;
+        return cnt;
     }
 };
