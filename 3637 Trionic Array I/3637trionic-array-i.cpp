@@ -1,24 +1,21 @@
 class Solution {
 public:
-    bool isTrionic(vector<int>& n) {
-        int p=0;
-        int len = n.size(),k=0;
-        while( k<len-1 && n[k] < n[k+1]){
-            p++;
-            k++;
+    bool isTrionic(vector<int>& a) {
+        int i=0;
+        int n=a.size();
+        while(i<n-1&&a[i]<a[i+1]){
+            i++;
         }
-        if( p==0 || p == len-1 )return 0;
-        int q =p;
-        while(k < len-1 &&  n[k] > n[k+1] ){
-            q++;
-            k++;
+        if(i==0||i==n-1) return false;
+        int j=i;
+        while(j<n-1&&a[j]>a[j+1]){
+            j++;
         }
-        if( p==q || q== len-1) return 0;
-        while( k < len-1  && n[k]< n[k+1]){
-            q++;
-            k++;
+        if(j==i||j==n-1) return false;
+        while(j<n-1&&a[j]<a[j+1]){
+            j++;
         }
-        if( q == len-1 ) return 1;
-        else return 0;
+        if(j==n-1) return true;
+        else return false;
     }
 };
