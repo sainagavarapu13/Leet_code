@@ -1,13 +1,20 @@
 class Solution {
 public:
-    int minimumOperations(vector<int>& n) {
-       set<int>a;
-       for( int i :n){
-        if( i !=0){
-            a.insert(i);
+    void makezero(vector<int>& a,int k){
+        int ans;
+         for(int i=0;i<a.size();i++){
+           if(a[i]!=0) a[i]=a[i]-k;
         }
-       }
-        return a.size();
-        
+    }
+    int minimumOperations(vector<int>& a) {
+        sort(a.begin(),a.end());
+        int ans,cnt=0;
+        for(int i=0;i<a.size();i++){
+            if(a[i]!=0){
+                cnt++;
+                makezero(a,a[i]);
+            }
+        }
+        return cnt;
     }
 };
