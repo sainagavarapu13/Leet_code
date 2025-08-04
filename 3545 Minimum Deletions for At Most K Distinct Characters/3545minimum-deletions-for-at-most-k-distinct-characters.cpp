@@ -1,16 +1,25 @@
 class Solution {
 public:
     int minDeletion(string s, int k) {
-        map<char , int>a;
-        for(auto& c : s) a[c]++;
-        vector<pair<char , int>>b(a.begin(), a.end());
-        sort( b.begin(), b.end(),[](auto& x , auto& y){
-            return x.second>y.second;
-        });
-        int cnt=0;
-        for( int i =k;i<b.size();i++){
-            cnt+= b[i].second;
+       vector<int>f(26);
+        for(int i=0;i<s.size();i++){
+            f[s[i]-'a']++;
         }
-        return cnt;
+       vector<int> freqs;
+        for (int i = 0; i < 26; i++) {
+            if (f[i] > 0) {
+                freqs.push_back(f[i]);
+            }
+        }
+        if (freqs.size() <= k) {
+            return 0;
+        }
+         sort(freqs.begin(), freqs.end());
+        int  deletions=0;
+         for (int i = 0; i < freqs.size() - k; i++) {
+            deletions += freqs[i]; 
+         }
+
+        return deletions;
     }
 };
