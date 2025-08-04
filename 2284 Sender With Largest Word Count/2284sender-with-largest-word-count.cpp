@@ -1,26 +1,30 @@
 class Solution {
 public:
-    string largestWordCount(vector<string>& m, vector<string>& s) {
-        map< string , int > a;
-        for( int i=0;i<m.size();i++){
-            int cnt=1;
-            for( char c: m[i] ){
-                    if(c==' ' ) cnt++;
+    string largestWordCount(vector<string>& a, vector<string>& b) {
+           int i,j,idx;
+        int maxx=-1,len;
+        string ans;
+        map<string,int>m;
+        for(i=0;i<a.size();i++){
+            len=0;
+            for(j=0;j<a[i].size();j++){
+                if(a[i][j]==' '){
+                    len++;
+                }
             }
-             a[s[i]]+=cnt;
+            m[b[i]]+=len+1;
         }
-        int max=0;
-        string res;
-        for( auto& i : a){
-            if( max < i.second ){
-                 max = i.second;
-                 res = i.first;
-            }
-            else if ( max == i.second){
-                if( res < i.first) res = i.first;
-            }
+        for(auto& [n,c]:m){
+        if(c>maxx){
+            maxx=c;
+            ans=n;
+       }
+       else if(maxx==c){
+        if(ans<n){
+            ans=n;
         }
-       
-        return res;
+       }
+        }
+        return ans;
     }
 };
