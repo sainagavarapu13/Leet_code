@@ -1,21 +1,21 @@
 class Solution {
 public:
-    int maximumBags(vector<int>& a, vector<int>& b, int add) {
-        vector<int>c;
-        int cnt=0;
-        for( int i=0;i<a.size();i++){
-            if( a[i]-b[i]!=0){
-            c.push_back(a[i]-b[i]);}
-            else cnt++;
+    int maximumBags(vector<int>& a, vector<int>& b, int rock) {
+        vector<int>diff;
+        for(int i=0;i<a.size();i++){
+            diff.push_back(a[i]-b[i]);
         }
-        sort( c.begin(),c.end());
-        for( auto& i : c){
-            if( add >= i){
+        int cnt=0;
+        sort(diff.begin(),diff.end());
+        for(int i=0;i<diff.size();i++){
+            if(diff[i]==0) cnt++;
+            else if(diff[i]<=rock){
                 cnt++;
-                add-=i;
+                rock=rock-diff[i];
             }
         }
 
+       
         return cnt;
     }
 };
