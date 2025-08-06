@@ -1,13 +1,12 @@
 class Solution {
 public:
-    bool containsNearbyDuplicate(vector<int>& n, int k) {
-        map< int , int > map;
-        for( int i=0;i<n.size();i++){
-            if( map.count(n[i])){
-                if( abs(i-map[n[i]])<= k)return 1;
-
+    bool containsNearbyDuplicate(vector<int>& a, int k) {
+        map<int,int>m;
+        for(int i=0;i<a.size();i++){
+            if(m.count(a[i])){
+                if(abs(i-m[a[i]])<=k) return 1;
             }
-            map[n[i]]=i;
+            m[a[i]]=i;
         }
         return 0;
     }
