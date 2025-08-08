@@ -1,20 +1,19 @@
 class Solution {
 public:
-    int mostFrequent(vector<int>& n, int k) {
-        map <int ,int>a;
-        for( int i=0;i<n.size()-1;i++){
-            if( n[i]== k){
-                a[n[i+1]]++;
+    int mostFrequent(vector<int>& a, int k) {
+       map<int ,int>m;
+        for(int i=0;i<a.size()-1;i++){
+            if(a[i]==k){
+                m[a[i+1]]++;
             }
         }
-        int maxi =0;
-        int res=0;
-        for( auto& [n,f]:a){
-            if( maxi < f ){
-                res =n;
-                maxi = f;
+        int maxx=-1,ans;
+        for(auto& [n,c]:m){
+            if(c>maxx){
+                maxx=c;
+                ans=n;
             }
         }
-        return res;
+        return ans;
     }
 };
