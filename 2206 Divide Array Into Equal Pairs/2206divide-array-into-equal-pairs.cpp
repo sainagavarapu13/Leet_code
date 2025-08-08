@@ -1,15 +1,13 @@
 class Solution {
 public:
-    bool divideArray(vector<int>& b) {
-        map<int,int>a;
-        for( int i:b) a[i]++;
-        bool l = true;
-        for(auto& i:a){
-            if( i.second%2==1){
-                l=false;
-                break;
-            }
+    bool divideArray(vector<int>& n) {
+        map<int,int>m;
+        for(auto& i:n){
+            m[i]++;
         }
-        return l;
+        for(auto& [n,c]:m){
+            if(c%2!=0) return false;
+        }
+        return true;
     }
 };
