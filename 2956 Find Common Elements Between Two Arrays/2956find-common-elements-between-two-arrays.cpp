@@ -1,17 +1,21 @@
 class Solution {
 public:
     vector<int> findIntersectionValues(vector<int>& a, vector<int>& b) {
-        vector<int>res;
-        int cnt =0;
-        for( int i=0;i<a.size();i++){
-            if( find(b.begin(), b.end(),a[i])!= b.end()) cnt++;
+        vector<int>ans;
+        int cnt=0,i;
+        for( i=0;i<a.size();i++){
+            if(count(b.begin(),b.end(),a[i])){
+                cnt++;
+            }
         }
-        res.push_back(cnt);
+        ans.push_back(cnt);
         cnt=0;
-        for( int i=0;i<b.size();i++){
-            if( find(a.begin(), a.end(),b[i])!= a.end()) cnt++;
+        for(i=0;i<b.size();i++){
+            if(count(a.begin(),a.end(),b[i])){
+                cnt++;
+            }
         }
-        res.push_back(cnt);
-        return res;
+        ans.push_back(cnt);
+        return ans;
     }
 };
