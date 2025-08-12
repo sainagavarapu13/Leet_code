@@ -1,17 +1,16 @@
 class Solution {
 public:
-    int maxProduct(vector<int>& n) {
-        if( n.size() == 1) return n[0];
-        int maxi = 0;
-        for( int i=0;i<n.size();i++){
-            int pro=n[i];
-            maxi = max(pro,maxi);
-            for( int j =i+1 ; j<n.size();j++){
-                pro*=n[j];
-                maxi = max(pro,maxi);
-            }
-        }
-
-        return maxi;
+    int maxProduct(vector<int>& a) {
+        int m=INT_MIN;
+        int i,j,p;
+        for(i=0;i<a.size();i++){
+            p=a[i];
+            m=max(p,m);
+            for(j=i+1;j<a.size();j++){
+                p=p*a[j];
+                m=max(p,m);
+            }   
+             }
+             return m;
     }
 };
