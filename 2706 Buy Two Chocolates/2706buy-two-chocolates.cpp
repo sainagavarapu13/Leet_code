@@ -1,11 +1,9 @@
 class Solution {
 public:
     int buyChoco(vector<int>& a, int k) {
+        int i;
         sort(a.begin(),a.end());
-        int sum = a[0]+a[1];
-        if( sum > k) return k;
-        else return k-sum;
-
-        
+        if(a[0]+a[1]-k<=0) return (k-a[0]-a[1]);
+        else return k;
     }
 };
