@@ -1,22 +1,22 @@
 class Solution {
 public:
-    vector<string> splitWordsBySeparator(vector<string>& w,char s) {
-        vector<string>a;
-        for( auto & i : w){
-            string k;
-            for(auto& c :i){
-                if( c!=s){
-                    k+=c;
-                }else if (!k.empty()){
-                    a.push_back(k);
-                    k.clear();
-                }
+    vector<string> splitWordsBySeparator(vector<string>& a, char k) {
+        vector<string>ans;
+       int i,j;
+       for(i=0;i<a.size();i++){
+        string res;
+        for(auto& j:a[i]){
+            if(j!=k){
+                res+=j;
             }
-            if (!k.empty()){
-                    a.push_back(k);
-                    k.clear();
-                }
+            else {
+               if(!res.empty()){ans.push_back(res);
+               res.clear();
+               }
+            }
         }
-        return a;
+         if(!res.empty()) ans.push_back(res);
+       }
+       return ans;
     }
 };
