@@ -1,26 +1,59 @@
 class Solution {
 public:
-    int minimumArea(vector<vector<int>>& g) {
-        vector<int>a,b;
-        int x= g.size();
-        int y = g[0].size();
-        for( int i=0;i<x;i++){
-            for( int j =0;j<y;j++){
-                if( g[i][j]==1) a.push_back(j);
-                
+    int minimumArea(vector<vector<int>>& a) {
+        int start_idx=-1,end_idx=-1;
+        int i,j=0;
+        while(j<a[0].size()){
+        for(i=0;i<a.size();i++){
+            if(a[i][j]==1) {
+                start_idx=j;
+                break;
             }
-        }for( int i=0;i<y;i++){
-            for( int j =0;j<x;j++){
-                if( g[j][i]==1) b.push_back(j);
-                
+            
+        }
+        if(start_idx==j) break;
+        j++;
+        }
+        j=a[0].size()-1;
+        while(j>=0){
+        for(i=0;i<a.size();i++){
+            if(a[i][j]==1){
+                end_idx=j;
+                break;
             }
         }
-        if( a.empty() || b.empty()) return 0;
-        sort(a.begin(),a.end());
-        sort(b.begin(),b.end());
-        int h = a.back()-a[0]+1;
-        int w = b.back()-b[0]+1;
-        return h*w;
-        
+            if(end_idx==j) break;
+            j--;
+        }
+        int lenght=abs(start_idx-end_idx)+1;
+       i=0;
+       int b_start_idx=-1,b_end_idx=-1;
+       while(i<a.size()){
+       for(j=start_idx;j<=end_idx;j++){
+        if(a[i][j]==1){
+            b_start_idx=i;
+            break;
+        }
+       }
+       if(b_start_idx==i) break;
+       i++;
+       }
+    i=a.size()-1;
+    while(i>=0){
+        for(j=start_idx;j<=end_idx;j++){
+            if(a[i][j]==1){
+                b_end_idx=i;
+                break;
+            }
+        }
+        if(b_end_idx==i){
+            break;
+        }
+        i--;
+    }
+    cout<<start_idx<<" "<<end_idx<<" "<<b_start_idx<<" "<<b_end_idx;
+    int breadth= abs(b_start_idx-b_end_idx)+1;
+    
+    return lenght*breadth;
     }
 };
