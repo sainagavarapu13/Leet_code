@@ -1,19 +1,17 @@
 class Solution {
 public:
-    int arithmeticTriplets(vector<int>& a, int k) {
-        int i,cnt=0;
-
-        for(i=0;i<a.size();i++){
-            
-             int o=a[i]+k;
-            if(count(a.begin(),a.end(),o)>=1){
-                int l=o+k;
-               
-                if(count(a.begin(),a.end(),l)>=1){
-                    cnt++;
+    int arithmeticTriplets(vector<int>& nums, int diff) {
+        int max = 0,i=0,j=0,k=0,b=nums.size(),c;
+        int freq[50] = {0};
+        for(i=0;i<b;i++){
+            for(j=i+1;j<b;j++){
+                for(k=j+1;k<b;k++){
+                    if(((nums[j]-nums[i]==diff)&&(nums[k]-nums[j]==diff)) && i<j && j<k){
+                        max++;
+                    }
                 }
             }
         }
-        return cnt;
+        return max;
     }
 };
