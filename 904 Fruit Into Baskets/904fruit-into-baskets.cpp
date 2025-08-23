@@ -1,22 +1,24 @@
 class Solution {
 public:
-    int totalFruit(vector<int>& f) {
-        int m = 0;
-        if(f.size() <= 2) return f.size();
-        
-        map<int , int >a;
-        int i = 0, j = 0;
-        
-        while(j< f.size()) {
-            a[f[j]]++;
-            while( a.size()>2){
-                a[f[i]]--;
-               if( a[f[i]]==0) a.erase(f[i]);
-                i++;
+    int totalFruit(vector<int>& arr) {
+        int a=-1;
+        int b=-1;
+        if(arr.size()<=2) return arr.size();
+        int cur_size=2,maxx=-1,lastcount=0;
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]==a||arr[i]==b) cur_size++;
+            else{
+                cur_size=lastcount+1;
             }
-                m = max(m, j - i+1 );
-                j++;
+            if(arr[i]==b) lastcount++;
+            else {
+                lastcount=1;
+                a=b;
+                b=arr[i];
+            }
+
+            maxx=max(maxx,cur_size);
         }
-        return m;
+        return maxx;
     }
 };
