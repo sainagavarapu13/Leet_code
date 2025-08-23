@@ -1,8 +1,6 @@
-# Write your MySQL query statement below
-with cte as (
-    select num from mynumbers
-    group by num
-    having count(*)=1
-)
-select max(num) as num
-from cte;
+/* Write your PL/SQL query statement below */
+select max(num) as num from(
+select  max(num)  as num from Mynumbers
+group by num
+having count(*)=1 
+);
