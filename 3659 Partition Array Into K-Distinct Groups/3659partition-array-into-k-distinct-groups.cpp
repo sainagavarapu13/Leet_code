@@ -1,13 +1,14 @@
 class Solution {
 public:
-    bool partitionArray(vector<int>& n, int k) {
-        if( n.size()%k !=0) return 0;
-        map <int , int >a;
-        for( int i : n)a[i]++;
-        for( auto& [b,c] : a){
-            if( c > (n.size()/k)) return 0;
+    bool partitionArray(vector<int>& nums, int k) {
+        if(nums.size()%k!=0) return false;
+        map<int,int>m;
+        for(auto& i:nums){
+            m[i]++;
         }
-        return 1;
-
+        for(auto& [n,c]:m){
+            if(c>(nums.size()/k)) return false;
+        }
+        return true;
     }
 };
