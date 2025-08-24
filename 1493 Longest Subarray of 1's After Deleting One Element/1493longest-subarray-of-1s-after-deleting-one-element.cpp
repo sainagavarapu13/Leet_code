@@ -1,42 +1,27 @@
 class Solution {
 public:
-    int longestSubarray(vector<int>& n) {
-        vector<int> a;
-        int cnt = 0;
-        for (int i = 0; i < n.size(); i++) {
-            if (n[i] == 1) {
+    int size(vector<int>a,int k){
+        int i,cnt=0,m=-1;
+        for(i=0;i<a.size();i++){
+            if(i==k) continue;
+            if(a[i]==1){
                 cnt++;
-            } else {
-                if (cnt > 0) {
-                    a.push_back(cnt);
-                }
-                a.push_back(-1);
-                cnt = 0;
+            }
+            else if(a[i]==0) cnt=0;
+            m=max(m,cnt);
+        }
+        return m;
+    }
+    int longestSubarray(vector<int>& a) {
+        if(find(a.begin(),a.end(),0)==a.end()) return a.size()-1;
+        else if(find(a.begin(),a.end(),1)==a.end()) return 0;
+        int i,m=-1;
+        for(i=0;i<a.size();i++){
+            if(a[i]==0){
+                int ans =size(a,i);
+                m=max(ans,m);
             }
         }
-        if (cnt > 0) {
-            a.push_back(cnt);
-        }
-        if (a.empty()) {
-            return 0;
-        }
-        
-        if (a.size() == 1) {
-            return a[0] == -1? 0:a[0]-1;
-        }
-        
-        int maxi = INT_MIN;
-        
-        for (int i = 0; i < a.size(); i++) {
-            if (a[i] != -1) {
-                maxi = max(maxi,a[i]);
-            }
-            if (i>=2 && a[i]!= -1 && a[i-1] == -1 && a[i-2] != -1) {
-                maxi = max(maxi, a[i-2] + a[i]);
-            }
-        }
-        
-        if( maxi != INT_MIN) return maxi;
-        else return 0;
+        return m;
     }
 };
