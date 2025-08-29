@@ -1,24 +1,30 @@
 class Solution {
 public:
-    int maxIncreaseKeepingSkyline(vector<vector<int>>& g) {
-        vector<int>r,c;
-        
-        for( int i=0;i<g.size();i++){
-            int m = INT_MIN , n = INT_MIN;
-            for( int j=0;j<g.size();j++){
-                m = max(m,g[j][i]);
-                n = max( n, g[i][j]);
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& a) {
+        vector<int>row;
+        vector<int>col;
+        int i,j,m=-1;
+        for(i=0;i<a.size();i++){
+            m=-1;
+            for(j=0;j<a[0].size();j++){
+                m=max(m,a[i][j]);
             }
-            r.push_back(n);
-            c.push_back(m);
+            row.push_back(m);
         }
-        int sum =0;
-        for( int i=0;i<g.size();i++){
-            for( int j =0;j<g.size();j++){
-                int k = min(r[i] , c[j]);
-                sum+=k-g[i][j];
+        for(i=0;i<a.size();i++){
+            m=-1;
+            for(j=0;j<a[0].size();j++){
+                m=max(m,a[j][i]);
             }
+            col.push_back(m);
         }
+        int sum=0;
+       for(i=0;i<a.size();i++){
+        for(j=0;j<a[0].size();j++){
+            int ans=min(row[i],col[j]);
+            sum+=abs(ans-a[i][j]);
+        }
+       }
         return sum;
     }
 };
