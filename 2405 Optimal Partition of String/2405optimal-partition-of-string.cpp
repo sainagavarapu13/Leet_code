@@ -1,15 +1,16 @@
 class Solution {
 public:
     int partitionString(string s) {
-        int count = 1; 
-        unordered_set<char> a;
+        int count = 1;
+        vector<bool> seen(26, false);
         
         for (char c : s) {
-            if (a.find(c) != a.end()) {
+            int idx = c - 'a';
+            if (seen[idx]) {
                 count++;
-                a.clear(); 
+                fill(seen.begin(), seen.end(), false);
             }
-            a.insert(c);
+            seen[idx] = true;
         }
         
         return count;
