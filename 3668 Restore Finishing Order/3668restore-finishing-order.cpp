@@ -1,11 +1,15 @@
 class Solution {
 public:
-    vector<int> recoverOrder(vector<int>& a, vector<int>& p) {
+    vector<int> recoverOrder(vector<int>& a, vector<int>& b) {
+        map<int,int>m;
         vector<int>ans;
-        set<int>s(p.begin(),p.end());
-        for( int i=0;i<a.size();i++){
-            if(s.count(a[i]))ans.push_back(a[i]);
+        for(auto& i:b) m[i]++;
+        for(auto&i:a){
+            if(m[i]==1){
+                ans.push_back(i);
+            }
         }
-        return ans;
+            return ans;
+        
     }
 };
