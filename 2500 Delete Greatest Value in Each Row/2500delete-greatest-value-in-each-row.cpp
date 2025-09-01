@@ -1,17 +1,19 @@
 class Solution {
 public:
     int deleteGreatestValue(vector<vector<int>>& a) {
-        int sum=0;
-        for( int i=0;i<a.size();i++){
-            sort(a[i].begin(),a[i].end(), greater<>());
-
+        vector<int>ans;
+       priority_queue<int>pq;
+        int i,j;
+        for(i=0;i<a.size();i++){
+            sort(a[i].begin(),a[i].end());
         }
-        for( int i=0;i<a[0].size();i++){
-            int m = 0;
-            for( int j =0;j<a.size();j++){
-                    m = max( a[j][i],m);
+        int sum=0;
+        for(i=0;i<a[0].size();i++){
+            for(j=0;j<a.size();j++){
+                pq.push(a[j][i]);
             }
-            sum+=m;
+            sum+=pq.top();
+            pq=priority_queue<int>();
         }
         return sum;
     }
