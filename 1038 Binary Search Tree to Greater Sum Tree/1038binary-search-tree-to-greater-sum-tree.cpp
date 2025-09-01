@@ -11,14 +11,17 @@
  */
 class Solution {
 public:
-    int val=0;
+    int sum=0;
+    void change(TreeNode* root){
+        if(root!=NULL){
+            change(root->right);
+            sum+=root->val;
+            root->val=sum;
+            change(root->left);
+        }
+    }
     TreeNode* bstToGst(TreeNode* root) {
-        if(root->right !=NULL) bstToGst(root->right);
-        int a = root->val +val;
-        val+=root->val;
-        root->val = a;
-        if( root->left!=NULL) bstToGst(root->left);
+        change(root);
         return root;
-        
     }
 };
