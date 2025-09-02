@@ -1,16 +1,15 @@
 class Solution {
 public:
-    int waysToSplitArray(vector<int>& n) {
-        long long  sum=0;
-        for( int i : n){
-            sum+=i;
+    int waysToSplitArray(vector<int>& a) {
+        int i,cnt=0;
+        long long left_sum=0,right_sum=a[0];
+        for(i=1;i<a.size();i++){
+            left_sum+=a[i];
         }
-        int cnt=0;
-        long long sec=0;
-        for( int i=0;i<n.size()-1;i++){
-            sec+=n[i];
-            sum-=n[i];
-            if( sec>=sum ) cnt++;
+        for(i=1;i<a.size();i++){
+           if(right_sum>=left_sum) cnt++;
+           left_sum-=a[i];
+           right_sum+=a[i];
         }
         return cnt;
     }
