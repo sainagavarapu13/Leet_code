@@ -1,20 +1,26 @@
 class Solution {
 public:
     int findKthPositive(vector<int>& a, int k) {
-        int cnt=0;
-        vector<int>b;
-        for( int i=1;i<=a[a.size()-1];i++){
-            if( find(a.begin(), a.end(),i)==a.end()){
-                b.push_back(i);
-                cnt++;
-                if( cnt ==k) return b.back();
+        int i;
+        priority_queue<int,vector<int>,greater<>>pq;
+        for(i=1;i<=a.back();i++){
+            if(count(a.begin(),a.end(),i)==0){
+                pq.push(i);
             }
+            if(pq.size()==k) break;
         }
-        for( int i=a[a.size()-1]+1;i<=10000;i++){
-            b.push_back(i);
-                cnt++;
-                if( cnt ==k) return b.back();
+        int cnt=k;
+        while(!pq.empty()){
+           
+           
+            
+             if(cnt==1){
+                return pq.top();
+             }
+              cnt--;
+               pq.pop();
+
         }
-        return 0;
+        return a[a.size()-1]+cnt;
     }
 };
