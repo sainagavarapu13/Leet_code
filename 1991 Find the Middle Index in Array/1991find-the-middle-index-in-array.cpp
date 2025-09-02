@@ -1,20 +1,17 @@
 class Solution {
 public:
-    int findMiddleIndex(vector<int>& n) {
-         vector<int>a,b,res;
-        a.push_back(0);
-        int sum=0;
-        for( int i: n) sum+=i;
-         b.push_back(sum-a.back()-n[0]);
-        for(int i=1;i<n.size();i++ ){
-             cout << a.back() <<" ";
-           b.push_back(b.back()-n[i]);
-          
-            a.push_back(a.back()+n[i-1]);
-            
-        }for( int i=0;i<a.size();i++){
-            if( a[i]==b[i]) return i;
+    int findMiddleIndex(vector<int>& a) {
+        int i,right_sum=0,left_sum=0;
+        for(i=0;i<a.size();i++){
+           right_sum+=a[i];
         }
-        return -1;
+        for(i=0;i<a.size();i++){
+            if(left_sum==right_sum-a[i]){
+                return i;
+            }
+            left_sum+=a[i];
+            right_sum=right_sum-a[i];
+        }
+return -1;
     }
 };
