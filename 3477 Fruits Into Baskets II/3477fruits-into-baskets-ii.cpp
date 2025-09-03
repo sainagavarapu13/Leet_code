@@ -1,24 +1,20 @@
 class Solution {
 public:
-    int numOfUnplacedFruits(vector<int>& f, vector<int>& b) {
-        int plced =0;
-        vector<pair<int,int>>a;
-        for(int i : b){
-            a.push_back({i,1});
-        }
-        for( int i=0; i < f.size(); i++){
-            int j =0;
-            while( j<a.size() ){
-                if( f[i]<=a[j].first &&a[j].second ==1){
-                     plced++;
-                    a[j].second =0;
+    int numOfUnplacedFruits(vector<int>& a, vector<int>& b) {
+        int i,j;
+        int cnt=0;
+        for(i=0;i<a.size();i++){
+            for(j=0;j<b.size();j++){
+                if(a[i]!=0&&a[i]<=b[j]){
+                    cnt++;
+                    b[j]=0;
+                    a[i]=0;
                     break;
                 }
-                else j++;
             }
-           
-             }
+        }
         
-        return f.size()-plced;
+       
+        return a.size()-cnt;;
     }
 };
