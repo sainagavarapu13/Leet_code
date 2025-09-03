@@ -1,16 +1,18 @@
 class Solution {
 public:
-    long long minimalKSum(vector<int>& nu, int k) {
-        set<int>n(nu.begin(), nu.end());
-        long long ele =k;
-        long long a = (ele*(ele+1))/2;
-        for( int i:n){
-            if( i<=k){
-                a-=i;
-                a+=k+1;
-                k++;
-            }else break;
+    long long minimalKSum(vector<int>& a, int k) {
+        long long sum=(long long)k * (k + 1) / 2;
+        set<int>s;
+        for(auto& i:a) s.insert(i);
+        int l=1,p=k;
+        for(auto & i: s){
+            if(i<=k){
+            sum=sum-i;
+            sum=sum+k+1;
+           
+           k++;
+            }
         }
-        return a;
+        return sum;
     }
 };
