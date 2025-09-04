@@ -1,18 +1,19 @@
 class Solution {
 public:
-    bool isMonotonic(vector<int>& a) {
-        int cnt=0;
-        vector<int>n;
-        for( int i : a){
-            if(n.empty() || n.back()!=i) n.push_back(i);
+    bool isMonotonic(vector<int>& nums) {
+        int n = nums.size(),b=0;
+        for(int i = 0;i<n-1;i++){
+            if(nums[i]<nums[i+1]){
+                for(i;i<n-1;i++){
+                    if(nums[i]>nums[i+1]) return 0;
+                }
+            }
+            else if(nums[i]>nums[i+1]){
+                for(i;i<n-1;i++){
+                    if(nums[i]<nums[i+1]) return 0;
+                }
+            }
         }
-        for( int i =1;i<n.size();i++){
-            if(n[i-1]<n[i] ) cnt++;
-        }
-        int x=n.size();
-        printf("%d %d",cnt,x-cnt);
-        if( x- cnt == 1 || x- cnt ==x )return 1;
-        else return 0;
-        
+        return 1;
     }
 };
