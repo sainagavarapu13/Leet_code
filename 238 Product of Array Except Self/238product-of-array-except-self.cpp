@@ -1,32 +1,27 @@
 class Solution {
 public:
-    vector<int> productExceptSelf(vector<int>& n) {
-        int pro = 1;
-        int zeroCount = 0; 
-        vector<int> a;
-        for(int i : n) { 
-            if(i != 0) {
-                pro *= i;
-            } else {
-                zeroCount++;
+    vector<int> productExceptSelf(vector<int>& a) {
+        int p=1,flag=0;
+        for(int i=0;i<a.size();i++){ 
+            if(a[i]!=0){
+            p=p*a[i];
+           
             }
+            else flag++;
         }
-        if(zeroCount > 1) {
-            for(int i = 0; i < n.size(); i++) {
-                a.push_back(0);
-            }
-            return a;
+        vector<int>ans;
+        for(int i=0;i<a.size();i++){
+           if(flag>1){
+            ans.push_back(0);
+           }
+           else if(flag==1){
+            if(a[i]==0) ans.push_back(p);
+            else ans.push_back(0);
+           }
+           else if(flag==0){
+            ans.push_back(p/a[i]);
+           }
         }
-        if(zeroCount == 1) {
-            for(int i : n) {
-                if(i == 0) a.push_back(pro);
-                else a.push_back(0);
-            }
-            return a;
-        }
-        for(int i : n) {
-            a.push_back(pro / i);
-        }
-        return a;
+        return ans;
     }
 };
