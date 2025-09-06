@@ -1,24 +1,26 @@
 class Solution {
 public:
-    int firstCompleteIndex(vector<int>& a, vector<vector<int>>& m) {
-        int r = m.size();
-        int c = m[0].size();
-        map<int , int >row_i, col_i;
-        for( int i=0;i<r;i++){
-            for( int j=0;j<c;j++){
-                row_i[m[i][j]]=i;
-                col_i[m[i][j]]=j;
+    int firstCompleteIndex(vector<int>& a, vector<vector<int>>& b) {
+        int n = b.size(), m = b[0].size();
+
+        unordered_map<int, pair<int, int>> pos;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                pos[b[i][j]] = {i, j};
             }
         }
-        vector<int>row(r,0);
-        vector<int>col(c,0);
-        int k=0;
-        for( int i:a){
-            row[row_i[i]]++;
-            col[col_i[i]]++;
-            if( row[row_i[i]]==c ||col[col_i[i]]==r ) return k;
-            k++;
+
+        vector<int> row(n, 0), col(m, 0);
+
+        for (int p = 0; p < a.size(); ++p) {
+            auto [i, j] = pos[a[p]];
+            row[i]++;
+            col[j]++;
+            if (row[i] == m || col[j] == n) {
+                return p;
+            }
         }
-        return 0;
+
+        return -1;
     }
 };
