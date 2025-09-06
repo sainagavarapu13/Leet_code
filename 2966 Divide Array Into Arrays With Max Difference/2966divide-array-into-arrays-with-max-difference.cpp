@@ -1,24 +1,28 @@
 class Solution {
 public:
-    vector<vector<int>> divideArray(vector<int>& n, int k) {
-        sort(n.begin(),n.end());
-        vector<vector<int>>a;
-        for( int i=0;i<n.size();i+=3){
-            vector<int>b(3);
-            int x = n[i+1]-n[i] , y = n[i+2]-n[i] ,z = n[i+2]-n[i+1];
-            int ans = max(x , y);
-            ans = max(ans,z);
-            if( ans>k) {
-                a.clear();
-                return a;
+    vector<vector<int>> divideArray(vector<int>& a, int k) {
+        int i,j;
+        vector<vector<int>>ans;
+        vector<int>in;
+        sort(a.begin(),a.end());
+        for(i=0;i<a.size();i+=3){
+            for(j=i;j<i+3;j++){
+                if(j==i){
+                    in.push_back(a[j]);
+                }
+                else{
+                    if(a[j]-a[i]<=k){
+                        in.push_back(a[j]);
+                    }
+                    else{
+                        ans.clear();
+                        return ans;
+                    }
+                }
             }
-            else{
-                b[0]=n[i];
-                b[1]=n[i+1];
-                b[2]=n[i+2];
-            }
-            a.push_back(b);
+            ans.push_back(in);
+            in.clear();
         }
-        return a;
+        return ans;
     }
 };
