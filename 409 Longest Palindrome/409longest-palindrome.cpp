@@ -1,19 +1,17 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
-        map <char , int> a;
-        for( char i : s) a[i]++;
-        int f =0;
-        int cnt=0;
-        for( auto& [c, n]:a){
-            if( n%2 ==1 && !f){
-                f=1;
-                cnt+=n;
-            }else if( n%2 ==1 && f ){
-                cnt+=(n-1);
+        map<char,int>m;
+        for(auto& i:s) m[i]++;
+        int sum=0,cnt=0;
+        for(auto& [n,c]:m){
+            if(c>1){
+              if(c%2==0)  sum+=c;
+              else sum+=(c-1);
             }
-            if( n%2 == 0 ) cnt+=n;
+             if(c==1||c%2!=0) cnt++;
         }
-        return cnt;
+        if(cnt>=1) cnt=1;
+        return sum+cnt;
     }
 };
