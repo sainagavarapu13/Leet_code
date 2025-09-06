@@ -1,27 +1,25 @@
 class Solution {
 public:
-    int minMaxDifference(int num) {
-        string s = to_string(num);
-        char ma ,mi;
-        for( char i : s){
-            if(i!='0'){
-                mi = i;
-                break;
-            }
-        }for( char i : s){
-            if(i!='9'){
-                ma = i;
-                break;
+    int minMaxDifference(int a) {
+        string ans=to_string(a);
+        int i=0;
+        string ans2=to_string(a);
+         char num1=ans2[i];
+         for(int j=0;j<ans2.size();j++){
+            if(ans2[j]==num1){
+                ans2[j]='0';
             }
         }
-        int k =0;
-        for( int i=0;i<s.size();i++){
-            int x = s[i]-'0';
-            int y = s[i]-'0';
-            if( s[i]== ma) x=9;
-            if( s[i]==mi) y =0;
-            k = k*10 +(x-y);
+        int mini=stoi(ans2);
+        cout<<mini;
+        while(i<ans.size()&&ans[i]=='9') i++;
+        char num=ans[i];
+        for(int j=i;j<ans.size();j++){
+            if(ans[j]==num){
+                ans[j]='9';
+            }
         }
-        return k;
+        int maxi=stoi(ans);
+        return abs(mini-maxi);
     }
 };
