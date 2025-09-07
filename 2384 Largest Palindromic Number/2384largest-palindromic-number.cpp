@@ -1,42 +1,34 @@
-
 class Solution {
 public:
-    string largestPalindromic(string num) {
-        vector<int> freq(10, 0);
-        for (char c : num) freq[c - '0']++;
-
-        int n = num.size();
-        string res(n, 'x');   
-        int l = 0, r = n - 1;
-
-        
-        for (int i = 9; i >= 0; i--) {
-            while (freq[i] >= 2) {
-                
-                if (i == 0 && l == 0) break;
-                res[l] = res[r] = char('0' + i);
-                l++; r--;
-                freq[i] -= 2;
-            }
+    string largestPalindromic(string a) {
+        int maxi=INT_MIN;
+        map<char,int>m;
+        for(auto& i:a){
+            m[i]++;
         }
-
-        
-        for (int i = 9; i >= 0; i--) {
-            if (freq[i] > 0) {
-                res[n / 2] = char('0' + i);
-                break;
-            }
-        }
-
-        
         string ans;
-        for (char c : res) {
-            if (c != 'x') ans.push_back(c);
+         int  times;
+        for(auto& [n,c]:m){
+           
+            if(c%2!=0){
+                maxi=max(maxi,n-'0');
+            }
+          
+             if(c%2==0)   times=c/2;
+             else times=(c-1)/2;
+                while(times--){
+                    ans.push_back(n);
+            }
+           
         }
-
-        
-        if (ans.empty()) return "0";
-
+        string temp=ans;
+        reverse(ans.begin(),ans.end());
+      if(maxi!=INT_MIN)  ans.push_back(maxi+'0');
+        ans+=temp;
+         ans.erase(0, ans.find_first_not_of('0'));
+    ans.erase(ans.find_last_not_of('0') + 1);
+    if(ans.size()==0) ans+='0';
         return ans;
+
     }
 };
