@@ -1,12 +1,9 @@
 class Solution {
 public:
     bool checkString(string s) {
-        bool change =1;
-        for( int i=1;i<s.size();i++){
-                if( s[i-1] =='b' && s[i]=='a'){ 
-                 return 0;
-                }
-                
+        int i;
+        for(i=0;i<s.size()-1;i++){
+            if(s[i]=='b'&&s[i+1]=='a') return 0;
         }
         return 1;
     }
