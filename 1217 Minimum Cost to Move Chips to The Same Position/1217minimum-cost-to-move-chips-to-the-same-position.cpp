@@ -1,13 +1,11 @@
 class Solution {
 public:
-    int minCostToMoveChips(vector<int>& p) {
-        map<int , int >a;
-        for( int i :p) a[i]++;
-        int odd=0 ,eve=0;
-        for( auto& [ x,y]:a){
-            if( x%2 ==0) eve+=y;
-            else odd+=y;
+    int minCostToMoveChips(vector<int>& a) {
+        int i,eve=0,odd=0;
+        for(i=0;i<a.size();i++){
+            if(a[i]%2==0) eve++;
+            else odd++;
         }
-        return min(odd , eve);
+        return min(eve,odd);
     }
 };
