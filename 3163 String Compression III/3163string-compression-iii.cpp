@@ -1,35 +1,43 @@
 class Solution {
 public:
-    string compressedString(string s) {
-        string b;
-       int cnt =1,i;
-       for(  i=1;i<s.size();i++){
-            if( s[i]==s[i-1]){
+    string compressedString(string a) {
+        int i,j;
+        string ans;
+        int cnt=1;
+        for(i=1;i<a.size();i++){
+            if(a[i]==a[i-1]){
                 cnt++;
-            }else{
-                int k = cnt/9;
-                while( k>0){
-                    b+="9";
-                    b+=s[i-1];
-                    k--;
+            }
+            else{
+            
+                cout<<cnt<<" ";
+                if(cnt>9){
+                    while(cnt>9){
+                    ans.push_back('9');
+                ans.push_back(a[i-1]);
+                cnt=cnt-9;}
                 }
-                if( cnt%9 !=0){
-                b+=(cnt%9)+'0';
-                b+=s[i-1];}
+                if(cnt>0){
+                     ans.push_back(cnt+'0');
+                ans.push_back(a[i-1]);
+                }
+                
                 cnt=1;
+                }
+                 
+            }
+           
+       if (cnt > 9) {
+            while (cnt > 9) {
+                ans.push_back('9');
+                ans.push_back(a[i - 1]);
+                cnt -= 9;
             }
        }
-         int k = cnt/9;
-                while( k>0){
-                    b+="9";
-                    b+=s[i-1];
-                    k--;
-                }
-                if( cnt%9 !=0){
-                b+=(cnt%9)+'0';
-                b+=s[i-1];}
-
-
-        return b;
+        if (cnt > 0) {
+            ans.push_back(cnt + '0');
+            ans.push_back(a[i - 1]);
+        }
+        return ans;
     }
 };
