@@ -1,13 +1,17 @@
 class Solution {
 public:
-    bool canConstruct(string a, string b) {
-        map<char , int>m1,m2;
-        for( char i : a) m1[i]++;
-        for( char i : b) m2[i]++;
-       for( auto[x,y]:m1){
-        if( !m2.count(x)) return 0;
-        if( m2[x]<y) return 0;
-       }
-    return 1;
+    bool canConstruct(string r, string m) {
+        map<char,int>a;
+        map<char,int>n;
+        for(int i=0;i<m.size();i++){
+            a[m[i]]++;
+        }
+        for(int i=0;i<r.size();i++){
+            n[r[i]]++;
+        }
+        for(auto &[ch,freq] : n){
+            if(a[ch]<freq) return false;
+        }
+        return true;
     }
 };
