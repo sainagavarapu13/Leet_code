@@ -1,32 +1,33 @@
 class Solution {
 public:
-    string convertDateToBinary(string a) {
+    string tobin(string ans){
+        int i;
         string res;
-        int k=0;
-        for( int i=0;i<a.size();i++){
-            if( isdigit(a[i])){
-                k = k*10+(a[i]-'0');
-            }else{
-                string b;
-                while( k){
-                    b+=(k%2==0)?'0':'1';
-                    k/=2;
-                    
-                }
-                reverse(b.begin(),b.end());
-                res+=b;
-                res+='-';
+        int n=stoi(ans);
+        while(n){
+           res+=(n%2)+'0';
+            n=n/2;
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+    string convertDateToBinary(string a) {
+        int i;
+        string ans,res;
+        for(i=0;i<a.size();i++){
+
+            if(a[i]=='-'){
+              
+               res+= tobin(ans);
+              
+             if(i!=a.size()-1)  res+='-';
+               ans.clear();
+            }
+            else{
+                ans.push_back(a[i]);
             }
         }
-         string b;
-                while( k){
-                    b+=(k%2==0)?'0':'1';
-                    k/=2;
-                    
-                }
-                reverse(b.begin(),b.end());
-                res+=b;
-
+        res+=tobin(ans);
         return res;
     }
 };
