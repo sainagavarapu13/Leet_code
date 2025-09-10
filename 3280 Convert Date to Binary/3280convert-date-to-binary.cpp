@@ -1,33 +1,21 @@
 class Solution {
 public:
-    string tobin(string ans){
-        int i;
-        string res;
-        int n=stoi(ans);
+    string bin(int n){
+        string a;
         while(n){
-           res+=(n%2)+'0';
-            n=n/2;
+            a += to_string(n%2);
+            n/=2;
         }
-        reverse(res.begin(),res.end());
-        return res;
+        reverse(a.begin(),a.end());
+        return a;
     }
-    string convertDateToBinary(string a) {
-        int i;
-        string ans,res;
-        for(i=0;i<a.size();i++){
-
-            if(a[i]=='-'){
-              
-               res+= tobin(ans);
-              
-             if(i!=a.size()-1)  res+='-';
-               ans.clear();
-            }
-            else{
-                ans.push_back(a[i]);
-            }
-        }
-        res+=tobin(ans);
-        return res;
+    string convertDateToBinary(string d) {
+        string r;
+        r += bin(stoi(d.substr(0,4)));
+        r += '-';
+        r += bin(stoi(d.substr(5,7)));
+        r += '-';
+        r += bin(stoi(d.substr(8,10)));
+        return r;
     }
 };
