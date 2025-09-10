@@ -1,20 +1,18 @@
 class Solution {
 public:
-    string largestNumber(vector<int>& b) {
-        vector<string>a;
-        for( auto& r : b){
-            string k = to_string(r);
-        
-            a.push_back(k);
+    string largestNumber(vector<int>& a) {
+        vector<string>b;
+        for(int i=0;i<a.size();i++){
+            b.push_back(to_string(a[i]));
         }
-        sort(a.begin(),a.end(),[](auto& x , auto& y){
-            return x+y > y+x;
+        sort(b.begin(),b.end(),[](auto& x,auto& y){
+            return x+y>y+x;
         });
-        if( a[0]=="0") return "0";
-        string res;
-        for(auto& i : a){
-            res+=i;
+        if(b[0]=="0") return "0";
+        string ans;
+        for(auto& i:b){
+            ans+=i;
         }
-        return res;
+        return ans;
     }
 };
