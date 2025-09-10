@@ -1,14 +1,16 @@
 class Solution {
 public:
-    int distanceTraveled(int a, int b) {
-        int sum=0;
-        while(a>=5&&b){
-            sum+=(5)*10;
-            a=a-5;
-            a++;
-            b--;
+    int distanceTraveled(int m, int a) {
+       int d = 0;
+       while(m>=5){
+        m -= 5;
+        d +=50;
+        if(a>0){
+            m +=1;
+            a -=1;
         }
-        sum+=a*10;
-        return sum;
+       }
+       d +=m*10;
+       return d;
     }
 };
