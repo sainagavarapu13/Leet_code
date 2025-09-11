@@ -1,18 +1,21 @@
 class Solution {
 public:
-    int ispalin(string s){
-        string rev=s;
-        reverse(rev.begin(),rev.end());
-        if(s==rev) return 1;
-        else return 0;
+    bool ispa(string a){
+        int c=0,b=a.length()-1;
+        while(c<b){
+            if(a[c]!=a[b]) return false;
+            c++;
+            b--;
+        }
+        return true;
     }
-    string firstPalindrome(vector<string>& a) {
-        int i;
-        for(i=0;i<a.size();i++){
-            if(ispalin(a[i])){
-                return a[i];
+    string firstPalindrome(vector<string>& words) {
+        string s = "";
+        for(int i=0;i<words.size();i++){
+            if(ispa(words[i])){
+                return words[i];
             }
         }
-        return "";
+        return s;
     }
 };
