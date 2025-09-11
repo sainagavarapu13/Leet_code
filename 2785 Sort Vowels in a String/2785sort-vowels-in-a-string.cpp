@@ -1,20 +1,38 @@
 class Solution {
 public:
+    int vol(char c){
+
+        char s=tolower(c);
+        if(s=='a'||s=='e'||s=='i'||s=='o'||s=='u'){
+            return 1;
+        }
+        return 0;
+    }    
     string sortVowels(string s) {
-        unordered_set<char>n = {'a','e','i','o','u','A','E','I','O','U'};
-        string b;
-        for( char i :s){
-            if(n.count(i) ){
-                b+=i;
+        int len=s.size();
+        string ans=s;
+       
+        string v;
+        int i;
+        vector<int>visit(len,0);
+        for(i=0;i<s.size();i++){
+            if(!vol(s[i])){
+                visit[i]=1;
+                ans[i]=s[i];
+            }
+            else{
+                v.push_back(s[i]);
             }
         }
-        sort(b.begin(),b.end());
-        int k=0;
-         for(int i=0;i<s.size();i++){
-            if(n.count(s[i]) ){
-                s[i]=b[k++];
+       for(auto& i: v) cout<<i;
+        int p=0;
+        sort(v.begin(),v.end());
+        for(i=0;i<ans.size();i++){
+            if(visit[i]==0){
+                ans[i]=v[p];
+                p++;
             }
         }
-        return s;
+        return ans;
     }
 };
