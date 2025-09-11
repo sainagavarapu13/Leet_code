@@ -1,11 +1,11 @@
 class Solution {
 public:
     int findNumbers(vector<int>& nums) {
-        int cnt=0;
-        for( int i : nums){
-            if( ((int)(log10(i)+1))%2==0) cnt++;
+        int a =0;
+        for(int i=0;i<nums.size();i++){
+            int c = (log10(nums[i]))+1;
+            if(c%2==0) a++;
         }
-        return cnt;
-        
+        return a;
     }
 };
