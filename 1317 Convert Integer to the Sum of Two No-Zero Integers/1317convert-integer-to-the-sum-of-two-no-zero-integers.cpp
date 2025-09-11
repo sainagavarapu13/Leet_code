@@ -1,24 +1,19 @@
 class Solution {
 public:
-    int zero(int n){
+    bool zero(int n){
         while(n){
-            if(n%10==0){
-                return 0;
-            }
-            n=n/10;
+            if(n%10==0) return true;
+            n/=10;
         }
-        return 1;
+        return false;
     }
     vector<int> getNoZeroIntegers(int n) {
-        vector<int>ans;
-        n=n-1;
-        int k=1;
-        while(!zero(n)||!zero(k)){
-            k++;
-            n--;
+        for(int i=1;i<n;i++){
+            int j = n-i;
+            if(!zero(i) && !zero(j)){
+                return {i,j};
+            }
         }
-        ans.push_back(k);
-        ans.push_back(n);
-        return ans;
+        return {1,n-1};
     }
 };
