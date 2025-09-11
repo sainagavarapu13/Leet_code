@@ -1,26 +1,20 @@
 class Solution {
 public:
-    vector<int> numberOfPairs(vector<int>& a) {
-        if(a.size()==1){
-            vector<int>res(2);
-            res[0]=0;
-            res[1]=1;
-            return res;
+    vector<int> numberOfPairs(vector<int>& nums) {
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
         }
-        vector<int>f(101);
-        for(int i=0;i<a.size();i++){
-            f[a[i]]++;
-        }
-        int d=0;
-        vector<int>res(2);
-        for(int i=0;i<f.size();i++){
-            if(f[i]>=2){
-               d=d+(f[i]/2);
+        int a = 0,b = 0;
+        for(auto x : m){
+            if(x.second%2==0){
+                a+=x.second/2;
+            }
+            else{
+                a+=x.second/2;
+                b++;
             }
         }
-        int g=a.size()-2*d;
-        res[0]=d;
-        res[1]=g;
-        return res;
+        return{a,b};
     }
 };
