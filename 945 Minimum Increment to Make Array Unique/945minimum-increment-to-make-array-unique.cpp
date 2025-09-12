@@ -1,15 +1,15 @@
 class Solution {
 public:
-    int minIncrementForUnique(vector<int>& a) {
-        sort(a.begin(),a.end());
-        int i,diff,sum=0;
-        for(i=0;i<a.size()-1;i++){
-            if(a[i]>=a[i+1]){
-               int diff=(a[i]-a[i+1]+1);
-               sum+=diff;
-               a[i+1]+=diff;
+    int minIncrementForUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int moves = 0;
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] <= nums[i - 1]) {
+                int increment = nums[i - 1] - nums[i] + 1;
+                nums[i] += increment;
+                moves += increment;
             }
         }
-        return sum;
+        return moves;
     }
 };
