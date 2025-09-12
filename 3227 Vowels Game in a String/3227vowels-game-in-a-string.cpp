@@ -1,24 +1,27 @@
-class Solution {
-public:
-    int isvol(char c){
-        if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u') return 1;
-        else return 0;
-    }
-    bool doesAliceWin(string s) {
-        int len=s.size();
-        int sum=0,i;
-        vector<int>ans(len,0);
-        for(i=0;i<s.size();i++){
-            if(isvol(s[i])){
-             ans[i]=1;
-            sum++;
+int counts(string s)
+{
+     int count=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='a' || s[i]=='e'|| s[i] =='i' ||s[i]=='o'||s[i]=='u')
+            {
+                count++;
             }
         }
-        if(sum==0) return 0;
-        for(i=ans.size()-1;i>=0;i--){
-            if(sum%2!=0) return 1;
-            sum--;
+        return count;
+}class Solution {
+public:
+    bool doesAliceWin(string s) {
+        int n = s.size();
+        if(n==0)
+        {
+            return false;
         }
-        return 0;
+        int count = counts(s);
+        if(count==0)
+        {
+            return false;
+        }
+      return true;
     }
 };
