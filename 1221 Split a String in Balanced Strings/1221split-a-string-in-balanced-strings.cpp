@@ -1,14 +1,12 @@
 class Solution {
 public:
     int balancedStringSplit(string s) {
-        int i,sum=0,cnt=0;
-        for(i=0;i<s.size();i++){
-            if(s[i]=='R'){
-                cnt++;
-            }
-            else if(s[i]=='L') cnt--;
-            if(cnt==0) sum++;
+        int a=0,b=0,c=0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='L')a++;
+            else b++;
+            if(a==b) c++;
         }
-        return sum;
+        return c;
     }
 };
