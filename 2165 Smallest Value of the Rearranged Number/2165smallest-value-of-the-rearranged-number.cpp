@@ -1,32 +1,37 @@
 class Solution {
 public:
     long long smallestNumber(long long num) {
-        vector<int >a;
-        long long k=num;
-        int cnt=0;
-        while(num){
-            a.push_back(num%10);
-            if( num%10 ==0) cnt++;
-            num/=10;
+       string ans=to_string(num);
+       string res;
+       long long fin;
+       if(num==0) return 0;
+     if(num<0){ 
+        res+='-';
+     sort(ans.begin(),ans.end(),greater<>());
+     int i=0;
+     while(ans[i]!='-'&&i<ans.size()) {
+        res+=ans[i];
+        i++;
+    }
+         fin=stoll(res);
+     }
+     else{ 
+         sort(ans.begin(),ans.end());
+     int cnt=0;
+    for(int i=0;i<ans.size();i++){
+        if(ans[i]!='0'){
+            res+=ans[i];
         }
-        if( k<0){
-            sort(a.begin(),a.end());
-        }else{
-            sort(a.begin(),a.end());
-        }
-        long long res=0;
-         for( int i:a) res=res*10+i;
-        if( k<0){
-            return res;
-        }else{
-            string l = to_string(res);
-            string k;
-            k+=l[0];
-            while( cnt--) k+='0';
-            k+=l.substr(1,l.size());
-            res=0;
-            for(auto& i: k) res=res*10+(i-'0');
-            return res;
-        }
+        else cnt++;
+    }
+    int i=1;
+    while(cnt--){
+        res.insert(i,"0");
+        i++;
+    }
+    fin=stoll(res);
+         }
+      
+        return  fin;
     }
 };
