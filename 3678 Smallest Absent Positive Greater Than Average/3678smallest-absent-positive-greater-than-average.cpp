@@ -1,19 +1,20 @@
 class Solution {
 public:
-    int smallestAbsent(vector<int>& nums) {
-        int sum;
-        for( int i=0;i<nums.size();i++){
-            sum+=nums[i];
+    int smallestAbsent(vector<int>& a) {
+        int sum=0;
+        int len=a.size();
+        for(int i=0;i<a.size();i++){
+            sum+=a[i];
         }
-        sort(nums.begin(),nums.end(),greater<>());
-        float avg = sum/(float)nums.size();
-        for( int i=1;i<nums[0];i++){
-            if( avg < i){
-                if( find(nums.begin(),nums.end(),i)==nums.end()) return i;
+        float avg=(sum/len);
+        int k=avg+1;
+        if(k<=0)k=1;
+        while(1){
+            if(count(a.begin(),a.end(),k)==0){
+                return k;
             }
+            k++;
         }
-        if( nums[0]<0) return 1;
-        else return nums[0]+1;
-        
+        return 1;
     }
 };
