@@ -1,18 +1,19 @@
 class Solution {
 public:
-    vector<int> addToArrayForm(vector<int>& a, int k) {
-       int i=a.size()-1;
-       int c=0;
-        vector<int>b;
-       while(c>0 || k >0 || i >=0){
-        int  x= (i>=0)?a[i]:0;
-        int y = k%10;
-        b.push_back((x+y+c)%10) ;
-            c = (x+y+c)/10;
-            i--;
-            k/=10;
-       }
-       reverse( b.begin(),b.end());
-    return b;
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+        int i = num.size() - 1;
+        vector<int> ans;
+
+        while (i >= 0 || k > 0) {
+            if (i >= 0) {
+                k += num[i];
+                i--;
+            }
+            ans.push_back(k % 10); 
+            k /= 10; 
+        }
+
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
