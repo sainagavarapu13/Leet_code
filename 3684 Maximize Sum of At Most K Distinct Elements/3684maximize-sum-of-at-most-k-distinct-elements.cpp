@@ -1,14 +1,17 @@
 class Solution {
 public:
-    vector<int> maxKDistinct(vector<int>& n, int k) {
-        sort(n.begin(),n.end(),greater<>());
-        vector<int>b;
-        b.push_back(n[0]);
-        for( int i=1;i<n.size();i++){
-            if( b.size()==k) return b;
-            if( n[i-1]!=n[i]) b.push_back(n[i]);
+    vector<int> maxKDistinct(vector<int>& a, int k) {
+        
+        set<int>set(a.begin(),a.end());
+       vector<int>b(set.begin(),set.end());
+        sort(b.begin(),b.end(),greater<>());
+        int i=0;
+        vector<int>ans;
+        for(auto& i:b) cout<<i<<" ";
+        for(i=0;i<b.size()&&i<k;i++){
+            ans.push_back(b[i]);
+            
         }
-        return b;
-       
+        return ans;
     }
 };
