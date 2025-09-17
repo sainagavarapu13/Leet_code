@@ -1,13 +1,15 @@
 class Solution {
 public:
-    int maximumDifference(vector<int>& n) {
-        int mi = INT_MAX;
-        int ma =0;
-        for( int i=0;i<n.size();i++){
-            mi = min( mi , n[i]);
-            ma = max(ma , n[i]-mi);
+    int maximumDifference(vector<int>& a) {
+        int i,j;
+        int m=-1;
+        for(i=0;i<a.size();i++){
+            for(j=i+1;j<a.size();j++){
+                if(a[i]<a[j]){
+                    m=max(m,(a[j]-a[i]));
+                }
+            }
         }
-       if( ma ==0) return -1;
-       else return ma;
+        return m;
     }
 };
