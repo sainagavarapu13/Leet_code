@@ -10,19 +10,11 @@
 
 class Solution {
 public:
-TreeNode* ans=NULL;
-    void search( TreeNode* original,TreeNode* cloned, TreeNode* target){
-        if(!original) return ;
-        search(original->left,cloned->left,target);
-         if(original==target){
-            ans= cloned;
-        }
-        search(original->right,cloned->right,target);
-       
-    }
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        ans=NULL;
-         search(original,cloned,target);
-         return ans;
+        if(cloned==NULL) return NULL;
+        if(cloned->val == target->val) return cloned;
+        TreeNode* L = getTargetCopy(original,cloned->left,target);
+        if(L!=NULL) return L;
+        return getTargetCopy(original,cloned->right,target);
     }
 };
