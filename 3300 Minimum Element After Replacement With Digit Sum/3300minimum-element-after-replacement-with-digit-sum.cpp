@@ -1,16 +1,22 @@
+int dig(int n){
+        int b = 0;
+        while(n){
+            int a =n%10;
+            b += a;
+            n /=10;
+        }
+        return b;
+    }
 class Solution {
 public:
-    int minElement(vector<int>& a) {
-        int mini=INT_MAX;
-        for(int i=0;i<a.size();i++){
-            int sum=0;
-            int k=a[i];
-            while(k!=0){
-                sum+=(k%10);
-                k/=10;
+    int minElement(vector<int>& nums) {
+        int min = INT_MAX;
+        for(int i=0;i<nums.size();i++){
+            int a = dig(nums[i]);
+            if(min>a){
+                min = a;
             }
-            mini=min(mini,sum);
         }
-        return mini;
+        return min;
     }
 };
