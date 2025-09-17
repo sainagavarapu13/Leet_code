@@ -1,14 +1,15 @@
 class Solution {
 public:
-    int maxDistance(vector<int>& n) {
-        int mi = INT_MAX;
-        int ma = INT_MIN;
-        for( int i=0;i<n.size()-1;i++){
-            for( int j =i+1;j<n.size();j++){
-            if( n[i]!=n[j]){
-                ma = max( ma , abs(i-j));
-            }}
+    int maxDistance(vector<int>& a) {
+        int i,j;
+        int m=-1;
+        for(i=0;i<a.size();i++){
+            for(j=i+1;j<a.size();j++){
+                if(a[i]!=a[j]){
+                    m=max(m,(j-i));
+                }
+            }
         }
-        return ma;
+        return m;
     }
 };
