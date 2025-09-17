@@ -1,12 +1,12 @@
 class Solution {
 public:
-    int countKDifference(vector<int>& a, int k) {
-        int cnt=0;
-        for(int i=0;i<a.size();i++ ){
-            for( int j=i+1;j<a.size();j++){
-                if( abs(a[i]-a[j])==k) cnt++;
+    int countKDifference(vector<int>& nums, int k) {
+        int a = 0;
+        for(int i=0;i<nums.size()-1;i++){
+            for(int j=i+1;j<nums.size();j++){
+                if(abs(nums[i]-nums[j])==k) a++;
             }
         }
-        return cnt;
+        return a;
     }
 };
