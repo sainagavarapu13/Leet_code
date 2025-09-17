@@ -1,24 +1,19 @@
 class Solution {
 public:
-    vector<vector<int>> largestLocal(vector<vector<int>>& a) {
-        int i,j,m=-1,k,l;
-         vector<vector<int>>mat;
-         vector<int>v;
-        for(k=0;k<a.size()-2;k++){
-            for(l=0;l<a.size()-2;l++){
-                  m=-1;
-                for(i=k;i<k+3;i++){
-                  
-                  for(j=l;j<l+3;j++){
-                m=max(m,a[i][j]);
+    vector<vector<int>> largestLocal(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<int>> maxlocal(n-2,vector<int>(n-2));
+        for(int i=0;i<n-2;i++){
+            for(int j=0;j<n-2;j++){
+                int maxi = 0;
+                for(int k=i;k<i+3;k++){
+                    for(int h=j;h<j+3;h++){
+                        maxi = max(maxi,grid[k][h]);
+                    }
+                }
+                maxlocal[i][j] = maxi;
             }
-            }
-            v.push_back(m);
-            }
-        mat.push_back(v);
-        v.clear();
-    }
-        
-        return mat;
+        }
+        return maxlocal;
     }
 };
