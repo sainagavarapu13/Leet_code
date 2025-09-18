@@ -1,23 +1,16 @@
 class Solution {
 public:
     string makeSmallestPalindrome(string s) {
-       
-        int start=0;
-        int end=s.size()-1;
-        while(start<=end){
-           
-               if(s[start]<s[end]){
-                s[start]=s[start];
-                s[end]=s[start];
-                
-               }
-               else if(s[start]>s[end]){
-                    s[start]=s[end];
-                    s[end]=s[end];
+        int n = s.length()-1,a=0,i=0;
+        while(i<n){
+            if(s[i]!=s[n]){
+                if(s[i]<s[n]){
+                    s[n] = s[i];
                 }
-            
-            start++;
-            end--;
+                else s[i] = s[n];
+            }
+            i++;
+            n--;
         }
         return s;
     }
