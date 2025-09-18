@@ -1,16 +1,15 @@
 class Solution {
 public:
     int valueAfterKSeconds(int n, int k) {
-        vector<int>a;
-       for(int i=0;i<n;i++) a.push_back(1);
-        int sum=0;
+        vector<int> v(n,1);
+        int MOD = 1e9 + 7;
         while(k--){
-            sum=0;
-        for(int i=1;i<n;i++){
-            sum=(a[i-1]+a[i])%1000000007;
-            a[i]=sum;
+            long long sum=0;
+        for(int i=0;i<n;i++){
+            sum =(sum+v[i])%MOD;
+            v[i] = sum;
         }
         }
-        return a[n-1];
+        return v[n-1];
     }
 };
