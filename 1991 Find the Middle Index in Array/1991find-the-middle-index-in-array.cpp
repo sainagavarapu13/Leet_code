@@ -1,17 +1,11 @@
 class Solution {
 public:
-    int findMiddleIndex(vector<int>& a) {
-        int i,right_sum=0,left_sum=0;
-        for(i=0;i<a.size();i++){
-           right_sum+=a[i];
+    int findMiddleIndex(vector<int>& n) {
+        for(int i=0;i<n.size();i++){
+            long long a = accumulate(n.begin(),n.begin()+i,0);
+            long long b = accumulate(n.begin()+i+1,n.end(),0);
+            if(a==b) return i;
         }
-        for(i=0;i<a.size();i++){
-            if(left_sum==right_sum-a[i]){
-                return i;
-            }
-            left_sum+=a[i];
-            right_sum=right_sum-a[i];
-        }
-return -1;
+        return -1;
     }
 };
