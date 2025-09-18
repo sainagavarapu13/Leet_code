@@ -1,18 +1,12 @@
 class Solution {
 public:
-    vector<int> distinctDifferenceArray(vector<int>& a) {
-       int i,j;
-       vector<int>ans;
-       for(i=0;i<a.size();i++){
-        set<int>s1,s2;
-        for(j=0;j<=i;j++){
-            s1.insert(a[j]);
+    vector<int> distinctDifferenceArray(vector<int>& n) {
+        vector<int> v(n.size());
+        for(int i=0;i<n.size();i++){
+            set<int> a(n.begin(),n.begin()+1+i);
+            set<int> b(n.begin()+i+1,n.end());
+            v[i] = a.size()-b.size();
         }
-        for(j=i+1;j<a.size();j++){
-            s2.insert(a[j]);
-        }
-        ans.push_back(s1.size()-s2.size());
-       }
-       return ans;
+        return v;
     }
 };
