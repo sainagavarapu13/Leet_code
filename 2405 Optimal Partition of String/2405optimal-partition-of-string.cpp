@@ -1,18 +1,19 @@
 class Solution {
 public:
     int partitionString(string s) {
-        int count = 1;
-        vector<bool> seen(26, false);
-        
-        for (char c : s) {
-            int idx = c - 'a';
-            if (seen[idx]) {
-                count++;
-                fill(seen.begin(), seen.end(), false);
+        int a=0;
+        string b = string(1,s[0]);
+        for(int i=1;i<s.length();i++){
+            int f = b.find(s[i]);
+            if(f==string::npos){
+                b +=s[i];
+                continue;
+            } 
+            else{
+                a++;
+                b = s[i];
             }
-            seen[idx] = true;
         }
-        
-        return count;
+        return a+1;
     }
 };
