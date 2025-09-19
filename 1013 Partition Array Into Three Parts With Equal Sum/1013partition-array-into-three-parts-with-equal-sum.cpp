@@ -1,21 +1,30 @@
 class Solution {
 public:
     bool canThreePartsEqualSum(vector<int>& a) {
-        int sum=0;
-        for( int i=0;i<a.size();i++){
+        int sum=0,i,z=0;
+        for(i=0;i<a.size();i++){
             sum+=a[i];
+            if(a[i]==0) z++;
+        }if(z==a.size()) return 1;
+        if(sum%3!=0) return 0;
+        int each=(sum)/3;
+        i=0;
+        sum=0;
+        while(i<a.size()){
+            sum+=a[i];
+            i++;
+            if(sum==each) break;
         }
-        if( sum%3 !=0) return 0;
-        int tar = sum/3;
-        int cnt=0,par =0;
-        for( int i=0;i<a.size()-1;i++){
-                par+=a[i];
-                if( tar == par){
-                    cnt++;
-                    par =0;
-                    if( cnt==2) return true;
-                }
+        cout<<i;
+        cout<<sum;
+        if(i==0||i==a.size()-1) return 0;
+        sum=0;
+         while(i<a.size()){
+            sum+=a[i];
+            i++;
+            if(sum==each) break;
         }
-        return 0;
+         if(i==0||sum!=each||i==a.size()) return 0;
+        return true;
     }
 };
