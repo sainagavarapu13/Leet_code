@@ -1,19 +1,17 @@
 class Solution {
 public:
     vector<vector<int>> modifiedMatrix(vector<vector<int>>& a) {
-        vector<int>b;
-        for( int i=0;i<a[0].size();i++){
-            int ele = INT_MIN;
-            for( int j=0;j<a.size();j++){
-                ele = max( ele , a[j][i]);
+        int i,j;
+        int m=-2;
+        for(i=0;i<a[0].size();i++){
+            m=-2;
+            for(j=0;j<a.size();j++){
+                m=max(m,a[j][i]);
             }
-            b.push_back(ele);
-        }
-        for( int i=0;i<a.size();i++){
-            for( int j =0;j<a[0].size();j++){
-                if( a[i][j]==-1){
-                    a[i][j]=b[j];
-                }
+             for(j=0;j<a.size();j++){
+               if(a[j][i]==-1){
+                a[j][i]=m;
+               }
             }
         }
         return a;
