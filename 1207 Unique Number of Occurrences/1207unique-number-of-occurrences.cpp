@@ -1,17 +1,16 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& a) {
-        map<int, int>b;
-        for( int i:a){
-            b[i]++;
+        map<int,int>mp;
+        for(auto& i: a) mp[i]++;
+    
+        for(auto & [n,c]:mp){
+            for(auto &[num,cnt]:mp){
+                if(n!=num){
+                    if(c==cnt) return 0;
+                } 
+            }
         }
-        vector<pair<int , int>>c(b.begin(),b.end());
-        sort(c.begin(),c.end(),[](auto& x , auto& y){
-            return x.second > y.second;
-        });
-        for( int i=1;i<c.size();i++){
-            if( c[i].second == c[i-1].second) return false;
-        }
-        return true;
+        return 1;
     }
 };
