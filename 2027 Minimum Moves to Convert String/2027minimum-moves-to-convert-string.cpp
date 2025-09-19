@@ -1,16 +1,15 @@
 class Solution {
 public:
     int minimumMoves(string s) {
-        int cnt=0;
-        int len = s.size()-1;
-        for( int i=0;i<=s.size()-1;){
-            if( s[i]=='X'){
-                cnt++;
-               if( i+3 > len) break;
-               else i=i+3;
-
-            }else i++;
+        int i=0;
+        int start,j,cnt=0;
+     while(i<s.size()){
+        if(s[i]=='X'){
+            cnt++;
+            i=i+3;
         }
-        return cnt;
+        else i++;
+     }
+     return cnt;
     }
 };
