@@ -1,22 +1,42 @@
 class Solution {
 public:
-    int findShortestSubArray(vector<int>& a) {
-        map<int ,pair<int , vector<int>>>c;
-        for( int i=0;i<a.size();i++){
-            c[a[i]].first++;
-            c[a[i]].second.push_back(i);
-        }
-        vector<int>sto;
-        int m = INT_MIN;
-        for( auto&[x,y]:c){
-           m = max(m, y.first);
-        }
-        int mi = INT_MAX;
-        for( auto& [x,y]:c){
-            if ( y.first==m){
-                mi = min( mi , (y.second.back()-y.second[0]+1));
+    int Short_idx(vector<int>&a,int ele){
+        int ind1,ind2,i;
+        for(i=0;i<a.size();i++){
+            if(ele==a[i]){
+                ind1=i;
+                break;
             }
         }
-        return mi;
+          for(i=a.size()-1;i>=0;i--){
+            if(ele==a[i]){
+                ind2=i;
+                break;
+            }
+        }
+        return (ind2-ind1)+1;
+    }
+    int findShortestSubArray(vector<int>& a) {
+        map<int,int>mp;
+        for(auto& i:a) mp[i]++;
+
+        int m=-1,i,maxi;
+        vector<int>ele;
+        for(auto& [n,c]:mp){
+            if(c>m){
+                m=c;
+            }
+        }
+        for(auto& [n,c]:mp){
+            if(c==m){
+                ele.push_back(n);
+            }
+        }
+        for(auto& i: ele) cout<<i<<" ";
+        m=INT_MAX;
+        for(i=0;i<ele.size();i++){
+           m=min(m, Short_idx(a,ele[i]));
+        }
+        return m;
     }
 };
