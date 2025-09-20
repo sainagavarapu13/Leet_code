@@ -1,15 +1,19 @@
 class Solution {
 public:
-    bool hasGroupsSizeX(vector<int>& deck) {
-        map<int, int>a;
-        for( auto& i:deck){
-            a[i]++;
+    bool hasGroupsSizeX(vector<int>& a) {
+        int i;
+        map<int,int>mp;
+        if(a.size()==1) return 0;
+        for(auto& i:a) mp[i]++;
+        vector<int>t;
+        for(auto &[n,c]:mp){
+            t.push_back(c);
         }
-        int gcd_f = a[deck[0]];
-        for( auto&[x,y]:a){
-            gcd_f = gcd(gcd_f , y);
-            if( gcd_f ==1) return 0;
+         int gcd_val = t[0];
+        for (int i = 1; i < t.size(); ++i) {
+            gcd_val = gcd(gcd_val, t[i]);
+            if (gcd_val == 1) return false; 
         }
-        return 1;
+        return gcd_val > 1;
     }
 };
