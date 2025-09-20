@@ -1,14 +1,11 @@
 class Solution {
 public:
     bool findSubarrays(vector<int>& a) {
-        if( a.size()==2) return 0;
-        vector<int>b;
-        for( int i=1;i<a.size();i++){
-            if( !b.empty() && find(b.begin(),b.end(),a[i-1]+a[i])!=b.end()){
-                return 1;
+        int i,j;
+        for(i=0;i<a.size()-1;i++){
+            for(j=i+1;j<a.size()-1;j++){
+                if(a[i]+a[i+1]==a[j]+a[j+1]) return 1;
             }
-            b.push_back(a[i-1]+a[i]);
-            
         }
         return 0;
     }
