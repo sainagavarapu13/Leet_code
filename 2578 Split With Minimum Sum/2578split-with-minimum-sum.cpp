@@ -1,22 +1,15 @@
 class Solution {
 public:
-    int splitNum(int n) {
-        int i;
-        vector<int>a;
-        while(n){
-            a.push_back(n%10);
-            n=n/10;
-        }
-        int num1=0,num2=0;
+    int splitNum(int num) {
+        string a = to_string(num);
         sort(a.begin(),a.end());
-        for(i=0;i<a.size();i++){
-            if(i%2==0){
-                num1=num1*10+a[i];
-            }
-            else{
-                num2=num2*10+a[i];
-            }
+        string b,c;
+        for(int i=0;i<a.length();i++){
+            if(i%2==0) b.push_back(a[i]);
+            else c.push_back(a[i]);
         }
-        return num1+num2;
+        int d = stoi(b);
+        int e = stoi(c);
+        return d+e;
     }
 };
