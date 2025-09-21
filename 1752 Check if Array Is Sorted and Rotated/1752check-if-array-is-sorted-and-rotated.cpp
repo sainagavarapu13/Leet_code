@@ -1,18 +1,27 @@
 class Solution {
 public:
-    bool check(vector<int>& a) {
-        int cnt=0,i,j;
-        for(i=0;i<a.size()-1;i++){
-           
-                if(a[i]>a[j=i+1]) cnt++;
-            
+    bool check(vector<int>& nums) {
+        vector<int> v(nums.begin(),nums.end());
+        sort(v.begin(),v.end());
+        vector<int> b;
+        int i=0;
+        for(i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1]){
+                for(int j=i+1;j<nums.size();j++){
+                    b.push_back(nums[j]);
+                    cout<<nums[j]<<" ";
+                }
+                break;
+            }
         }
-        if(cnt==0) return 1;
-        else if(cnt>1) return 0;
-        else{
-            if(a[0]>=a.back()) return 1;
-            else return 0;
+        for(int k=0;k<=i;k++){
+            b.push_back(nums[k]);
+            cout<<"-" <<nums[k];
         }
-        return 1;
+        if(b.size()==0) return true;
+        for(i=0;i<b.size();i++){
+            if(v[i]!=b[i]) return false;
+        }
+        return true;
     }
 };
