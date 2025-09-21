@@ -1,13 +1,9 @@
 class Solution {
 public:
-    long long maxTotalValue(vector<int>& a, int k) {
-        long long maxi=INT_MIN;
-        long long mini=INT_MAX;
-        for(int i=0;i<a.size();i++){
-            if(a[i]>maxi) maxi=a[i];
-            if(mini>a[i]) mini=a[i];
-           
-        }
-        return (maxi-mini)*k;
+    long long maxTotalValue(vector<int>& nums, int k) {
+        long long m = *(max_element(nums.begin(),nums.end()));
+        long long n = *(min_element(nums.begin(),nums.end()));
+        long long r = m-n;
+        return r*k;
     }
 };
