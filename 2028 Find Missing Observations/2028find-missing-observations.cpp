@@ -1,26 +1,25 @@
 class Solution {
 public:
-    vector<int> missingRolls(vector<int>& a, int b, int n) {
-        int total = a.size()+n;
-        int sum = b*total;
-        int s=0;
-        for( int i : a){
-            s+=i;
+    vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
+        int sum = accumulate(rolls.begin(),rolls.end(),0);
+        int b = (rolls.size()+n)*mean - sum;
+        vector<int> v;
+        int a = b/n,c=n;
+        float f = b/(n*1.0);
+        if(f>6 || a<=0) return {};
+        for(int i=0;i<n;i++){
+            int a = b/c;
+            if((a*n)!=b){
+                v.push_back(a);
+                b = b - a;
+                c--;
+            }
+            else{
+                v.push_back(a);
+                b = b - a;
+                c--;
+            }
         }
-        int ele = sum-s;
-        vector<int>c(n);
-        printf("%d %d",ele/n ,ele%n);
-         if( ele/n <=0 || ele/n >6 ) return {};
-            if( ele/n == 6 && ele%n >0) return {};
-         int l = ele/n , y = ele%n ;
-        for(int i=0;i<n;i++ ){
-            c[i]=l;
-        }
-        for( int i=0;i<y;i++){
-            c[i]++;
-        }
-        return c;
-       
-        
+        return v;
     }
 };
