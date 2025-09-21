@@ -1,12 +1,10 @@
 class Solution {
 public:
-    int evenNumberBitwiseORs(vector<int>& a) {
-        int i,o=0;
-        for(i=0;i<a.size();i++){
-            if(a[i]%2==0){
-                o=o|a[i];
-            }
+    int evenNumberBitwiseORs(vector<int>& nums) {
+        int a = 0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]%2==0) a  = a|nums[i];
         }
-        return o;
+        return a;
     }
 };
