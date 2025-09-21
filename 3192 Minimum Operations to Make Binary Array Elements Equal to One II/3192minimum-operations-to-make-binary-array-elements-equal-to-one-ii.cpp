@@ -1,16 +1,15 @@
 class Solution {
 public:
-    int minOperations(vector<int>& a) {
-        int i,flip=0;
-        for(i=0;i<a.size();i++){
+    int minOperations(vector<int>& nums) {
+        int b=1;
+        int a=0;
+        for(int i=0;i<nums.size();i++){
+            if(b!=nums[i]){
+                a++;
+                b = nums[i];
+            }
             
-            if(flip%2!=0){
-                a[i]=1-a[i];
-            }
-            if(a[i]==0){
-                flip++;
-            }
         }
-        return  flip;
+        return a;
     }
 };
