@@ -1,17 +1,19 @@
-int maxFrequencyElements(int* a, int x) {
-    int f[101]={0};
-    int max =-1;
-    for( int i=0;i<x;i++){f[a[i]]++;
-         if( max < a[i]) max = a[i];}
-
-        int cnt=-1; 
-    for( int i=0;i<=max;i++){
-        if( cnt <f[i]) cnt = f[i];
+int maxFrequencyElements(int* a, int n) {
+    int i,sum=0;
+    int f[101];
+    for(i=0;i<n;i++){
+        f[a[i]]++;
     }
-    int sum=0;
-    for( int i=0;i<=max;i++){
-        if( cnt == f[i]) sum++;
+    int max=-1;
+    for(i=0;i<101;i++){
+        if(f[i]>max){
+            max=f[i];
+        }
     }
-    sum = sum*cnt;
+    for(i=0;i<101;i++){
+        if(f[i]==max){
+            sum+=f[i];
+        }
+    }
     return sum;
 }
