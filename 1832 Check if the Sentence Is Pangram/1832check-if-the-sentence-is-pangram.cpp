@@ -1,12 +1,8 @@
 class Solution {
 public:
     bool checkIfPangram(string a) {
-        if( a.size()<26) return 0;
-        set<char>b;
-        for( int i=0;i<a.size();i++){
-            b.insert(tolower(a[i]));
-        }
-        if( b.size()<26) return 0;
-        else return 1;
+       set<char>set(a.begin(),a.end());
+       if(set.size()==26) return 1;
+       else return 0;
     }
 };
