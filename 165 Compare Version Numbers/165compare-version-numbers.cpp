@@ -1,29 +1,18 @@
 class Solution {
 public:
-    int compareVersion(string a, string a1) {
-       int sum=0;
-       int b=0;
-       int b1=0;
-       int i=0,j=0;
-       while(i<a.size()||j<a1.size()){
-        b=0;
-        b1=0;
-        while(i<a.size()&&a[i]!='.'){
-            b=b*10+(a[i]-'0');
-            i++;
+    int compareVersion(string v1, string v2) {
+        vector<int>a,b;
+        stringstream s(v1),c(v2);
+        string token;
+        while(getline(s,token,'.')) a.push_back(stoi(token));
+        while(getline(c,token,'.')) b.push_back(stoi(token));
+        int n = max(a.size(),b.size());
+        for(int i=0;i<n;i++){
+            int r1 = i < a.size() ? a[i] : 0;
+            int r2 = i < b.size() ? b[i] : 0;
+            if(r1<r2) return -1;
+            if(r1>r2) return 1;
         }
-         while(j<a1.size()&&a1[j]!='.'){
-            b1=b1*10+(a1[j]-'0');
-            j++;
-        }
-        i++;
-        j++;
-        cout<<b<<" "<<b1<<"\n";
-        if(b>b1) return 1;
-        else if(b<b1) return -1;
-       }
-       if(b>b1) return 1;
-        else if(b1<b1) return -1;
-        else return 0;
+        return 0;
     }
 };
