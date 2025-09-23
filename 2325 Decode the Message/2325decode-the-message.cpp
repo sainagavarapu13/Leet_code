@@ -1,24 +1,26 @@
 class Solution {
 public:
     string decodeMessage(string a, string b) {
+        vector<int>f(2000);
+        int i,k=0;
+        vector<pair<char,char>>p;
+        for(i=0;i<a.size();i++){
+            if(a[i]==' ') continue;
+            f[a[i]]++;
+           if(f[a[i]]==1){
+             p.push_back({a[i],k+'a'});
+             k++;
+           }
+        }
         string ans;
-        for( int i=0;i<a.size();i++){
-            if( a[i]!=' ' && (find(ans.begin(),ans.end(),a[i])==ans.end())){
-                ans+=a[i];
+       for(i=0;i<b.size();i++){
+        if(b[i]==' ') ans.push_back(' ');
+        for(auto& [n,c]:p){
+            if(n==b[i]){
+                ans.push_back(c);
             }
         }
-        string res;
-        for(char i : b){
-            if( i==' ') res+=' ';
-            else{int j=0;
-            while(j<ans.size() ){
-                if( i == ans[j]) break;
-                j++;
-            }
-            res+='a'+j;}
-            
-        }
-        return res;
+       }
+       return ans;
     }
-
 };
