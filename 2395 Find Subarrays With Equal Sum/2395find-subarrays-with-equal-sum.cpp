@@ -1,12 +1,12 @@
 class Solution {
 public:
-    bool findSubarrays(vector<int>& a) {
-        int i,j;
-        for(i=0;i<a.size()-1;i++){
-            for(j=i+1;j<a.size()-1;j++){
-                if(a[i]+a[i+1]==a[j]+a[j+1]) return 1;
-            }
+    bool findSubarrays(vector<int>& nums) {
+        map<int,int> m;
+        for(int i=1;i<nums.size();i++){
+            int a = nums[i-1] + nums[i];
+            m[a]++;
+            if(m[a]>=2) return true;
         }
-        return 0;
+        return false;
     }
 };
