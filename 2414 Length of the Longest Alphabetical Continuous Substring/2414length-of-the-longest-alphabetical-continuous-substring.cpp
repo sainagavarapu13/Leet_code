@@ -1,18 +1,16 @@
 class Solution {
 public:
     int longestContinuousSubstring(string s) {
-        int cnt=1;
-        int m=1;
+        int a=1,b=1;
         for(int i=1;i<s.size();i++){
-            int two=s[i]-'a';
-            int one=s[i-1]-'a';
-           // cout<<one<<" "<<two<<"\n";
-            if(two-one==1){
-                cnt++;
-                m=max(cnt,m);
+            if((s[i]-s[i-1])==1){
+                b++;
             }
-            else cnt=1;
+            else{
+                b = 1;
+            }
+            a = max(a,b);
         }
-        return m;
+        return a;
     }
 };
