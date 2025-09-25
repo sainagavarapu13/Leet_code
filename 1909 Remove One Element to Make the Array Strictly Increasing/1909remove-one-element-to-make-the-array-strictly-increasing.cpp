@@ -1,19 +1,39 @@
 class Solution {
 public:
-    bool canBeIncreasing(vector<int>& n) {
-        for( int i=0;i<n.size();i++){
-            vector<int>b(n.begin(),n.end());
-            b.erase(b.begin()+i);
-            bool f = true;
-            for( int i=0;i<b.size()-1;i++){
-                if(b[i] > b[i+1] || b[i]==b[i+1]){
-                    f=false;
-                    break;
-                }
-            }
-            if( f) return 1;
-            
+    int is_sort(vector<int> a){
+        int i,j;
+       
+        for(i=0;i<a.size();i++){
+
+           for(j=i+1;j<a.size();j++){
+            if(a[i]>=a[j]) return 0;
+           }
         }
-        return 0;
+        return 1;
+    }
+    bool canBeIncreasing(vector<int>& a) {
+        int i,j,cnt=0,num,c=0,idx,idx1;
+         vector<int>temp(a.begin(),a.end());
+         if(is_sort(a)){
+             return true;
+         }
+        for(i=0;i<a.size();i++){
+            num=a[i];
+            for(j=i+1;j<a.size();j++){
+                if(num>=a[j]) {
+               idx=i;
+               idx1=j;
+                break;
+                }
+                
+            }
+           
+        }
+     
+        a.erase(a.begin()+idx);
+        if(is_sort(a)) return true;
+         temp.erase(temp.begin()+idx1);
+         if(is_sort(temp)) return true;
+             return false;
     }
 };
