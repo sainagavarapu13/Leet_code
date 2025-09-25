@@ -1,32 +1,28 @@
 class Solution {
 public:
     vector<vector<int>> largeGroupPositions(string s) {
-        int si,e;
-        bool f=false;
-        si=0;
-        int cnt=1,i;
-        vector<vector<int>>a;
-        for(  i=1;i<s.size();i++ ){
-                if( s[i]!=s[i-1]){
-                    if( cnt >=3){
-                        vector<int>c;
-                        c.push_back(si);
-                        c.push_back(i-1);
-                        a.push_back(c);
-                    }
-                    si=i;
-                    cnt =0;
-                }
-                cnt++;
+        vector<vector<int>>ans;
+        int i=0,j;
+        string a;
+         if (s.empty()) return ans;
+      
+        while(i<s.size()){
+            int idx=i;
+            if(a.empty()) {
+            a.push_back(s[i]);
+             i++;
         }
-         if( cnt >=3){
-                        vector<int>c;
-                        c.push_back(si);
-                        c.push_back(i-1);
-                        a.push_back(c);
-                    }
-                    
-        return a;
-        
+            while(i<s.size()&&a.back()==s[i]){
+                a.push_back(s[i]);
+                i++;
+            }
+            if(a.size()>=3){
+                int end=i-1;
+                ans.push_back({idx,end});
+               
+            }
+             a.clear();
+        }
+            return ans;
     }
 };
