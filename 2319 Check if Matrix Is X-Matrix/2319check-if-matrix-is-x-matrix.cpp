@@ -1,15 +1,19 @@
 class Solution {
 public:
-    bool checkXMatrix(vector<vector<int>>& a) {
-        int i,j;
-        for(i=0;i<a.size();i++){
-            for(j=0;j<a.size();j++){
-                if(i==j||i+j==(a.size()-1)){
-                    if(a[i][j]==0) return 0;
+    bool checkXMatrix(vector<vector<int>>& grid) {
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++){
+                if(((i==j) || ((i+j)==(grid.size()-1))) && grid[i][j]!=0){
+                    continue;
                 }
-                else if(a[i][j]!=0) return 0;
+                else if(((i==j) || ((i+j)==(grid.size()-1))) && grid[i][j]==0){
+                    return false;
+                }
+                else if(grid[i][j]!=0){
+                    return false;
+                }
             }
         }
-        return 1;
+        return true;
     }
 };
