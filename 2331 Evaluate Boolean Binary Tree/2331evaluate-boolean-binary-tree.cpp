@@ -11,14 +11,13 @@
  */
 class Solution {
 public:
-bool fun(TreeNode* root){
-     if( root->val>1) {
-            if( root->val == 2) return fun(root->right) |fun(root->left);
-            else if( root->val == 3) return fun(root->right) & fun(root->left);
-        }
-        return root->val;
-}
+    bool fun(TreeNode* root){
+        if(root->val==0||root->val==1) return root->val;
+        else if(root->val==2) return  fun(root->left)||fun(root->right);
+        else if(root->val==3) return fun(root->left)&&fun(root->right);
+        return false;
+    }
     bool evaluateTree(TreeNode* root) {
-       return fun(root);
+     return fun(root);   
     }
 };
