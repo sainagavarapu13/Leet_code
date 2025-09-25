@@ -1,16 +1,13 @@
 class Solution {
 public:
-    int maxConsecutive(int a, int b, vector<int>& v) {
-         sort(v.begin(),v.end());
-        int m=-1;
-        m=max(m,v[0]-a);
-        m=max(m,b-v.back());
-       
-        for(int i=1;i<v.size();i++){
-            int k=v[i]-v[i-1];
-            k=k-1;
-            m=max(m,k);
+    int maxConsecutive(int bottom, int top, vector<int>& special) {
+        special.push_back(bottom-1);
+        special.push_back(top + 1);
+        sort(special.begin(),special.end());
+        int a {};
+        for(int i=1;i<special.size();i++){
+            a = max(a,special[i]-special[i-1]);
         }
-        return m;
+        return a-1;
     }
 };
