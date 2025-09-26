@@ -1,13 +1,17 @@
 class Solution {
 public:
     int distinctAverages(vector<int>& a) {
-        set<float> s;
-        sort(a.begin(), a.end());
-        int n = a.size();
-        for (int i = 0; i < n/2; i++) {
-            float avg = (a[i] + a[n-1-i]) / 2.0;
-            s.insert(avg);
+        sort(a.begin(),a.end());
+        int start=0,end=a.size()-1;
+        set<float>set;
+        while(start<end){
+            float avg=(a[start]+a[end]);
+            cout<<a[start]<<" "<<a[end]<<"\n";
+            set.insert(avg);
+            start++;
+            end--;
         }
-        return s.size();
+        for(auto& i:set) cout<<i<<" ";
+        return set.size();
     }
 };
