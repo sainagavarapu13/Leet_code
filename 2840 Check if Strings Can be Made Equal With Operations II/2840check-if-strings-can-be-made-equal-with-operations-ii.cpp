@@ -1,23 +1,26 @@
 class Solution {
 public:
-    bool checkStrings(string a, string b) {
-        map<char , int> eve,od;
-        for( int i=0;i<a.size();i++){
-            if( i%2==0) eve[a[i]]++;
-            else od[a[i]]++;
+    bool checkStrings(string s1, string s2) {
+        map<char,int>eve;
+        map<char,int>odd;
+        int i;
+        for(i=0;i<s1.size();i++){
+            if(i%2==0) eve[s1[i]]++;
+            else odd[s1[i]]++;
         }
-        for( int i=0;i<b.size();i++)
-        {
-            if( i%2==0 && eve[b[i]]<=0){
-                    return 0;
-            } if( i%2==1 && od[b[i]]<=0){
-                    return 0;
-            }if( i%2==0 && eve[b[i]]>0){
-                    eve[b[i]]--;
-            } if( i%2==1 && od[b[i]]>0){
-                    od[b[i]]--;
+        for(i=0;i<s2.size();i++){
+            if(i%2==0){
+                if(eve[s2[i]]){
+                    eve[s2[i]]--;
+                }
+                else return 0;
             }
-
+            else {
+                if(odd[s2[i]]){
+                    odd[s2[i]]--;
+                }
+                else return 0;
+            }
         }
         return 1;
     }
