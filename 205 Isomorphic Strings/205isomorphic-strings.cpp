@@ -1,12 +1,13 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        vector<int>a(200,0);
-        vector<int>b(200, 0);
-        for( int i=0;i<s.size();i++){
-            if( a[s[i]]!=b[t[i]]) return 0;
-                a[s[i]]=i+1;
-                b[t[i]]=i+1;
+        int i,j;
+        if(s.size()!=t.size()) return false;
+        for(i=0;i<s.size();i++){
+            for(j=i+1;j<s.size();j++){
+                if(s[i]!=s[j]&&t[i]==t[j]) return 0;
+                if(s[i]==s[j]&&t[i]!=t[j]) return 0;
+            }
         }
         return 1;
     }
