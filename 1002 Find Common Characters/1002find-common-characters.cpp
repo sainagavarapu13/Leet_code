@@ -1,30 +1,34 @@
 class Solution {
 public:
     vector<string> commonChars(vector<string>& a) {
-        map<string,int> m;
-        for (char c = 'a'; c <= 'z'; c++) {
-            string s(1,c);
-            m[s] = INT_MAX;
+        int i;
+    
+     map<string,int>min_map;
+     for(i=0;i<26;i++){
+        string ch(1,i+'a');
+        min_map[ch]=INT_MAX;
+     }
+    for(i=0;i<a.size();i++){
+         map<string,int>m;
+        for(int j=0;a[i][j]!='\0';j++){
+            string temp(1,a[i][j]);
+           m[temp]++;
+          
         }
-
-        for (auto& r : a) {
-            map<string,int> f;
-            for (char ch : r) {
-                string s(1,ch);
-                f[s]++;
+         for (auto& [ch, count] : min_map) {
+                min_map[ch] = min(min_map[ch], m[ch]);
             }
-            for (auto& [x,y] : m) {
-                m[x] = min(m[x], f[x]);
-            }
-        }
-
-        vector<string> res;
-        for (auto& [x,y] : m) {
-            while (y-- > 0) {
-                res.push_back(x);
+    }
+   
+        
+    vector<string>ans;
+    for(auto& [n,c]:min_map){
+        if(c!=INT_MAX){
+            while(c--){
+                ans.push_back(n);
             }
         }
-        return res;
+    }
+    return ans;
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
