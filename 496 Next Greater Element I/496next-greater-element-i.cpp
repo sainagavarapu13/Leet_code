@@ -1,24 +1,23 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& a, vector<int>& b) {
-       map<int , int>c;
-       for( int i=0;i<b.size()-1;i++){
-        bool f = false;
-            for( int j=i+1;j<b.size();j++){
-                    if( b[i]<b[j]){
-                        c[b[i]]=b[j];
-                        f=true;
-                        break;
-                    }
+        map<int,int>m;
+        int i,j;
+        for(int i=0;i<b.size();i++){
+            int ele=b[i];
+            for(j=i+1;j<b.size();j++){
+                if(b[j]>b[i]){
+                    m[ele]=b[j];
+                    break;
+                }
             }
-            if( !f) c[b[i]]=-1;
-       }
-       c[b[b.size()-1]]=-1;
-       vector<int>res;
-       for( int i=0;i<a.size();i++){
-            res.push_back(c[a[i]]);
-       }
-        return res;
+        }
+        vector<int>ans;
+        for(i=0;i<a.size();i++){
+            if(m[a[i]]==0) ans.push_back(-1);
+            else
+            ans.push_back(m[a[i]]);
+        }
+        return ans;
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
