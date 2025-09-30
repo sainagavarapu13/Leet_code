@@ -1,13 +1,12 @@
-int triangularSum(int* n, int x) {
-    int k=x-1;
-    if( x==1) return n[0];
-    while(k){
-        for( int i=0;i<k;i++){
-            n[i]=(n[i]+n[i+1])%10;
-           
+int triangularSum(int* a, int n) {
+    int i;
+    while(n-1){
+    for(i=0;i<n;i++){
+        if(i!=n-1){
+            a[i]=(a[i]+a[i+1])%10;
         }
-        printf("\n");
-        k--;
     }
-    return n[0];
+    n--;
+    }
+    return a[0];
 }
