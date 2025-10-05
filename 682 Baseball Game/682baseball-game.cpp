@@ -1,27 +1,26 @@
 class Solution {
 public:
-    int calPoints(vector<string>& a) {
-        int i;
-        vector<string>ans;
-        for(i=0;i<a.size();i++){
-            if(a[i]=="C"){
-                ans.pop_back();
+    int calPoints(vector<string>& o) {
+        vector<int> v;
+        for(string& t : o){
+            if(t=="+"){
+                int a = v.size();
+                int b = v[a-1] + v[a-2];
+                v.push_back(b);
             }
-            else if(a[i]=="D"){
-                int k=stoi(ans.back());
-                ans.push_back(to_string(2*k));
+            else if(t=="D"){
+                int a = v.size();
+                int  b = 2 * v[a-1];
+                v.push_back(b);
             }
-            else if(a[i]=="+"){
-                int num1=stoi(ans.back());
-                int num2=stoi(ans[ans.size()-2]);
-                ans.push_back(to_string(num1+num2));
+            else if(t=="C"){
+                v.pop_back();
             }
-            else ans.push_back(a[i]);
+            else{
+                v.push_back(stoi(t));
+            }
         }
-       int cnt=0;
-       for(i=0;i<ans.size();i++){
-        cnt+=stoi(ans[i]);
-       }
-       return cnt;
+        int c = accumulate(v.begin(),v.end(),0);
+        return c;
     }
 };
