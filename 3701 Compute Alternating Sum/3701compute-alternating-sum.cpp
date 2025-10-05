@@ -1,15 +1,15 @@
 class Solution {
 public:
-    int alternatingSum(vector<int>& a) {
-        int i;
-        int sum=0;
-        for(i=0;i<a.size();i++){
-            if(i%2!=0){
-                a[i]=(-1)*a[i];
+    int alternatingSum(vector<int>& nums) {
+        long long a=0;
+        for(int i=0;i<nums.size();i++){
+            if(i%2==0){
+                a+=nums[i];
             }
-            sum+=a[i];
+            else{
+                a-=nums[i];
+            }
         }
-        return sum;
+        return a;
     }
-    
 };
