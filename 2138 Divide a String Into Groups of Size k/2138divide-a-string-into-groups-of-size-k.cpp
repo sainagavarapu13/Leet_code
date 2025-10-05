@@ -1,15 +1,21 @@
 class Solution {
 public:
     vector<string> divideString(string s, int k, char fill) {
-        int n=s.size();
-        int rem=k-(n%k);
-        vector<string>ans;
-     if(rem%k!=0)  { while(rem--) s.push_back(fill);}
-        for(int i=0;i<s.size();i+=k){
-           string  temp=s.substr(i,k);
-            ans.push_back(temp);
-            temp.clear();
+        vector<string> a;
+        int n = s.length(),j=0;
+        for(int i=0;i<n;i++){
+            string temp = "";
+            for(j=0;j<k;j++){
+                if((i+j)<n){
+                    temp += s[j+i];
+                }
+                else{
+                    temp +=fill;
+                }
+            }
+            i = i+j-1;
+            a.push_back(temp);
         }
-        return ans;
+        return a;
     }
 };
