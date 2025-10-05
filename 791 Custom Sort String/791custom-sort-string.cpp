@@ -1,34 +1,33 @@
 class Solution {
 public:
-
-    int ispre(char ch,string s){
-        int i,cnt=0;
-        for(i=0;i<s.size();i++){
-            if(s[i]==ch) cnt++;
-
+    string customSortString(string order, string s) {
+        map<char,int> m;
+        string t = "";
+        for(int i=0;i<s.length();i++){
+            m[s[i]]++;
         }
-        return cnt;
-    }
-   
-    string customSortString(string o, string s) {
-        int i;
-        string ans;
-        for(i=0;i<o.size();i++)
-            {
-                 int k=ispre(o[i],s);
-                    while(k--){
-                        ans.push_back(o[i]);
-                    }
-                
+        for(int j=0;j<order.size();j++){
+            if(m[order[j]]==0){
+                m[order[j]] = 0;
+                continue;
             }
-           for (int i = 0; i < s.size(); i++) {
-            if (o.find(s[i]) == string::npos) { // If character not in o
-                ans.push_back(s[i]);
+            else{
+                for(int i=0;i<m[order[j]];i++){
+                    t.push_back(order[j]);
+                }
+                m[order[j]]=0;
             }
         }
-
-       
-    
-     return ans;
+        for(char ch='a';ch<='z';ch++){
+            if(m[ch]!=0){
+                for(int i=0;i<m[ch];i++){
+                    t.push_back(ch);
+                }
+            }
+            else{
+                continue;
+            }
+        }
+        return t;
     }
 };
