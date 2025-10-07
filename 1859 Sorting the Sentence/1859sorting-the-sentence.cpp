@@ -1,31 +1,24 @@
 class Solution {
 public:
     string sortSentence(string s) {
-        
-        string str;
-        int sp=0;
-         for(int i=0;i<s.size();i++){
-            if(s[i]==' ')
-            sp++;
-          }
-          vector<string>ans(sp+1);
-        for(int i=0;i<s.size();i++){
-           if(s[i]==' ') continue;
-            if(s[i]>='0'&&s[i]<='9'){
-                int idx=(s[i]-'0')-1;
-                ans[idx]=str;
-                cout<<str<<" ";
-                str.clear();
+        map<int,string> m;
+        int j;
+        for(int i=0;i<s.length();i++){
+            string temp = "";
+            while(i<s.length()&&s[i]!=' '){
+                temp += s[i++];
             }
-            else{
-                 str+=s[i];
+            int a = temp.back()-'0';
+            temp.pop_back();
+            m[a] = temp;
+        }
+        string t= "";
+        for(int i=1;i<=m.size();i++){
+            t += m[i];
+            if(i!=m.size()){
+                t+=" ";
             }
         }
-        str.clear();
-        for(int i=0;i<ans.size();i++){
-            str+=ans[i];
-           if(i!=ans.size()-1) str+=' ';
-        }
-        return str;
+        return t;
     }
 };
