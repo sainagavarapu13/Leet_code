@@ -1,23 +1,21 @@
 class Solution {
 public:
     int maxSatisfaction(vector<int>& a) {
-        int m = 0;
         sort(a.begin(),a.end());
-        int k =0;
-        int i=0;
-        while(i++<a.size()){
-            int l =1;
-            int sum=0;
-            for( int j=k;j<a.size();j++){
-                    sum+=(l*a[j]);
-                    l++;
-            }
-            m = max( m , sum);
-
+        int ans=0;
+        int k=1,i;
+        int p=0,m=0,l=0;
+        while(p<a.size()){
+            ans=0;
+            k=1;
+             for(i=l;i<a.size();i++){
+            ans+=(k*a[i]);
             k++;
         }
-      return m;   
+        m=max(m,ans);
+        l++;
+        p++;
+        }
+       return m;
     }
 };
-
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
