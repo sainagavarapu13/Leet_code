@@ -1,14 +1,13 @@
 class Solution {
 public:
-    vector<int> successfulPairs(vector<int>& b, vector<int>& a, long long k) {
-        sort(a.begin(),a.end());
-        int n =a.size();
-        vector<int>c;
-        for( int i:b){
-           long long m = (k+i-1)/i;
-           int ind = lower_bound(a.begin(),a.end(),m)-a.begin();
-           c.push_back(n-ind);
+    vector<int> successfulPairs(vector<int>& a, vector<int>& b, long long k) {
+        sort(b.begin(),b.end());
+        vector<int>ans;
+        for(auto& i:a){
+            long long temp=(k+i-1)/i;
+            auto idx=lower_bound(b.begin(),b.end(),temp)-b.begin();
+            ans.push_back(b.size()-idx);
         }
-        return c;
+        return ans;
     }
 };
