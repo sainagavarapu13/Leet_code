@@ -8,33 +8,32 @@ public:
 
     }
     bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
-        vector<int> d = {
+         vector<int> d = {
             dist(p1,p2), dist(p1,p3), dist(p1,p4),
             dist(p2,p3), dist(p2,p4),
             dist(p3,p4)
         };
-        map<int,int>a;
-        for(int i : d){
-            if( i ==0 ) return 0;
-            a[i]++;
+       
+        
+        sort(d.begin(), d.end());
+        map<int,int>m;
+        for(auto& i:d){
+            if(i==0) return false;
+            m[i]++;
         }
-        if( a.size()==2){
-            int f=-1;
-            for(auto& [x,y]:a){
-                if( f == -1){
-                if( y ==2 ){
-                        f=0;
-                }else if(y ==4) f=1;
-                }else{
-                    if( f==1 && y==2) return 1;
-                   
-                    if( f==0 && y == 4)return 1;
-                    
-                }
-            }
-            return 0;
+        d.clear();
+        for(auto& [n,c]:m){
+           d.push_back(c);
         }
-         return 0;
+       
+        if(d.size()!=2) {
+           
+            return false;
+        }
+       if((d[0]==2&&d[1]==4)||(d[0]==4&&d[1]==2)) return true;
+       else {
+        
+        return false;
+       }
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
