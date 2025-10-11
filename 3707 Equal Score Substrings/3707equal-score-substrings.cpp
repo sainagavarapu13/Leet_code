@@ -1,17 +1,18 @@
 class Solution {
 public:
     bool scoreBalance(string s) {
-        int total = 0;
-        for (char c : s)
-            total += (c - 'a' + 1);
-
-        int left = 0;
-        for (int i = 0; i < s.size() - 1; i++) {
-            left += (s[i] - 'a' + 1);
-            int right = total - left;
-            if (left == right)
-                return true;
+        int sum=0;
+        int i;
+        for(i=0;i<s.size();i++){
+            sum+=(s[i]-'a'+1);
         }
-        return false;
+        //cout<<sum;
+        int cnt=0;
+        for(i=0;i<s.size();i++){
+
+            cnt+=(s[i]-'a'+1);
+            if(cnt==sum-cnt) return 1;
+        }
+        return 0;
     }
 };
