@@ -1,18 +1,16 @@
 class Solution {
 public:
     int sumDivisibleByK(vector<int>& a, int k) {
-        map<int, int>b;
-        for(int i : a){
-            b[i]++;
+        map<int,int>m;
+        for(auto& i:a){
+            m[i]++;
         }
         int sum=0;
-        for(auto [ x,y]:b){
-            if( y%k ==0){
-                sum+=(x*y);
+        for(auto& [n,c]: m){
+            if(c%k==0){
+                sum+=(n*c);
             }
         }
-        
         return sum;
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
