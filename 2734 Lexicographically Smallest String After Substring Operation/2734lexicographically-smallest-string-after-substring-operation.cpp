@@ -1,20 +1,19 @@
 class Solution {
 public:
     string smallestString(string s) {
-        int perform =0;
-        for( int i=0;i<s.size();i++){
-            if( perform !=0 && s[i]=='a') break;
-            else if( s[i]!='a'){
-                perform =1;
-                int k = s[i]-'a';
-                s[i]=(k-1)+'a';
-            }
+        int i=0;
+        while(i<s.size()&&s[i]=='a') {   
+            i++;
         }
-        int n = s.size()-1;
-        if( perform ==0){
-            s[n]='z';
+        if(i==s.size() ) {
+            s.back()='z';
+            return s;
         }
-        return s;
+
+        while(i<s.size()&&s[i]!='a'){
+            s[i]--;
+            i++;
+        }
+    return s;
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
