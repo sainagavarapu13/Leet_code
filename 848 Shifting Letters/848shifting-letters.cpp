@@ -1,17 +1,11 @@
 class Solution {
 public:
     string shiftingLetters(string s, vector<int>& a) {
-        long long sum =0;
-        for( int i=0;i<a.size();i++){
+        long long sum=0;
+        for(long long i=a.size()-1;i>=0;i--){
             sum+=a[i];
-        }
-        for( int i=0;i<s.size();i++){
-            s[i]='a' + (s[i] - 'a' +sum) % 26;
-            sum-=a[i];
+            s[i]='a'+((s[i]-'a')+sum)%26;
         }
         return s;
-
-        
     }
 };
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
