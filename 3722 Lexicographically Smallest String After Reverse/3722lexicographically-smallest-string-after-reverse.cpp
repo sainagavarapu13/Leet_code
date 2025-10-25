@@ -1,16 +1,16 @@
 class Solution {
 public:
-    string lexSmallest(string a) {
-        string ans = a;
-        int n = a.size();
-
-        for (int k = 1; k <= n; k++) {
-            string first = a, last = a;
-            reverse(first.begin(), first.begin() + k);
-            reverse(last.end() - k, last.end());
-
-            ans = min({ans, first, last});
+    string lexSmallest(string s) {
+        string res=s;
+        int n=s.size();
+        for(int i=0;i<=s.size();i++){
+            string t1=s;
+            reverse(t1.begin(),t1.begin()+i);
+            res=min(res,t1);
+            string t2=s;
+            reverse(t2.end()-i,t2.end());
+            res=min(res,t2);
         }
-        return ans;
+        return res;
     }
 };
