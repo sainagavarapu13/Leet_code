@@ -1,9 +1,16 @@
 class Solution {
 public:
     int maximizeExpressionOfThree(vector<int>& a) {
-        sort(a.begin(),a.end());
-        return a.back()+a[a.size()-2]-a[0];
-        
-        
+        int sum=0,cnt=INT_MIN;
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<a.size();j++){
+                for(int k=0;k<a.size();k++){
+                    if(i==j||j==k) continue;
+                    sum=a[i]+a[j]-a[k];
+                    cnt=max(cnt,sum);
+                }
+            }
+        }
+        return cnt;
     }
 };
