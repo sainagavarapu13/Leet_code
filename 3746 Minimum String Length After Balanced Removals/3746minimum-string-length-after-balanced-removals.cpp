@@ -1,16 +1,12 @@
 class Solution {
 public:
-    int minLengthAfterRemovals(string a) {
-        stack<char>s;
-        for( auto& i : a){
-            if( !s.empty()){
-                if(s.top()!=i){
-                    s.pop();
-                }else s.push(i);
-            }else s.push(i);
+    int minLengthAfterRemovals(string s) {
+        map<char,int>m;
+        for(auto& i:s){
+            m[i]++;
         }
-        string res;
-        return s.size();
-        
+        int k=m['a'];
+        int l=m['b'];
+        return abs(k-l);
     }
 };
