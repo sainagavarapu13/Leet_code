@@ -1,30 +1,32 @@
 class Solution {
 public:
-    string addStrings(string a, string b) {
-        reverse(a.begin(),a.end());
-        reverse(b.begin(),b.end());
-        int n=a.size();
-        int m=b.size();
-        int k=min(n,m);
-        int i=0;
-        int carry=0;
-        string ans;
-        while(m>n){
-            a.push_back('0');
-            n++;
+    string addStrings(string num1, string num2) {
+        int i=num1.length()-1,j=num2.length()-1;
+        int c = 0;
+        string v = "";
+        for(i,j;i>=0 && j>=0;i--,j--){
+            int a = num1[i]-'0';
+            int b = num2[j]-'0';
+            int d = a+b+c;
+            c = d/10;
+            char e = (d%10)+'0';
+           v = v + e;
         }
-        while(m<n){
-            b.push_back('0');
-            m++;
+        for(i;i>=0;i--){
+            int a = num1[i]-'0' + c;
+            c = a/10;
+             char e = (a%10) + '0';
+            v  = v + e;
         }
-        while(n--){
-            int sum=a[i]-'0'+b[i]-'0'+carry;
-            carry=sum/10;
-            ans.push_back((sum%10)+'0');
-            i++;
+        for(j;j>=0;j--){
+            int a = num2[j]-'0' + c;
+            c = a/10;
+           char e = (a%10) + '0';
+           v = v+e;
         }
-        if(carry) ans.push_back(carry+'0');
-        reverse(ans.begin(),ans.end());
-        return ans;
+        char e = c + '0';
+        if(c!=0) v  = v + e;
+        reverse(v.begin(),v.end());
+        return v;
     }
 };
