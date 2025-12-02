@@ -1,19 +1,17 @@
 class Solution {
 public:
     int furthestDistanceFromOrigin(string a) {
-        int r=0,l=0,u=0;
-        for(char i : a ){
-            if(i=='R') r++;
-            else if( i=='L') l++;
-            else u++;
+        int l=0,r=0,c=0;
+        for(int i=0;i<a.size();i++){
+            if(a[i]=='L'){
+                l++;
+            }
+            else if(a[i]=='R'){
+                r++;
+            }
+            else c++;
         }
-        int cnt=0;
-        if( l == r){
-            cnt=l+u-r;
-        }else{
-            cnt = max( l,r)-min(l,r)+u;
-        }
-        return abs(cnt);
-        
+        int d=abs(l-r);
+        return d+c;
     }
 };
