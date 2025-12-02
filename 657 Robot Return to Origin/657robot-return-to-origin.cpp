@@ -1,23 +1,18 @@
 class Solution {
 public:
-    bool judgeCircle(string a) {
-        int m=0,n=0;
-        for(int i=0;i<a.size();i++){
-            if(a[i]=='U'){
-                m++;
-            }
-            if(a[i]=='D'){
-                m--;
-            }
-            if(a[i]=='L'){
-                n++;
-            }
-            if(a[i]=='R'){
-                n--;
-            }
+    bool judgeCircle(string m) {
+        int a = 0,b=0,c=0,d=0;
+        for(int i=0;i<m.size();i++){
+            if(m[i]=='U') a++;
+            else if(m[i]=='D') c++;
+            else if(m[i]=='L') d++;
+            else b++;
         }
-        if(m==0&&n==0)
-        return 1;
-        else return 0;
+        if(a==c && b==d){
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 };
