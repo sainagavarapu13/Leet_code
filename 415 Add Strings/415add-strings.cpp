@@ -1,27 +1,30 @@
 class Solution {
 public:
     string addStrings(string a, string b) {
-        int i=a.size()-1,j=b.size()-1;
-        int c=0,k;
-        string s;
-        while( i>=0 && j >=0){
-             k = c+(a[i--]-'0')+(b[j--]-'0');
-             cout << k << endl;
-           
-            s+=(k%10)+'0';
-            c=k/10;
+        reverse(a.begin(),a.end());
+        reverse(b.begin(),b.end());
+        int n=a.size();
+        int m=b.size();
+        int k=min(n,m);
+        int i=0;
+        int carry=0;
+        string ans;
+        while(m>n){
+            a.push_back('0');
+            n++;
         }
-        while( i >=0){
-            k=c+(a[i--]-'0');
-            s+=(k%10)+'0';
-            c=k/10;
-        } while( j>=0){
-            k=c+(b[j--]-'0');
-            s+=(k%10)+'0';
-            c=k/10;
+        while(m<n){
+            b.push_back('0');
+            m++;
         }
-        if(c!=0)s+=c+'0';
-        reverse( s.begin(),s.end());
-        return s;
+        while(n--){
+            int sum=a[i]-'0'+b[i]-'0'+carry;
+            carry=sum/10;
+            ans.push_back((sum%10)+'0');
+            i++;
+        }
+        if(carry) ans.push_back(carry+'0');
+        reverse(ans.begin(),ans.end());
+        return ans;
     }
 };
