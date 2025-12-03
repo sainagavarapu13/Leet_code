@@ -1,16 +1,16 @@
 class Solution {
 public:
-    int findPoisonedDuration(vector<int>& a, int b) {
-        int ans=0;
-        for( int i=1;i<a.size();i++){
-         int in = a[i-1]+b;
-         if( a[i]<in){
-            ans+=a[i]-a[i-1];
-         }else{
-            ans+=b;
-         }
+    int findPoisonedDuration(vector<int>& a, int k) {
+        int sum=0;
+        int n=a.size();
+        for(int i=0;i<a.size();i++){
+            if(i!=n-1&&a[i]+k-1>=a[i+1]){
+                sum+=a[i+1]-a[i];
+            }
+            else{
+                sum+=k;
+            }
         }
-        ans+=b;
-        return ans;
+        return sum;
     }
 };
