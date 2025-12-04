@@ -1,17 +1,19 @@
 class Solution {
 public:
     int countCollisions(string a) {
-        int s=0;
-        int e=a.size()-1;
-        while(s<a.size() && a[s]=='L'){
-            s++;
+        int n=a.size();
+        int i=0,end=n-1;
+        while(i<n&&a[i]=='L'){
+            i++;
         }
-        while(e>=0&& a[e]=='R'){
-            e--;
+        while(end>=0&&a[end]=='R'){
+            end--;
         }
         int cnt=0;
-        for( int i=s;i<=e;i++){
-            if( a[i] =='L' || a[i]=='R')cnt++;
+        for(int j=i;j<=end;j++){
+            if(a[j]!='S'){
+                cnt++;
+            }
         }
         return cnt;
     }
