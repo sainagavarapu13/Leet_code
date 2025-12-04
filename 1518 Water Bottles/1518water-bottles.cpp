@@ -1,16 +1,11 @@
 class Solution {
 public:
-    int numWaterBottles(int a, int b) {
-        int tot=a,t;
-        int rem=0;
-        // if(a>b) return a;
-        // if(a==b) return a+1;
-        while(a+rem>=b){
-            t=((a+rem)/b);
-            rem=((a+rem)%b);
-            tot+=t;
-            a=t;
+    int numWaterBottles(int numBottles, int numExchange) {
+        int a=numBottles;
+        while(numBottles>=numExchange){
+            a +=numBottles/numExchange;
+            numBottles = (numBottles/numExchange)  + (numBottles%numExchange);
         }
-        return tot;
+        return a;
     }
 };
