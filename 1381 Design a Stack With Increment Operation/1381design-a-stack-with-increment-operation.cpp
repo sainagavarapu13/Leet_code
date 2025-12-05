@@ -1,34 +1,34 @@
 class CustomStack {
 public:
-    vector<int>s;
-    int size , top=-1;
-    CustomStack(int a) {
-        s=vector<int>(a);
-        size = a;
+    vector<int>stack;
+    int top=-1,size;
+    CustomStack(int maxSize) {
+        stack=vector<int>(maxSize);
+        size=maxSize;
     }
     
     void push(int x) {
-        if( top < size-1){
+        
+        if(top<size-1){
             top++;
-            s[top]=x;
-
-        } 
+        stack[top]=x;
+        }
     }
     
     int pop() {
         int k=-1;
-        if( top !=-1){
-            k = s[top];
-            top--;
+        if(top!=-1){
+            k=stack[top];
+             top--;
         }
         return k;
-        
     }
     
     void increment(int k, int val) {
-        int n = min( k , size);
-        for( int i=0;i<n;i++){
-            s[i]+=val;
+        int i;
+        int K=min(k,size);
+        for(i=0;i<K;i++){
+            stack[i]+=val;
         }
     }
 };
