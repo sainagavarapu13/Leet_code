@@ -1,17 +1,22 @@
 class Solution {
 public:
-    vector<int> processQueries(vector<int>& b, int m) {
-       vector<int>a,c;
-        for( int i=0;i<m;i++) a.push_back(m-i);
-        for( int i=0;i<b.size();i++){
-            int k = b[i];
-            auto it = find( a.begin(),a.end(),k);
-            int ind = m-1-(it-a.begin());
-            c.push_back(ind);
-            a.erase( a.begin()+(it-a.begin()));
-            a.push_back(k);
+    vector<int> processQueries(vector<int>& a, int m) {
+       vector<int>ans;
+        for(int i=0;i<m;i++){
+            ans.push_back(i+1);
         }
-        
-        return c;
+        reverse(ans.begin(),ans.end());
+        vector<int>key;
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<ans.size();j++){
+                if(a[i]==ans[j]){
+                key.push_back(m-j-1);
+                ans.erase(ans.begin()+j);
+                ans.push_back(a[i]);
+                break;
+                }
+            }
+        }
+        return key;
     }
 };
