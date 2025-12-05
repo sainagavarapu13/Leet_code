@@ -1,18 +1,18 @@
 class Solution {
 public:
-    int countPartitions(vector<int>& nums) {
-        int cnt =0;
-        int o=0,e=0;
-        for( int i:nums){
-            if( i%2==0) e++;
-            else o++;
+    int countPartitions(vector<int>& a) {
+        int sum=0,cnt=0;
+        for(auto& i:a){
+            sum+=i;
         }
-        if(o%2!=0) return 0;
-        else{
-            return o+e-1;
+        int count=0;
+        for(int i=0;i<a.size()-1;i++){
+          cnt+=a[i];
+          sum-=a[i];
+          if((abs(sum-cnt))%2==0){
+            count++;
+          }  
         }
-        if( nums.size() == e && o==0) return e-1;
-        
-        
+        return count;
     }
 };
