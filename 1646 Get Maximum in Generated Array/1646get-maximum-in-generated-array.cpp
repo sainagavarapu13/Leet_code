@@ -1,20 +1,22 @@
 class Solution {
 public:
     int getMaximumGenerated(int n) {
-        vector<int>a;
-        if(a.size()<n+1)a.push_back(0);
-        if(a.size()<n+1)a.push_back(1);
-        int i=1;
-        for(i=1;i<=n/2;i++){
-           if(a.size()<n+1) a.push_back(a[i]);
-           if(a.size()<n+1) a.push_back(a[i]+a[i+1]);
-           else break;
-           
+        vector<int> v(n+1,0);
+        v[0] = 0;
+        if(n==0) return 0;
+        v[1] = 1;
+        int max = 1;
+        if(n==1) return 1;
+        for(int i=2;i<=n;i++){
+            if(i%2==0){
+                v[i] = v[i/2];
+            }
+            else{
+                int a = i/2;
+                v[i] = v[a] + v[a+1];
+                if(v[i]>max) max = v[i];
+            }
         }
-        int m=INT_MIN;
-        for(auto& i: a) {
-            if(i>m) m=i;
-        }
-        return m;
+        return max;
     }
 };
