@@ -2,21 +2,29 @@ class Solution {
 public:
     long long maxPoints(vector<int>& t1, vector<int>& t2, int k) {
         int n = t1.size();
-        vector<long long> gain;
-        long long sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += t2[i];                    
-            gain.push_back(t1[i] - t2[i]);   
+        vector<int> v(n);
+        for(int i=0;i<n;i++){
+            v[i] = t2[i] - t1[i];
         }
-
-        sort(gain.begin(), gain.end(), greater<long long>());
-        for (int i = 0; i < k; i++) {
-            sum += gain[i];
+        vector<int> i(n);
+        iota(i.begin(),i.end(),0);
+        sort(i.begin(),i.end(),[&](int a,int b){
+            return v[a] > v[b];
+        });
+        long long a=0;
+        for(int x : t1){
+            a +=x;
         }
-        for (int i = k; i < n; i++) {
-            if (gain[i] > 0) sum += gain[i];
+        int max = n-k;
+        for(int j=0;j<max;j++){
+            int b = i[j];
+            if(v[b]>0){
+                a += v[b];
+            }
+            else{
+                break;
+            }
         }
-
-        return sum;
+        return a;
     }
 };
