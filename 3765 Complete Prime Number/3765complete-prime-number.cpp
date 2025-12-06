@@ -1,33 +1,36 @@
 class Solution {
 public:
-    bool isprime(long long n) {
-        if (n <= 1) return false;
-        for (long long i = 2; i * i <= n; i++) {
-            if (n % i == 0) return false;
+    bool prime(int n){
+        if(n<=1) return 0;
+        for(int i=2;i*i<=n;i++){
+            if(n%i==0) return 0;
         }
-        return true;
+        return 1;
     }
-
     bool completePrime(int num) {
-
-       
-        if (num < 10) return isprime(num);
-
-        string s = to_string(num);
-        int n = s.size();
-
-        
-        for (int i = 1; i <= n; i++) {
-            long long prefix = stoll(s.substr(0, i));
-            if (!isprime(prefix)) return false;
+        if(num<=9){
+            return prime(num);
         }
-
-        
-        for (int i = 0; i < n; i++) {
-            long long suffix = stoll(s.substr(i));
-            if (!isprime(suffix)) return false;
+        if(!prime(num)){
+            return 0;
         }
-
-        return true;
+        vector<int> v;
+        int dig = log10(num);
+        while(dig>0){
+            int b = pow(10,dig);
+            v.push_back(num%b);
+            v.push_back(num/b);
+            dig--;
+        }
+        for(int i=0;i<v.size()-1;i = i+2){
+            // cout<<v[i]<<"  "<<v[i+1]<<endl;
+            if(prime(v[i]) && prime(v[i+1])){
+                continue;
+            }
+            else{
+                return 0;
+            }
+        }
+        return 1;
     }
 };
