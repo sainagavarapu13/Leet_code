@@ -1,35 +1,32 @@
 class Solution {
 public:
-    bool fun(int a) {
-        if (a<0) return false; 
-        string s;
-        while (a>0) {
-            s+=char('0'+(a&1));
-            a>>= 1;
+    bool fun(int a){
+        if(a<0) return false;
+        string string1;
+        while(a>0){
+            string1+=char('0'+(a&1));
+            a >>= 1;
         }
-        string r =s;
-        reverse(r.begin(), r.end());
-        return s==r;
+        string res = string1;
+        reverse(res.begin(),res.end());
+        return string1==res;
     }
-
     vector<int> minOperations(vector<int>& nums) {
-        vector<int> ans;
-        for (int x:nums) {
-            int d = 0;
+        vector<int> a;
+        for(int x:nums){
+            int k = 0;
             while(1){
-                if (fun(x - d)) {   
-                    ans.push_back(d);
+                if(fun(x-k)){
+                    a.push_back(k);
                     break;
                 }
-                if (fun(x + d)) {   
-                    ans.push_back(d);
+                if(fun(x+k)){
+                    a.push_back(k);
                     break;
                 }
-                d++;
+                k++;
             }
         }
-
-
-        return ans;
+        return a;
     }
 };
