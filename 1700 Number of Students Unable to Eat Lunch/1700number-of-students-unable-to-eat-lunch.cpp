@@ -1,20 +1,22 @@
 class Solution {
 public:
-    int countStudents(vector<int>& st, vector<int>& s) {
-        int cnt=0;
-        for( int i=0;i<s.size();i++){
-            int f=0;
-            for(int j=0;j<st.size();j++){
-                if( s[i]==st[j]){
+    int countStudents(vector<int>& a, vector<int>& b) {
+      
+        int n=a.size(),cnt=0,f=0;
+        for(int i=0;i<n;i++){
+            f=0;
+            for(int j=0;j<n;j++){
+                if(b[i]==a[j]){
                     cnt++;
                     f=1;
-                    st[j]=-1;
+                   // cout<<"b "<<i<<" "<<"A "<<j<<"\n";
+                    a[j]=-1;
                     break;
                 }
             }
-            if( f==0) break;
+            if(f==0) break;
         }
-        return st.size()-cnt;
-        
+       // cout<<cnt;
+        return n-cnt;
     }
 };
