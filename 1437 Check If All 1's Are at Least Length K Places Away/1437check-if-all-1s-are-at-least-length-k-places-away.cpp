@@ -1,19 +1,24 @@
 class Solution {
 public:
-    bool kLengthApart(vector<int>& a, int k) {
-        int i;
-        int idx=-1;
-        for(i=0;i<a.size();i++){
-            if(a[i]==1){
-                if(idx==-1) idx=i;
-                else{
-                    int h=abs(idx-i)-1;
-                    if(h<k) return 0;
-                   idx=i;
-                }
+    bool kLengthApart(vector<int>& nums, int k) {
+        int n = nums.size(),a=0,b=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==1){
+                a = i;
+                b = i;
+                break;
             }
-           
         }
-         return 1;
+        for(int i=b+1;i<n;i++){
+            cout<<" !"<<nums[i]<<endl;
+            if(nums[i]==1){
+                cout<<"-"<<i<<" "<<a<<endl;
+                if((i-a-1)<k){
+                    return 0;
+                }
+                a = i;
+            }
+        }
+        return 1;
     }
 };
