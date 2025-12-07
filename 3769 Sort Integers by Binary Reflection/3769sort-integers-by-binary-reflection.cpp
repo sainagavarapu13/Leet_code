@@ -1,34 +1,38 @@
+#include <vector>
+#include <string>
+#include <algorithm>
+
 class Solution {
 public:
-    int fun(int x){
-        string s;
-        while (x) {
-            s += ((x & 1) + '0'); 
-            x >>= 1;
+    int binaryReflection(int n) {
+        int reflection = 0;
+        while (n) {
+            reflection = (reflection << 1) | (n % 2); 
+            n /= 2;
         }
-
-        int result = 0;
-        for (char c : s) {
-            result = (result << 1) + (c - '0');
-        }
-        return result;
+        return reflection;
     }
 
     vector<int> sortByReflection(vector<int>& nums) {
-        vector<pair<int, int>> a;
-        for (int i : nums) {
-            a.push_back({fun(i), i});
+        vector<std::pair<int, int>> reflections;
+
+        for (int num : nums) {
+            reflections.push_back({binaryReflection(num), num});
         }
 
-        sort(a.begin(), a.end(), [](auto &x, auto &y) {
-            if (x.first == y.first) return x.second < y.second; 
-    return x.first < y.first; 
+        
+       sort(reflections.begin(), reflections.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+            if (a.first == b.first) {
+                return a.second < b.second;  
+            }
+            return a.first < b.first;  
         });
 
-        vector<int> res;
-        for (auto &[x, y] : a) {
-            res.push_back(y);
+        vector<int> result;
+        for (const auto& p : reflections) {
+            result.push_back(p.second);
         }
-        return res;
+
+        return result;
     }
 };
