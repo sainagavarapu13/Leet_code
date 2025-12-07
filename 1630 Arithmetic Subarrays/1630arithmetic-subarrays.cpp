@@ -1,23 +1,25 @@
 class Solution {
 public:
-    vector<bool> checkArithmeticSubarrays(vector<int>& a, vector<int>& l, vector<int>& r) {
-        vector<bool>res;
-        for( int i=0;i<l.size();i++){
-            vector<int>k(a.begin()+l[i],a.begin()+r[i]+1);
-            sort(k.begin(),k.end());
-            bool ok = true;
-            int diff = k[1]-k[0];
-            for(int j =2;j<k.size();j++){
-                if( k[j]-k[j-1]!=diff){
-                    ok = false;
-                    break;
-                }
+    int is_arthmetic(vector<int>a,int start,int end){
+        sort(a.begin()+start,a.begin()+end+1);
+        int m=abs(a[start]-a[start+1]);
+        for(int i=start;i<end;i++){
+            if(m!=abs(a[i]-a[i+1])){
+                return 0;
             }
-            res.push_back(ok);
-            
         }
-        
-        
-        return res;
+        return 1;
+    }
+    vector<bool> checkArithmeticSubarrays(vector<int>& a, vector<int>& l,             vector<int>& r) {
+        int i;
+         vector<bool>ans;
+        for(i=0;i<l.size();i++){
+            
+           if(is_arthmetic(a,l[i],r[i])){
+            ans.push_back(true);
+           }
+           else ans.push_back(false);
+        }
+        return ans;
     }
 };
