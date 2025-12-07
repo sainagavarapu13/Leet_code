@@ -1,9 +1,14 @@
 class Solution {
 public:
-    string removeTrailingZeros(string num) {
-        while( num.back()=='0'){
-            num.pop_back();
+    string removeTrailingZeros(string a) {
+        int e=a.size()-1;
+        while(e>=0&&a[e]=='0'){
+            e--;
         }
-        return num;
+        string ans;
+        for(int i=0;i<=e;i++){
+            ans+=a[i];
+        }
+        return ans;
     }
 };
