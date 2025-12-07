@@ -1,38 +1,43 @@
-#include <vector>
-#include <string>
-#include <algorithm>
-
 class Solution {
 public:
-    int binaryReflection(int n) {
-        int reflection = 0;
-        while (n) {
-            reflection = (reflection << 1) | (n % 2); 
-            n /= 2;
+    int bi(int n){
+        string s="";
+        long long a = 1,b = 0;
+        while(n){
+            int e = n%2;
+            s = s + to_string(e);
+            n /=2;
         }
-        return reflection;
-    }
-
-    vector<int> sortByReflection(vector<int>& nums) {
-        vector<std::pair<int, int>> reflections;
-
-        for (int num : nums) {
-            reflections.push_back({binaryReflection(num), num});
-        }
-
-        
-       sort(reflections.begin(), reflections.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
-            if (a.first == b.first) {
-                return a.second < b.second;  
+        for(int i = s.length()-1;i>=0;i--){
+            //cout<<"--"<<b<<"--"<<s[i]<<"--"<<a<<endl;
+            if(s[i]=='0'){
+                a*=2;
+                continue;
             }
-            return a.first < b.first;  
-        });
-
-        vector<int> result;
-        for (const auto& p : reflections) {
-            result.push_back(p.second);
+            b = b + (s[i]-'0')*a;
+            a *=2;
         }
-
-        return result;
+        return b;
+    }
+    vector<int> sortByReflection(vector<int>& nums) {
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[i] = bi(nums[i]);
+        }
+        // for(auto x : m){
+        //    // cout<<"-"<<x.first<<" "<<x.second<<endl;
+        // }
+        vector<pair<int,int>> vec(m.begin(),m.end());
+        sort(vec.begin(),vec.end(),[&](auto &a,auto &b){
+            if(a.second == b.second){
+                return nums[a.first] < nums[b.first];
+            }
+            return a.second < b.second;
+        });
+        vector<int>n;
+        for(auto x : vec){
+            n.push_back(nums[x.first]);
+        }
+        return n;
     }
 };
