@@ -1,18 +1,14 @@
 class Solution {
 public:
-    string longestCommonPrefix(vector<string>& a) {
-        sort(a.begin(),a.end());
-        string first=a[0];
-        string last=a.back();
-        int i=0;
-        string ans;
-       while(i<first.size()&&i<last.size()){
-            if(first[i]!=last[i]) break;
-            else{
-                ans+=first[i];
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.empty()) return "";
+        string prefix = strs[0];
+        for(int i=1;i<strs.size();i++){
+            while(strs[i].find(prefix)!=0){
+                prefix = prefix.substr(0,prefix.length()-1);
+                if(prefix.empty()) return "";
             }
-            i++;
-       }
-       return ans;
+        }
+        return prefix;
     }
 };
