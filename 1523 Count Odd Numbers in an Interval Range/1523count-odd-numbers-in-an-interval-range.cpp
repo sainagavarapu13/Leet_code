@@ -1,11 +1,9 @@
 class Solution {
 public:
-    int countOdds(int a, int b) {
-        int cnt=b-a+1;
-        if(  cnt%2==0){
-            return (cnt/2);
-        }else {if(a%2 ==1 ) return (cnt/2)+1;
-                 }
-        return cnt/2;
+    int countOdds(int low, int high) {
+        int num=high-low+1;
+        if(num%2==0) return num/2;
+        return (low%2==0)?num/2:(num/2)+1;
+       
     }
 };
