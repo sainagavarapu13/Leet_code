@@ -1,12 +1,12 @@
 class Solution {
 public:
-    bool hasTrailingZeros(vector<int>& nums) {
-        int s=0;
-        for( int i: nums){
-            if(i%2==0) s++;
+    bool hasTrailingZeros(vector<int>& a) {
+        int cnt=0;
+        for(auto& i:a){
+            if(i%2==0){
+                cnt++;
+            }
         }
-        if( s>=2) return 1;
-        else return 0;
-        
+        return cnt>=2;
     }
 };
