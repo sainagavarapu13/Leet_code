@@ -1,8 +1,7 @@
 class Solution {
-    public boolean isArraySpecial(int[] a) {
-        
-        for(int i=1;i<a.length;i++){
-            if((a[i]%2==0&&a[i-1]%2==0)||(a[i]%2!=0&&a[i-1]%2!=0)){
+    public boolean isArraySpecial(int[] nums) {
+        for(int i=0;i<nums.length-1;i++){
+            if((nums[i]%2==0 && nums[i+1]%2==0) || (nums[i]%2!=0 && nums[i+1]%2!=0)){
                 return false;
             }
         }
