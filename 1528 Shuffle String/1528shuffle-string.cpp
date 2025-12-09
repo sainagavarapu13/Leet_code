@@ -1,10 +1,14 @@
 class Solution {
 public:
-    string restoreString(string s, vector<int>& a) {
-        string ans(a.size(),' ');
-        for(int i=0;i<a.size();i++){
-            ans[a[i]] = s[i];
+    string restoreString(string s, vector<int>& in) {
+        string a = s;
+        unordered_map<int,char> m;
+        for(int i=0;i<s.length();i++){
+            m[in[i]] = s[i];
         }
-        return ans;
+        for(auto x : m){
+            a[x.first] = x.second;
+        }
+        return a;
     }
 };
