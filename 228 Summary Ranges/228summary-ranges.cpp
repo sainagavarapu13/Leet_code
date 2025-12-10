@@ -1,31 +1,21 @@
-#include <vector>
-#include <string>
-using namespace std;
-
 class Solution {
 public:
-    vector<string> summaryRanges(vector<int>& n) {
-        vector<string> a;
-        if (n.empty()) return a;
-        
-        int start = n[0];
-        
-        for (int i = 1; i < n.size(); i++) {
-            if (n[i] != n[i-1] + 1) {
-                if (start == n[i-1]) {
-                    a.push_back(to_string(start));
-                } else {
-                    a.push_back(to_string(start) + "->" + to_string(n[i-1]));
-                }
-                start = n[i];
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> v;
+        int n = nums.size();
+        int i=0;
+        while(i<n){
+            int s = nums[i];
+            int j = i;
+            while(j+1<n && nums[j+1]==nums[j]+1) ++j;
+            if(j==i){
+                v.push_back(to_string(s));
             }
+            else{
+                v.push_back(to_string(s)+"->"+to_string(nums[j]));
+            }
+            i = j + 1;
         }
-        if (start == n.back()) {
-            a.push_back(to_string(start));
-        } else {
-            a.push_back(to_string(start) + "->" + to_string(n.back()));
-        }
-        
-        return a;
+        return v;
     }
 };
