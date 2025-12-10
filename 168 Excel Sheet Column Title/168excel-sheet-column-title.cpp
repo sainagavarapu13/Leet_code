@@ -1,13 +1,14 @@
 class Solution {
+    string s = "";
 public:
-    string convertToTitle(int x) {
-        string s;
-        while(x){
-            x--;
-            s = char((x%26)+'A')+s;
-            x/=26;
+    string convertToTitle(int c) {
+        while(c){
+            c--;
+            int a = c%26;
+            s += ('A' + a);
+            c /=26;
         }
-    return s;
-
+        reverse(s.begin(),s.end());
+        return s;
     }
 };
