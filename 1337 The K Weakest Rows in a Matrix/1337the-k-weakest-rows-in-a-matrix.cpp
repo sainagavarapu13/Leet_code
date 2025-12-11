@@ -1,22 +1,30 @@
 class Solution {
 public:
     vector<int> kWeakestRows(vector<vector<int>>& a, int k) {
-        vector<pair<int,int>>b;
-        int l=0;
-        for( auto i : a){
+        vector<pair<int,int>>p;
+        int i,j;
+        for(i=0;i<a.size();i++){
             int cnt=0;
-            for( int j : i){
-                if( j ==1) cnt++;
+            for(j=0;j<a[0].size();j++){
+                if(a[i][j]==1){
+                    cnt++;
+                }
             }
-            b.push_back({cnt , l});
-            l++;
+            p.push_back({cnt,i});
         }
-        sort( b.begin() ,b.end());
-        vector<int>res;
-        for( int i=0;i<k;i++){
-            res.push_back(b[i].second);
+        sort(p.begin(),p.end(),[](auto& x,auto& y){
+            if(x.first==y.first){
+                return x.second<y.second;
+            }
+            else return x.first<y.first;
+        });
+        vector<int>ans;
+        for(auto& i:p){
+            ans.push_back(i.second);
+            if(ans.size()==k){
+                return ans;
+            }
         }
-        return res;
-        
+        return ans;
     }
 };
