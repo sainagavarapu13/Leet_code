@@ -1,40 +1,44 @@
 class Solution {
 public:
-     bool check( char a){
-         bool flage = 0;
-         if( a >='a' && a<='z' ) flage =1;
-         else if( a >='A' && a<='Z' ) flage =1;
-          else if( a >='0' && a<='9' ) flage =1;
-         else if( a =='_' ) flage =1;
-         return flage;
-
-     }
+    bool num(char a){
+        if(a>='0'&&a<='9'){
+            return true;
+        }
+        return false;
+    }
+    bool alpha(char c){
+        if((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c=='_')) return true;
+        return false;
+    }
+    bool vaild(string& a){
+        for(int i=0;i<a.size();i++){
+            if((!num(a[i]))&&(!alpha(a[i]))) return false;
+        }
+        return true;
+    }
     vector<string> validateCoupons(vector<string>& a, vector<string>& b, vector<bool>& c) {
-        vector< pair< string , string >>d;
-        set<string> ch ={"grocery","pharmacy","restaurant","electronics"};
-        for( int i = 0;i < a.size();i++){
-            bool flage = 1;
-            for( int j =0;j<a[i].size();j++){
-                if(!check( a[i][j])){
-                    flage = 0;
-                    break;
+        set<string>s={"restaurant","pharmacy","grocery","electronics"};
+        vector<pair<string,string>>p;
+        for(int i=0;i<a.size();i++){
+            if(c[i]==true){
+                if(s.count(b[i])){
+                    if(vaild(a[i])&&a[i]!=""){
+                    p.push_back({b[i],a[i]});
+                    }
                 }
             }
-            if( flage ==0) continue;
-            if( flage && c[i]  &&  ch.count(b[i]) && a[i]!=""){
-                d.push_back({a[i],b[i]});
-            }
         }
-        sort( d.begin(),d.end(),[](auto& x , auto& y){
-            if( x.second == y.second){
-                return x.first < y.first;
+        sort(p.begin(),p.end(),[](auto& x,auto& y){
+            if(x.first==y.first){
+                return x.second<y.second;
             }
-            else return x.second < y.second;
+            else return x.first<y.first;
         });
-        vector<string>res;
-        for( auto[x,y]:d){
-            res.push_back(x);
+        vector<string>ans;
+        for(auto& i:p){
+            cout<<i.first<<" "<<i.second<<"\n";
+            ans.push_back(i.second);
         }
-        return res;
+        return ans;
     }
 };
