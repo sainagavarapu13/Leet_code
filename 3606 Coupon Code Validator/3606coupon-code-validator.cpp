@@ -1,44 +1,64 @@
 class Solution {
 public:
-    bool num(char a){
-        if(a>='0'&&a<='9'){
-            return true;
-        }
-        return false;
-    }
-    bool alpha(char c){
-        if((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c=='_')) return true;
-        return false;
-    }
-    bool vaild(string& a){
-        for(int i=0;i<a.size();i++){
-            if((!num(a[i]))&&(!alpha(a[i]))) return false;
+    bool st(string s){
+        for(int i=0;i<s.length();i++){
+            if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z') || (s[i]>='0' && s[i]<='9')|| (s[i]=='_')){
+                continue;
+            }
+            else{
+                return 0;
+            }
         }
         return true;
     }
-    vector<string> validateCoupons(vector<string>& a, vector<string>& b, vector<bool>& c) {
-        set<string>s={"restaurant","pharmacy","grocery","electronics"};
-        vector<pair<string,string>>p;
-        for(int i=0;i<a.size();i++){
-            if(c[i]==true){
-                if(s.count(b[i])){
-                    if(vaild(a[i])&&a[i]!=""){
-                    p.push_back({b[i],a[i]});
+    vector<string> validateCoupons(vector<string>& co, vector<string>& bu, vector<bool>& is) {
+        vector<string> a,b,c,d,e;
+        for(int i=0;i<bu.size();i++){
+            if(is[i]){
+                if(bu[i]=="electronics" && co[i].length()>0){
+                    if(st(co[i])){
+                        a.push_back(co[i]);
                     }
                 }
+                else if(bu[i]=="grocery"){
+                    if(st(co[i]) && co[i].length()>0){
+                        b.push_back(co[i]);
+                    }
+                }
+                else if(bu[i]=="pharmacy"){
+                    if(st(co[i]) && co[i].length()>0){
+                        c.push_back(co[i]);
+                    }
+                }
+                else if(bu[i]=="restaurant"){
+                    if(st(co[i]) && co[i].length()>0){
+                        d.push_back(co[i]);
+                    }
+                }
+                else{
+                    continue;
+                }
+            }
+            else{
+                continue;
             }
         }
-        sort(p.begin(),p.end(),[](auto& x,auto& y){
-            if(x.first==y.first){
-                return x.second<y.second;
-            }
-            else return x.first<y.first;
-        });
-        vector<string>ans;
-        for(auto& i:p){
-            cout<<i.first<<" "<<i.second<<"\n";
-            ans.push_back(i.second);
+        sort(a.begin(),a.end());
+        sort(b.begin(),b.end());
+        sort(c.begin(),c.end());
+        sort(d.begin(),d.end());
+        for(int i=0;i<a.size();i++){
+            e.push_back(a[i]);
         }
-        return ans;
+        for(int i=0;i<b.size();i++){
+            e.push_back(b[i]);
+        }
+        for(int i=0;i<c.size();i++){
+            e.push_back(c[i]);
+        }
+        for(int i=0;i<d.size();i++){
+            e.push_back(d[i]);
+        }
+        return e;
     }
 };
