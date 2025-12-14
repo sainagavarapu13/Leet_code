@@ -1,40 +1,43 @@
 class Solution {
 public:
+    bool vol(char ch){
+        if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u') return true;
+        return false;
+    }
     string reverseWords(string s) {
-        set<char> v = {'a','e','i','o','u'};
-        vector<string> w;
-        string temp = "";
-        for (char c : s) {
-            if (c == ' ') {
-                w.push_back(temp);
-                temp = "";
-            } else {
-                temp += c;
+        int start=0,end=0;
+        int cnt=0;
+       vector<string>words;
+        vector<int>vowels;
+        string temp;
+        for(int i=0;i<s.size();i++){
+            if(s[i]==' '){
+                words.push_back(temp);
+                vowels.push_back(cnt);
+                cnt=0;
+                temp.clear();
+            }
+            else{ 
+                if(vol(s[i])){
+                    cnt++;
+                }
+                temp.push_back(s[i]);
+                }
+        }
+        words.push_back(temp);
+        vowels.push_back(cnt);
+       int k=vowels[0];
+        for(int i=1;i<words.size();i++){
+            if(vowels[i]==k){
+                reverse(words[i].begin(),words[i].end());
             }
         }
-        w.push_back(temp);
-        int cnt = 0;
-        for (char c : w[0]) {
-            if (v.count(c)) cnt++;
+        string ans;
+        for(auto& i:words){
+            ans+=i;
+            ans+=' ';
         }
-
-        for (int i = 1; i < w.size(); i++) {
-            int c = 0;
-            for (char ch : w[i]) {
-                if (v.count(ch)) c++;
-            }
-            if (c == cnt) {
-                reverse(w[i].begin(), w[i].end());
-            }
-        }
-
-        string result = "";
-        for (int i = 0; i < w.size(); i++) {
-            result += w[i];
-            if (i != w.size() - 1)
-                result += " ";
-        }
-
-        return result;
+        ans.pop_back();
+        return ans;
     }
 };
