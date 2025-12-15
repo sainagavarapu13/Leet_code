@@ -1,11 +1,17 @@
 class Solution {
 public:
-    long long zeroFilledSubarray(vector<int>& nums) {
-        long long cnt = 0, a = 0;
-        for (int num : nums) {
-            a = (num == 0) ? a + 1 : 0;
-            cnt += a;
+    long long zeroFilledSubarray(vector<int>& a) {
+        long long sum=0;
+        long long cnt=0;
+        for(int i=0;i<a.size();i++){
+            if(a[i]==0){
+                cnt++;
+                sum+=cnt;
+            }
+            else {
+                cnt=0;
+            }
         }
-        return cnt;
+        return sum;
     }
 };
