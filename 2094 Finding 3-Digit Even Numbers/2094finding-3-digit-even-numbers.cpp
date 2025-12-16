@@ -1,23 +1,20 @@
 class Solution {
 public:
-    vector<int> findEvenNumbers(vector<int>& d) {
-        vector<int>f(10,0),res;
-        for( int i : d) f[i]++;
-        for( int i=100;i<1000;i+=2){
-            int a=i/100 , b = (i/10)%10 , c = i%10;
-            vector<int>n(10,0);
-            n[a]++;
-            n[b]++;
-            n[c]++;
-              int flg =1;
-            for( int j=0;j<10;j++){
-                if( n[j]>f[j]){
-                    flg =0;
-                    break;
+    vector<int> findEvenNumbers(vector<int>& a) {
+        int i,j,k;
+        set<int>ans;
+        for(i=0;i<a.size();i++){
+            for(j=0;j<a.size();j++){
+                for(k=0;k<a.size();k++){
+                    if(i==j||j==k||i==k||a[k]%2==1||a[i]==0) continue;
+                    else 
+                    ans.insert(a[i]*100+a[j]*10+a[k]);
                 }
             }
-            if( flg==1) res.push_back(i);
         }
-        return res;
+        vector<int>ANS;
+        for(auto& i:ans) ANS.push_back(i);
+        sort(ANS.begin(),ANS.end());
+        return ANS;
     }
 };
