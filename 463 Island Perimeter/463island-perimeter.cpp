@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int islandPerimeter(vector<vector<int>>& grid) {
-
-        int m = grid.size();
-        int n = grid[0].size();
-        int ans = 0;
-        int dr[] = {-1, 1, 0, 0};
-        int dc[] = {0, 0, -1, 1};
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) {
-                    ans += 4;
-                    for (int k = 0; k < 4; k++) {
-                        int ni = i + dr[k];
-                        int nj = j + dc[k];
-                        if (ni >= 0 && ni < m &&
-                            nj >= 0 && nj < n &&
-                            grid[ni][nj] == 1)
-                            ans--;
-                    }
-                }
-            }
+    // int count(int n,vector<vector<int>>& a){
+    //      for(i=0;i<a.size();i++){
+    //         for(j=0;j<a[0].size();j++){
+    //            if()
+    //     }
+    //     }
+    // }
+    int islandPerimeter(vector<vector<int>>& a) {
+        int i,j;
+        int sum=0;
+        int n=a.size(),m=a[0].size();
+        for(i=0;i<a.size();i++){
+            for(j=0;j<a[0].size();j++){
+               if(a[i][j]==1){
+                if(i==0||a[i-1][j]==0)  sum++;
+                if(j==0||a[i][j-1]==0) sum++;
+                if(i==n-1||a[i+1][j]==0) sum++;
+                if(j==m-1||a[i][j+1]==0) sum++;
+               }
         }
-
-        return ans;
+        }
+        return sum;
     }
 };
