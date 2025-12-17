@@ -1,15 +1,20 @@
 class Solution {
 public:
-    vector<string> stringSequence(string s) {
+    vector<string> stringSequence(string a) {
+        string b;
+        int i=0;
         vector<string>ans;
-        string a;
-        for (char c : s) {
-            a.push_back('a');
-            ans.push_back(a);
-            while (a.back()!=c) {
-                a.back()= (a.back()-'a'+1)%26+'a';
-                ans.push_back(a);
+        while(b!=a){
+            if(b.size()<a.size()){
+                b.push_back('a');
             }
+            ans.push_back(b);
+            while(b[i]!=a[i]){
+                b[i]++;
+                ans.push_back(b);
+            }
+            i++;
+            
         }
         return ans;
     }
