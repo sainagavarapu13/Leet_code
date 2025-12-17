@@ -1,23 +1,17 @@
 class Solution {
 public:
     bool areOccurrencesEqual(string s) {
-        map<char , int>mp;
-        for( char r : s){
-            mp[r]++;
+        map<char,int>m;
+        for(auto& i:s){
+            m[i]++;
         }
-        bool f=true;
-        int val =-1;
-        for( auto& [x,y]:mp){
-            if( val ==-1){
-                val = y;
-            }else if( val == y) continue;
-            else if( val != y){
-                f= false;
-                break;
-
-            }
+        vector<int>ans;
+        for(auto& [n,c]:m){
+            ans.push_back(c);
         }
-        return f;
-        
+        for(int i=1;i<ans.size();i++){
+            if(ans[i]!=ans[i-1]) return false;
+        }
+        return true;
     }
 };
