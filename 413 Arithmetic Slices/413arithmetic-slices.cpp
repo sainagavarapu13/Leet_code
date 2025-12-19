@@ -1,20 +1,27 @@
 class Solution {
 public:
+    bool isarth(vector<int>&a,int s,int e){
+        int k=a[s]-a[s+1];
+        for(int i=s;i<e;i++){
+            if(a[i]-a[i+1]!=k) return false;
+        }
+        return true;
+    }
     int numberOfArithmeticSlices(vector<int>& a) {
-        for(int i=1;i<a.size();i++){
-            a[i-1]=a[i-1]-a[i];
+        if(a.size()<3) return 0;
+        int start,cnt=0,i,j=2;
+        for(i=0;i<a.size()-2;i++){
+            j=2;
+            while(i+j<a.size()){
+                if(i+j<a.size()&&isarth(a,i,i+j)){
+                    cout<<i<<" "<<i+j<<"\n";
+                cnt++;
+                j++;
+            }
+            else break;
+            }
+            
         }
-        int sum=0;
-        int cnt=0;
-        for(int i=1;i<a.size()-1;i++){
-                if( a[i-1]==a[i]){ cnt++;
-                sum+=cnt;}
-                else{
-                    
-                    cnt=0;
-                }
-        }
-        
-        return sum;
+        return cnt;
     }
 };
