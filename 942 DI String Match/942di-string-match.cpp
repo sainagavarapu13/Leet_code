@@ -1,28 +1,14 @@
 class Solution {
 public:
-    vector<int> diStringMatch(string a) {
-        int minn=0;
-        int maxx=a.size();
-        vector<int>ans;
-       
-        for(int i=0;i<a.size();i++){
-            if(a[i]=='I') {
-                ans.push_back(minn);
-                minn++;
-            }
-            else{
-                ans.push_back(maxx);
-                maxx--;
-            }
+    vector<int> diStringMatch(string s) {
+        int l = 0,r=s.length(),b=r;
+        vector<int> v;
+        for(int i=0;i<r;i++){
+            if(s[i]=='I') v.push_back(l++);
+            if(s[i]=='D') v.push_back(b--);
+            //cout<<s[i]<<endl; 
         }
-        if(a[a.size()-1]=='I'){
-            int last=ans.back();
-            ans.push_back(last+1);
-        }
-        else{
-             int last=ans.back();
-            ans.push_back(last-1);
-        }
-        return ans;
+        v.push_back(l);
+        return v;
     }
 };
