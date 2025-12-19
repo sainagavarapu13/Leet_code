@@ -1,40 +1,25 @@
 class Solution {
 public:
     vector<int> decrypt(vector<int>& a, int k) {
-        int num = k;
-        int n = a.size();
-        vector<int> res(n, 0);
-        if (k == 0) return res;
-        if (k < 0) {
-            reverse(a.begin(), a.end());
-            k = -k;
+        if(k==0){
+            vector<int>ans(a.size(),0);
+            return ans;
         }
-
-        vector<long long> po;
-        long long sum = 0;
-
-        for (int i : a) {
-            sum += i;
-            po.push_back(sum);
-        }
-
-        vector<int> ans;
-
-        for (int i = 0; i < n; i++) {
-            int ind = n - i - 1;
-
-            if (ind >= k) {
-                ans.push_back((int)(po[i + k] - po[i]));
+        vector<int>ans;
+        int n=a.size();
+        for(int i=0;i<a.size();i++){
+            int sum=0;
+            if (k > 0) {
+                for (int j = 1; j <= k; j++) {
+                    sum += a[(i + j) % n];
+                }
             } else {
-                long long temp = po.back() - po[i];
-                int c = (k - ind - 1) % n;
-                // if (c < 0) c += n;  
-                temp += po[c];
-                ans.push_back((int)temp);
+                for (int j = 1; j <= -k; j++) {
+                    sum += a[(i - j + n) % n];
+                }
             }
+            ans.push_back(sum);
         }
-
-        if( num < 0) reverse( ans.begin(),ans.end());
         return ans;
     }
 };
