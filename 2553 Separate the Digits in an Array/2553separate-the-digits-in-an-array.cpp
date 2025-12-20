@@ -1,12 +1,20 @@
 class Solution {
 public:
-    vector<int> separateDigits(vector<int>& n) {
-        vector<int>a;
-        for(int i:n){
-           string s = to_string(i);
-            for(char k : s) a.push_back(k-'0');
+    vector<int> digits(int n){
+        vector<int>ans;
+        while(n){
+            ans.push_back(n%10);
+            n/=10;
         }
-        return a;
-        
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+    vector<int> separateDigits(vector<int>& a) {
+        vector<int>ans;
+        for(int i=0;i<a.size();i++){
+            vector<int>temp=digits(a[i]);
+            ans.insert(ans.end(),temp.begin(),temp.end());
+        }
+        return ans;
     }
 };
