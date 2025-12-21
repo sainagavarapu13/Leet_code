@@ -1,21 +1,15 @@
 class Solution {
 public:
-    int countKConstraintSubstrings(string s, int k) {
-        int l=0,r=0;
-        int ans=0;
-        int ones =0,zero=0;
-        while(r<s.size()){
-                if( s[r]=='0') zero++;
-                else ones++;
-                while( zero > k && ones >k){
-                     if( s[l]=='0') zero--;
-                        else ones--;
-                        l++;
+    int countKConstraintSubstrings(string s, int K) {
+        int cnt=0,o=0,z=0;
+        for(int i=0;i<s.size();i++){
+                z=0,o=0;
+                for(int k=i;k<s.size();k++){
+                    if(s[k]=='1') o++;
+                    else z++;
+                   if(o<=K||z<=K) cnt++;
                 }
-                ans+=(r-l+1);
-                r++;
         }
-        return ans;
-        
+        return cnt;
     }
 };
