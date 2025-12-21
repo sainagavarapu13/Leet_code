@@ -6,7 +6,7 @@ public:
         int end=k,cnt=0;
         while(end<s.size()){
             int f=0;
-            for(int i=start;i<end;i++){
+            for(int i=start;i<=end;i++){
                 for(int j=i+1;j<=end;j++){
                 if(s[i]==s[j]){
                     f=1;
@@ -15,7 +15,7 @@ public:
                 }
             }
             if(f==0){ cnt++;
-            }
+            cout<<s[start]<<" "<<s[end]<<"\n";}
             start++;
             end=start+2;
         }
