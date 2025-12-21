@@ -1,24 +1,13 @@
 class Solution {
 public:
     int countGoodSubstrings(string s) {
-        int k=2;
-        int start=0;
-        int end=k,cnt=0;
-        while(end<s.size()){
-            int f=0;
-            for(int i=start;i<=end;i++){
-                for(int j=i+1;j<=end;j++){
-                if(s[i]==s[j]){
-                    f=1;
-                    break;
-                }
-                }
+        int n  = s.length(),a=0;
+        if(n<3) return 0;
+        for(int i=0;i<n-2;i++){
+            if(s[i]!=s[i+1] && s[i+1]!=s[i+2] && s[i+2]!=s[i]){
+                a++;
             }
-            if(f==0){ cnt++;
-            cout<<s[start]<<" "<<s[end]<<"\n";}
-            start++;
-            end=start+2;
         }
-        return cnt;
+        return a;
     }
 };
