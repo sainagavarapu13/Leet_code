@@ -1,18 +1,21 @@
 class Solution {
 public:
-    int countCompleteSubarrays(vector<int>& a) {
-        set<int>s;
-        for(auto& i:a){
-            s.insert(i);
+    int countCompleteSubarrays(vector<int>& nums) {
+        unordered_set<int> s;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            s.insert(nums[i]);
         }
-        int dis=s.size(),cnt=0;
-        for(int i=0;i<a.size();i++){
-            set<int>set;
-            for(int j=i;j<a.size();j++){
-                set.insert(a[j]);
-                if(set.size()==dis) cnt++;
+        int a=0;
+        for(int i=0;i<n;i++){
+            set<int> v;
+            for(int j=i;j<n;j++){
+                v.insert(nums[j]);
+                if(v.size()==s.size()){
+                    a++;
+                }
             }
         }
-        return cnt;
+        return a;
     }
 };
