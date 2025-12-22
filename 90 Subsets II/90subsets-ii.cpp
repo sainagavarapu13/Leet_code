@@ -1,25 +1,21 @@
 class Solution {
 public:
-set<vector<int>>ans;
-    void fun(vector<int>&a ,int i,vector<int>&temp){
-        if(i==a.size()){
-            ans.insert(temp);
-           return;
+    set<vector<int>> sb;
+    vector<int> v;
+    void dfs(vector<int> n,int i){
+        if(i>=n.size()){
+            sb.insert(v);
+            return;
         }
-        temp.push_back(a[i]);
-        fun(a,i+1,temp);
-        temp.pop_back();
-        fun(a,i+1,temp);
+        v.push_back(n[i]);
+        dfs(n,i+1);
+        v.pop_back();
+        dfs(n,i+1);
     }
-    vector<vector<int>> subsetsWithDup(vector<int>& a) {
-        ans.clear();
-        vector<int>temp;
-        sort(a.begin(),a.end());
-        fun(a,0,temp);
-         vector<vector<int>>res;
-         for(auto& i:ans){
-            res.push_back(i);
-         }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        dfs(nums,0);
+        vector<vector<int>> res(sb.begin(),sb.end());
         return res;
     }
 };
