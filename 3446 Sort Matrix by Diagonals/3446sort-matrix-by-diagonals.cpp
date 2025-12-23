@@ -1,37 +1,35 @@
 class Solution {
 public:
-    vector<vector<int>> sortMatrix(vector<vector<int>>& a) {
-        vector<int>ans,b;
-         
-        int i,j,k=0,p;
-   for(p=0;p<a.size();p++){
-             j=k;
-            i=0;
-            int I=i;
-            int J=j;
-            while(i<a.size()&&j<a.size()){
-                if(i!=j) ans.push_back(a[i][j]);
-              b.push_back(a[j][i]);
-                i++;
-                j++;
+    vector<vector<int>> sortMatrix(vector<vector<int>>& mat) {
+        int n = mat.size()-1,m1 = mat[0].size()-1;
+        map<int,vector<int>> m;
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=m1;j++){
+                int a = i-j;
+                m[a].push_back(mat[i][j]);
+            }
         }
-        int m=0;
-        sort(ans.begin(),ans.end());
-        sort(b.begin(),b.end(),greater<>());
-        i=0;
-        j=k;
-       int  l=0;
-      while(i<a.size()&&j<a.size()){
-           if(i!=j) a[i][j]=ans[m++];
-          a[j][i]=b[l++];
-            i++;
-            j++;
+        for(auto &x:m){
+            if(x.first<0){
+                sort(x.second.rbegin(),x.second.rend());
+            }
+            else{
+                sort(x.second.begin(),x.second.end());
+            }
         }
-        ans.clear();
-        b.clear();
-         k++;
-    }
-       
-        return a;
+        for(auto x:m){
+            for(int i=0;i<x.second.size();i++){
+                cout<<x.second[i]<<" ";
+            }
+            cout<<endl;
+        }
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=m1;j++){
+                int a = i-j;
+                mat[i][j] = m[a].back();
+                m[a].pop_back();
+            }
+        }
+        return mat;
     }
 };
