@@ -1,10 +1,7 @@
 class Solution {
 public:
     int minimizedStringLength(string s) {
-        set<char>set;
-        for(auto& i:s){
-            set.insert(i);
-        }
-        return set.size();
+        unordered_set<char> uniqueChars(s.begin(), s.end());
+        return uniqueChars.size();
     }
 };
