@@ -1,34 +1,42 @@
 class Solution {
 public:
-     void right(vector<vector<int>>& g , int s ,int e){
-        int i =s , j = e;
-        vector<int>a;
-            while(i<g.size() && j<g[0].size()){
-                a.push_back(g[i][j]);
-                i++;
-                j++;
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        int n = mat.size()-1,m = mat[0].size()-1;
+        int i=0,j=m;
+        while(j>=0){
+            vector<int> v;
+            int a = i,b = j,c=0;
+            while(a<=n && b<=m){
+                v.push_back(mat[a][b]);
+                a++;
+                b++;
             }
-            sort(a.begin(),a.end());
-            int k =0;
-            i =s , j = e;
-            while(i<g.size() && j<g[0].size()){
-                g[i][j] = a[k];
-                i++;
-                j++;
-                k++;
+            sort(v.begin(),v.end());
+            a = i,b = j;
+            while(a<=n && b<=m){
+                mat[a][b] = v[c++];
+                a++;
+                b++;
             }
-    }
-    
-    vector<vector<int>> diagonalSort(vector<vector<int>>& g) {
-        for( int j =0;j<g[0].size();j++){
-            int i=0;
-            right(g,i,j);
-
-        } for( int i =0;i<g.size();i++){
-            int j=0;
-            right(g,i,j);
-
+            j--;
         }
-        return g;
+        while(i<=n){
+            vector<int> v;
+            int a = i,b = 0,c=0;
+            while(a<=n && b<=m){
+                v.push_back(mat[a][b]);
+                a++;
+                b++;
+            }
+            sort(v.begin(),v.end());
+            a = i,b=0;
+            while(a<=n && b<=m){
+                mat[a][b] = v[c++];
+                    a++;
+                    b++;
+            }
+            i++;
+        }
+        return mat;
     }
 };
