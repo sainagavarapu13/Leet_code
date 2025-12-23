@@ -11,15 +11,16 @@
  */
 class Solution {
 public:
-    int val=0;
+int sum=0;
+    void fun(TreeNode* root){
+        if(!root) return ;
+        fun(root->right);
+        sum+=root->val;
+        root->val=sum;
+        fun(root->left);
+    }
     TreeNode* convertBST(TreeNode* root) {
-        if(root==NULL) return root;
-        if( root->right) convertBST( root->right);
-        int a = root->val +val;
-        val+=root->val;
-        root->val = a;
-        if( root->left) convertBST(root->left);
+        fun(root);
         return root;
-        
     }
 };
