@@ -1,17 +1,15 @@
 class Solution {
 public:
-    vector<vector<int>> mergeArrays(vector<vector<int>>& a, vector<vector<int>>& b) {
-         vector<vector<int>>ans;
-        map<int,int>m;
-        for(auto& i:a){
-            m[i[0]]+=i[1];
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
+        map<int, int> merged;
+
+        for (auto& p : nums1) merged[p[0]] += p[1];
+        for (auto& p : nums2) merged[p[0]] += p[1];
+
+        vector<vector<int>> result;
+        for (auto& [id, val] : merged) {
+            result.push_back({id, val});
         }
-        for(auto& i:b){
-            m[i[0]]+=i[1];
-        }
-        for(auto& [n,c]:m){
-           ans.push_back({n,c});
-        }
-        return ans;
+        return result;
     }
 };
