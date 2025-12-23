@@ -11,20 +11,18 @@
  */
 class Solution {
 public:
-     TreeNode* a;
+ TreeNode* Root;
     void fun(TreeNode* root){
-        if( root == NULL) return;
+        if(!root) return;
         fun(root->left);
-        a->right = new TreeNode(root->val);
-        a = a->right;
+        Root->right= new TreeNode(root->val);
+        Root=Root->right;
         fun(root->right);
-
     }
     TreeNode* increasingBST(TreeNode* root) {
-           TreeNode* ans = new TreeNode();
-           a= ans;
-        fun( root);
-        return ans->right;
-        
+       TreeNode* temp= new TreeNode();
+      Root= temp;
+       fun(root);
+       return temp->right;
     }
 };
