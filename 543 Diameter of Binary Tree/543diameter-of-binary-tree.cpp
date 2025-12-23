@@ -11,21 +11,16 @@
  */
 class Solution {
 public:
-    struct info{
-        int h;
-        int d;
-    };
-    info dep(TreeNode* root){
-        if( root == NULL) return {0,0};
-        info lh = dep( root->left);
-        info rh = dep( root->right);
-        info cur;
-        cur.h = max(lh.h,rh.h)+1;
-        cur.d =max(lh.h+rh.h,max(lh.d,rh.d));
-        return cur;
+    int maxi = 0;
+    int d(TreeNode* root){
+        if(root==NULL) return 0;
+        int lh = d(root->left);
+        int rh = d(root->right);
+        maxi = max(maxi,lh+rh);
+        return max(lh,rh)+1;
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        info val = dep(root);
-        return val.d; 
+        int m = d(root);
+        return maxi;
     }
 };
