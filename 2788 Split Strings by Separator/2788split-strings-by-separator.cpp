@@ -1,22 +1,18 @@
 class Solution {
 public:
-    vector<string> splitWordsBySeparator(vector<string>& a, char k) {
-        vector<string>ans;
-       int i,j;
-       for(i=0;i<a.size();i++){
-        string res;
-        for(auto& j:a[i]){
-            if(j!=k){
-                res+=j;
-            }
-            else {
-               if(!res.empty()){ans.push_back(res);
-               res.clear();
-               }
+    vector<string> splitWordsBySeparator(vector<string>& words, char separator) {
+        vector<string> result;
+
+        for (const string& word : words) {
+            stringstream ss(word);
+            string token;
+            while (getline(ss, token, separator)) {
+                if (!token.empty()) {
+                    result.push_back(token);
+                }
             }
         }
-         if(!res.empty()) ans.push_back(res);
-       }
-       return ans;
+
+        return result;
     }
 };
