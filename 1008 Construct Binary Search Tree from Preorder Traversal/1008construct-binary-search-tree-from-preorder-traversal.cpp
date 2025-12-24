@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    TreeNode* inser( TreeNode * root,int val){
-        if( root== NULL) return new TreeNode(val);
-        else if( root->val<val){
-            root->right = inser(root->right,val);
-        }else if( root->val>val){
-            root->left = inser(root->left,val);
+    TreeNode* insert(int a,TreeNode * root){
+        if(root==NULL) return new TreeNode(a);
+        else if(root->val>a){
+            root->left=insert(a,root->left);
         }
+        else root->right=insert(a,root->right);
         return root;
     }
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        TreeNode* root=NULL;
-        for( int i : preorder){
-            root = inser(root,i);
+    TreeNode* bstFromPreorder(vector<int>& a) {
+        TreeNode * root = NULL;
+        for(int i=0;i<a.size();i++){
+            root=insert(a[i],root);
         }
         return root;
     }
