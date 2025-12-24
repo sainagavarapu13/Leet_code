@@ -11,38 +11,43 @@
  */
 class Solution {
 public:
-
+    TreeNode* insert(vector<int>&a , int i){
+        if (i >= a.size()) return NULL;
+         TreeNode* root = new TreeNode(a[i]);
+       root->left = insert(a,2*i+1);
+       root->right = insert(a,2*i+2);
+       return root;
+    }
     TreeNode* reverseOddLevels(TreeNode* root) {
         queue<TreeNode*>q;
+        if(!root) return NULL;
+        vector<vector<int>>a;
         q.push(root);
-        int cnt=0;
-          vector<TreeNode*>v;
-          int f;
-        while( !q.empty()){
-            if(!v.empty())
-             f = v.size();
-            int s = q.size();
-            cnt++;
-          
-            for( int i =0;i<s;i++){
-                TreeNode* node = q.front();
+        while(!q.empty()){
+            vector<int>temp;
+            int len=q.size();
+            for(int i=0;i<len;i++){
+                TreeNode * nn = q.front();
+                temp.push_back(nn->val);
+                if(nn->left) q.push(nn->left);
+                if(nn->right) q.push(nn->right);
                 q.pop();
-               if(node->left!=NULL) q.push(node->left);
-               if(node->right!=NULL) q.push(node->right);
-              v.push_back(node);
             }
-            if (cnt % 2 == 0) {
-                int l = f;
-                int r = v.size() - 1;
-
-                while (l < r) {
-                    swap(v[l]->val, v[r]->val);
-                    l++;
-                    r--;
-                }
-            }
-
+            a.push_back(temp);
         }
-        return root;
+        TreeNode *Root = NULL;
+        for(int i=1;i<a.size();i+=2){
+            reverse(a[i].begin(),a[i].end());
+        }
+        vector<int>vec;
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<a[i].size();j++){
+               vec.push_back(a[i][j]);
+               
+            }
+        }
+       
+        Root = insert(vec,0);
+        return Root;
     }
 };
