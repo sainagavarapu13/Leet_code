@@ -1,27 +1,27 @@
 class BrowserHistory {
-    vector<string>a;
-    int c;
+    vector<string> v;
+    int a = 0;
 public:
     BrowserHistory(string homepage) {
-       a.push_back(homepage);
-       c=0;
+        v.push_back(homepage);
+        a = 0;
     }
     
     void visit(string url) {
-        a.erase(a.begin()+c+1,a.end());
-        a.push_back(url);
-        c++;
+        v.erase(v.begin()+a+1,v.end());
+        v.push_back(url);
+        a++;
     }
     
     string back(int steps) {
-        c = max(0,c-steps);
-        return a[c];
-        
+        a = max(0,a-steps);
+        return v[a];
     }
     
     string forward(int steps) {
-        c = min((int)a.size()-1,c+steps);
-        return a[c];
+        int c = v.size()-1;
+         a = min(c,a+steps);
+        return v[a];
     }
 };
 
