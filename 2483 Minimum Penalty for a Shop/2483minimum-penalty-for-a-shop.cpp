@@ -1,26 +1,19 @@
 class Solution {
 public:
-    int bestClosingTime(string a) {
-        int y=0,n=0;
-        for(int i=0;i<a.size();i++){
-            if(a[i]=='Y') y++;
+    int bestClosingTime(string customers) {
+        int n = customers.size();
+        int p = 0, minPenalty = 0, bestHour = 0;
+        for (int i = 0; i < n; i++) {
+            if (customers[i] == 'Y') {
+                p--;
+            } else {
+                p++;
+            }
+            if (p < minPenalty) {
+                minPenalty = p;
+                bestHour = i + 1;
+            }
         }
-        int Y=y;
-        int sum=0,m=INT_MAX;
-        for(int i=0;i<=a.size();i++){
-                sum=n+y;
-              m=min(m,sum);
-              if(i!=a.size()&&a[i]=='N') n++;
-              if(i!=a.size()&&a[i]=='Y') y--;
-        }
-        y=Y,n=0;
-        cout<<m;
-        for(int i=0;i<a.size();i++){
-            if(n+y==m) return i;
-            if(a[i]=='Y') y--;
-            if(a[i]=='N') n++;
-        }
-      return a.size();
-
+        return bestHour;
     }
 };
