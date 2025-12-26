@@ -1,16 +1,16 @@
 class Solution {
 public:
-    long long minCost(string a, vector<int>& b) {
-        map<char, long long>m;
-        long long total =0;
-        for( int i=0;i<a.size();i++){
-            m[a[i]]+=b[i];
-            total+=b[i];
-        } 
-        long long ma =0;
-        for(auto[x,y]:m ){
-            ma = max( ma , y);
+    long long minCost(string s, vector<int>& cost) {
+        long long sum=0,m=LLONG_MAX;
+        for(char i='a';i<='z';i++){
+            sum=0;
+            for(int j=0;j<cost.size();j++){
+                if(s[j]!=i){
+                    sum+=cost[j];
+                }
+            }
+            m=min(sum,m);
         }
-        return total-ma;
+        return m;
     }
 };
