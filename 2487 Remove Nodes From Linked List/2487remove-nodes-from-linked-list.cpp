@@ -10,18 +10,22 @@
  */
 class Solution {
 public:
-    int maxi=INT_MIN;
-    ListNode* rev(ListNode* head){
-        if(!head) return NULL;
-        head->next = rev(head->next);
-         if(head->val < maxi){
-             return head->next; 
-         }
-        maxi=max(maxi,head->val);
-       return head;
-    }
     ListNode* removeNodes(ListNode* head) {
-        
-        return rev(head);
+        stack<ListNode*> st;
+        ListNode *curr = head;
+        while(curr){
+            while(!st.empty() && st.top()->val <curr->val){
+                st.pop();
+            }
+            st.push(curr);
+            curr = curr->next;
+        }
+        ListNode *temp = nullptr;
+        while(!st.empty()){
+            st.top()->next = temp;
+            temp = st.top();
+            st.pop();
+        }
+        return temp;
     }
 };
