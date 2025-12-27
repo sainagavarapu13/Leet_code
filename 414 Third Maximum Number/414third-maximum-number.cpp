@@ -1,20 +1,18 @@
 class Solution {
 public:
-    int thirdMax(vector<int>& a) {
-        sort(a.begin(),a.end());
-        set<int>s;
-        vector<int>arr;
-        for(int i=0;i<a.size();i++){
-            s.insert(a[i]);
+    int thirdMax(vector<int>& nums) {
+        map<int,int> m;
+        sort(nums.rbegin(),nums.rend());
+        int max = 0,n = nums.size()-1;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
+            if(m.size()==3){
+                return nums[i];
+            }
+            if(nums[i]>max){
+                max = nums[i];
+            }
         }
-        for(int i:s){
-            arr.push_back(i);
-        }
-        int len=arr.size();
-          if(len>=3) return arr[len-3];
-          else{
-            return arr[len-1];
-          }
-          return 0;
+        return max;
     }
 };
