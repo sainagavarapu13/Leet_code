@@ -1,9 +1,11 @@
-int countNegatives(int** m, int x, int* y) {
-    int cnt=0;
-    for( int i=0;i<x;i++){
-        for( int j = y[i]-1;j>=0;j--){
-            if( m[i][j]>0) break;
-            else if( m[i][j] <0) cnt++;
+int countNegatives(int** a, int n, int* m) {
+    int i,j,cnt=0;
+    for(i=0;i<n;i++){
+        for(j=0;j<m[i];j++){
+            if(a[i][j]<0){
+                cnt++;
+            }
+           
         }
     }
     return cnt;
