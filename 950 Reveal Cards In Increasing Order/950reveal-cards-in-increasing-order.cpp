@@ -1,21 +1,30 @@
 class Solution {
 public:
-    vector<int> deckRevealedIncreasing(vector<int>& a) {
-        int n=a.size();
-        vector<int>ans(n);
-        sort(a.begin(),a.end());
-        int k=0;
-       deque<int>dp;
-       for(int i=0;i<n;i++){
-        dp.push_back(i);
-       }
-       for(auto& i:a){
-        int idx = dp.front();
-        ans[idx]=i;
-        dp.pop_front();
-        dp.push_back(dp.front());
-        dp.pop_front();
-       }
-        return ans;
+    vector<int> deckRevealedIncreasing(vector<int>& deck) {
+        int n = deck.size();
+        vector<int> v(n);
+        queue<int> q;
+        vector<int> u;
+        for(int i=0;i<n;i++){
+            q.push(i);
+        }
+        while(!q.empty()){
+            u.push_back(q.front());
+            // cout<<q.front();
+            q.pop();
+            if(q.empty()){
+                break;
+            }
+            int a = q.front();
+            // cout<<" "<<q.front()<<endl;
+            q.pop();
+            q.push(a);
+        }
+        int a = 0;
+        sort(deck.begin(),deck.end());
+        for(int i=0;i<n;i++){
+            v[u[i]] = deck[a++];
+        }
+        return v;
     }
 };
