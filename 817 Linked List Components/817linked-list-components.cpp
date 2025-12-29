@@ -10,24 +10,24 @@
  */
 class Solution {
 public:
-    int numComponents(ListNode* head, vector<int>& a) {
-        set<int>s;
-        for(auto& i:a) s.insert(i);
-        ListNode* temp=head;
-        int cnt=0;
-        int f=0;
-        while(temp){
-            if(s.count(temp->val)){
-                f=1;
+    int numComponents(ListNode* head, vector<int>& nums) {
+        ListNode *temp =  head;
+        int a = 0,b=0;
+        while(temp!=NULL){
+            if(find(nums.begin(),nums.end(),temp->val)!=nums.end()){
+                a++;
             }
-            if(!s.count(temp->val)&&f==1){
-                cnt++;
-                f=0;
+            else{
+                if(a>0){
+                    b++;
+                    a = 0;
+                }
             }
-            if(temp->next==nullptr&&s.count(temp->val)) cnt++;
-            temp=temp->next;
+            temp = temp->next;
         }
-        
-        return cnt;
+        if(a>0){
+            b++;
+        }
+        return b;
     }
 };
