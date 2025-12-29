@@ -1,32 +1,33 @@
 class Solution {
 public:
-    bool fun(vector<int>& a , int val,int days){
-        int cnt=0;
-        int sum=0;
-        for( int i:a){
-            sum+=i;
-            if( sum>val){
-                sum=0;
-                sum+=i;
+    bool check(vector<int>a ,int d ,int k){
+        int sum =0,cnt=1;
+        for(int i=0;i<a.size();i++){
+            if(sum+a[i]<=k)  sum+=a[i];
+            else{
+                sum =a[i];
                 cnt++;
             }
+            if(cnt>d) return false;
         }
-        return (cnt <days);
+        
+        if(cnt<=d) return true;
+        return false;
+
     }
-    int shipWithinDays(vector<int>& a, int days) {
-        int start = *max_element(a.begin(),a.end());
-        int end=0;
-        for( int i:a){
-            end+=i;
+    int shipWithinDays(vector<int>& a, int d) {
+        int start=0,end,sum=0;
+        for(int i=0;i<a.size();i++){
+            start =max(start,a[i]);
+            sum+=a[i];
         }
-        while(start < end){
-            int mid = start+(end-start)/2;
-            if(!fun(a,mid,days)){
-                start = mid+1;
+        end = sum;
+        while(start<end){
+            int mid = (start+end)/2;
+            if(check(a,d,mid)){
+                end = mid;
             }
-            else if(fun(a,mid,days)){
-                end =mid;
-            }
+            else start = mid+1;
         }
         return start;
     }
