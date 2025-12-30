@@ -11,30 +11,40 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if(!head||!head->next) return ;
-        stack<ListNode*>st;
-        ListNode* temp = head;
+        vector<ListNode*> v;
+        ListNode *temp = head;
+        int a =0;
         while(temp!=NULL){
-            st.push(temp);
-            temp=temp->next;
+            v.push_back(temp);
+            a++;
+            temp = temp->next;
         }
-        temp = head;
-        while(true){
-            if(temp == st.top()||temp->next==st.top()){
+        int b = v.size()-1;
+        if(a%2==0){
+            a = (a/2)+1;
+        }
+        else{
+            a =a/2;
+        }
+        ListNode *t = head;
+        for(int i=0;i<a;i++){
+            ListNode *p = v[b--];
+            ListNode *h = t->next;
+            t->next = p;
+            // cout<<t->val<<" "<<p->val<<" "<<h->val<<endl;
+            // cout<<t->next<<"-"<<p<<endl;
+            p->next = h;
+            t = h;
+            if(h->next == v[b+1]){
+                h->next = NULL;
+                // cout<<"1"<<endl;
                 break;
             }
-             ListNode* t = temp->next;
-         
-            temp->next = st.top();
-        st.pop();
-            temp->next->next = t;
-            
-            temp = t;
+            if(h->next->next == v[b+1]){
+                h->next->next = NULL;
+                // cout<<"2"<<endl;
+                break;
+            }
         }
-
-         if (temp == st.top())
-            temp->next = nullptr;         
-        else
-            temp->next->next = nullptr; 
     }
 };
