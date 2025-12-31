@@ -1,28 +1,22 @@
 class Solution {
 public:
-    vector<vector<int>> divideArray(vector<int>& a, int k) {
-        int i,j;
-        vector<vector<int>>ans;
-        vector<int>in;
-        sort(a.begin(),a.end());
-        for(i=0;i<a.size();i+=3){
-            for(j=i;j<i+3;j++){
-                if(j==i){
-                    in.push_back(a[j]);
-                }
-                else{
-                    if(a[j]-a[i]<=k){
-                        in.push_back(a[j]);
-                    }
-                    else{
-                        ans.clear();
-                        return ans;
-                    }
-                }
+    vector<vector<int>> divideArray(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> q;
+        for(int i=0;i<nums.size()-1;i++){
+            vector<int> v;
+            if(abs(nums[i]-nums[i+1])<=k && abs(nums[i+2]-nums[i])<=k){
+                v.push_back(nums[i]);
+                v.push_back(nums[i+1]);
+                v.push_back(nums[i+2]);
+                i = i+2;
             }
-            ans.push_back(in);
-            in.clear();
+            else{
+                vector<vector<int>> b;
+                return b;
+            }
+            if(v.size()>0) q.push_back(v);
         }
-        return ans;
+        return q;
     }
 };
