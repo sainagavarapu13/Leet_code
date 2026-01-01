@@ -1,21 +1,19 @@
 class Solution {
 public:
     vector<int> plusOne(vector<int>& a) {
-        vector<int>b;
-        for( int i = a.size()-1;i>=0;i--){
-            b.push_back(a[i]);
+        int c = 1;
+        
+        for(int i= a.size()-1;i>=0;i--){
+            int k = a[i]+c;
+            a[i] = k%10;
+            c = k/10;
+            if(c==0) break;
         }
-        int n = b.size()-1;
-        b[0]+=1;
-        for( int i=1;i<b.size();i++){
-            b[i]+=b[i-1]/10;
-            b[i-1]%=10;
+        reverse(a.begin(),a.end());
+        if(c){
+            a.push_back(1);
         }
-        if( b[n]/10 !=0){
-            b.push_back(b[n]/10);
-            b[n]%=10;
-        }
-        reverse(b.begin(),b.end());
-        return b;
+        reverse(a.begin(),a.end());
+        return a;
     }
 };
