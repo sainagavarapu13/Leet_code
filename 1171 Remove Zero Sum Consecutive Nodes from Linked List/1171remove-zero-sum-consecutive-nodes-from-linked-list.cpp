@@ -11,35 +11,42 @@
 class Solution {
 public:
     ListNode* removeZeroSumSublists(ListNode* head) {
-        vector<int>a;
-        ListNode* temp =head;
-        while(temp){
-            a.push_back(temp->val);
-            temp=temp->next;
+        vector<int> v;
+        if(head==NULL) return nullptr;
+        ListNode *temp = head;
+        while(temp!=NULL){
+            v.push_back(temp->val);
+            temp = temp->next;
         }
-        bool f = true;
-        while(f){
-            f= false;
-        for(int i=0;i<a.size();i++){
-            int sum =0 ;
-            for(int j=i;j<a.size();j++){
-                sum+=a[j];
-                if(sum==0){
-                    a.erase(a.begin()+i,a.begin()+j+1);
-                    f=true;
-                    break;
+        int a = v.size();
+        bool n = true;
+        while(n){
+            n = false;
+            for(int i=0;i<a;i++){
+                int sum = 0;
+                for(int j=i;j<a;j++){
+                    sum += v[j];
+                    if(sum==0){
+                        v.erase(v.begin()+i,v.begin()+j+1);
+                        //cout<<i<<" "<<j<<endl;
+                        n = true;
+                        break;
+                    }
+                    // cout<<1<<endl;
                 }
+                if(n) break;
             }
-            if(f) break;
+            a = v.size();
+            // cout<<1<<endl;
         }
+        if(v.size()==0) return nullptr;
+        ListNode *t = new ListNode(v[0]);
+        ListNode *h = t;
+        for(int i=1;i<v.size();i++){
+            ListNode *p = new ListNode(v[i]);
+            h->next = p;
+            h = p;
         }
-        if(a.empty()) return nullptr;
-        ListNode* ans = new ListNode(a[0]);
-        ListNode* curr = ans;
-        for(int i=1;i<a.size();i++){
-                curr->next = new ListNode(a[i]);
-           curr = curr ->next;
-        }
-        return ans;
+        return t;
     }
 };
