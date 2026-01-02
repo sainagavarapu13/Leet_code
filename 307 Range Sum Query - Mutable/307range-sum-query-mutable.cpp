@@ -1,60 +1,31 @@
 class NumArray {
+    vector<int> nums;
+    vector<int> prefix;
 public:
-    vector<int>temp,val;
-
-    void build(int node,int start,int end){
-        if(start==end){
-            temp[node] = val[start];
-            return ;
+    NumArray(vector<int>& nums) {
+        this->nums = nums;
+        prefix.resize(nums.size() + 1, 0);
+        for (int i = 0; i < nums.size(); i++) {
+        prefix[i+1] = prefix[i] + nums[i];
         }
-        int mid = (start+end)/2;
-        build(2*node,start,mid);
-        build(2*node+1,mid+1,end);
-        temp[node] = temp[2*node]+temp[2*node+1]; 
-        return ;
     }
-    NumArray(vector<int>& a) {
-        int n=a.size();
-        temp.clear();
-        val.clear();
-        temp.resize(4*n);
-        val.resize(n);
-        val=a;
-        build(1,0,n-1);
-    }
-    void Update(int node, int start, int end, int idx, int val){
-            if(start == end)
-            {
-                temp[node] = val;
-                return;
-            }
-            int mid = (start + end) / 2;
-            if(idx <= mid)
-                Update(2*node, start, mid, idx, val);
-            else
-                Update(2*node+1, mid+1, end, idx, val);
-
-            temp[node] = temp[2*node] + temp[2*node+1];
-            return;
-    }
-    void update(int idx, int v) {
-        Update(1,0,val.size()-1,idx,v);
-    }
-    int get(int l,int r,int s,int e , int node){
-        if(r<s||e<l){
-           return 0;
+    
+    void update(int index, int val) {
+        int a = nums[index];
+        nums[index] = val;
+        for(int i=index+1;i<prefix.size();i++){
+            prefix[i] += val-a; 
         }
-        else if(s<=l&&r<=e){
-           return temp[node];
-        }
-        int mid = (l + r) / 2;
-
-        return get(l, mid, s, e, 2*node)
-         + get(mid+1, r, s, e, 2*node+1);
-
     }
-    int sumRange(int l, int r) {
-        return get(0,val.size()-1,l,r,1);
+    
+    int sumRange(int left, int right) {
+        if(left+right==0){
+            return prefix[1];
+        }
+        else{
+            cout<<prefix[left]<<" "<<prefix[right+1]<<endl;
+            return prefix[right+1]-prefix[left];
+        }
     }
 };
 
