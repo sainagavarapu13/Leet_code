@@ -11,22 +11,23 @@
 class Solution {
 public:
     int numComponents(ListNode* head, vector<int>& a) {
+        set<int>s;
+        for(auto& i:a) s.insert(i);
+        ListNode* temp=head;
         int cnt=0;
-        int b=0;
-        ListNode* temp = head;
-        while( temp){
-            if( find(a.begin(),a.end(),temp->val)!=a.end()){
-                temp=temp->next;
-                b++;
+        int f=0;
+        while(temp){
+            if(s.count(temp->val)){
+                f=1;
             }
-            else{
-                if(b>0 )cnt++;
-                b=0;
-                temp = temp->next;
+            if(!s.count(temp->val)&&f==1){
+                cnt++;
+                f=0;
             }
+            if(temp->next==nullptr&&s.count(temp->val)) cnt++;
+            temp=temp->next;
         }
-         if(b>0 )cnt++;
-        return cnt;
         
+        return cnt;
     }
 };
