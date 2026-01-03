@@ -1,28 +1,24 @@
 class Solution {
 public:
     int minLength(vector<int>& nums, int k) {
-         unordered_map<int,int> freq;
-        int n = nums.size();
-        int l = 0;
-        long long distinctSum = 0;
-        int ans = INT_MAX;
-
-        for (int r = 0; r < n; r++) {
-            freq[nums[r]]++;
-            if (freq[nums[r]] == 1) {
-                distinctSum += nums[r];
+        int n= nums.size();
+        int mini = INT_MAX,left =0;
+        long long sum = 0;
+        unordered_map<int,int> counts;
+        for(int i=0;i<n;i++){
+            if(counts[nums[i]]==0){
+                sum +=nums[i];
             }
-
-            while (distinctSum >= k) {
-                ans = min(ans, r - l + 1);
-                freq[nums[l]]--;
-                if (freq[nums[l]] == 0) {
-                    distinctSum -= nums[l];
-                }
-                l++;
+            counts[nums[i]]++;
+        while(sum>=k){
+            mini = min(mini,i-left+1);
+            counts[nums[left]]--;
+            if(counts[nums[left]]==0){
+                sum -=nums[left];
             }
+            left++;
         }
-
-        return ans == INT_MAX ? -1 : ans;
+        }
+        return (mini==INT_MAX) ? -1 : mini;
     }
 };
