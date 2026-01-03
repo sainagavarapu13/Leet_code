@@ -1,47 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* reverseBetween(ListNode* head, int a, int b) {
-        if (!head || a == b) return head;
-
-        ListNode *left = nullptr;
-        ListNode *right = nullptr;
-        ListNode *temp = head;
-
-       for( int i=1;i<a;i++) {
-            temp = temp->next;
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        int cnt = 1;
+        if(head==nullptr||left==right) return head;
+        ListNode*temp = head;
+         ListNode* before = nullptr;
+        while(cnt!=left){
+            before = temp;
+            cnt++;
+            temp=temp->next;
         }
-        left = temp;
-
-       for( int i=a;i<b;i++){
-         temp = temp->next;
-       }
-       right = temp;
-
-        if (!left || !right) return head;
-
-        ListNode *dum = left;
-        ListNode *h = left->next;
-
-        dum->next = right->next;
-
-        while (h != right) {
-            ListNode *nextNode = h->next;
-            h->next = dum;
-            dum = h;
-            h = nextNode;
+       
+        ListNode* t=temp;
+        while(cnt!=right){
+            cnt++;
+            t=t->next;
         }
-
-        right->next = dum;
-        dum = right;
-
-        if (head == left) return dum;
-
-        temp = head;
-        while (temp->next != left) {
-            temp = temp->next;
+        ListNode* after = t->next;
+        ListNode* next=nullptr;
+        ListNode* prev = nullptr;
+        ListNode* curr = temp;
+        while(curr!=after){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
-        temp->next = dum;
+        if(before!=nullptr)
+        before->next = prev;
+        else head=prev;
 
+        temp->next= after;
         return head;
     }
 };
