@@ -1,29 +1,26 @@
 class Solution {
 public:
-    int check(int a ){
-        int cnt = 0 , sum =0;
-        if(a<=5) return 0;
-        for(int i = 1;i*i<=a;i++){
-            if(a%i==0){
-                if((a/i)!=i){
-                    cnt+=2;
-                    sum+=i;
-                    sum+=a/i;
+    int sumFourDivisors(vector<int>& nums) {
+        int sum = 0,n = nums.size();
+        for(int i=0;i<n;i++){
+            int a = 0,b = 0;
+            for(int j=1;j*j<=nums[i];j++){
+                if(nums[i]%j==0){
+                    a++;
+                    b += j;
+                    int c = nums[i]/j;
+                    if(j!=c){
+                        b += c;
+                        a++;
+                    }
                 }
-                else{
-                    cnt++;
-                    sum+=i;
+                if(a>4){
+                    break;
                 }
             }
-            if(cnt>4) return 0;
-        }
-        if(cnt==4) return sum;
-        return 0;
-    }
-    int sumFourDivisors(vector<int>& a) {
-        int sum = 0;
-        for(int i=0;i<a.size();i++){
-            sum+=check(a[i]);
+            if(a==4){
+                sum += b;
+            }
         }
         return sum;
     }
