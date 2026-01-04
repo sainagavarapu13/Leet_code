@@ -26,6 +26,6 @@ bool canEat(int k,vector<int>a,int h){
             }
             else start = mid +1;
         }
-        return end;
+        return start;
     }
 };
