@@ -1,13 +1,17 @@
 class Solution {
 public:
     int findComplement(int a) {
-        if (a == 0) return 1;
-
-        int mask = 0, temp = a;
-        while (temp) {
-            mask = (mask << 1) | 1;
-            temp >>= 1;
+        string temp;
+        while(a){
+            temp.push_back(a%2+'0');
+            a=a/2;
         }
-        return (~a) & mask;
+        int num=0;
+        for(int i=0;i<temp.size();i++){
+            if(temp[i]=='0'){
+                num+=(pow(2,i));
+            }
+        }
+        return num;
     }
 };
