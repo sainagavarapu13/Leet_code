@@ -11,9 +11,26 @@
  */
 class Solution {
 public:
+    int min = INT_MAX;
+    void len(TreeNode* root,int a){
+        int b = a,c=a;
+        if(root==NULL) return;
+        if(root->left==NULL && root->right==NULL){
+            if(min>a){
+                min =a;
+            }
+            //cout<<root->val<<" "<<min<<endl;
+            return;
+        }
+            len(root->left,++b);
+            len(root->right,++c);
+    }
     int minDepth(TreeNode* root) {
-        if(!root) return 0;
-        if(root->left==NULL||root->right==NULL) return max(minDepth(root->left),minDepth(root->right))+1;
-        return min(minDepth(root->left),minDepth(root->right))+1;
+        if(root==NULL) return 0;
+        int a = 1;
+        if(root->left==NULL && root->right==NULL) return 1;
+        if(root->left!=NULL)len(root->left,2);
+        if(root->right!=NULL)len(root->right,2);
+        return min;
     }
 };
