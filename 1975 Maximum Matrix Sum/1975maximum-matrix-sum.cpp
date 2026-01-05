@@ -1,26 +1,26 @@
 class Solution {
 public:
     long long maxMatrixSum(vector<vector<int>>& a) {
-        long long  m =100001;
-        long long  sum=0;
-        int cnt=0;
-        for( auto i: a){
-            for( int j :i){
-                if( j<0){
-                        cnt++;
-                        sum+=abs(j);
-                        m = min(m ,(long long)abs(j));
-                }else{
-                    sum+=j;
-                    m = min(m ,(long long)abs(j));
+        long long sum=0,cnt=0;
+        vector<int>neg;
+        int flag=0,m=INT_MAX,odd=0;
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<a[0].size();j++){
+                if(a[i][j]==0) flag=1;
+               else  if(a[i][j]>0){
+                    sum+=a[i][j];
                 }
+               else {
+                cnt+=(-1)*a[i][j];
+                odd++;
+               }
+               m=min(m,abs(a[i][j]));
             }
         }
-        if(cnt%2==0){
-            return sum;
-        }else{
-            return ( sum - 2*m);
-        }
-        
+        if(flag) return sum+cnt;
+        if(odd==0) return sum;
+        if(odd%2==0) return sum+cnt;
+         return sum+cnt-(2ll*m*(1));
+
     }
 };
