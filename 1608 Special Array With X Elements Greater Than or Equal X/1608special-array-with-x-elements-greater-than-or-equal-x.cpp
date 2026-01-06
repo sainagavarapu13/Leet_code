@@ -1,18 +1,26 @@
 class Solution {
 public:
-    int specialArray(vector<int>& a) {
-        sort(a.begin(),a.end());
-        int start = 0,end = a.size();
-        while(start<=end){
-            int mid = (start+end)/2;
-            auto it = lower_bound(a.begin(),a.end(),mid);
-            int idx = it - a.begin();
-            int rem = a.size()-idx;
-            if(rem == mid) return mid;
-            else if (rem>mid){
-                start = mid+1;
+    int specialArray(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int i = 0,j = nums[nums.size()-1];
+        while(i<=j){
+            int mid  = (i+j)/2;
+            int a = 0;
+            for(int i=0;i<nums.size();i++){
+                if(nums[i]>=mid){
+                    a++;
+                }
             }
-            else end = mid -1;
+            if(a==mid){
+                return mid;
+            }
+            else if(a>mid){
+                i = mid+1;
+            }
+            else{
+                j = mid-1; 
+            }
+            //cout<<i<<" "<<j<<endl;
         }
         return -1;
     }
