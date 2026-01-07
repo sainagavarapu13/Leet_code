@@ -1,20 +1,20 @@
 class Solution {
 public:
     long long pickGifts(vector<int>& a, int k) {
-        priority_queue<int>q;
-        for( int i:a){
-            q.push(i);
+        long long sum =0;
+        priority_queue<int>pq;
+        for(int i=0;i<a.size();i++){
+            pq.push(a[i]);
         }
-        for( int i=0;i<k;i++){
-            int val = q.top();
-            int root = floor(sqrt(val));
-            q.pop();
-            q.push(root);
+        while(k--){
+            int lar = pq.top();
+            pq.pop();
+            pq.push(sqrt(lar));
         }
-        long long sum=0;
-        while( !q.empty()){
-                sum+=q.top();
-                q.pop();
+        while(!pq.empty()){
+            int lar = pq.top();
+            pq.pop();
+            sum+=lar;
         }
         return sum;
     }
