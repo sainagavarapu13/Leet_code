@@ -1,29 +1,23 @@
 class Solution {
 public:
-bool check(vector<int>&a,int mid ,int k){
-    long long cnt=0;
-    for(int i=0;i<a.size();i++){
-        if(a[i]>mid){
-           cnt += (a[i] + mid - 1) / mid - 1;
-           if(cnt>k) return false;
-
+    bool fun(vector<int> v,int o,int s){
+        long long op = 0;
+        for(int n:v){
+            op += (n-1)/s;
+            if(op>o) return false;
         }
-         }
-    return true;
-}
-    int minimumSize(vector<int>& a, int k) {
-        sort(a.begin(),a.end(),greater<>());
-        int start = 1;
-        int end = a[0];
-        while(start<end){
-            int mid = (start+end)/2;
-            if(check(a,mid,k)){
-                end = mid;
-            }
-            else{
-                start = mid+1;
-            }
+        return true;
+    }
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        int left =1,right = *max_element(nums.begin(),nums.end());
+        while(left<right){
+            int mid = (left+right)/2;
+            if(fun(nums,maxOperations,mid))
+                right = mid;
+                else{
+                    left = mid +1;
+                }
         }
-        return start;
+        return left;
     }
 };
