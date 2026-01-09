@@ -1,21 +1,15 @@
 class Solution {
 public:
-    vector<vector<int>> intervalIntersection(vector<vector<int>>& a, vector<vector<int>>& b) {
-        vector<vector<int>>ans;
-        if(a.empty()||b.empty()) return ans;
-        sort(a.begin(),a.end());
-        sort(b.begin(),b.end());
-        for(int i=0;i<a.size();i++){
-            int start ,end;
-            for(int j=0;j<b.size();j++){
-                  start = max(a[i][0],b[j][0]);
-                  end = min(a[i][1],b[j][1]);
-                  if(start <= end) {
-                    ans.push_back({start, end});
-                }
-            }
-           
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& f, vector<vector<int>>& s) {
+        vector<vector<int>> v;
+        int i=0,j=0;
+        while(i<f.size() && j<s.size()){
+            int l = max(f[i][0],s[j][0]);
+            int h = min(f[i][1],s[j][1]);
+            if(l<=h) v.push_back({l,h});
+            if(f[i][1]<s[j][1]) i++;
+            else j++;
         }
-        return ans;
+        return v;
     }
 };
