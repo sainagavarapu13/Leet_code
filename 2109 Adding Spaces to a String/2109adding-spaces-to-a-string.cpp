@@ -1,17 +1,16 @@
 class Solution {
 public:
-    string addSpaces(string s, vector<int>& a) {
-        int p=0;
-        string ans;
-        for(int i=0;i<s.size();i++){
-           
-            
-             if(p<a.size()&&i==(a[p])){
-                p++;
-                ans.push_back(' ');
+    string addSpaces(string s, vector<int>& sp) {
+        int a=0,b=0;
+        string t = "";
+        while(a<s.length()){
+            if(b<sp.size() && a==sp[b]){
+                t +=" ";
+                b++;
             }
-            ans.push_back(s[i]);
+            t+=s[a];
+            a++;
         }
-        return ans;
+        return t;
     }
 };
