@@ -11,21 +11,21 @@
  */
 class Solution {
 public:
-    int height(TreeNode* root){
-        if(!root) return 0;
-        return 1+max(height(root->left),height(root->right));
-    }
-    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-          if(!root) return NULL;
-        int left = height(root->left);
-        int right = height(root->right);
-        if(left==right) return root;
-        if(left>right){
-           return subtreeWithAllDeepest(root->left);
+    pair<int,TreeNode*> same1123(TreeNode* yeah){
+        if(!yeah) return {0,nullptr};
+        auto left = same1123(yeah->left);
+        auto right = same1123(yeah->right);
+        if(left.first==right.first){
+            return {left.first+1,yeah};
+        }
+        else if(left.first>right.first){
+            return {left.first+1,left.second};
         }
         else{
-           return subtreeWithAllDeepest(root->right);
+            return {right.first+1,right.second};
         }
-       // return NULL;
+    }
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        return same1123(root).second;
     }
 };
