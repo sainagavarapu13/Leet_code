@@ -11,21 +11,21 @@
  */
 class Solution {
 public:
-    int height(TreeNode* root){
-        if(!root) return 0;
-        return 1+max(height(root->left),height(root->right));
-    }
-    TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        if(!root) return NULL;
-        int left = height(root->left);
-        int right = height(root->right);
-        if(left==right) return root;
-        if(left>right){
-           return lcaDeepestLeaves(root->left);
+    pair<int,TreeNode*> postorder(TreeNode* N){
+        if(!N) return {0,nullptr};
+        auto left = postorder(N->left);
+        auto right = postorder(N->right);
+        if(left.first==right.first){
+            return {left.first+1,N};
+        }
+        else if(left.first>right.first){
+            return {left.first+1,left.second};
         }
         else{
-           return lcaDeepestLeaves(root->right);
+            return {right.first+1,right.second};
         }
-        return NULL;
+    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        return postorder(root).second;
     }
 };
