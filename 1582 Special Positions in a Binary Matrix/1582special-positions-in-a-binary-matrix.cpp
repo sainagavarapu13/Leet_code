@@ -1,27 +1,24 @@
 class Solution {
 public:
-    int numSpecial(vector<vector<int>>& a) {
-        vector<int>row(a.size(),0);
-        vector<int>col(a[0].size(),0);
-        for(int i=0;i<a.size();i++){
-            for(int j=0;j<a[0].size();j++){
-                if(a[i][j]==1){
-                   
-                    row[i]++;
-                    col[j]++;
-                    
+    int numSpecial(vector<vector<int>>& mat) {
+        int a = 0,n=mat.size(),m=mat[0].size();
+        for(int i=0;i<n;i++){
+            int c=0,b=0;
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==1){
+                    c++;
+                    b = j;
                 }
             }
-        }
-        int cnt=0;
-         for(int i=0;i<a.size();i++){
-            for(int j=0;j<a[0].size();j++){
-                if(a[i][j]==1 && row[i]==1 && col[j]==1){
-                   cnt++;
-                    
+            if(c==1){
+                int d = 0;
+                for(int k=0;k<n;k++){
+                    if(mat[k][b]==1) d++;
+                    if(d>1) break;
                 }
+                if(d==1) a++;
             }
         }
-        return cnt;
-   }
+        return a;
+    }
 };
