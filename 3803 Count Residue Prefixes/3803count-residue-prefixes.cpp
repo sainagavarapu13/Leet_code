@@ -1,20 +1,15 @@
 class Solution {
 public:
     int residuePrefixes(string s) {
-        vector<int> freq(26, 0);
-        int distinct = 0;
-        int ans = 0;
-        for (int i = 0; i < s.size(); i++) {
-            int idx = s[i] - 'a';
-            if (freq[idx] == 0) {
-                distinct++;
-            }
-            freq[idx]++;
-            int len = i + 1;
-            if (distinct == len % 3) {
-                ans++;
+        int cnt = 0;
+        set<char>set;
+        for(int i=0;i<s.size();i++){
+            set.insert(s[i]);
+            int dis = set.size();
+            if(dis==((i+1)%3)){
+                cnt++;
             }
         }
-        return ans;
+        return cnt;
     }
 };
