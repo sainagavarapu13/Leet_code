@@ -1,20 +1,22 @@
 class Solution {
 public:
-    int centeredSubarrays(vector<int>& a) {
-        int sum = 0;
-        int n = a.size();
-       for (int i = 0; i < n; i++) {
-               set<int>temp;
-           int cnt=0;
-    for (int j = i; j < n; j++) {
-        temp.insert(a[j]);
-        cnt+=a[j];
-        if(temp.count(cnt) ){
-            sum++;
+        bool check(vector<int>&a,int start,int end,int k){
+            for(int i=start;i<=end;i++){
+                if(a[i]==k) return true;
+            }
+            return false;
         }
-       
-    }
-} 
-        return sum;
+    int centeredSubarrays(vector<int>& a) {
+        int i,j,cnt=0;
+        for(i=0;i<a.size();i++){
+            int sum = 0;
+            for(j=i;j<a.size();j++){
+                sum+=a[j];
+               if( check(a,i,j,sum)){
+                   cnt++;
+               }
+            }
+        }
+        return cnt;
     }
 };
