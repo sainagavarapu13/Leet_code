@@ -1,20 +1,10 @@
 class Solution {
 public:
-    int minTimeToVisitAllPoints(vector<vector<int>>& a) {
-        int cnt = 0;
-        for(int i=0;i<a.size()-1;i++){
-              if (a[i][0] == a[i+1][0]) {
-                cnt += abs(a[i][1] - a[i+1][1]);
-            }
-            else if (a[i][1] == a[i+1][1]) {
-                cnt += abs(a[i][0] - a[i+1][0]);
-            }
-            else {
-                int dx = abs(a[i][0] - a[i+1][0]);
-                int dy = abs(a[i][1] - a[i+1][1]);
-                cnt += max(dx, dy);
-            }
+    int minTimeToVisitAllPoints(vector<vector<int>>& points) {
+        int res = 0;
+        for(int i=1;i<points.size();i++){
+            res += max(abs(points[i][0]-points[i-1][0]),abs(points[i-1][1]-points[i][1]));
         }
-        return cnt;
+        return res;
     }
 };
