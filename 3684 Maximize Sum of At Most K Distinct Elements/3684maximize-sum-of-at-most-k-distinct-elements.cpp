@@ -1,17 +1,16 @@
 class Solution {
 public:
-    vector<int> maxKDistinct(vector<int>& a, int k) {
-        
-        set<int>set(a.begin(),a.end());
-       vector<int>b(set.begin(),set.end());
-        sort(b.begin(),b.end(),greater<>());
-        int i=0;
-        vector<int>ans;
-        for(auto& i:b) cout<<i<<" ";
-        for(i=0;i<b.size()&&i<k;i++){
-            ans.push_back(b[i]);
-            
+    vector<int> maxKDistinct(vector<int>& nums, int k) {
+        sort(nums.rbegin(),nums.rend());
+        unordered_set<int> s;
+        int a = 0;
+        for(auto x:nums){
+            if(s.size()<k){
+                s.insert(x);
+            }
         }
-        return ans;
+        vector<int> v(s.begin(),s.end());
+        sort(v.rbegin(),v.rend());
+        return v;
     }
 };
