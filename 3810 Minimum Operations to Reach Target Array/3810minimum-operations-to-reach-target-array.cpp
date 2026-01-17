@@ -1,14 +1,13 @@
 class Solution {
 public:
-    int minOperations(vector<int>& nums, vector<int>& target) {
-        unordered_set<int> st;
-    int n = nums.size();
-
-    for (int i = 0; i < n; i++) {
-        if (nums[i] != target[i]) {
-            st.insert(nums[i]);
+    int minOperations(vector<int>& a, vector<int>& b) {
+        set<int>set;
+        for(int i=0;i<a.size();i++){
+            if(a[i]!=b[i]){
+               set.insert(a[i]);
+            }
         }
-    }
-    return st.size();
+        return set.size();
+        
     }
 };
