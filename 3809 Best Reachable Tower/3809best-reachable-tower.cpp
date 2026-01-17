@@ -1,40 +1,34 @@
 class Solution {
 public:
-    vector<int> bestTower(vector<vector<int>>& a, vector<int>& b, int k) {
-        vector<int>temp;
-        map<int,vector<pair<int,int>>>m;
-        for(int i=0;i<a.size();i++){
-           
-                int dis = abs(a[i][0]-b[0])+abs(a[i][1]-b[1]);
-                if(dis<=k){
-                    m[a[i][2]].push_back({a[i][0],a[i][1]});
+    vector<int> bestTower(vector<vector<int>>& towers, vector<int>& center, int radius) {
+        vector<int> v;
+        vector<int> res;
+        int m = -1;
+        for(int i=0;i<towers.size();i++){
+            int a = abs(towers[i][0]-center[0])+ abs(towers[i][1]-center[1]);
+            if(a<=radius){
+                v.push_back(i);
+                if(towers[i][2]>m){
+                    m = towers[i][2];
                 }
-            
-        }
-        int first;
-        for(auto& [n,c]:m){
-             first = n;
-          //  break;
-        }
-        if (m.empty()) return {-1,-1};
-        vector<pair<int,int>>v;
-        for(auto& [n,c]:m){
-           if(n==first){
-               for(int i=0;i<c.size();i++){
-                   v.push_back({c[i].first,c[i].second});
-                   
-               }
-           }
-        }
-        sort(v.begin(),v.end(),[](auto& x , auto& y){
-            if(x.first==y.first){
-                return x.second<y.second;
             }
-            else return x.first<y.first;
-        });
-        vector<int>ans;
-        ans.push_back(v[0].first);
-         ans.push_back(v[0].second);
-        return ans;
+        }
+        if(m==-1) return {-1,-1};
+        int a = INT_MAX,b = INT_MAX;
+        for(int i=0;i<v.size();i++){
+            if(m==towers[v[i]][2]){
+                if(a>towers[v[i]][0]){
+                    a = towers[v[i]][0];
+                    b = towers[v[i]][1];
+                }
+                else if(a==towers[v[i]][0]){
+                    if(b>towers[v[i]][1]){
+                        a = towers[v[i]][0];
+                        b = towers[v[i]][1];
+                    }
+                }
+            }
+        }
+        return {a,b};
     }
 };
