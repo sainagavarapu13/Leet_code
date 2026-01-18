@@ -1,18 +1,12 @@
 class Solution {
 public:
-    bool isvol(char ch){
-        if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u') return true;
-        return false;
-    }
     int vowelConsonantScore(string s) {
-        int vol=0,con=0;
+        int v = 0,c= 0;
         for(int i=0;i<s.size();i++){
-            if(isvol(s[i])) vol++;
-            else if(s[i]>='a'&&s[i]<='z') con++;
+            if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u') v++;
+            else if(s[i]>='a' && s[i]<='z') c++;
         }
-        if(con>0){
-            return floor(vol/con);
-        }
-        else return 0;
+        if(c>0) return v/c;
+        return 0;
     }
 };
