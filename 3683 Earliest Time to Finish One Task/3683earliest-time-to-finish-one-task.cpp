@@ -1,11 +1,10 @@
 class Solution {
 public:
-    int earliestTime(vector<vector<int>>& a) {
-        int i,m=INT_MAX;
-        for(i=0;i<a.size();i++){
-            int k = a[i][0]+a[i][1];
-            m=min(m,k);
+    int earliestTime(vector<vector<int>>& tasks) {
+        set<int> s;
+        for(int i=0;i<tasks.size();i++){
+            s.insert(tasks[i][0]+tasks[i][1]);
         }
-        return m;
+        return *s.begin();
     }
 };
