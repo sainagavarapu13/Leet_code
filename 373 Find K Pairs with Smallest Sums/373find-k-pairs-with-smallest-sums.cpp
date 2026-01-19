@@ -12,7 +12,7 @@ priority_queue<pair<int, pair<int, int>>> pq;
             else if (sum < pq.top().first) {
                 pq.pop();
                 pq.push({sum, {nums1[i], nums2[j]}});
-            } else if (sum >= pq.top().first) {
+            } else  {
                
                 break;
             }
