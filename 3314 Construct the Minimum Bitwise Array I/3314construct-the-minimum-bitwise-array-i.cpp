@@ -1,18 +1,16 @@
 class Solution {
 public:
-    vector<int> minBitwiseArray(vector<int>& a) {
-        vector<int>ans;
-        for(int i=0;i<a.size();i++){
-            int f=0;
-            for(int j=1;j<a[i];j++){
-                if((j|j+1)==a[i]){
-                    ans.push_back(j);
-                    f=1;
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        for(int i=0;i<nums.size();i++){
+            int c = -1;
+            for(int a =0;a<nums[i];a++){
+                if((a|(a+1))==nums[i]){
+                    c = a;
                     break;
                 }
             }
-            if(f==0) ans.push_back(-1);
+            nums[i] = c;
         }
-        return ans;
+        return nums;
     }
 };
