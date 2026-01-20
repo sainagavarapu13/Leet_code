@@ -1,43 +1,41 @@
 class Solution {
 public:
     vector<int> smallestRange(vector<vector<int>>& a) {
-        vector<pair<int, int>>m;
-        for( int i=0;i<a.size();i++){
-            for( int j =0;j<a[i].size();j++){
-                m.push_back({a[i][j],i});
-                
-            }
+       vector<pair<int,int>>pair;
+       for(int i=0;i<a.size();i++){
+        for(int j =0;j<a[i].size();j++){
+             pair.push_back({a[i][j],i});
         }
-        sort( m.begin(),m.end());
-        vector<int> f(a.size(), 0);   
-        int cnt=0;
-        int x=-1, y=-1;
-        int left =0;
-        for( int i=0;i<m.size();i++){
-            if( f[m[i].second]==0){
-                 f[m[i].second]++;
-                    cnt++;
+       }
+       sort(pair.begin(),pair.end());
+       vector<int>count(a.size(),0);
+       int cnt = 0;
+       int left = 0,low = -1,high = -1;
+       for(int i=0;i<pair.size();i++){
+        if(count[pair[i].second]==0){
+            cnt++;
+            count[pair[i].second]++;
+        }
+        else count[pair[i].second]++;
+        while(cnt==a.size()){
+            if(low==-1&&high==-1){
+             low=pair[left].first;
+            high = pair[i].first;
             }
-           else f[m[i].second]++;
-         while(cnt ==a.size()) {  
-            if( x==-1 && y ==-1){
-                x = m[left].first;
-                y = m[i].first;
-            }else{
-            int p = m[left].first;
-            int q = m[i].first;
-            if( (q-p == y-x && p<x) ||  q-p < y-x){
-                 y=q;
-                x=p;
-            }}
-            if(--f[m[left].second]==0)
-            cnt--;
+           else{
+            int diff1 = high-low;
+            int diff2 = pair[i].first - pair[left].first;
+            if((diff1==diff2&&low>pair[left].first)||diff1>diff2){
+                    low=pair[left].first;
+                    high = pair[i].first;
+             }
+
+           }
+            if(count[pair[left].second]>0) count[pair[left].second]--;
+            if(count[pair[left].second]==0) cnt--;
             left++;
-            }
-            
-            
-           
         }
-        return {x,y};
+       }
+       return {low,high};
     }
 };
