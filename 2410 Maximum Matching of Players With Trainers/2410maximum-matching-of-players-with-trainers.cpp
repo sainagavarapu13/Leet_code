@@ -1,19 +1,19 @@
 class Solution {
 public:
-    int matchPlayersAndTrainers(vector<int>& a, vector<int>& b) {
-        sort(a.begin(),a.end());
-        sort(b.begin(),b.end());
-        int i=0,j=0;
-        int cnt=0;
-        while(i<a.size()&&j<b.size()){
-            while(j<b.size()&&a[i]>b[j]){
+    int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        int res = 0,i=0,j=0;
+        sort(players.begin(),players.end());
+        sort(trainers.begin(),trainers.end());
+        while(i<players.size() && j<trainers.size()){
+            if(players[i]<=trainers[j]){
+                i++;
+                j++;
+                res++;
+            }
+            else{
                 j++;
             }
-            if(j<b.size()&&a[i]<=b[j])
-            cnt++;
-            j++;
-            i++;
         }
-        return cnt;
+        return res;
     }
 };
