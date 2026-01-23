@@ -1,14 +1,17 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int i=0;
-        for(auto& c:t){
-            if(i<s.size()&&c==s[i]){
+        int i=0,j=0;
+        while(i<s.length() && j<t.length()){
+            if(s[i]==t[j]){
                 i++;
+                j++;
+            }
+            else{
+            j++;
             }
         }
-        cout<<i;
-        if(i==s.size()) return 1;
-        else return 0;
+        if(i==s.length()) return true;
+        return false;
     }
 };
