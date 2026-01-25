@@ -1,10 +1,15 @@
 class Solution {
 public:
-    int minimumPrefixLength(vector<int>& a) {
-        int i=a.size()-1;
-        while(i>0&&a[i]>a[i-1]){
-            i--;
+    int minimumPrefixLength(vector<int>& nums) {
+        int n = nums.size();
+        for(int i=n-1;i>0;i--){
+            if(nums[i]>nums[i-1]){
+                continue;
+            }
+            else{
+                return i;
+            }
         }
-        return i;
+        return 0;
     }
 };
