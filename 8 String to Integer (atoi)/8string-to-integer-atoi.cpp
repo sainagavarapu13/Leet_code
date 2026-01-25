@@ -1,29 +1,27 @@
 class Solution {
 public:
     int myAtoi(string s) {
-        int i=0;
-        int sign = 1;
-        while(i<s.size()&&s[i]==' ') i++;
-        if(i>=s.size()) return 0;
-        if(s[i]=='-') {sign=0;i++;}
-        else if(s[i]=='+') i++;
-        long long sum=0;
-        for(int j=i;j<s.size();j++){
-            if(s[j]>='0'&&s[j]<='9'){
-                sum=sum*10+(s[j]-'0');
-                if(sum>INT_MAX){
-                   if(sign) return INT_MAX;
-                   else return INT_MIN;
-                }
-                if(sum<INT_MIN){
-                    return INT_MIN;
+        long long num = 0,a = 1,i=0,n = s.length();
+        for(i;i<n;i++)
+            if(s[i]==' ')continue;
+            else break;
+        if(n>0 && s[i]=='+' || s[i]=='-'){
+            if(s[i]=='+') a=1;
+            else a = -1;
+            i++;
+        }
+        for(i;i<n;i++){
+            if(s[i]==' ') break;
+            if(s[i]>='0' && s[i]<='9'){
+                num = num*10+(s[i]-'0');
+                if(num>2147483647){
+                    return (2147483648 + (a==1 ? -1: 0))*a; 
                 }
             }
-            else {
+            else{
                 break;
             }
         }
-        if(sign==0) return (int)-1*sum;
-        return (int)sum;
+        return (int)num*a;
     }
 };
