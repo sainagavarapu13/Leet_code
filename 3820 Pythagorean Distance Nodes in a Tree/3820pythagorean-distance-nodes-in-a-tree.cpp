@@ -1,43 +1,40 @@
 class Solution {
 public:
-    vector<long long>bfs(int start , vector<vector<int>>adj){
-       int n=adj.size();
-        vector<long long>dist(n,-1);
-        dist[start]=0;
-        queue<int>q;
+    vector<int> bfs(int start,int n, vector<vector<int>> & adj){
+        vector<int> dist(n,-1);
+        queue<int> q;
         q.push(start);
+        dist[start] = 0;
         while(!q.empty()){
-            int node = q.front();
+            int u = q.front();
             q.pop();
-            for(auto& connected : adj[node]){
-                if(dist[connected]==-1){
-                   dist[connected]= dist[node]+1;
-                    q.push(connected);
+            for(int v:adj[u]){
+                if(dist[v]==-1){
+                    dist[v] = dist[u]+1;
+                    q.push(v);
                 }
             }
         }
         return dist;
     }
     int specialNodes(int n, vector<vector<int>>& edges, int x, int y, int z) {
-        vector<vector<int>>adj(n);
-        for(auto& e:edges){
+        int res = 0;
+        vector<vector<int>> adj(n);
+        for(auto &e: edges){
             adj[e[0]].push_back(e[1]);
             adj[e[1]].push_back(e[0]);
         }
-        vector<long long>x_dist = bfs(x,adj);
-        vector<long long>y_dist = bfs(y,adj);
-        vector<long long>z_dist = bfs(z,adj);
-        int cnt=0;
+        vector<int> dx = bfs(x,n,adj);
+        vector<int> dy = bfs(y,n,adj);
+        vector<int> dz = bfs(z,n,adj);
         for(int i=0;i<n;i++){
-            vector<long long>d = {x_dist[i] , y_dist[i] , z_dist[i]};
-            if (d[0] == -1 || d[1] == -1 || d[2] == -1) {
-                continue;
-            }
+            vector<int> d = {dx[i],dy[i],dz[i]};
             sort(d.begin(),d.end());
-            if(d[0]*d[0] + d[1]*d[1] == d[2]*d[2]){
-                cnt++;
+            long long a = d[0],b = d[1],c = d[2];
+            if(a*a + b*b == c*c) {
+                res++;
             }
         }
-        return cnt;
+        return res;
     }
 };
