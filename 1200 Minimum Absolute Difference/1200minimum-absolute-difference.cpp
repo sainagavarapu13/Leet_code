@@ -1,17 +1,18 @@
 class Solution {
 public:
     vector<vector<int>> minimumAbsDifference(vector<int>& a) {
-        vector<vector<int>> b;
-        sort( a.begin(),a.end());
-        int m= INT_MAX;
-        for( int i=1;i<a.size();i++){
-                m = min( m , a[i]-a[i-1]);
+        int m=INT_MAX;
+        sort(a.begin(),a.end());
+        for(int i=1;i<a.size();i++){
+               m=min(m,abs(a[i]-a[i-1]));
         }
-        for( int i=1;i<a.size();i++){
-            if(a[i]-a[i-1] == m){
-                b.push_back({a[i-1],a[i]});
+        vector<vector<int>>ans;
+        for(int i=1;i<a.size();i++){
+                if(m==(abs(a[i]-a[i-1]))){
+                    ans.push_back({a[i-1],a[i]}); 
             }
         }
-        return b;
+        sort(ans.begin(),ans.end());
+        return ans;
     }
 };
