@@ -1,13 +1,27 @@
 class Solution {
 public:
+    string bin(int n){
+    string ans="";
+    while(n){
+        ans+=(n%2)+'0';
+        n/=2;
+    }
+   // reverse(ans.begin(),ans.end());
+    return ans;
+}
+
     vector<int> evenOddBit(int n) {
-        int e=0,o=0;
-        for( int i=0;i<=31;i++){
-            if(n&(1<<i)){
-                if(i%2==0) e++;
-                else o++;
+        string binary = bin(n);
+        int eve=0,odd=0;
+        cout<<binary;
+        for(int i=0;i<binary.size();i++){
+            if(binary[i]=='1'){
+                if(i%2==0) eve++;
+                else odd++;
             }
         }
-        return {e,o};
+        vector<int>ans = {eve,odd};
+        return ans;
+        
     }
 };
