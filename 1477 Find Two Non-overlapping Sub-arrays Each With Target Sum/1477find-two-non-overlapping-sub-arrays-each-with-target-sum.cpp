@@ -1,32 +1,40 @@
 class Solution {
 public:
     int minSumOfLengths(vector<int>& arr, int target) {
-        int n = arr.size();
-        vector<int> best(n, 1e9);
+        int n = arr.size(), i = 0, sum = 0;
 
-        int s = 0, sum = 0;
-        int minLen = 1e9, ans = 1e9;
-
-        for (int e=0;e<n;e++) {
-            sum += arr[e];
-
-            while (sum > target) {
-                sum -= arr[s++];
+        vector<int>left(n) , right(n);
+        int len = INT_MAX;
+        for(int j=0; j<n; j++){
+            sum += arr[j];
+            while(sum > target){
+                sum -= arr[i];
+                i++;
             }
-
-            if (sum == target) {
-                int len = e-s+1;
-
-                if (s>0 && best[s-1]!=1e9) {
-                    ans = min(ans, len + best[s - 1]);
-                }
-
-                minLen = min(minLen, len);
+            if(sum == target){
+                len = min(len,j-i+1);
             }
-
-            best[e] = minLen;
+            left[j] = len;
         }
 
-        return ans == 1e9 ? -1 : ans;
+        i = n-1; sum = 0; len = INT_MAX;
+
+        for(int j=n-1; j>=0; j--){
+            sum += arr[j];
+            while(sum > target){
+                sum -= arr[i];
+                i--;
+            }
+            if(sum == target){
+                len = min(len,i-j+1);
+            }
+            right[j] = len;
+        }
+
+        int ans = INT_MAX;
+        for(int j=1; j<n; j++){
+            if(left[j-1] != INT_MAX && right[j] != INT_MAX) ans = min(ans,left[j-1] + right[j]);
+        }
+        return ans == INT_MAX ? -1 : ans;
     }
 };
