@@ -1,24 +1,23 @@
 class Solution {
 public:
     string reverseByType(string s) {
-        string letters, specials;
-        for (char c : s) {
-            if (c >= 'a' && c <= 'z')
-                letters += c;
-            else
-                specials += c;
+        string c , spl;
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='a'&&s[i]<='z'){
+                c+=s[i];
+            }
+            else spl+=s[i];
         }
-        reverse(letters.begin(), letters.end());
-        reverse(specials.begin(), specials.end());
-
-        int i = 0, j = 0;
-        for (int k = 0; k < s.size(); k++) {
-            if (s[k] >= 'a' && s[k] <= 'z')
-                s[k] = letters[i++];
-            else
-                s[k] = specials[j++];
+        reverse(c.begin(),c.end());
+        reverse(spl.begin(),spl.end());
+        int i1=0,i2=0;
+        string ans;
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='a'&&s[i]<='z'){
+                ans+=c[i1++];
+            }
+            else ans+=spl[i2++];
         }
-
-        return s;
+        return ans;
     }
 };
