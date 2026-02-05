@@ -1,15 +1,23 @@
 class Solution {
 public:
-    vector<int> constructTransformedArray(vector<int>& nums) {
-        vector<int>a;
-        for( int i = 0; i < nums.size() ; i++ ){
-            int val = nums[i];
-            int j = (i+val)%(int)nums.size();
-            if(j<0){
-                j+=(nums.size());
+    vector<int> constructTransformedArray(vector<int>& a) {
+        vector<int>ans;
+        int n = a.size();
+        for(int i=0;i<a.size();i++){
+            if(a[i]==0){
+                ans.push_back(a[i]);
             }
-           a.push_back(nums[j]);
+            else if(a[i]>0){
+                int idx = (i+a[i])%n;
+                ans.push_back(a[idx]);
+            }
+            else {
+                int idx = (n+i+(a[i]))%n;
+                 if (idx < 0) idx += n;
+                ans.push_back(a[idx]);
+            }
+            
         }
-        return a;
+        return ans;
     }
 };
