@@ -1,11 +1,11 @@
 class Solution {
 public:
     int findValueOfPartition(vector<int>& a) {
-        sort( a.begin(),a.end());
-        int ans=INT_MAX;
-        for( int i=1;i<a.size();i++){
-            ans = min( ans , a[i]-a[i-1]);
+        sort(a.begin(),a.end());
+        int m=INT_MAX;
+        for(int i=1;i<a.size();i++){
+         m=min(m,a[i]-a[i-1]);
         }
-        return ans;
+        return m;
     }
 };
