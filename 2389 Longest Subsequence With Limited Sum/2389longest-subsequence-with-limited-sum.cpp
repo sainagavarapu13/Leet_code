@@ -1,25 +1,22 @@
 class Solution {
 public:
-    vector<int> answerQueries(vector<int>& a, vector<int>& q) {
-        sort( a.begin(), a.end());
-        vector<int>pre(a.size());
-        pre[0]=a[0];
-        for( int i=1;i<a.size();i++){
-                pre[i]=pre[i-1]+a[i];
+    int find(vector<int>&a , int b){
+        int start = 0 , end = a.size()-1,i;
+        for( i=0;i<a.size();i++){
+            if(a[i]>b) return i;
         }
-        vector<int>ans( q.size());
-        for( int i=0;i<q.size();i++){
-            int l=0, h = a.size()-1;
-            int mid;
-            int len =0;
-            while( l<=h){
-                mid = (l+h)/2;
-                if( pre[mid]<=q[i] ){
-                    l = mid+1;
-                    len = mid+1;
-                }else h = mid-1;
-            }
-            ans[i]=len;
+        return i;
+    }
+    vector<int> answerQueries(vector<int>& a, vector<int>& b) {
+        vector<int>ans;
+        sort(a.begin(),a.end());
+        int sum =0;
+        for(int i=0;i<a.size();i++){
+            sum+=a[i];
+            a[i] = sum;
+        }
+        for(int i=0;i<b.size();i++){
+            ans.push_back(find(a,b[i]));
         }
         return ans;
     }
