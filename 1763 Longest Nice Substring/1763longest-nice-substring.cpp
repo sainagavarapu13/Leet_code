@@ -6,7 +6,7 @@ public:
         vector<int> l(26, 0);
         vector<int> u(26, 0);
 
-        // Count lowercase and uppercase
+        
         for (char c : s) {
             if (islower(c)) 
                 l[c - 'a']++;
