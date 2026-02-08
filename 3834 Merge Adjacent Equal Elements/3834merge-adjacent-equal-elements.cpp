@@ -1,18 +1,16 @@
 class Solution {
 public:
-    vector<long long> mergeAdjacent(vector<int>& a) {
-        vector<long long> st;
-
-    for (long long x : a) {
-      
-        while (!st.empty() && st.back() == x) {
-            x *= 2;
-            st.pop_back();
+    vector<long long> mergeAdjacent(vector<int>& nums) {
+        vector<long long> v;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            long long p = nums[i];
+            while(!v.empty() && v.back()==p){
+                p *=2;
+                v.pop_back();
+            }
+            v.push_back(p);
         }
-        st.push_back((long long)x);
-    }
-
-    return st;
-        
+        return v;
     }
 };
