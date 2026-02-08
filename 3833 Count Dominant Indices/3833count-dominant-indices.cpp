@@ -1,18 +1,21 @@
 class Solution {
 public:
-    int dominantIndices(vector<int>& a) {
-        int sum =0,n=(int)a.size();
-        int cnt = 0;
-        for(int i=0;i<a.size();i++){
-            sum+=a[i];
+    int dominantIndices(vector<int>& nums) {
+        int n = nums.size(),res = 0;
+        long long sum = 0;
+        vector<int> v(n);
+        for(int i=n-1;i>=0;i--){
+            sum += nums[i];
+            v[i] = sum;
         }
-        for(int i=0;i<a.size();i++){
-            sum-=a[i];
-            n--;
-            if(n!=0&&a[i] > (sum/n)){
-                cnt++;
+        for(int i=0;i<n-1;i++){
+            float d = v[i+1]/((n-i-1)*1.0);
+            float e = nums[i]*1.0;
+            //cout<<v[i+1]<<" "<<(n-i-1)<<d<<e<<endl;
+            if(nums[i]>d){
+                res++;
             }
         }
-        return cnt;
+        return res;
     }
 };
