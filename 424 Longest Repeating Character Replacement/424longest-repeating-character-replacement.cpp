@@ -1,27 +1,27 @@
 class Solution {
 public:
-    int fun( string s, int k , char t){
-        int i=0,cnt=0;
-        int ans = INT_MIN;
-        for(int e=0;e<s.size();e++){
-            if( s[e]!=t){
-                cnt++;
+    int characterReplacement(string s, int k) {
+        int start = 0,end=0,cnt=0,ans=0;
+        int max_freq = 0;
+        char ch;
+        vector<int>freq(26,0);
+        while(end<s.size()){
+            freq[s[end]-'A']++;
+          
+            if(max_freq< freq[s[end]-'A']){
+                max_freq = freq[s[end]-'A'];
+                
             }
-            while( cnt> k){
-                if( s[i]!=t){
-                    cnt--;
-                }
-                i++;
+            int len = end-start+1;
+           
+            while(len-max_freq > k){
+                freq[s[start]-'A']--;
+                start++;
+                len = end-start+1;
             }
-            ans = max( e-i+1,ans);
+            ans=max(ans,end-start+1);
+            end++;
         }
         return ans;
-    }
-    int characterReplacement(string s, int k) {
-        int ma = INT_MIN;
-        for( int i=0;i<26;i++){
-            ma = max( ma , fun( s,k,'A'+i));
-        }
-        return ma;
     }
 };
