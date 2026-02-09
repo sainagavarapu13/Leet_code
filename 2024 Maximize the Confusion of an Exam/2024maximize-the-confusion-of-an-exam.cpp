@@ -1,22 +1,23 @@
 class Solution {
 public:
-    int fun( string a, int k ,  char c ){
-        int s=0,cnt=0;
-        int ans= INT_MIN;
-        for( int e=0;e<a.size();e++){
-                if( a[e]!=c){
-                    cnt++;
-                }
-                while( cnt > k){
-                    if(a[s]!=c)cnt--;
-                    s++;
-                    
-                }
-                ans = max( ans , e-s+1);
+    int slove(string a , int k,char ch){
+        int ans=0;
+        int start=0;
+        int cnt=0;
+        for(int i=0;i<a.size();i++){
+        if(a[i]!=ch){
+            cnt++;
+        }
+            while(cnt>k){
+                if(a[start]!=ch) cnt--;
+                start++;
+            }
+            ans = max(ans,i-start+1);
+           
         }
         return ans;
     }
     int maxConsecutiveAnswers(string a, int k) {
-        return max( fun( a,k,'T'), fun( a, k , 'F'));
+        return max(slove(a,k,'T'),slove(a,k,'F'));
     }
 };
