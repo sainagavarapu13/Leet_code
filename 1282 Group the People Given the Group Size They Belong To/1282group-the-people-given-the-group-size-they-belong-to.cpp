@@ -1,23 +1,22 @@
 class Solution {
 public:
-    vector<vector<int>> groupThePeople(vector<int>& a) {
-        vector<vector<int>>ans;
-       vector<int>an;
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<>>pq;
-        for(int i=0;i<a.size();i++) pq.push({a[i],i});
-        int i=0;
-        while(!pq.empty()){
-            auto [n,ind] = pq.top();
-            int k=n;
-            while(k--){
-                auto [n,ind]=pq.top();
-            an.push_back(ind);
-                pq.pop();
-            }
-            ans.push_back(an);
-            an.clear();
-            i++;
+    vector<vector<int>> groupThePeople(vector<int>& g) {
+        unordered_map<int,vector<int>> m;
+        for(int i=0;i<g.size();i++){
+            m[g[i]].push_back(i);
         }
-        return ans;
+        vector<vector<int>> res;
+        for(auto i:m){
+            vector<int> temp;
+            for(int j=0;j<i.second.size();j++){
+                if(temp.size()==i.first){
+                    res.push_back(temp);
+                    temp.clear();
+                }
+                temp.push_back(i.second[j]);
+            }
+            res.push_back(temp);
+        }
+        return res;
     }
 };
