@@ -1,30 +1,28 @@
 class Solution {
 public:
-    int minPathSum(vector<vector<int>>& a) {
-        vector<vector<int>>g(a.size(),vector<int>(a[0].size(),INT_MAX));
-        queue<pair<int,int>>q;
-        int n=a.size();
-        int m =a[0].size();
-        g[0][0] = a[0][0];
-        q.push({0,0});
-        while(!q.empty()){
-            auto [x,y] = q.front();
-            q.pop();
-            //right
-            if(y+1 < m){
-                if(g[x][y]+a[x][y+1] < g[x][y+1]){
-                    g[x][y+1] = g[x][y]+a[x][y+1];
-                    q.push({x,y+1});
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size(),n = grid[0].size();
+        vector<vector<int>> v(m,(vector<int> (n,0)));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0) {
+                    v[i][j] = grid[i][j];
+                    continue;
                 }
-            }
-            //down
-            if(x+1 < n){
-                if(g[x][y]+a[x+1][y] < g[x+1][y]){
-                    g[x+1][y] = g[x][y]+a[x+1][y];
-                    q.push({x+1,y});
+                else if(i==0) {
+                    v[i][j] = v[i][j-1]+grid[i][j];
+                    continue;
+                }
+                else if(j==0) {
+                    v[i][j] = v[i-1][j]+grid[i][j];
+                    continue;
+                }
+                else{
+                    v[i][j] = min(v[i-1][j],v[i][j-1])+grid[i][j];
+                    continue;
                 }
             }
         }
-        return g[n-1][m-1];
+        return v[m-1][n-1];
     }
 };
