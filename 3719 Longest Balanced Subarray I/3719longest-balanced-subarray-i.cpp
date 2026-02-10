@@ -1,18 +1,18 @@
 class Solution {
 public:
-   
-    int longestBalanced(vector<int>& a) {
-    int m=0;
-       for(int i=0;i<a.size();i++){
-           set<int>eve,odd;
-           for(int j=i;j<a.size();j++){
-                 if(a[j]%2==0) eve.insert(a[j]);
-                 else odd.insert(a[j]);
-               if(eve.size()==odd.size()){
-                   m=max(m,j-i+1);
-               }
-               }
-           }
-        return m;
+    int longestBalanced(vector<int>& nums) {
+        int res = 0;
+        for(int i=0;i<nums.size();i++){
+            set<int> m;
+            set<int> n;
+            for(int j=i;j<nums.size();j++){
+            if(nums[j]%2==0) m.insert(nums[j]);
+            if(nums[j]%2!=0) n.insert(nums[j]);
+            if(m.size()==n.size()){
+                res = max(res,j-i+1);
+            }
+            }
+        }
+        return res;
     }
 };
