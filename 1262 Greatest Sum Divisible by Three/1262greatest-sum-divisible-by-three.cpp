@@ -1,31 +1,32 @@
 class Solution {
 public:
     int maxSumDivThree(vector<int>& nums) {
-        int sum = 0;
-        vector<int> one, two;
-
-        for (int x : nums) {
-            sum += x;
-            if (x % 3 == 1) one.push_back(x);
-            else if (x % 3 == 2) two.push_back(x);
+        vector<int> v;
+        vector<int> u;
+        int n = nums.size();
+        int res = 0;
+        for(int i=0;i<n;i++){
+            int a = nums[i]%3;
+            res += nums[i];
+            if(a==1) {
+                v.push_back(nums[i]);
+            }
+            if(a==2) u.push_back(nums[i]);
         }
-
-        sort(one.begin(), one.end());
-        sort(two.begin(), two.end());
-
-        if (sum % 3 == 1) {
-            int remove1 = one.size() >= 1 ? one[0] : INT_MAX;
-            int remove2 = two.size() >= 2 ? two[0] + two[1] : INT_MAX;
-
-            sum -= min(remove1, remove2);
+        if(res%3==0) return res;
+        sort(v.begin(),v.end());
+        sort(u.begin(),u.end());
+        int ans = 0;
+        if(res%3==1){
+            int s = (v.size()>=1) ? res - v[0]: 0;
+            int p = (u.size()>=2) ? res - u[0]-u[1] : 0;
+            ans = max(s,p);
         }
-        else if (sum % 3 == 2) {
-            int remove1 = two.size() >= 1 ? two[0] : INT_MAX;
-            int remove2 = one.size() >= 2 ? one[0] + one[1] : INT_MAX;
-
-            sum -= min(remove1, remove2);
+        else{
+            int s = (u.size()>=1) ? res - u[0] : 0;
+            int p = (v.size()>=2) ? res - v[0]-v[1] : 0;
+            ans = max(s,p);
         }
-
-        return sum < 0 ? 0 : sum;
+        return ans;
     }
 };
