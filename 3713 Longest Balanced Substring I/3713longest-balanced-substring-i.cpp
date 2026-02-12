@@ -1,29 +1,22 @@
 class Solution {
 public:
-    int isbala(vector<int> &a){
-   
-        int k=0;
-        for(auto& i:a){
-            if(i==0) continue;
-            if(k!=0) {
-                if(k!=i) return 0;
-            }
-            k=i;
-        }
-        return 1;
-    }
     int longestBalanced(string s) {
-       int n=s.size();
-        int ans=0;
-        for(int i=0;i<s.size();i++){
-            vector<int>freq(26,0);
-            for(int j=i;j<s.size();j++){
-                freq[s[j]-'a']++;
-                if(isbala(freq)){
-                    ans=max(ans,j-i+1);
-                }
+        int res = 0;
+        for(int i=0;i<s.length();i++){
+            vector<int> v(26,0);
+            for(int j=i;j<s.length();j++){
+                v[s[j]-'a']++;
+                int b = v[s[i]-'a'];
+                    int c = 1;
+                    for(auto x:v){
+                        if(x>0 && x!=b){
+                            c = 0;
+                            break;
+                        }
+                    }
+                    if(c==1) res = max(res,j-i+1);
             }
         }
-        return ans;
+        return res;
     }
 };
