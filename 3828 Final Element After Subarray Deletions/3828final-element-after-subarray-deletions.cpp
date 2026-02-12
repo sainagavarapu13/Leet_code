@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int finalElement(vector<int>& nums) {
-        return max(nums[0], nums[nums.size() - 1]);
+    int finalElement(vector<int>& a) {
+        return max(a[0] , a.back());
     }
 };
