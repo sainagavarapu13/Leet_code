@@ -1,17 +1,17 @@
 class Solution {
 public:
     int maxResult(vector<int>& a, int k) {
-        int n = a.size();
-        vector<int> dp(n,0);
-        priority_queue<pair<int,int>> q;
-        dp[0] = a[0];
-        q.push({dp[0], 0});
-        for(int i = 1; i < n; i++){
-            while(!q.empty() && q.top().second + k < i) q.pop();
+        vector<int>d(a.size(),INT_MIN);
+        d[0] = a[0];
+        int maxi=INT_MIN;
+        priority_queue<pair<int,int>>q;
+        q.push({a[0],0});
+        for(int i=1;i<a.size();i++){
+             while(!q.empty() && q.top().second + k < i) q.pop();
 
-            dp[i] = q.top().first + a[i];
-            q.push({dp[i], i});
+            d[i] = q.top().first + a[i];
+            q.push({d[i], i});
         }
-        return dp.back();
+        return d.back();
     }
 };
