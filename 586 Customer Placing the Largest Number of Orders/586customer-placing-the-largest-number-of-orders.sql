@@ -1,7 +1,5 @@
 # Write your MySQL query statement below
-with cte as 
-(
-    select customer_number , count(*) as cnt from orders 
-    group by customer_number 
-)select customer_number  from cte
-where cnt = (select max(cnt) from cte);
+SELECT customer_number from Orders 
+group by customer_number
+order by count(*) DESC
+LIMIT 1;
