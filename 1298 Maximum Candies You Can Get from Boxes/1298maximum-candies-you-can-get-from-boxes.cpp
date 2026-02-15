@@ -1,40 +1,38 @@
 class Solution {
 public:
-    int maxCandies(vector<int>& s, vector<int>& c, vector<vector<int>>& k, vector<vector<int>>& cb, vector<int>& in) {
-        vector<bool> box(s.size(),false);
-        vector<bool>key(s.size(),false);
-        vector<bool>o(s.size(),false);
+    int maxCandies(vector<int>& a, vector<int>& b, vector<vector<int>>& c, vector<vector<int>>& d, vector<int>& e) {
         queue<int>q;
-        for( int i : in){
-             box[i]=true;
-            if(s[i]==1){ o[i]=true;
-            q.push(i);}
+        int n=a.size();
+        vector<bool> owned(n, false);
+
+        for(auto& i:e){
+            q.push(i);
+             owned[i] = true;
         }
-        
-        int cnt=0;
-        while( !q.empty()){
-            int present = q.front();
+        int sum=0;
+        vector<bool>visited(a.size(),0);
+        while(!q.empty()){
+            int box = q.front();
             q.pop();
-            cnt+=c[present];
-             for( int i : k[present]){
-                key[i]=true;
-                if( box[i]&& !o[i]){
+            if(visited[box]==1) continue;
+           //  if(a[box] == 0) continue;
+            if(a[box]==1){
+                sum+=b[box];
+                  visited[box] =1;
+                for(auto& i :d[box]){
+                    owned[i] = true;
+                    if(!visited[i])
                     q.push(i);
-                    o[i]= true;
                 }
-            }
-            for( int i : cb[present]){
-                 box[i]=true;
-                if( !o[i] && ( s[i]==1 || key[i])){
-                    q.push(i);
-                    o[i]=true;
+                for(auto& i:c[box]){
+                    if(owned[i]&&!visited[i])
+                   q.push(i);
+                    a[i]=1;
                 }
+              
             }
-           
 
         }
-
-        
-        return cnt;
+        return sum;
     }
 };
