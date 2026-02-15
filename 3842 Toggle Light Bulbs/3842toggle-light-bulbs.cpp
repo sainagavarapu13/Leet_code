@@ -1,15 +1,15 @@
 class Solution {
 public:
-    vector<int> toggleLightBulbs(vector<int>& a) {
-        map<int,int>m;
-        vector<int>ans;
-        for(auto& i:a) m[i]++;
-        for(auto& [n,c]:m){
-            if(c%2){
-                ans.push_back(n);
-            }
+    vector<int> toggleLightBulbs(vector<int>& bulbs) {
+        map<int,int> m;
+        int n = bulbs.size();
+        for(int i=0;i<n;i++){
+            m[bulbs[i]] = m[bulbs[i]] ^ 1;
         }
-        sort(ans.begin(),ans.end());
-        return ans;
+        vector<int> v;
+        for(auto x:m){
+            if(x.second==1) v.push_back(x.first);
+        }
+        return v;
     }
 };
