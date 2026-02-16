@@ -1,15 +1,13 @@
 class Solution {
 public:
-    int addRungs(vector<int>& a, int k) {
-        int sum=0;
-        if(k<a[0])
-        sum+= (a[0]-1)/k;
-        for(int i=0;i<a.size()-1;i++){
-            int dis = a[i+1]-a[i]-1;
-            if(dis+1 > k){
-                sum+=(dis/k);
+    int addRungs(vector<int>& rungs, int dist) {
+        int res = 0;
+        for(int i= rungs.size()-1;i>=0;i--){
+            int a = (i!=0) ? (rungs[i]-rungs[i-1]) : rungs[i];
+            if(a>dist){
+                res += (a-1)/dist;
             }
         }
-        return sum;
+        return res;
     }
 };
