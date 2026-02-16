@@ -1,21 +1,17 @@
 class Solution {
 public:
     int numRabbits(vector<int>& a) {
-        map<int , int>s;
-        for( int i :a){
-            s[i]++;
+        map<int,int>m;
+        for(auto& i:a){
+            m[i]++;
         }
-        int sum=0;
-        for( auto& [x,y]:s){
-            if( x==0){
-                sum+=y;
-            }else{
-               int k = x+1;
-               int l = (y+k-1)/k;
-               sum+=k*l;
+        int ans=0,cnt=0;
+        for(auto& [n,c]:m){
+            while(c!=0){
+                cnt+=n+1;
+                c = c-(min(n+1,c));
             }
         }
-        return sum;
-        
+        return cnt;
     }
 };
