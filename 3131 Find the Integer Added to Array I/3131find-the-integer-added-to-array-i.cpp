@@ -1,10 +1,13 @@
 class Solution {
 public:
     int addedInteger(vector<int>& a, vector<int>& b) {
-       int m = *min_element(a.begin(),a.end());
-       int n = *min_element(b.begin(),b.end());
-      
-       
-        return  n-m;
+        sort(a.begin(),a.end());
+        sort(b.begin(),b.end());
+        int i,sum=0;
+        while(i<a.size()){
+            sum+=(b[i]-a[i]);
+            i++;
+        }
+        return sum;
     }
 };
