@@ -1,11 +1,9 @@
 class Solution {
 public:
-    int minimumCost(vector<int>& a) {
-        int f = a[0];
-        a[0]=INT_MAX;
-        sort(a.begin(),a.end());
-        int m1=a[0];
-        int m2=a[1];
-        return f+m1+m2;
+    int minimumCost(vector<int>& nums) {
+        int a =nums[0];
+        vector<int>v(nums.begin()+1,nums.end());
+        sort(v.begin(),v.end());
+        return nums[0]+v[0]+v[1];
     }
 };
