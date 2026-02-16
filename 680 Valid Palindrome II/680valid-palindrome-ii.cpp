@@ -1,22 +1,21 @@
 class Solution {
 public:
-    bool validPalindrome(string s) {
-        int l = 0, r = s.length() - 1;
-        while (l < r) {
-            if (s[l] != s[r]) {
-                return isPalindrome(s, l+1, r) || isPalindrome(s, l, r-1);
-            }
-            l++;
-            r--;
+    bool Valid(string a , int start, int end){
+        while(start<=end){
+            if(a[start]!=a[end]) return false;
+            start++;
+            end--;
         }
         return true;
     }
-    
-    bool isPalindrome(const string& s, int l, int r) {
-        while (l < r) {
-            if (s[l] != s[r]) return false;
-            l++;
-            r--;
+    bool validPalindrome(string s) {
+        int start = 0,end=s.size()-1;
+        while(start<=end){
+            if(s[start]!=s[end]){
+                return Valid(s,start,end-1)||Valid(s,start+1,end);
+            }
+            start++;
+            end--;
         }
         return true;
     }
