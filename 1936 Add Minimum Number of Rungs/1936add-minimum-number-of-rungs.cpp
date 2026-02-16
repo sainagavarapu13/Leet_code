@@ -1,15 +1,15 @@
 class Solution {
 public:
-    int addRungs(vector<int>& a, int d) {
-        int cnt=0;
-        if( a[0]>d){ cnt+=(a[0])/d;
-        if( a[0]%d==0) cnt--;
+    int addRungs(vector<int>& a, int k) {
+        int sum=0;
+        if(k<a[0])
+        sum+= (a[0]-1)/k;
+        for(int i=0;i<a.size()-1;i++){
+            int dis = a[i+1]-a[i]-1;
+            if(dis+1 > k){
+                sum+=(dis/k);
+            }
         }
-        for( int i=1;i<a.size();i++){
-           if( a[i]-a[i-1]== d)continue;
-           cnt+=( a[i]-a[i-1])/d;
-            if(( a[i]-a[i-1])%d==0) cnt--;
-        }
-        return cnt;
+        return sum;
     }
 };
