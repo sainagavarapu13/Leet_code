@@ -1,25 +1,23 @@
 class Solution {
 public:
-    vector<string> findOcurrences(string t, string f, string se) {
-        vector<string>s,ans;
-        string v;
-        for( char i : t){
-            if( i!=' '){
-                v+=i;
-            }else{
-                if(!v.empty())s.push_back(v);
-                v.clear();
-                
+    vector<string> findOcurrences(string a, string b, string c) {
+        vector<string>ans,temp;
+        string t;
+        for(int i=0;i<a.size();i++){
+           if(a[i]==' '){
+            temp.push_back(t);
+            t="";
+           }
+           else{
+            t+=a[i];
+           }
+        }
+        temp.push_back(t);
+        for(int i=0;i<temp.size()-2;i++){
+            if(temp[i]==b&&temp[i+1]==c){
+                ans.push_back(temp[i+2]);
             }
         }
-
-         if(!v.empty())s.push_back(v);
-         if( s.size()<3)return {};
-         for( int i=2;i<s.size();i++){
-            if( s[i-2]==f && s[i-1]==se){
-                    ans.push_back(s[i]);
-            }
-         }
-         return ans;
+        return ans;
     }
 };
