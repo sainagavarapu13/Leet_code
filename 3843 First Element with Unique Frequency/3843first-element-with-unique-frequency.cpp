@@ -1,16 +1,14 @@
 class Solution {
 public:
     int firstUniqueFreq(vector<int>& a) {
-        map<int,int>m,n;
-        for( int i : a){
-            m[i]++;
+        unordered_map<int,int>m1,m2;
+        for(auto& i:a) m1[i]++;
+        for(auto& [n,c]:m1){
+            m2[c]++;
         }
-        for( auto [x,y]:m){
-            n[y]++;
+        for(int i=0;i<a.size();i++){
+            if(m2[m1[a[i]]]==1) return a[i];
         }
-        for( int i:a){
-            if( n[m[i]]==1) return i;
-        }
-        return  -1;
+        return -1;
     }
 };
