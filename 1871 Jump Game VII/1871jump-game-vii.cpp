@@ -1,19 +1,16 @@
 class Solution {
 public:
-    bool canReach(string s, int a, int b) {
-        vector<int>dp(s.size(),0);
-        dp[0]=1;
-        int len = s.size(),ind=0;
-        for(int i=0;i<s.size();i++){
-            if(dp[i]==0) continue;
-            for(int j=max(i+a,ind);j<=min(len,i+b);j++){
-                if(s[j]=='0'){
-                    dp[j]=1;
-                }
-            }
-            ind=min(len,i+b)+1;
+    bool canReach(string s,int m, int ma) {
+        int n = s.size();
+        if(s[n-1]!='0') return false;
+        vector<bool> dp(n,false);
+        dp[0] = true;
+        int r = 0;
+        for(int i=1;i<n;i++){
+            if(i-m>=0 && dp[i-m]) r++;
+            if(i-ma-1>=0 && dp[i-ma-1]) r--;
+            dp[i] = (r>0 && s[i]=='0');
         }
-        //cout<<s.size();
-        return dp.back();
+        return dp[n-1];
     }
 };
