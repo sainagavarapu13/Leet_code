@@ -1,30 +1,30 @@
 class Solution {
 public:
-    bool Prime( long long a){
-        if( a<2) return 0;
-        for( long long i=2;i*i<=a;i++){
-            if( a%i==0) return 0;
+    bool isp(long long val){
+        if(val<=1) return false;
+        for(long long i=2;i*i<=val;i++){
+            if(val%i==0) return false;
         }
-        return 1;
+        return true;
     }
     long long sumOfLargestPrimes(string s) {
-        set<long long>si;
-        for( int i =0;i<s.size();i++){
-            long long temp=0;
-            for( int j =i;j<s.size();j++){
-                if( temp > LLONG_MAX/10) break; 
-                temp = temp*10+(s[j]-'0');
-                if( Prime(temp)){
-                    si.insert(temp);
+        set<long long,greater<long long>> a;
+        for(long long i=0;i<s.length();i++){
+            string t = "";
+            for(int j=i;j<s.length();j++){
+                t += s[j];
+                long long b = stol(t);
+                if(isp(b)) {
+                    a.insert(b);
+                    // cout<<b<<endl;
                 }
             }
         }
-        vector<long long>p(si.begin(),si.end());
-        sort(p.begin(),p.end());
-        int n = p.size();
-        if( n==0) return 0;
-        else if( n==1) return p[n-1];
-        else if( n==2) return p[n-1]+p[n-2];
-        else return p[n-1]+p[n-2]+p[n-3];
+        long long res = 0,count = 0;
+        for(auto it = a.begin(); it != a.end() && count < 3; ++it) {
+    res += *it;
+    count++;
+}
+        return res;
     }
 };
