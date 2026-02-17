@@ -12,7 +12,7 @@ public:
         for( int i =0;i<s.size();i++){
             long long temp=0;
             for( int j =i;j<s.size();j++){
-                if( temp > LLONG_MAX/10) break;   // overflow protection
+                if( temp > LLONG_MAX/10) break; 
                 temp = temp*10+(s[j]-'0');
                 if( Prime(temp)){
                     si.insert(temp);
