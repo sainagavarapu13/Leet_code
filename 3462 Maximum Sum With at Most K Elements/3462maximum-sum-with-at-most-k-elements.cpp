@@ -1,22 +1,17 @@
 class Solution {
 public:
-    long long maxSum(vector<vector<int>>& a, vector<int>& t, int k) {
-       priority_queue<int>q;
-       for( int i=0;i<a.size();i++){
-        vector<int>v;
-        for( int j =0;j<a[i].size();j++){
-           v.push_back(a[i][j]);
+    long long maxSum(vector<vector<int>>& a, vector<int>& b, int k) {
+        priority_queue<int>t;
+        for(int i=0;i<a.size();i++){
+            sort(a[i].begin(),a[i].end(),greater<>());
+            for(int j=0;j<b[i];j++){
+                t.push(a[i][j]);
+            }
         }
-        sort( v.begin(),v.end(),greater<int>());
-        for( int j=0;j<t[i];j++){
-            q.push(v[j]);
-        }
-       }
         long long sum=0;
-        while( !q.empty() && k--){
-            sum+=q.top();
-            q.pop();
-
+        while(k--&&!t.empty()){
+           sum+=(long long)t.top();
+           t.pop();
         }
         return sum;
     }
