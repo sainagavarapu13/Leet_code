@@ -1,30 +1,27 @@
 class Solution {
 public:
-    int maxIncreaseKeepingSkyline(vector<vector<int>>& a) {
-        vector<int>row;
-        vector<int>col;
-        int i,j,m=-1;
-        for(i=0;i<a.size();i++){
-            m=-1;
-            for(j=0;j<a[0].size();j++){
-                m=max(m,a[i][j]);
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<int> r(n),c(n);
+        for(int i=0;i<n;i++){
+            int a = 0,b = 0;
+            for(int j = 0;j<n;j++){
+                a = max(a,grid[i][j]);
+                b = max(b,grid[j][i]);
             }
-            row.push_back(m);
+            r[i] = a;
+            c[i] = b;
         }
-        for(i=0;i<a.size();i++){
-            m=-1;
-            for(j=0;j<a[0].size();j++){
-                m=max(m,a[j][i]);
+        // for(int i=0;i<n;i++){
+        //     cout<<r[i]<<" "<<c[i]<<endl;
+        // }
+        int res = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                // cout<<res<<endl;
+                res += min(r[i],c[j])-grid[i][j];
             }
-            col.push_back(m);
         }
-        int sum=0;
-       for(i=0;i<a.size();i++){
-        for(j=0;j<a[0].size();j++){
-            int ans=min(row[i],col[j]);
-            sum+=abs(ans-a[i][j]);
-        }
-       }
-        return sum;
+        return res;
     }
 };
