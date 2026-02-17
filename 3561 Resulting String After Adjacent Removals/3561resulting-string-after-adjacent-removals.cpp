@@ -1,17 +1,16 @@
 class Solution {
 public:
     string resultingString(string s) {
-        string a;
-        for( char i : s){
-            if(!a.empty()){
-                 int diff = abs(a.back()-i);
-                 if( diff ==1 || diff == 25){
-                    a.pop_back();
-                    continue;
-                 }
+        string temp;
+        for(int i=0;i<s.size();i++){
+            char pre = s[i];
+            if(!temp.empty()&&((abs((int)(temp.back()-pre)) )==1||(abs((int)(temp.back()-pre)) )==25)){
+                temp.pop_back();
             }
-            a.push_back(i);
+            else{
+                temp.push_back(s[i]);
+            }
         }
-        return a;
+        return temp;
     }
 };
