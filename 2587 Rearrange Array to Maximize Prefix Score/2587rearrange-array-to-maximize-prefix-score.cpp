@@ -1,24 +1,26 @@
 class Solution {
 public:
     int maxScore(vector<int>& a) {
-        vector<int>n;
-        long long sum=0;
-        int cnt=0;
-        int z=0;
-        for( int i:a){
-            if( i>0) {
-            sum+=i;
-            if( sum >0) cnt++;
-            }else{
-                n.push_back(i);
+        long long sum=0,cnt=0;
+        vector<long long>neg;
+        for(int i=0;i<a.size();i++){
+            if(a[i]>0){
+                sum+=a[i];
+                cnt++;
+            }
+            else{
+                neg.push_back(a[i]);
             }
         }
-        sort(n.begin(),n.end(),greater<int>());
-        for( int i : n){
-           sum+=i;
-           if( sum < 0) break;
-          if( sum >0) cnt++;
+        sort(neg.begin(),neg.end(),greater<>());
+        int i;
+        for( i=0;i<neg.size();i++){
+            if(sum+neg[i]>0){
+                sum+=neg[i];
+                cnt++;
+            }
         }
-        return cnt;
+        
+        return (int)cnt;
     }
 };
