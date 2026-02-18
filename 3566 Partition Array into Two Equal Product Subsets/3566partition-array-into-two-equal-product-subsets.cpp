@@ -1,37 +1,14 @@
 class Solution {
 public:
-vector<bool>v;
-
-   bool fun(int i , long long p,vector<int>& a, long long t)
-   {
-        if( p > t) return false;
-
-        if( p==t){
-            long long m =1;
-            bool second = false;
-            for(int j=0;j<a.size();j++){
-                if( !v[j]){
-                    second = true;
-                    if( m > t / a[j]) return false;   
-                    m*=a[j];
-                }
-            }
-            if( second && m == t) return true;
+    bool ans(vector<int> &v,int i,long long s1,long long s2,long long target){
+        if(s1>target || s2>target) return false;
+        if(i==v.size()){
+            if(s1==target && s1==s2) return true;
+            return false;
         }
-
-        if( i==a.size()) return false;
-        if( p <= t / a[i] ){
-            v[i]=true;
-            if( fun( i+1,p*a[i],a,t)) return true;
-            v[i]=false;
-        }
-        if( fun(i+1,p,a,t)) return true;
-        
-        return false;
-   }
-
-    bool checkEqualPartitions(vector<int>& a, long long t) {
-        v.assign(a.size(),false);
-        return fun( 0,1,a,t);
+        return ans(v,i+1,s1*v[i],s2,target)||ans(v,i+1,s1,s2*v[i],target);
+    }
+    bool checkEqualPartitions(vector<int>& nums, long long target) {
+        return ans(nums,0,1,1,target);
     }
 };
