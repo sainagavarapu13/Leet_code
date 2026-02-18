@@ -1,24 +1,26 @@
 class Solution {
 public:
-int fun( vector<int>& nums, int k){
-    int j=0;
-    map<int,int>m;
-    int cnt=0;
-    for( int i=0;i<nums.size();i++){
-        if( m[nums[i]]==0) k--;
-        m[nums[i]]++;
-        while( k<0 && j<nums.size()){
-            m[nums[j]]--;
-            if(m[nums[j]]==0)k++;
-            j++;
+    int atMost(vector<int>& a, int k){
+         int start=0,end=0;
+        map<int,int>m;
+        int cnt=0;
+        while(end<a.size()){
+            m[a[end]]++;
+            while(m.size()>k){
+               
+                m[a[start]]--;
+               
+                if(m[a[start]]==0){
+                    m.erase(a[start]);
+                }
+                 start++;
+            }
+            cnt+=(end-start+1);
+            end++;
         }
-        cnt+=(i-j+1);
-
+        return cnt;
     }
-    return cnt;
-
-}
-    int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return fun(nums,k)-fun( nums,k-1);
+    int subarraysWithKDistinct(vector<int>& a, int k) {
+       return atMost(a,k)-atMost(a,k-1);
     }
 };
