@@ -1,22 +1,15 @@
 class Solution {
 public:
-    int countBinarySubstrings(string a) {
-        int i;
-        vector<int>count;
-        count.push_back(1);
-        for(i=1;i<a.size();i++){
-            if(a[i-1]==a[i]){
-                count.back()++;
+    int countBinarySubstrings(string s) {
+        int cu = 1,pre = 0,cnt = 0;
+        for(int i=1;i<s.size();i++){
+            if(s[i]==s[i-1]) cu++;
+            else{
+                cnt +=min(pre,cu);
+                pre=cu;
+                cu = 1;
             }
-            else count.push_back(1);
         }
-       
-        int m,sum=0;
-        for(i=0;i<count.size()-1;i++){
-            m=min(count[i],count[i+1]);
-            sum+=m;
-           
-        }
-        return sum;
+        return cnt + min(pre,cu);
     }
 };
