@@ -1,18 +1,22 @@
 class Solution {
 public:
     long long countSubarrays(vector<int>& a, int k) {
-        map<int,int>m;
-        int ma = *max_element(a.begin(),a.end());
-        int j=0;
+        int maxi = *max_element(a.begin(),a.end());
+        int freq=0;
         long long cnt=0;
-        for( int i=0;i<a.size();i++){
-            m[a[i]]++;
-            if( m[ma]>=k){
-                while( j<a.size() && m[ma]>=k){
-                    m[a[j++]]--;
-                }
+        int start =0,end=0;
+        while(end<a.size()){
+            if(a[end]==maxi){
+                freq++;
             }
-            cnt+=j;
+            while(freq>=k){
+                 if(a[start]==maxi){
+                    freq--;
+                 }
+                 start++;
+            }
+            cnt+=start;
+            end++;
         }
         return cnt;
     }
