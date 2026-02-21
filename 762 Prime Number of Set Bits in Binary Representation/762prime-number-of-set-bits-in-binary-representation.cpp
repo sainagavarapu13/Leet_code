@@ -1,14 +1,17 @@
 class Solution {
 public:
-    int countPrimeSetBits(int a, int b) {
-        set<int>primes={2,3,5,7,11,13,17,19};
-        int k=0,i;
-        for(i=a;i<=b;i++){
-            int cnt=__builtin_popcount(i);
-            if(primes.count(cnt)) k++;
+    bool isprime(int n){
+        if(n==1) return false;
+        for(int i=2;i*i<=n;i++){
+            if(n%i==0) return false;
         }
-
-
-        return k;
+        return true;
+    }
+    int countPrimeSetBits(int left, int right) {
+        int res = 0;
+        for(int i=left;i<=right;i++){
+            if(isprime(__builtin_popcount(i))) res++;
+        }
+        return res;
     }
 };
