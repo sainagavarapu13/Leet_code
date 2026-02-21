@@ -1,26 +1,29 @@
 class Solution {
 public:
-    int garbageCollection(vector<string>& a, vector<int>& b) {
-        map<char,int>m;
-        map<char,int>last;
-        int sum = 0;
-        for(int i=0;i<b.size();i++){
-            sum+=b[i];
-            b[i]=sum;
+    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+        int n = travel.size();
+        vector<int> v(n+1,0);
+        for(int i=0;i<n;i++){
+            v[i+1] = v[i]+travel[i];
         }
-
-        for(int i=0;i<a.size();i++){
-            for(int j=0;j<a[i].size();j++){
-                m[a[i][j]]++;
-                last[a[i][j]] = i;
+        int m = 0,p=0,g = 0,im=0,ip=0,ig=0;
+        for(int i=0;i<garbage.size();i++){
+            for(int j=0;j<garbage[i].size();j++){
+                if(garbage[i][j]=='M'){
+                    m++;
+                    im = i;
+                }
+                else if(garbage[i][j]=='P'){
+                    p++;
+                    ip = i;
+                }
+                else if(garbage[i][j]=='G'){
+                    g++;
+                    ig = i;
+                }
             }
         }
-        int cnt = 0;
-        for(auto& [n,c]:m){
-            cnt+=c;
-            int idx = last[n];
-         if(idx!=0)   cnt+=b[idx-1];
-        }
-        return cnt;
+        int res = m+p+g+v[im]+v[ip]+v[ig];
+        return res;
     }
 };
