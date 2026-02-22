@@ -1,24 +1,20 @@
 class Solution {
 public:
-    int scoreDifference(vector<int>& a) {
-        int first = 1,second=0;
-        int f_sum=0,s_sum=0;
-        for(int i=0;i<a.size();i++){
-            if(a[i]%2==1 ){
-                first= 1-first;
-                second = 1-second;
+    int scoreDifference(vector<int>& nums) {
+        int n = nums.size(),i=0;
+        long long a = 0,b = 0;
+        bool flag = true;
+        while(i<nums.size()){
+            if(nums[i]%2!=0){
+                flag = !flag;
             }
-            if( (i+1)%6==0){
-                first= 1-first;
-                second = 1-second;
-            }
-            if(first==1){
-                f_sum+=a[i];
-            }
-            else {
-                s_sum+=a[i];
-            }
+            if(i%6==5) flag = !flag;
+            if(flag) a+=nums[i];
+            else b+=nums[i];
+            cout<<a<<" "<<b<<endl;
+            i++;
         }
-        return f_sum-s_sum;
+        int res = a-b;
+        return res;
     }
 };
