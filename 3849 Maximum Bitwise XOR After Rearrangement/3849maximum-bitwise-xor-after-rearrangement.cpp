@@ -1,41 +1,43 @@
 class Solution {
 public:
-    string check(string s, int one, int zero ,int n){
-          string result = "";
-         for (int i = 0; i < n; i++) {
-            
-            if (s[i] == '0') {
-                if (one > 0) {
-                    result += '1';
-                    one--;
-                } else {
-                    result += '0';
+    string maximumXor(string s, string t) {
+       int one=0,zero=0;
+        for(auto& i:t){
+            if(i=='0') zero++;
+            else one++;
+        }
+        string modi="";
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='1'){
+                if(zero>0){
+                    modi+='0';
                     zero--;
                 }
-            } 
-            else { 
-                if (zero > 0) {
-                    result += '1';
-                    zero--;
-                } else {
-                    result += '0';
+                else if(one>0){
+                    modi+='1';
+                     one--;
+                }
+            }
+            else{
+                if(one>0){
+                    modi+='1';
                     one--;
+                }
+                else if(zero>0){
+                    modi+='0';
+                     zero--;
                 }
             }
         }
-        
-        return result;
-    }
-    string maximumXor(string s, string t) {
-        int n = s.size();
-        
-        int zero = 0, one = 0;
-        for (char c : t) {
-            if (c == '0') zero++;
-            else one++;
+        string ans="";
+        for(int i=0;i<modi.size();i++){
+            if(modi[i]==s[i]){
+                ans+='0';
+            }
+            else{
+                ans+='1';
+            }
         }
-        return check( s, one, zero,n);
-      
-       
+        return ans;
     }
 };
