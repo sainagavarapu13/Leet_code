@@ -1,41 +1,26 @@
 class Solution {
 public:
     string maximumXor(string s, string t) {
-       int one=0,zero=0;
-        for(auto& i:t){
-            if(i=='0') zero++;
-            else one++;
+        int n = t.size(),a=0;
+        for(int i=0;i<n;i++){
+            if(t[i]=='1')a++;
         }
-        string modi="";
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='1'){
-                if(zero>0){
-                    modi+='0';
-                    zero--;
+        int b = n-a;
+        string ans = "";
+        for(int i=0;i<n;i++){
+            if(s[i]=='0'){
+                if(a>0){
+                    ans += '1';
+                    a--;
                 }
-                else if(one>0){
-                    modi+='1';
-                     one--;
-                }
+                else ans += '0';
             }
             else{
-                if(one>0){
-                    modi+='1';
-                    one--;
+                if(b>0){
+                    ans += '1';
+                    b--;
                 }
-                else if(zero>0){
-                    modi+='0';
-                     zero--;
-                }
-            }
-        }
-        string ans="";
-        for(int i=0;i<modi.size();i++){
-            if(modi[i]==s[i]){
-                ans+='0';
-            }
-            else{
-                ans+='1';
+                else ans += '0';
             }
         }
         return ans;
