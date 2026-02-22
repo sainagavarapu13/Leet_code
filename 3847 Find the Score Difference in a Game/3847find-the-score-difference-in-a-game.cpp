@@ -1,18 +1,24 @@
 class Solution {
 public:
     int scoreDifference(vector<int>& a) {
-        int p1=0,p2=0;
-        int av =0;
-        for( int i=0;i<a.size();i++){
-            if( a[i]%2==1){
-                av^=1;
+        int first = 1,second=0;
+        int f_sum=0,s_sum=0;
+        for(int i=0;i<a.size();i++){
+            if(a[i]%2==1 ){
+                first= 1-first;
+                second = 1-second;
             }
-            if( i%6==5){
-                av^=1;
+            if( (i+1)%6==0){
+                first= 1-first;
+                second = 1-second;
             }
-            if( av==0) p1+=a[i];
-            else p2+=a[i];
+            if(first==1){
+                f_sum+=a[i];
+            }
+            else {
+                s_sum+=a[i];
+            }
         }
-        return p1-p2;
+        return f_sum-s_sum;
     }
 };
