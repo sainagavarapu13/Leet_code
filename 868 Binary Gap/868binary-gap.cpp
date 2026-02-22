@@ -1,27 +1,19 @@
 class Solution {
 public:
     int binaryGap(int n) {
-        string bin="";
-        int m=n;
-        while(m){
-            if(m%2==0){
-                bin+='0';
-            }
-            else{
-                bin+='1';
-            }
-            m/=2;
+        vector<int> v;
+        int a = 0;
+        while(n>0){
+            int b = n%2;
+            if(b==1) v.push_back(a);
+            n = n/2;
+            a++;
         }
-        vector<int>idx;
-        for(int i=0;i<bin.size();i++){
-            if(bin[i]=='1'){
-                idx.push_back(i);
-            }
+        int res = 0;
+        for(int i=0;i<v.size()-1;i++){
+            // cout<<v[i]<<" "<<v[i+1]<<endl;
+            res = max(res,v[i+1]-v[i]);
         }
-        int maxi=0;
-        for(int i=0;i<idx.size()-1;i++){
-            maxi=max(maxi , idx[i+1]-idx[i]);
-        }
-        return maxi;
+        return res;
     }
 };
