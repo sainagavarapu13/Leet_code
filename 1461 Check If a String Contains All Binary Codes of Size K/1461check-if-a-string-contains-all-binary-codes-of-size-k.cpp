@@ -1,13 +1,13 @@
 class Solution {
 public:
-    bool hasAllCodes(string a, int k) {
-        if( (int)a.size()-k+1 < ((1<<k))) return 0;
-        set<string>s;
-        for( int i=0;i<=a.size()-k;i++){
-            s.insert(a.substr(i,k));
+    bool hasAllCodes(string s, int k) {
+        int n=s.size();
+        set<string>set;
+        int strings = n-k+1;
+        if(strings <  (1 << k)) return false;
+        for(int i=0;i<=s.size()-k;i++){
+            set.insert(s.substr(i,k));
         }
-        if( s.size() ==((1<<k))) return 1;
-        else return 0;
-
+        return set.size()== (1 << k);
     }
 };
