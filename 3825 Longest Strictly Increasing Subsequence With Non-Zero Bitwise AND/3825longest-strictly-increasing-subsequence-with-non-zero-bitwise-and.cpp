@@ -1,34 +1,30 @@
 class Solution {
 public:
-    int fun(vector<int>& a){
-        vector<int>res;
-
-        for( int x:a){
-            if( res.empty() || res.back()<x){
-                res.push_back(x);
-                continue;
+    int len(vector<int>& a){
+        vector<int>temp;
+        for(auto& i : a){
+            if(temp.empty() || temp.back()<i){
+                temp.push_back(i);
+               
             }
-
-            auto it = lower_bound(res.begin(), res.end(), x);
-            *it = x;
+            else{
+                auto it = lower_bound(temp.begin(),temp.end(),i);
+                *it = i;
+            }
         }
-        return res.size();
+        return temp.size();
     }
-
     int longestSubsequence(vector<int>& a) {
-        int ans=0;
-
-        for( int m=0;m<31;m++){
+        int maxi = 0;
+        for(int i=0;i<31;i++){
             vector<int>temp;
-
-            for( int x:a){
-                if( x&(1<<m)){
-                    temp.push_back(x);
+            for(auto& j:a){
+                if((j&(1<<i))){
+                    temp.push_back(j);
                 }
             }
-
-            ans = max( ans, fun( temp));
+            maxi = max(maxi,len(temp));
         }
-        return ans;
+        return maxi;
     }
 };
