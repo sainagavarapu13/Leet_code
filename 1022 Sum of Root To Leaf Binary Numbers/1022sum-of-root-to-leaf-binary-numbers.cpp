@@ -11,36 +11,33 @@
  */
 class Solution {
 public:
-int ans=0;
-vector<string>t;
-    void fun(TreeNode* root,string a){
-        if( root ==  NULL) return;
-      if( root->left == NULL && root->right==NULL){
-            a+=(root->val+'0');
-             t.push_back( a);
-             a.pop_back();
-            return ;
+string ans;
+vector<string>all;
+    void fun(TreeNode* root){
+        if(!root) { return; }
+       ans+=(root->val)+'0';
+         if (!root->left && !root->right) {
+            all.push_back(ans);
         }
-        a.push_back(root->val+'0');
-        fun( root->left,a);
-         a.pop_back();
-      a.push_back(root->val+'0');
-        fun( root->right, a);
-          a.pop_back();
+        fun(root->left);
+        fun(root->right);
+        ans.pop_back();
+    }
+    int num(string a){
+        int idx=1,sum=0;
+        for(int i=a.size()-1;i>=0;i--){
+            sum+=(a[i]-'0')*idx;
+            idx*=2;
+        }
+        return sum;
     }
     int sumRootToLeaf(TreeNode* root) {
-        string a;
-        fun( root,a);
+        ans="";
+        all.clear();
+        fun(root);
         int sum=0;
-        for( string s :t){
-            int val=0;
-            for( int i=0;i<s.size();i++){
-                if( s[i]=='1'){
-                    val+=(1<<((int)s.size()-i-1));
-                }
-            }
-            cout << s << " "<< val <<endl;
-            sum+=val;
+        for(auto& i: all){
+            sum+=num(i);
         }
         return sum;
     }
