@@ -1,14 +1,14 @@
 class Solution {
 public:
     bool checkDivisibility(int n) {
-        int sum=0;
-        int pr=1;
-        int temp = n;
-        while( n){
-            sum+=(n%10);
-            pr*=(n%10);
-            n/=10;
+        long long prod = 1,add = 0,O = n;
+        while(n>0){
+            int b = n%10;
+            prod *=b;
+            add +=b;
+            n /=10;
         }
-        return temp%(sum+pr)==0;
+        long long res = prod + add;
+        return (O%res==0);
     }
 };
