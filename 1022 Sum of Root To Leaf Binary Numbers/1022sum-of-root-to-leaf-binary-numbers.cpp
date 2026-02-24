@@ -11,34 +11,22 @@
  */
 class Solution {
 public:
-string ans;
-vector<string>all;
-    void fun(TreeNode* root){
-        if(!root) { return; }
-       ans+=(root->val)+'0';
-         if (!root->left && !root->right) {
-            all.push_back(ans);
+    int res = 0;
+    void dfs(TreeNode* r,string s){
+        s += '0'+r->val;
+        if(r->left==nullptr && r->right==nullptr){
+            int n = stoi(s,nullptr,2);
+            // cout<<n<<" "<<s<<endl;
+            res +=n;
+            return;
         }
-        fun(root->left);
-        fun(root->right);
-        ans.pop_back();
-    }
-    int num(string a){
-        int idx=1,sum=0;
-        for(int i=a.size()-1;i>=0;i--){
-            sum+=(a[i]-'0')*idx;
-            idx*=2;
-        }
-        return sum;
+        if(r->left)dfs(r->left,s);
+        if(r->right)dfs(r->right,s);
+        s.pop_back();
     }
     int sumRootToLeaf(TreeNode* root) {
-        ans="";
-        all.clear();
-        fun(root);
-        int sum=0;
-        for(auto& i: all){
-            sum+=num(i);
-        }
-        return sum;
+        string s;
+        dfs(root,s);
+        return res;
     }
 };
