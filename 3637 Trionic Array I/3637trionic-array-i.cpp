@@ -1,21 +1,21 @@
 class Solution {
 public:
-    bool isTrionic(vector<int>& a) {
-        int i=0;
-        int n=a.size();
-        while(i<n-1&&a[i]<a[i+1]){
-            i++;
+    bool isTrionic(vector<int>& nums) {
+        int a=0,b =0,d = 0,c =0,n = nums.size();
+        for(int i=1;i<n;i++){
+            if(b==0 && nums[i-1]<nums[i]){
+                a = 1;
+            }
+            else if(a==1 && c==0 && nums[i-1]>nums[i]){
+                b = 1;
+            }
+            else if(a==1 && b==1 && nums[i-1]<nums[i]){
+                c = 1;
+            }
+            else{
+                return false;
+            }
         }
-        if(i==0||i==n-1) return false;
-        int j=i;
-        while(j<n-1&&a[j]>a[j+1]){
-            j++;
-        }
-        if(j==i||j==n-1) return false;
-        while(j<n-1&&a[j]<a[j+1]){
-            j++;
-        }
-        if(j==n-1) return true;
-        else return false;
+        return (a==1 && b==1 && c==1);
     }
 };
