@@ -1,35 +1,36 @@
 class Solution {
 public:
-vector<string>ans;
-// bool valid(string a){
-//     for(int i=1;i<a.size();i++){
-//         if(a[i]=='0'&&a[i-1]=='0') return false;
-//     }
-//     return true;
-// }
-    void check(string temp,int len){
-        if(temp.size()==len){
-                ans.push_back(temp);
+    void solve(string s,int n,set<string> &res){
+        if(s.length()==n){
+            res.insert(s);
             return;
         }
-        if(temp!=""){
-            if(temp.back()=='1'){
-                check(temp+'1',len);
-                check(temp+'0',len);
-            }
-            else{
-                check(temp+'1',len);
-            }
+        if(s.length()==0){
+            s += '0';
+            solve(s,n,res);
+            s.pop_back();
+            s += '1';
+            solve(s,n,res);
         }
-        else{
-            check(temp+'1',len);
-            check(temp+'0',len);
+        if(s.length()>0 && s[s.length()-1]=='0' && s.length()<n){
+            s += '1';
+            solve(s,n,res);
+            s.pop_back();
         }
-        
+        if(s.length()>0 && s[s.length()-1]=='1' && s.length()<n){
+            s += '0';
+            solve(s,n,res);
+            s.pop_back();
+            s += '1';
+            solve(s,n,res);
+            s.pop_back();
+        }
     }
-    vector<string> validStrings(int n){
-        ans.clear();
-        check("",n);
+    vector<string> validStrings(int n) {
+        set<string> res;
+        string s;
+        solve(s,n,res);
+        vector<string> ans(res.begin(),res.end());
         return ans;
     }
 };
