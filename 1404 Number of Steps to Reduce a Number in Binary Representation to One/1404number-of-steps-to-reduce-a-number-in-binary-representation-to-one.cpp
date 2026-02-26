@@ -1,18 +1,37 @@
 class Solution {
 public:
-    int numSteps(string s) {
-        int ans=0,cnt=0;
-        int carry=0;
-        for(int i=s.size()-1;i>0;i--){
-            int curr = (s[i]-'0')+carry;
-            if(curr%2==1){
-                ans+=2;
-                carry=1;
+    string change(string s){
+        int a = 0;
+        // cout<<s<<endl;
+        int n = s.length()-1;
+        s[n] = '0';
+        a = 1;
+        for(int i = s.length()-2;i>=0;i--){
+            if(s[i]=='0'){
+                s[i] = '1';
+                a = 0;
+                break;
             }
-            else{
-                ans++;
-            }
+            s[i] = '0';
         }
-        return ans+carry;
+        if(a==1) s = "1"+s;
+        // cout<<"-"<<s<<endl;
+        return s;
+    }
+    int numSteps(string s) {
+        int res = 0;
+        while(s.length()>1){
+            while(s[s.length()-1]=='0'){
+                s.pop_back();
+                res++;
+            }
+            if(s.length()>1 && s[s.length()-1]=='1'){
+                s = change(s);
+                res++;
+            }
+            // cout<<s<<endl;
+        }
+        if(s.length()==1 && s[0]=='0') res++;
+        return res;
     }
 };
