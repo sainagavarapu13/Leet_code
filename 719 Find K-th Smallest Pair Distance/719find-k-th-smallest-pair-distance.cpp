@@ -1,28 +1,30 @@
 class Solution {
 public:
-    bool fun(vector<int>& a, int v,int k){
-        int cnt=0;
-        sort( a.begin(),a.end());
-        int j =0;
-        for( int i=0;i<a.size();i++){
-            while(a[i]-a[j]>v ){
-                j++;
+    bool fun(int mid ,vector<int>& a, int k ){
+        int start = 0,end =1,cnt=0;
+        while(end<a.size()){
+            while(a[end] - a[start]>mid){
+                start++;
             }
-            cnt+=(i-j);
+            cnt+=(end-start);
+            end++;
         }
-
-       
-        return cnt>=k;
+        if(cnt>=k) return true;
+        return false;
     }
     int smallestDistancePair(vector<int>& a, int k) {
-        int l =0;
-        int h = *max_element(a.begin(),a.end());
-        while(l<h){
-            int mid = l+(h-l)/2;
-            if( fun( a,mid,k))
-                h = mid;
-                else l =mid+1;
+        int start=0;
+        int end = *max_element(a.begin(),a.end());
+        sort(a.begin() , a.end());
+        while(start<end){
+            int mid = (start+end)/2;
+            if(fun(mid , a,k)){
+                end=mid;
+            }
+            else{
+                start = mid+1;
+            }
         }
-        return l;
+        return start;
     }
 };
