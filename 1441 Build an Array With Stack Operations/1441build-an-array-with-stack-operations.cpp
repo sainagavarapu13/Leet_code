@@ -1,19 +1,21 @@
 class Solution {
 public:
-    vector<string> buildArray(vector<int>& a, int n) {
-        vector<string>ans;
-        auto &m=*max_element(a.begin(),a.end());
-        int k=1;
-        while(k<=m){
-            if(count(a.begin(),a.end(),k)){
-                ans.push_back("Push");
+    vector<string> buildArray(vector<int>& target, int n) {
+        string s = "Push",t="Pop";
+        vector<string> res;
+        int a = 1,i=0;
+        while(a<=n && i<target.size() ){
+            if(target[i]==a){
+                res.push_back(s);
+                i++;
+                a++;
             }
             else{
-                 ans.push_back("Push");
-                  ans.push_back("Pop");
+                res.push_back(s);
+                res.push_back(t);
+                a++;
             }
-            k++;
         }
-        return ans;
+        return res;
     }
 };
