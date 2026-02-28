@@ -1,13 +1,13 @@
 class Solution {
 public:
     int concatenatedBinary(int n) {
-        long long ans=1;
-        int mod =1e9+7;
+        int mod = 1e9 + 7;
+        long long res = 1;
         for(int i=2;i<=n;i++){
-            int len = log2(i)+1;
-            ans = (ans<<len)|i;
-            ans%=mod;
+            int d = bit_width((unsigned)i);
+            res =  (res<<d) | i;
+            res = res %mod;
         }
-        return ans;
+        return res;
     }
 };
