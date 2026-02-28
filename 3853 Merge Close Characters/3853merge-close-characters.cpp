@@ -1,21 +1,23 @@
 class Solution {
 public:
     string mergeCharacters(string s, int k) {
-        vector<int>last(26,-1);
-        string ans;
-        for(int i=0;i<s.size();i++){
-            int idx=last[s[i]-'a'];
-          //  cout<<idx<<" ";
-            if(last[s[i]-'a']==-1){
-                ans+=s[i];
-                last[s[i]-'a'] =ans.size()-1;
+        while(1){
+            int n = s.length();
+            int a = -1;
+            for(int i=0;i<n;i++){
+                for(int j = i+1;j<n;j++){
+                    // cout<<s[i]<<" "<<s[j]<<endl;
+                    if(s[i]==s[j] && (j-i)<=k){
+                        a = 1;
+                        // cout<<s[j]<<endl;
+                        s.erase(s.begin()+j);
+                        break;
+                    }
+                }
+                if(a==1) break;
             }
-            else if(abs(idx-(int)ans.size())>k){
-                ans+=s[i];
-                last[s[i]-'a'] =ans.size()-1;
-            }
-            
+            if(a==-1) break;
         }
-        return ans;
+        return s;
     }
 };
