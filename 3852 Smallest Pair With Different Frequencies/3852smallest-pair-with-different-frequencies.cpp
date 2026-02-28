@@ -1,22 +1,21 @@
 class Solution {
 public:
-    vector<int> minDistinctFreqPair(vector<int>& a) {
-        map<int,int>m;
-        for(auto& i:a){
-            m[i]++;
+    vector<int> minDistinctFreqPair(vector<int>& nums) {
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
         }
-        sort(a.begin(),a.end());
-        int n=-1,m1=-1;
-        int freq=m[a[0]];
-        n=a[0];
-        for(int i=1;i<a.size();i++){
-            if(a[i]==n) continue;
-            if(freq==m[a[i]]) continue;
-            m1=a[i];
-            break;
-            
+        vector<int> v;
+        for(auto x:m){
+            v.push_back(x.first);
         }
-        if(m1==-1) return {-1,-1};
-        return {n,m1};
+        for(int i=0;i<v.size();i++){
+            for(int j = i+1;j<v.size();j++){
+                if(m[v[i]]!=m[v[j]]){
+                    return {v[i],v[j]};
+                }
+            }
+        }
+        return {-1,-1};
     }
 };
