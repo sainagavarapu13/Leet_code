@@ -1,8 +1,7 @@
 class Solution {
 public:
     int minPartitions(string n) {
-        sort( n.begin(),n.end(),greater<>());
-        return n[0]-'0';
-        
+        sort(n.begin(),n.end());
+        return n.back()-'0';
     }
 };
