@@ -1,13 +1,18 @@
 class Solution {
 public:
     int minCost(int n) {
-       vector<int>dp(n+1);
-        dp[0]=0;
-       if(n>=1) dp[1]=0;
-     
-        for(int i=2;i<=n;i++){
-            dp[i]=dp[i-1]+(i-1);
+        vector<int> v;
+        if(n!=1) v.push_back(n);
+        int res = 0;
+        while(v.size()!=0){
+            int b = v.back();
+            int a = b/2;
+            int c = b -a;
+            res += a*c;
+            v.pop_back();
+            if(a!=1) v.push_back(a);
+            if(c!=1) v.push_back(c);
         }
-        return dp[n];
+        return res;
     }
 };
