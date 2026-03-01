@@ -1,11 +1,17 @@
 class Solution {
 public:
+    bool isvol(char ch){
+        if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u') return true;
+        return false;
+    }
     string trimTrailingVowels(string s) {
-        int i = s.size()-1;
-        set<char>v = {'a','e','i','o','u'};
-        while( i>=0 &&  v.count( s[i])){
-           i--;
+        
+        int j=s.size()-1;
+        while(j>=0&& isvol(s[j])) j--;
+        string ans;
+        for(int k=0;k<=j;k++){
+            ans+=s[k];
         }
-        return s.substr( 0,i+1);
+        return ans;
     }
 };
