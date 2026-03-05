@@ -1,21 +1,27 @@
 class Solution {
     public int minOperations(String s) {
-        Scanner sc = new Scanner( System.in);
-        String a ="",b="";
-        for( int i=0;i<s.length();i++){
-            if( i%2==0){
-                a = a+"1";
-                b = b+"0";
-            }else{
-                 a = a+"0";
-                b = b+"1";
+        char ch = '0';
+        int cnt=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)!=ch){
+                cnt++;
             }
+            if(ch=='0'){
+                ch='1';
+            }
+            else ch='0';
         }
-        int ca =0, cb =0;
-        for( int i=0;i<s.length();i++){
-            if( a.charAt(i)!=s.charAt(i) ) ca++;
-            if( b.charAt(i)!=s.charAt(i)) cb++;
+        int c=0;
+        ch='1';
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)!=ch){
+                c++;
+            }
+            if(ch=='0'){
+                ch='1';
+            }
+            else ch='0';
         }
-        return Math.min( ca,cb);
+        return Math.min(cnt,c);
     }
 }
