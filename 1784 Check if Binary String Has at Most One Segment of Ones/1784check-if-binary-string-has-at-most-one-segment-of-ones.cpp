@@ -1,21 +1,14 @@
 class Solution {
 public:
     bool checkOnesSegment(string s) {
-        if(s.size() == 1 && s[0] == '1') return true;
-        int cnt = 0;
-        bool found = false;
-        
-        for(char i : s) {
-            if(i == '1') {
-                if(found) {
-                    return false;
-                }
-                cnt++;
-            } else {
-                found= true;
-            }
+        int i=0;
+        while(i<s.size()&&s[i]=='1'){
+            i++;
         }
-        
-        return true;
+        while(i<s.size()&&s[i]=='0'){
+            i++;
+        }
+        if(i==s.size()) return 1;
+        else return 0;
     }
 };
