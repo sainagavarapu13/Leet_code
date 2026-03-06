@@ -1,14 +1,9 @@
 class Solution {
 public:
     bool checkOnesSegment(string s) {
-        int i=0;
-        while(i<s.size()&&s[i]=='1'){
-            i++;
+        for(int i=0;i<s.length()-1;i++){
+            if(s[i]=='0' && s[i+1]=='1') return false;
         }
-        while(i<s.size()&&s[i]=='0'){
-            i++;
-        }
-        if(i==s.size()) return 1;
-        else return 0;
+        return true;
     }
 };
