@@ -1,12 +1,10 @@
-# Write your MySQL query statement below
-
-select 
-    d.name as department, 
-    e.name as employee,
-    salary
-from
-    employee e join department d on e.departmentid = d.id
-    where salary =(
-        select max(salary) from employee m
-        where m.departmentid = e.departmentid
-    )
+/* Write your PL/SQL query statement below */
+select d.name as Department,e.name as Employee , e.salary
+from Employee e join Department  d
+on e.departmentId =d.id
+where (d.name , e.salary) in (
+    select d.name , max(salary)
+    from  Employee e join Department  d
+on e.departmentId =d.id
+group by d.name;
+)
