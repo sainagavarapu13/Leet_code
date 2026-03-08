@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int fun(string s ){
-            string a =s;
+    int minOperations(string s) {
+        string a =s;
         sort(a.begin(),a.end());
         if(a==s) return 0;
         int l=0;
@@ -23,8 +23,5 @@ public:
              return 3;
         }
         return 1;
-    }
-    int minOperations(string s) {
-        return fun( s);
     }
 };
