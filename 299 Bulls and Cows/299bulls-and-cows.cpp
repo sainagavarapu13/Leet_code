@@ -1,32 +1,24 @@
 class Solution {
 public:
-    string getHint(string a, string b) {
-        int same=0;
-        for(int i=0;i<a.size();i++){
-            if(a[i]==b[i]){
-                same++;
-                a[i]='&';
-                b[i]='&';
+    string getHint(string s, string g) {
+        int b = 0, c = 0;
+        map<char,int> m,n;
+        set<char> d;
+        for(int i=0;i<s.size();i++){
+            if(s[i]==g[i]){
+                b++;
+            }
+            else{
+                m[s[i]]++;
+                n[g[i]]++;
+                d.insert(s[i]);
             }
         }
-        map<char,int>m1,m2;
-        for(auto& i:a){
-            m1[i]++;
+        for(auto x:d){
+                c += min(m[x],n[x]);
         }
-        for(auto& i:b){
-            m2[i]++;
-        }
-        int cnt=0;
-        for(auto& [n,c]:m1){
-            if(n=='&') continue;
-            cnt+=min(c,m2[n]);
-         
-        }
-        string ans;
-        ans+=to_string(same);
-        ans+='A';
-        ans+=to_string(cnt);
-        ans+='B';
-        return ans;
+        string t= "";
+        t  += to_string(b) + 'A'+to_string(c)+'B';
+        return t;
     }
 };
