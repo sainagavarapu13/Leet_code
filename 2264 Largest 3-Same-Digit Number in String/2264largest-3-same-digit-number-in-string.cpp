@@ -1,21 +1,15 @@
 class Solution {
 public:
-    string largestGoodInteger(string a) {
-        int i;
-        int m=-1;
-        string s;
-        for(i=1;i<a.size()-1;i++){
-            if(a[i]==a[i+1]&&a[i]==a[i-1]){
-                int k=a[i]-'0';
-                if(k>m){
-                    m=k;
-                }
+    string largestGoodInteger(string num) {
+        int maxi = -1,n=num.size();
+        for(int i=0;i<=n-3;i++){
+            if(num[i]==num[i+1] && num[i+1]==num[i+2]){
+                int z = stoi(num.substr(i,3));
+                maxi = max(maxi,z);
             }
         }
-        if(m==-1) return "";
-        for(i=0;i<3;i++){
-            s.push_back(m+'0');
-        }
-        return s;
+        if(maxi==-1) return "";
+        if(maxi==0) return "000";
+        return to_string(maxi);
     }
 };
