@@ -11,32 +11,37 @@
  */
 class Solution {
 public:
-TreeNode* temp,*start;
-    void pre(TreeNode* &root){
-        if(!root) return;
-        temp->right = new TreeNode(root->val);
-        temp=temp->right;
-        pre(root->left);
-        pre(root->right);
+    void preorder(TreeNode* r,vector<int> &a){
+        if(r!=NULL){
+            a.push_back(r->val);
+        }
+        else{
+            return;
+        }
+        if(r->left!=NULL) preorder(r->left,a);
+        if(r->right!=NULL) preorder(r->right,a);
     }
     void flatten(TreeNode* root) {
-        temp=NULL;
-        temp=new TreeNode(0);
-        start=temp;
-        pre(root);
-        start=start->right;
-        while(start){
-            root->val=start->val;
-            root->left=NULL;
-            if(start->right){
-                root->right=new TreeNode(0);
+        vector<int> v;
+        preorder(root,v);
+        if(v.size()==0) return;
+        root->left = nullptr;
+        TreeNode* t = root;
+        TreeNode* pr = nullptr;
+        for(int i=0;i<v.size();i++){
+            // cout<<v[i]<<" ";
+            if(t!=NULL){
+                t->val = v[i];
+                t->left = nullptr;
+                pr = t;
             }
             else{
-                root->right=NULL;
+                TreeNode* p = new TreeNode(v[i]);
+                if(p!=NULL)pr->right = p;
+                pr = p;
+                t = pr;
             }
-            start=start->right;
-            root=root->right;
+            t = t->right;
         }
-
     }
 };
