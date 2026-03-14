@@ -1,15 +1,17 @@
 # Write your MySQL query statement below
-with cnt as
+with cte as 
 (
-    select * , sum(
-        case when return_date is null then 1
-        else 0
-        end
-    ) cou 
-    from borrowing_records
-    group by book_id
-)
-select l.book_id , title, author, genre , publication_year, cou as current_borrowers from 
-library_books l join cnt b on l.book_id = b.book_id
-where (cou-total_copies)=0
-order by current_borrowers desc ,title ;
+select book_id , count(*) as cnt,return_date from borrowing_records 
+group by book_id,return_date
+) 
+select l.book_id,
+       l.title,
+       l.author,
+       l.genre,
+       l.publication_year,
+       c.cnt as current_borrowers  from library_books l join cte c 
+       on l.book_id = c.book_id
+where c.cnt = (select l.total_copies  from library_books l where c.book_id =l.book_id )
+and return_date is null 
+order by current_borrowers  desc , l.title;
+
