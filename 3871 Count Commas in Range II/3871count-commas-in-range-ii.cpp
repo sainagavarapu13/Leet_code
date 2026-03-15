@@ -1,12 +1,11 @@
 class Solution {
 public:
     long long countCommas(long long n) {
-        long long base = 1000;
-        long long ans = 0;
-        while(base <= n){
-            ans += (n - base + 1);
-            base *= 1000;
+        long long res = 0,s = 1000;
+        while(s<=n){
+            res += (n-s+1);
+            s *=1000;
         }
-        return ans;
+        return res;
     }
 };
