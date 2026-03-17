@@ -1,19 +1,17 @@
 class Solution {
 public:
     int earliestFullBloom(vector<int>& a, vector<int>& b) {
-        vector<pair<int , int>>c;
-        for( int i=0;i<a.size();i++){
-            c.push_back({a[i],b[i]});
+        vector<pair<int,int>>p;
+        for(int i=0;i<a.size();i++){
+            p.push_back({b[i],a[i]});
         }
-        sort(c.begin(),c.end(),[](auto& x , auto& y){
-            return x.second >y.second;
-        });
-        int cur=-1;
-        int m =INT_MIN;
-        for( auto& [x,y] : c){
-            cur+=x;
-            m = max( m , cur+y+1);
+        sort(p.begin(),p.end(),greater<>());
+        int m=0;
+        int pre=-1;
+        for(auto& [i,j]:p){
+            pre+=j;
+            m=max(m,pre+i);
         }
-     return m;   
+        return m+1;
     }
 };
