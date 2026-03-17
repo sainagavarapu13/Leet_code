@@ -1,19 +1,14 @@
 class Solution {
 public:
-    vector<int> finalPrices(vector<int>& a) {
-        int i,j,m=-1,k;
-        vector<int>ans(a.size());
-        for(i=0;i<a.size();i++){
-            k=a[i];
-            for(j=i+1;j<a.size();j++){
-                if(a[i]>=a[j]){
-                    k-=a[j];
+    vector<int> finalPrices(vector<int>& prices) {
+        for(int i=0;i<prices.size();i++){
+            for(int j=i+1;j<prices.size();j++){
+                if(prices[i]>=prices[j]){
+                    prices[i] = prices[i]-prices[j];
                     break;
                 }
-               
             }
-             ans[i]=k;
         }
-        return ans;
+        return prices;
     }
 };
