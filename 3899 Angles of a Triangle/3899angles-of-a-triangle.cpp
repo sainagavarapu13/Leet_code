@@ -1,15 +1,29 @@
 class Solution {
 public:
-    vector<double> internalAngles(vector<int>& s) {
-        double a = s[0] ,b = s[1], c=s[2];
-        if( a+b<=c || a+c <= b || b+c <= a){
-            return {};
+    double check(double a){
+        if(a<-1) a= -1;
+        else if(a>1) a = 1;
+        else return a;
+        return a;
+    }
+    vector<double> internalAngles(vector<int>& sides) {
+        vector<double> v;
+        int a = sides[0];
+        int b = sides[1];
+        int c = sides[2];
+        if(a+b<=c || b+c<=a || a+c<=b){
+            return v;
         }
-        double aa = acos((b*b + c*c - a*a )/(2*b*c))*(180.0/M_PI);
-        double bb = acos((a*a + c*c - b*b )/(2*a*c))*(180.0/M_PI);
-        double cc = acos((a*a + b*b - c*c )/(2*b*a))*(180.0/M_PI);
-        vector<double>v={aa,bb,cc};
-        sort( v.begin(),v.end());
+        double d1 = check((b*b+c*c-a*a)/(2.0*b*c));
+        double e1 = check((c*c+a*a-b*b)/(2.0*a*c));
+        double f1 = check((a*a+b*b-c*c)/(2.0*a*b));
+        double d = acos(d1);
+        double e = acos(e1);
+        double f = acos(f1);
+        v.push_back(d*180.0/M_PI);
+        v.push_back(e*180.0/M_PI);
+        v.push_back(f*180.0/M_PI);
+        sort(v.begin(),v.end());
         return v;
     }
 };
