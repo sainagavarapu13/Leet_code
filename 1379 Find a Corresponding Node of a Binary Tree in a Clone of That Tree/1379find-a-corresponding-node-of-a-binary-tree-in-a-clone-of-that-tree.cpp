@@ -10,29 +10,19 @@
 
 class Solution {
 public:
-    TreeNode* getTargetCopy(TreeNode* root, TreeNode* root1, TreeNode* t) {
-        queue<TreeNode*> a, b;
-        a.push(root);
-        b.push(root1);
-        while (!a.empty()) {
-            int n = a.size();
-            for (int i = 0; i < n; i++) {
-                TreeNode* x = a.front();
-                TreeNode* y = b.front();
-                a.pop();
-                b.pop();
-                if (x == t)
-                    return y;
-                if (x->left) {
-                    a.push(x->left);
-                    b.push(y->left);
-                }
-                if (x->right) {
-                    a.push(x->right);
-                    b.push(y->right);
-                }
-            }
+TreeNode* ans=NULL;
+    void search( TreeNode* original,TreeNode* cloned, TreeNode* target){
+        if(!original) return ;
+        search(original->left,cloned->left,target);
+         if(original==target){
+            ans= cloned;
         }
-        return NULL;
+        search(original->right,cloned->right,target);
+       
+    }
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        ans=NULL;
+         search(original,cloned,target);
+         return ans;
     }
 };
