@@ -11,36 +11,32 @@
  */
 class FindElements {
 public:
-    unordered_set<int> st;
-
-FindElements(TreeNode* root) {
-    queue<TreeNode*> q;
-
-    root->val = 0;
-    st.insert(0);
-    q.push(root);
-
-    while (!q.empty()) {
-        TreeNode* node = q.front();
-        q.pop();
-
-        if (node->left) {
-            node->left->val = 2 * node->val + 1;
-            st.insert(node->left->val);
-            q.push(node->left);
-        }
-
-        if (node->right) {
-            node->right->val = 2 * node->val + 2;
-            st.insert(node->right->val);
-            q.push(node->right);
+    TreeNode* root = NULL;
+    queue<TreeNode*>q;
+    set<int>set;
+    FindElements(TreeNode* r) {
+        root = r;
+        root->val=0;
+        q.push(root);
+        set.insert(0);
+        while(!q.empty()){
+            TreeNode* pre = q.front();
+            q.pop();
+            if(pre->left){
+                pre->left->val = (2*(pre->val))+1;
+                q.push(pre->left);
+                set.insert(2*(pre->val)+1);
+            }
+             if(pre->right){
+                pre->right->val=(2*(pre->val)+2);
+                q.push(pre->right);
+                set.insert(2*(pre->val)+2);
+            }
         }
     }
-}
     
     bool find(int target) {
-        if(st.count(target)) return 1;
-        else return 0;
+        return set.count(target);
     }
 };
 
