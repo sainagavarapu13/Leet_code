@@ -1,21 +1,13 @@
-
-
 class Solution {
 public:
-    int getCommon(vector<int>& n1, vector<int>& n2) {
-        int i = 0, j = 0;
-        int n = n1.size(), m = n2.size();
-        
-        while (i < n && j < m) {
-            if (n1[i] == n2[j]) {
-                return n1[i]; 
-            } else if (n1[i] < n2[j]) {
-                i++;
-            } else {
-                j++;
-            }
+    int getCommon(vector<int>& a, vector<int>& b) {
+        set<int>set;
+        for(auto & i:b){
+            set.insert(i);
         }
-        
+        for(int i=0;i<a.size();i++){
+            if(set.count(a[i])) return a[i];
+        }
         return -1;
     }
 };
