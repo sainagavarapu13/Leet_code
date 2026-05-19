@@ -1,17 +1,20 @@
 class Solution {
 public:
     vector<string> findRepeatedDnaSequences(string s) {
-        unordered_set<string>se;
-        unordered_set<string>res;
-        for( int i=0;i+9<s.size();i++){
-            string a = s.substr(i,10);
-            if( se.count(a)){
-                res.insert(a);
-            }
-            se.insert(a);
+        int start=0,end=10;
+        map<string , int>mp;
+        while(end<=s.size()){
+          string temp(s.begin()+start , s.begin()+end);
+            mp[temp]++;
+            start++;
+            end++;
         }
-        vector<string>ans(res.begin(),res.end());
-        
+        vector<string>ans;
+        for(auto& [n,c]:mp){
+            if(c>1){
+                ans.push_back(n);
+            }
+        }
         return ans;
     }
 };
