@@ -1,21 +1,31 @@
 class Solution {
 public:
-    int maxVowels(string a, int k) {
+    bool isvol(char ch){
+        char k=tolower(ch);
+        if(k=='a'||k=='e'||k=='i'||k=='o'||k=='u') return true;
+        return false;
+    }
+    int maxVowels(string s, int k) {
+        int start=0,end=k;
         int cnt=0;
-        int ans =0;
-        set<char>s;
-        s = {'a','e','i','o','u'};
-        int j=0,i=0;
-        while( j<a.size()){
-            if( s.count(a[j])) cnt++;
-            if( j-i+1 <k){
-                j++;
-            }else{
-                ans = max( ans , cnt);
-                if( s.count(a[i])) cnt--;
-                i++;
-                j++;
+        for(int i=start;i<end;i++){
+            if(isvol(s[i])){
+                cnt++;
             }
+        }
+        int ans=0;
+        ans=max(ans,cnt);
+        while(end<s.size()){
+           
+            if(isvol(s[end])){
+                cnt++;
+            }
+            if(isvol(s[start])){
+                cnt--;
+            }
+             start++;
+            ans=max(ans,cnt);
+             end++;
         }
         return ans;
     }
