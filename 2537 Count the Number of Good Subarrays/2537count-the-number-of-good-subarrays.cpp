@@ -1,22 +1,22 @@
 class Solution {
 public:
     long long countGood(vector<int>& a, int k) {
-        map<int,long long>m;
-        int s=0;
-        long long p=0,tot=0;
+        int start=0,end=0;
+        map<int,int>m;
+        int n=a.size();
         long long ans=0;
-        for( int i=0;i<a.size();i++){
-           tot+=m[a[i]];
-            m[a[i]]++;
-           
-            while(tot>=k){
-                ans +=a.size()-i;
-                 m[a[s]]--;
-                tot-=m[a[s]];
+        long long cnt=0;
+        while(end<a.size()){
+             cnt+=m[a[end]];
+            m[a[end]]++;
+             while(cnt>=k){
+                  ans+=(n-end);
+                m[a[start]]--;
+                cnt-=m[a[start]];
+                start++;
                
-                 s++;
             }
-            
+           end++;
         }
         return ans;
     }
