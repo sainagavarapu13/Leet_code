@@ -1,17 +1,26 @@
 class Solution {
 public:
     vector<int> findThePrefixCommonArray(vector<int>& a, vector<int>& b) {
-        map<int , int>c;
-        vector<int>n;
-        for( int i=0;i<a.size();i++){
-                c[a[i]]++;
-                c[b[i]]++;
-                int cnt=0;
-            for(auto& [x,y]:c){
-                if( y >1) cnt++;
+        map<int,int>m1,m2;
+        int cnt=0;
+        vector<int>ans;
+        for(int i=0;i<a.size();i++){
+            m1[a[i]]++;
+            m2[b[i]]++;
+            if(a[i]==b[i]){
+                cnt++;
             }
-            n.push_back(cnt);
+            else{
+                 if(m2[a[i]]>0){
+                cnt++;
+            }
+            if(m1[b[i]]>0){
+                cnt++;
+            }
+            }
+           
+            ans.push_back(cnt);
         }
-        return n;
+        return ans;
     }
 };
