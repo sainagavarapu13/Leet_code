@@ -10,18 +10,24 @@
  */
 class Solution {
 public:
-    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        set<int>s(nums.begin(),nums.end());
-       
-       while(head && s.count( head->val)){
-            head = head->next;
-       }
-       if( !head) return nullptr;
- ListNode* temp = head;
-        while( temp->next!=NULL){
-            if(s.count( temp->next->val)){
-            temp->next = temp->next->next;
-       }else temp = temp->next;
+    ListNode* modifiedList(vector<int>& a, ListNode* head) {
+        set<int>set;
+        for(auto & i:a){
+            set.insert(i);
+        }
+        ListNode* temp=head;
+        ListNode* prev=NULL;
+        while(temp){
+           if(set.count(temp->val)){
+            if(prev==NULL){
+                 head=head->next;
+            }
+            else{
+                prev->next=temp->next;
+            }
+           }
+          else prev=temp;
+            temp=temp->next;
         }
         return head;
     }
