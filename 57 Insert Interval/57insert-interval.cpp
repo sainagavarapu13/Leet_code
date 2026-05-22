@@ -1,22 +1,37 @@
 class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& a, vector<int>& ni ) {
-        vector<vector<int>> ans(a.begin(),a.end() );
-        ans.push_back( ni);
-        vector<vector<int>> res;
-        sort( ans.begin(),ans.end());
-        int s = ans[0][0];
-        int e = ans[0][1];
-        for( int i=1;i<ans.size();i++){
-            if( ans[i][0]<=e){
-                    e = max( e, ans[i][1]);
-            }else{
-                    res.push_back({s,e});
-                    s = ans[i][0];
-                    e = ans[i][1];
-            }  
+    vector<vector<int>> insert(vector<vector<int>>& a, vector<int>& b) {
+        vector<vector<int>>ans;
+        int i=0;
+         bool used = false;
+        while(i<a.size()){
+            int start=a[i][0];
+            int end=a[i][1];
+            if(end<b[0]){
+                ans.push_back({start,end});
+            }
+            else if(start>b[1]){
+                if(!used){
+                    ans.push_back(b);
+                    used=true;
+                }
+                ans.push_back({start,end});
+            }
+            else{
+                start = min(start, b[0]);
+                end=max(end,b[1]);
+            while(i+1<a.size()&&end>=a[i+1][0]){
+                end=max(end,a[i+1][1]);
+                i++;
+            }
+            ans.push_back({start,end});
+            used=true;
+            }
+            i++;
         }
-         res.push_back({s,e});
-        return res;
+         if(!used) {
+            ans.push_back(b);
+        }
+        return ans;
     }
 };
