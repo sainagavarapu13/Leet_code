@@ -1,19 +1,18 @@
 class Solution {
 public:
     long long largestPerimeter(vector<int>& a) {
-        sort(a.begin(), a.end());
-        int n = a.size();
-        vector<long long> p(n);
-        p[0] = a[0];
-        for(int i = 1; i < n; i++){
-            p[i] = p[i - 1] + a[i];
+        vector<long long>pre;
+        long long sum=0;
+        sort(a.begin(),a.end());
+        for(int i=0;i<a.size();i++){
+            pre.push_back(sum);
+             sum+=(long long)a[i];
         }
-        long long ans = -1;
-        for(int i = 2; i < n; i++){
-            if(p[i - 1] > a[i]){
-                ans = p[i];
+        for(int i=a.size()-1;i>=0;i--){
+            if(a[i]<pre[i]&&i>=2){
+                return (long long)pre[i]+(long long)a[i];
             }
         }
-        return ans;
+        return -1;
     }
 };
