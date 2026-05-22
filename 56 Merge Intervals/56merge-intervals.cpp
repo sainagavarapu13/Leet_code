@@ -1,20 +1,20 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& a) {
-        sort( a.begin() , a.end());
-        int p =a[0][0];
-        int q = a[0][1];
+        sort(a.begin(),a.end());
         vector<vector<int>>ans;
-        for( int i=1;i<a.size();i++){
-            if( a[i][0] <= q){
-                q = max( q , a[i][1]);
-            }else{
-                 ans.push_back({p,q});
-                  p= a[i][0];
-                  q = a[i][1];
+        int e=0,i=0;
+        while(i<a.size()){
+            int start=a[i][0];
+            int end=a[i][1];
+            while(i+1<a.size()&&a[i+1][0]<=end){
+                end=max(end,a[i+1][1]);
+            i++;
             }
+            ans.push_back({start,end});
+           
+            i++;
         }
-        ans.push_back({p,q});
         return ans;
     }
 };
