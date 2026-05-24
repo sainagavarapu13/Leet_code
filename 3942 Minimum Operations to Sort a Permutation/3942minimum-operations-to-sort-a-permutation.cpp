@@ -1,41 +1,35 @@
 class Solution {
 public:
-    int minOperations(vector<int>& a) {
-        int n = a.size();
-        int k = -1;
-        for (int i = 0; i < n; i++) {
-            if (a[i] == 0) {
-                k = i;
-                break;
+    int minOperations(vector<int>& nums) {
+        int n = nums.size();
+        if(n<=1) return 0;
+        int in = 0 ,dc = 0,id = -1;
+        for(int i=0;i<n;i++){
+            if(nums[i]==0) id = i;
+            if(nums[i]>nums[(i+1)%n]){
+                in++;
+            }
+            if(nums[i]<nums[(i+1)%n]){
+                dc++;
             }
         }
-        bool m = true;
-        for (int i = 0; i < n; i++) {
-            if (a[(k + i) % n] != i) {
-                m = false;
-                break;
-            }
+        bool ic = (in<=1),dec = (dc<=1);
+        if(!ic && !dec){
+            return -1;
         }
-        bool p = true;
-        for (int i = 0; i < n; i++) {
-            if (a[(k - i + n) % n] != i) {
-                p = false;
-                break;
-            }
+        int ans = 1e9;
+        if(ic){
+            int ro = id;
+            ans = min(ans,ro);
+            int rv = 2 + ((n-id)%n);
+            ans = min(ans,rv);
         }
-        int x = INT_MAX;
-        if (m) {
-            int j = k;
-            x = min(x, j);
-            int l = (n - k) % n;
-            x = min(x, 2 + l);
+        if(dec){
+            int rv = 1 + (n-1-id);
+            ans = min(ans,rv);
+            int ro = ((id+1)%n)+1;
+            ans = min(ans,ro);
         }
-        if (p) {
-            int j = n - 1 - k;
-            x = min(x, 1 + j);
-            int l = (k + 1) % n;
-            x = min(x, 1 + l);
-        }
-        return (x == INT_MAX) ? -1 : x;
+        return ans == 1e9 ? -1 : ans;
     }
 };
