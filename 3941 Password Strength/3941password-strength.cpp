@@ -1,21 +1,17 @@
 class Solution {
 public:
-    int passwordStrength(string a) {
-        set<char>lower,upper,digit,spl;
-        for(int i=0;i<a.size();i++){
-            if(a[i]>='a'&&a[i]<='z'){
-                lower.insert(a[i]);
-            }
-            else if(a[i]>='A'&&a[i]<='Z'){
-                upper.insert(a[i]);
-            }
-            else if(a[i]>='0'&&a[i]<='9'){
-                digit.insert(a[i]);
-            }
-            else{
-                spl.insert(a[i]);
+    int passwordStrength(string password) {
+        map<char,int> m;
+        int res = 0;
+        for(int i=0;i<password.size();i++){
+            m[password[i]]++;
+            if(m[password[i]]==1){
+                if(password[i]>='a' && password[i]<='z') res++;
+                else if(password[i]>='A' && password[i]<='Z') res += 2;
+                else if(password[i]>='0' && password[i]<='9') res +=3;
+                else if(password[i]=='!' || password[i]=='@' || password[i]=='#' || password[i]=='$') res +=5;
             }
         }
-        return ((int)lower.size())+(2*(int)upper.size())+(3*(int)digit.size())+(5*(int)spl.size());
+        return res;
     }
 };
