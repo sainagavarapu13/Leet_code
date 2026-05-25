@@ -1,15 +1,14 @@
 class Solution {
 public:
     vector<int> limitOccurrences(vector<int>& a, int k) {
-        int i = 0;
-
-        for (int x : a) {
-            if (i<k || a[i-k] != x) {
-                a[i] = x;
-                i++;
+        vector<int>ans;
+        map<int,int>m;
+        for(int i=0;i<a.size();i++){
+            m[a[i]]++;
+            if(m[a[i]]<=k){
+                ans.push_back(a[i]);
             }
         }
-        vector<int> b(a.begin(), a.begin() + i);
-        return b;
+        return ans;
     }
 };
