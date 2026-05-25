@@ -1,24 +1,19 @@
 class Solution {
 public:
-    
     bool canReach(string s, int a, int b) {
-         if(s.size() == 0) return false;
-        if( s[0]=='1' || s[s.size()-1]=='1') return 0;
-        
-        vector<bool>dp(s.size(),false);
-        dp[0]=true;
-        int x=0;
-         int y;
-        for( int i=0;i<s.size();i++){
-                if(!dp[i] ) continue;
-                 y= min( (int)s.size()-1,i+b);
-                for( int j = max( x,i+a);j<=y;j++){
-                    if(s[j]=='0')dp[j]=true;
+        vector<int>dp(s.size(),0);
+        dp[0]=1;
+        int len = s.size(),ind=0;
+        for(int i=0;i<s.size();i++){
+            if(dp[i]==0) continue;
+            for(int j=max(i+a,ind);j<=min(len,i+b);j++){
+                if(s[j]=='0'){
+                    dp[j]=1;
                 }
-                x = y+1;
-
+            }
+            ind=min(len,i+b)+1;
         }
-        return dp[s.size()-1];
-        
+        //cout<<s.size();
+        return dp.back();
     }
 };
