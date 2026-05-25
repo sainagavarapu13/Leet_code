@@ -1,23 +1,21 @@
 class Solution {
 public:
     int passwordStrength(string a) {
-        set<char> s;
-        vector<int> b(4, 0);
-        for (char c : a) {
-            if (s.count(c)) continue;
-            s.insert(c);
-            if (c >= 'a' && c <= 'z') b[0]++;
-            else if (c >= 'A' && c <= 'Z') b[1]++;
-            else if (c >= '0' && c <= '9') b[2]++;
-            else b[3]++;
+        set<char>lower,upper,digit,spl;
+        for(int i=0;i<a.size();i++){
+            if(a[i]>='a'&&a[i]<='z'){
+                lower.insert(a[i]);
+            }
+            else if(a[i]>='A'&&a[i]<='Z'){
+                upper.insert(a[i]);
+            }
+            else if(a[i]>='0'&&a[i]<='9'){
+                digit.insert(a[i]);
+            }
+            else{
+                spl.insert(a[i]);
+            }
         }
-
-        int cnt = 0;
-
-        cnt += b[0] * 1;
-        cnt += b[1] * 2;
-        cnt += b[2] * 3;
-        cnt += b[3] * 5;
-        return cnt;
+        return ((int)lower.size())+(2*(int)upper.size())+(3*(int)digit.size())+(5*(int)spl.size());
     }
 };
