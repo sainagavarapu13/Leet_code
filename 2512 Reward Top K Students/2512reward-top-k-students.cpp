@@ -1,32 +1,46 @@
 class Solution {
 public:
-    vector<int> topStudents(vector<string>& pi, vector<string>& ni, vector<string>& r, vector<int>& s, int k) {
-        unordered_set<string>p(pi.begin(),pi.end());
-        unordered_set<string>n(ni.begin(),ni.end());
-    
-       unordered_map<int, int>m;
-       for( int i : s) m[i]=0;
-        for(int i=0;i<s.size();i++ ){
-             stringstream ss(r[i]);
-             string o;
-             while(ss >> o){
-                if(p.count(o)) m[s[i]]+=3;
-                if(n.count(o)) m[s[i]]-=1;
+    vector<int> topStudents(vector<string>& p, vector<string>& n, vector<string>& r, vector<int>& sid, int k) {
+        set<string>pos,neg;
+         vector<int>res;
+       priority_queue<pair<int,int>> pq;
+        for(auto& i:p){
+            pos.insert(i);
+        }
+        for(auto& i:n){
+            neg.insert(i);
+        }
+        for(int i=0;i<r.size();i++){
+            string temp;
+            int ans=0;
+            for(int j=0;j<r[i].size();j++){
+                if(r[i][j]==' '){
+                    if(pos.count(temp)){
+                        ans+=3;
+                    }
+                    if(neg.count(temp)){
+                        ans-=1;
+                    }
+                    temp.clear();
+                }
+                else{
+                temp+=(r[i][j]);}
             }
-        }
-        vector<vector<int>>res;
-        for( auto [ x,y]:m){
-            res.push_back({x,y});
-        }
-        sort( res.begin(), res.end(),[](auto x, auto y){
-            if( x[1]==y[1]) return x[0]<y[0];
-           else return x[1]>y[1];
-        });
-        vector<int>ans;
+             if(pos.count(temp)){
+                        ans+=3;
+                    }
+                    if(neg.count(temp)){
+                        ans-=1;
+                    }
+                    temp.clear();
+            pq.push({ans,-1*sid[i]});
 
-        for( int i=0;i<min(k,(int)res.size());i++){
-            ans.push_back(res[i][0]);
         }
-        return ans;
+        for(int i=0;i<k;i++){
+            int an=pq.top().second;
+            res.push_back(-1*an);
+            pq.pop();
+        }
+        return res;
     }
 };
