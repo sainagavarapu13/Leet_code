@@ -1,39 +1,58 @@
 class Solution {
 public:
     int slidingPuzzle(vector<vector<int>>& a) {
-        set<vector<vector<int>>>s;
-        vector<vector<int>>f={{1,2,3},{4,5,0}};
-        s.insert(a);
         queue<pair<vector<vector<int>>,int>>q;
         q.push({a,0});
-
-        int x[]={0,0,-1,1};
-        int y[]={-1,1,0,0};
-
+        set<vector<vector<int>>> vis;
+        int n=a.size(),m=a[0].size();
+        vector<vector<int>>target = {{1,2,3},{4,5,0}};
+        int row,col;
+        vis.insert(a);
+        
         while(!q.empty()){
-            auto [cr,c]=q.front();
+            auto [x,y] = q.front();
             q.pop();
-            if(cr==f) return c;
-            int n,m;
-            for(int i=0;i<2;i++){
-                for(int j=0;j<3;j++){
-                    if(cr[i][j]==0){
-                        n=i;
-                        m=j;
-                    }
+            if(x==target) return y;
+            for(int i=0;i<a.size();i++){
+            for(int j=0;j<a[0].size();j++){
+                if(x[i][j]==0){
+                    row=i;
+                    col=j;
+                    break;
                 }
             }
-            for(int k=0;k<4;k++){
-                int nx=n+x[k];
-                int ny=m+y[k];
-                if(nx<0||nx>=2||ny<0||ny>=3)
-                    continue;
-                vector<vector<int>>p=cr;
-                swap(p[n][m],p[nx][ny]);
-                if(!s.count(p)){
-                    s.insert(p);
-                    q.push({p,c+1});
+        }
+            if(col-1>=0){
+                swap(x[row][col],x[row][col-1]);
+                if(!vis.count(x)){
+                    vis.insert(x);
+                    q.push({x,y+1});
                 }
+                swap(x[row][col],x[row][col-1]);
+            }
+            if(col+1<m){
+                swap(x[row][col],x[row][col+1]);
+                 if(!vis.count(x)){
+                    vis.insert(x);
+                     q.push({x,y+1});
+                }
+                swap(x[row][col],x[row][col+1]);
+            }
+            if(row-1>=0){
+                swap(x[row][col],x[row-1][col]);
+                if(!vis.count(x)){
+                    vis.insert(x);
+                     q.push({x,y+1});
+                }
+                swap(x[row][col],x[row-1][col]);
+            }
+            if(row+1<n){
+                swap(x[row][col],x[row+1][col]);
+                if(!vis.count(x)){
+                    vis.insert(x);
+                     q.push({x,y+1});
+                }
+                swap(x[row][col],x[row+1][col]);
             }
         }
         return -1;
