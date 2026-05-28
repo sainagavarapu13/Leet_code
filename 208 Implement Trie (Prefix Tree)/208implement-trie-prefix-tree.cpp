@@ -1,46 +1,50 @@
+struct Node{
+    Node* ch[26];
+    bool end;
+ Node(){
+     end=false;
+     for(int i = 0; i < 26; i++)
+     ch[i] = NULL;
+   }
+};
 class Trie {
 public:
-    unordered_map<string , Trie*>t;
-    bool end= false;
-   
+    Node* a;
     Trie() {
-       
+        a = new Node();
     }
+    
     void insert(string word) {
-        Trie* root = this;
-        string temp = "";
-        for( char i : word){
-            temp+=i;
-            if(root->t[temp]==NULL) {
-                root->t[temp] = new Trie();
-
+        Node* node = a;
+        for(int i=0;i<word.size();i++){
+            
+            if(node->ch[word[i]-'a']==NULL){
+                node->ch[word[i]-'a'] = new Node();
             }
-            root =  root->t[temp];
-
+            node =node->ch[word[i]-'a'];
         }
-        root->end=true;
+        node->end = true;
     }
     
     bool search(string word) {
-         Trie* root = this;
-        string temp = "";
-        for( char i : word){
-            temp+=i;
-            if( root->t[temp]==NULL) return 0;
-            root = root->t[temp];
+        Node* temp = a;
+        for(int i=0;i<word.size();i++){
+            int idx = word[i]-'a';
+            if(temp->ch[idx]==NULL) return false;
+            temp = temp->ch[idx];
         }
-        return root->end;
+        if(temp->end==false) return false;
+        return true;
     }
     
     bool startsWith(string word) {
-         Trie* root = this;
-        string temp = "";
-        for( char i : word){
-            temp+=i;
-            if( root->t[temp]==NULL) return 0;
-            root = root->t[temp];
+        Node* temp = a;
+        for(int i=0;i<word.size();i++){
+            int idx = word[i]-'a';
+            if(temp->ch[idx]==NULL) return false;
+            temp = temp->ch[idx];
         }
-        return 1;
+        return true;
     }
 };
 
