@@ -1,43 +1,45 @@
+struct Node{
+    Node* next[26];
+    int sum;
+    Node(){
+        for(int i=0;i<26;i++){
+            next[i]=NULL;
+        }
+        sum=0;
+    }
+};
 class MapSum {
 public:
-    unordered_map<char , MapSum*>t;
-    unordered_map<string , int>mp;
-    int val=0;
-    bool end = 0;
+Node* node=new Node();
+unordered_map<string,int>m;
     MapSum() {
         
     }
     
-    void insert(string key, int b) {
-          int diff = b;
-
-        if (mp.count(key)) {
-            diff -= mp[key];
-        }
-
-        mp[key] = b;
-        MapSum* root = this;
-        for(char i : key){
-            if( root->t[i]==NULL){
-                root->t[i] = new MapSum();
+    void insert(string key, int val) {
+        Node* temp=node;
+        int diff = val-m[key];
+        m[key]=val;
+        for(int i=0;i<key.size();i++){
+            int idx=key[i]-'a';
+            if(temp->next[idx]==NULL){
+                temp->next[idx] = new Node();
             }
-            root = root->t[i];
-             root->val+=diff;
+           
+            temp=temp->next[idx];
+             temp->sum+=diff;
         }
-       
-        root->end = true;
     }
     
     int sum(string p) {
-         MapSum* root = this;
-         int ans=0;
-            for(char i=0;i<p.size();i++){
-           if( root->t[p[i]]==NULL) return ans;
-           //ans = root->val;
-            if(i<p.size())root = root->t[p[i]];
+        Node* temp=node;
+        for(int i=0;i<p.size();i++){
+            if(temp->next[p[i]-'a']==NULL){
+                return 0;
+            }
+            temp=temp->next[p[i]-'a'];
         }
-        return root->val;
-
+        return temp->sum;
     }
 };
 
