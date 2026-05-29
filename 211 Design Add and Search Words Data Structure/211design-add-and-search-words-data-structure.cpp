@@ -1,58 +1,52 @@
+struct Node{
+    Node* next[26];
+    bool end;
+    Node(){
+        for(int i=0;i<26;i++){
+            next[i]=NULL;
+        }
+        end=false;
+    }
+};
+
 class WordDictionary {
 public:
-unordered_map<char, WordDictionary*>t;
-    bool end = false;
+    Node* a = new Node();
+
+    void insert(string s,Node* a){
+        Node* temp=a;
+        for(int i=0;i<s.size();i++){
+            int idx=s[i]-'a';
+            if(temp->next[idx]==NULL){
+                temp->next[idx]=new Node();
+            }
+            temp=temp->next[idx];
+        }
+        temp->end=true;
+    }
+    bool dfs(string word,int idx,Node* a){
+        if(!a) return false;
+        if(idx==word.size()) return a->end;
+        if(word[idx]=='.'){
+            for(int i=0;i<26;i++){
+               if(a->next[i]&&dfs(word,idx+1,a->next[i])){
+                return true;
+               }
+            }
+            return false;
+        }
+       return dfs(word,idx+1,a->next[word[idx]-'a']);
+    }
     WordDictionary() {
         
     }
     
     void addWord(string word) {
-        WordDictionary *root = this;
-        char temp;
-        for( char i : word){
-            temp=i;
-            if( root->t[temp]==NULL){
-                root->t[temp] = new WordDictionary();
-            }
-             root = root->t[temp];
-
-        }
-        root->end = true;
+        insert(word,a);
     }
-
-    bool searchEngin(int i , string word , WordDictionary *root){
-        if(root==NULL) return 0;
-        if( i == word.size()) return root->end;
-        if( word[i]=='.'){
-            for( auto c : root->t){
-                    if(searchEngin(i+1, word, c.second)){
-                        return 1;
-                    }
-            }
-        }
-        if( root->t[word[i]]==NULL) return 0;
-       return searchEngin(i+1, word, root->t[word[i]]);
-       
-        
-    }
+    
     bool search(string word) {
-        WordDictionary *root = this;
-        return searchEngin(0,word, root);
-        // string temp = "";
-        // for( char i : word){
-        //     if( i == '.') { return 1;
-
-        //         //continue;
-        //         }
-        //     temp+=i;
-        //     if( root->t[temp]==NULL){
-        //        // root->t[temp] = new WordDictionary();
-        //        return 0;
-        //     }
-        //      root = root->t[temp];
-
-        // }
-        // return root->end;
+     return dfs(word,0,a);
     }
 };
 
