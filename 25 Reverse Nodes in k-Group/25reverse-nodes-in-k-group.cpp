@@ -10,36 +10,42 @@
  */
 class Solution {
 public:
-   
+    ListNode* rev(ListNode* start , ListNode* end){
+        ListNode* temp=start,*prev=NULL ; 
+        end=end->next;
+        while(temp!=end){
+            ListNode* next = temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+        }
+        return prev;
+    }
     ListNode* reverseKGroup(ListNode* head, int k) {
-        ListNode* temp = head;
-        ListNode* pre_g = nullptr;
-        ListNode* new_head = nullptr;
-        while(temp ){
-            ListNode* dump=temp;
-            for(int i=0;i<k;i++){
-                if( !temp) {return new_head?new_head:head;
+        ListNode* temp=head,*start = NULL,*end=NULL,*prev=NULL,*next=NULL;
+           ListNode* newHead = head;
+        while(temp){
+            start = temp;
+          
+            for(int i=1;i<k;i++){
+                if(temp->next){
+                    temp=temp->next;
                 }
-                temp = temp->next;
+                else return newHead;
             }
-            ListNode* pre = temp;
-             ListNode* cur =dump;
-            for( int i=0;i<k;i++){
-                 ListNode* node = cur ->next;
-                    cur->next = pre;
-                    pre= cur;
-                    cur = node;
-            }
-            if( !new_head){
-                new_head =pre;
-            }
-        if( pre_g){
-            pre_g->next = pre;
+            end=temp;
+           
+              next = end->next;
+           temp= rev(start,end);
+           if(prev)
+           prev->next=temp;
+           else newHead=temp;
+            prev=start;
+           start->next=next;
+           prev=start;
+           temp=next;
+           
         }
-        pre_g = dump;
-          //  fun( dump,temp)
-
-        }
-        return new_head;
+        return newHead;
     }
 };
