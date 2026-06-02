@@ -11,43 +11,44 @@
 class Solution {
 public:
     vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
-          vector<vector<int>> v(m,vector<int> (n,-1));
-        int a = n-1,b = m-1,c=0,d=0;
-        //a = right,b = bottom,c = left,d = top
-        while(head!=NULL && c<=a && d<=b){
-            for(int i=c;i<=a;i++){
-                v[d][i] = head->val;
-                head = head->next;
-                if(head==NULL) break;
-            }
-            if(head==NULL) break;
-            d++;
-            for(int j=d;j<=b;j++){
-                v[j][a] = head->val;
-                head = head->next;
-                if(head==NULL) break;
-            }
-            a--;
-            if(head==NULL) break;
-            if(d<=b){
-                for(int i=a;i>=c;i--){
-                    v[b][i] = head->val;
-                    head = head->next;
-                    if(head==NULL) break;
-                }
-                b--;
-            }
-            if(head==NULL) break;
-            if(c<=a){
-                for(int i=b;i>=d;i--){
-                    v[i][c] = head->val;
-                    head = head->next;
-                    if(head==NULL) break;
-                }
-                c++;
-            }
+        vector<vector<int>>ans(m,vector<int>(n,-1));
+        int i=0,j=0;
+        int left=0,right=n-1,top=0,bottom=m-1;
+        ListNode* temp=head;
+        while(temp&&top<=bottom&&left<=right){
+            i=top,j=left;
+            while(j<=right&&temp){
+            ans[i][j]=temp->val;
+            temp=temp->next;
+            j++;
         }
-        return v;
+        top++;
+        i=top;
+        j = right;
+        while(i<=bottom&&temp){
+            ans[i][j]=temp->val;
+            temp=temp->next;
+            i++;
+        }
+        right--;
+        i=bottom;
+        j=right;
+        while(j>=left&&temp){
+            ans[i][j] = temp->val;
+            temp=temp->next;
+            j--;
+        }
+        bottom--;
+        j=left;
+        i=bottom;
+        while(i>=top&&temp){
+            ans[i][j]=temp->val;
+            temp=temp->next;
+            i--;
+        }
+        left++;
+        }
         
+        return ans;
     }
 };
