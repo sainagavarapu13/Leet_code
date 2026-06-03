@@ -1,43 +1,60 @@
+struct Node{
+    Node* next[26];
+    bool end;
+    Node(){
+        for(int i=0;i<26;i++){
+            next[i]=NULL;
+        }
+        end=false;
+    }
+};
 class Solution {
 public:
-    class Trie {
-    public:
-        unordered_map<char, Trie*> t;
-        bool end = false;
-    };
-    Trie* node = new Trie();
-    void insert(string s) {
-        Trie* root = node;
-        for (char c : s) {
-            if (root->t[c] == NULL) {
-                root->t[c] = new Trie();
+    Node *node ;
+     vector<int>dp;
+    void insert(Node* node,string a){
+        Node* t=node;
+        for(int i=0;i<a.size();i++){
+            int idx=a[i]-'a';
+            if(t->next[idx]==NULL){
+                t->next[idx]=new Node();
             }
-            root = root->t[c];
+            t=t->next[idx];
         }
-        root->end = true;
+        t->end=true;
     }
-    bool search(int idx, string &s, vector<int>& dp) {
-        if (idx == s.size()) return true;
-        if (dp[idx] != -1) return dp[idx];
-        Trie* root = node;
-        for (int i = idx; i < s.size(); i++) {
-            if (root->t.find(s[i]) == root->t.end()) {
-                return dp[idx] = false;
-            }
-            root = root->t[s[i]];
-            if (root->end) {
-                if (search(i + 1, s, dp)) {
-                    return dp[idx] = true;
-                }
-            }
+    bool search(Node* node , string a){
+        Node* t=node;
+        for(int i=0;i<a.size();i++){
+            int idx=a[i]-'a';
+            if(t->next[idx]==NULL) return false;
+            t=t->next[idx];
         }
-        return dp[idx] = false;
+        return t->end==true;
     }
-    bool wordBreak(string s, vector<string>& wordDict) {
-        for (string word : wordDict) {
-            insert(word);
+    bool check(int start, int end,string s){
+        if(start==s.size()){
+            return true;
         }
-        vector<int> dp(s.size(), -1);
-        return search(0, s, dp);
+        if(end>s.size()) return false;
+        if(dp[start]!=-1) return dp[start];
+        string t(s.begin()+start,s.begin()+end);
+        if(search(node,t)){
+          if(check(end,end,s)){
+             return true;}
+        }
+        return dp[start] = check(start,end+1,s);
+    }
+    bool wordBreak(string s, vector<string>& a) {
+        dp.clear();
+        node = new Node();
+        for(int i=0;i<a.size();i++){
+            insert(node,a[i]);
+        }
+        int start=0,i=0;
+        int n=s.size();
+       dp.resize(n,-1);
+      return check(0,0,s);
+      
     }
 };
