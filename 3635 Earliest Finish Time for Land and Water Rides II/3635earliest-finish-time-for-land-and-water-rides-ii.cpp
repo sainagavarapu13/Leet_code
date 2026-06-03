@@ -1,19 +1,16 @@
 class Solution {
 public:
-    int calFinishTime(vector<int>& ls, vector<int>& ld, vector<int>& ws, vector<int>& wd){
-         int mini=INT_MAX;
-        for( int i=0;i<ls.size();i++){
-            mini = min( mini, ls[i]+ld[i]);
+    int check(vector<int>& ls, vector<int>& ld, vector<int>& ws, vector<int>& wd){
+        int ans=INT_MAX,an=INT_MAX;
+        for(int i=0;i<ls.size();i++){
+            ans=min(ans,ls[i]+ld[i]);
         }
-        int ans = INT_MAX;
-        for( int i =0;i<wd.size();i++){
-            ans = min(ans, wd[i]+max(mini, ws[i]));
+        for(int i=0;i<ws.size();i++){
+            an=min(an,max(ws[i],ans)+wd[i]);
         }
-        return ans;
+        return an;
     }
     int earliestFinishTime(vector<int>& ls, vector<int>& ld, vector<int>& ws, vector<int>& wd) {
-        return min(calFinishTime(ls, ld, ws , wd), calFinishTime(ws, wd, ls, ld));
-    
-        
+     return min(check(ls,ld,ws,wd),check(ws,wd,ls,ld));   
     }
 };
