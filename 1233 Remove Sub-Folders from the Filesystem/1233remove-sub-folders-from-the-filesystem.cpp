@@ -1,44 +1,43 @@
+struct Node{
+    Node* next[27];
+    bool end;
+    Node(){
+        for(int i=0;i<27;i++){
+            next[i]=NULL;
+        }
+        end=false;
+    }
+};
 class Solution {
 public:
-    class TrieNode{
-        public:
-        unordered_map<string, TrieNode*>t;
-        bool end = false;
-    };
-    vector<string>ans;
-    void insert( TrieNode* node , string s){
-        TrieNode* root = node;
-        string present = "";
-        for( char i :s){
-            if(i =='/'){
-               if(root->end) return ;
-               if( root->t[present]==NULL){
-                root->t[present]= new TrieNode;
-               }
-                root = root->t[present];
-                present = "";
-
-            }else{
-                present+= i;
+    Node* node;
+    bool insert(Node* node , string a){
+        Node* t=node;
+        for(int i=0;i<a.size();i++){
+            
+            int idx;
+            if(a[i]=='/') idx=26;
+            else idx=a[i]-'a';
+            if(t->end==true&&a[i]=='/'){
+                return false;
             }
+            else{
+                if(t->next[idx]==NULL){
+                    t->next[idx]=new Node();
+                }
+            }
+            t=t->next[idx];
         }
-        //last node
-        if(root->end) return ;
-        if( root->t[present]==NULL){
-                root->t[present]= new TrieNode;
-               }
-         root = root->t[present];
-         root->end = true;
-        ans.push_back(s);
-
+        t->end=true;
+        return true;
     }
     vector<string> removeSubfolders(vector<string>& a) {
-        sort(a.begin(), a.end());
-        TrieNode* root = new TrieNode();
-        for( string s : a ){
-            insert(root , s);
+         vector<string>ans;
+        node=new Node();
+        sort(a.begin(),a.end());
+        for(int i=0;i<a.size();i++){
+            if(insert(node,a[i])) ans.push_back(a[i]);
         }
-
         return ans;
     }
 };
