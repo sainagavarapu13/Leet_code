@@ -1,21 +1,29 @@
 class Solution {
 public:
-    bool check(string s,string b ,  unordered_map<char, unordered_set<char>>& p){
-        for( int i=0;i<s.size();i++){
-            if( s[i]==b[i]) continue;
-            if( p[b[i]].count(s[i])) continue;
-            return 0;
+    bool matchReplacement(string s, string sub, vector<vector<char>>& m) {
+        map<char,set<char>>mp;
+        for(auto& i:m){
+            mp[i[0]].insert(i[1]);
         }
-        return 1;
-    }
-    bool matchReplacement(string s, string b, vector<vector<char>>& m) {
-        unordered_map<char, unordered_set<char>>p;
-        for( auto i :m){
-            p[i[0]].insert(i[1]);
+        set<string>subs;
+        int sz=sub.size();
+        for(int i=0;i<=s.size()-sz;i++){
+                string temp = s.substr(i,sz);
+                subs.insert(temp);
         }
-        for( int i=0;i<=(int)s.size()-(int)b.size();i++){
-            if(check(s.substr(i,(int)b.size()),b,p)) return 1;
+       for(auto& str:subs){
+        bool flag=1;
+        if(str==sub) return 1;
+        for(int i=0;i<str.size();i++){
+            if(str[i]==sub[i]) continue;
+            char ch=sub[i];
+            if(mp[ch].count(str[i])) continue;
+            flag=0;
+            break;
+            
         }
-        return 0;
+        if(flag) return 1;
+       }
+       return 0;
     }
 };
