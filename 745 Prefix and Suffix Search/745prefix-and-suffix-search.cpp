@@ -1,38 +1,58 @@
-class WordFilter {
-public:
-    class Node {
-    public:
-        unordered_map<char, Node*> t;
-        int ind = -1;
-    };
-    Node* node = new Node();
-    WordFilter(vector<string>& w) {
-        for(int i = 0; i < w.size(); i++){
-            string s = "|" + w[i];
-            for(int j = 0; j < w[i].size(); j++){
-                insert(w[i].substr(j) + s, i);
-            }
+struct Node{
+    Node* next[27];
+    int idx;
+    Node(){
+        idx=-1;
+        for(int i=0;i<27;i++){
+            next[i]=NULL;
         }
-    }
-    void insert(string a, int p){
-        Node* root = node;
-        for(char c : a){
-            if(root->t.find(c) == root->t.end()){
-           root->t[c] = new Node();
-            }
-            root = root->t[c];
-            root->ind = max(root->ind, p);
-        }
-    }
-    int f(string pref, string suff) {
-        Node* root = node;
-        string s = suff + "|" + pref;
-        for(char c : s){
-            if(root->t.find(c) == root->t.end()){
-                return -1;
-            }
-           root = root->t[c];
-        }
-        return root->ind;
     }
 };
+class WordFilter {
+public:
+    Node* node;
+    void insert(Node* node,int ik,string a){
+        Node* t=node;
+        for(int i=0;i<a.size();i++){
+            int ind;
+            if(a[i]=='(') ind=26;
+            else ind=a[i]-'a';
+            if(t->next[ind]==NULL){
+                t->next[ind]=new Node();
+            }
+            t->idx=ik;
+            t=t->next[ind];
+        }
+        t->idx=ik;
+    }
+    WordFilter(vector<string>& a) {
+        
+        node = new Node();
+        for(int i=0;i<a.size();i++){
+            string temp = "("+a[i];
+            for(int j=0;j<=a[i].size();j++){
+                insert(node,i,a[i].substr(j)+temp);
+            }
+        }
+
+    }
+    
+    int f(string pref, string suff) {
+        string find=suff+"("+pref;
+        Node* t=node;
+        for(int i=0;i<find.size();i++){
+            int idx;
+            if(find[i]=='(') idx=26;
+            else idx=find[i]-'a';
+            if(t->next[idx]==NULL) return -1;
+            t=t->next[idx];
+        }
+        return t->idx;
+    }
+};
+
+/**
+ * Your WordFilter object will be instantiated and called as such:
+ * WordFilter* obj = new WordFilter(words);
+ * int param_1 = obj->f(pref,suff);
+ */
