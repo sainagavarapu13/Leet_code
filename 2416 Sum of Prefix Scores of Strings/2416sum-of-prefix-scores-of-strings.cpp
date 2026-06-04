@@ -1,41 +1,42 @@
+struct Node{
+    Node* next[26];
+    int cnt;
+    Node(){
+        for(int i=0;i<26;i++) next[i]=NULL;
+        cnt=0;
+    }
+};
 class Solution {
 public:
-    class tries{
-        public:
-            unordered_map<char, tries*>t;
-            int cnt=0;
-    };
-    tries* node = new tries();
-    void insert(string w){
-        tries* root = node;
-        for( char i : w){
-            if( root->t[i]==NULL){
-                root->t[i] = new tries();
+    Node* node;
+    void insert(Node* node,string s){
+        Node* t=node;
+        for(int i=0;i<s.size();i++){
+            int idx = s[i]-'a';
+            if(t->next[idx]==NULL){
+                t->next[idx] = new Node();
             }
-            root = root->t[i];
-             root->cnt++;
+           
+            t = t->next[idx];
+            t->cnt++;
         }
-      
     }
-    int search(string s){
-        int ans =0;
-          tries* root = node;
-        for( char i : s){
-            if( root->t[i]==NULL) return ans;
-            root = root->t[i];
-            ans+=(root->cnt);
-           // k++;
+    vector<int> sumPrefixScores(vector<string>& a) {
+        node=new Node();
+        for(int i=0;i<a.size();i++){
+            insert(node,a[i]);
+        }
+        vector<int>ans;
+        for(int i=0;i<a.size();i++){
+            int sum=0;
+            Node* t=node;
+            for(int j=0;j<a[i].size();j++){
+                int idx=a[i][j]-'a';
+                sum+=t->next[idx]->cnt;
+                t=t->next[idx];
+            }
+            ans.push_back(sum);
         }
         return ans;
-    }
-    vector<int> sumPrefixScores(vector<string>& w) {
-        for( string i : w){
-            insert(i);
-        }
-        vector<int>a;
-        for( string i : w){
-            a.push_back(search(i));
-        }
-        return a;
     }
 };
