@@ -1,38 +1,34 @@
 class Encrypter {
 public:
-    unordered_map<char, string>p;
-    unordered_map<string, int>mp;
+    vector<char> k;
+     vector<string>v;
+      set<string> d;
+    map<char,string>m;
+    map<string ,int>cnt;
     Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
-        for( int i=0;i<keys.size();i++){
-            p[keys[i]]=values[i];
+        k=keys;
+        v=values;
+        for(auto& i:dictionary) d.insert(i);
+        for(int i=0;i<k.size();i++){
+            m[k[i]] = v[i];
         }
-        for( string s : dictionary){
-            string temp;
-            bool k=true;
-            for( char c : s){
-                if( p.find(c)==p.end()){
-                    k = false;
-                    break;
-                }
-                temp+=p[c];
-            }
-            if(k){
-                mp[temp]++;
-            }
+        for(auto& i:dictionary){
+            string temp = encrypt(i);
+            cnt[temp]++;
         }
     }
     
     string encrypt(string word1) {
-        string s ;
-        for( char c : word1){
-            if( p.find(c)==p.end()) return "";
-            s+=p[c];
+        string ans="";
+        for(int i=0;i<word1.size();i++){
+           if(m.find(word1[i])==m.end()) return "";
+           ans+=m[word1[i]];
         }
-        return s;
+        return ans;
     }
     
     int decrypt(string word2) {
-        return mp[word2];
+        return cnt[word2];
     }
 };
 
