@@ -8,9 +8,6 @@ public:
             left[i]=p[s[i]-'A'];
             p[s[i]-'A']=i;
         }
-        // for( int i=0;i<26;i++){
-        //     if( p[i]==-1) p[i]=s.size();
-        // }
         fill( p.begin(),p.end(),(int)s.size());
         for( int i = s.size()-1; i>=0;i--){
             r[i]=p[s[i]-'A'];
