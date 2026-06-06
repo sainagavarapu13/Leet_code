@@ -1,22 +1,20 @@
 class Solution {
 public:
     long long numberOfSubarrays(vector<int>& a) {
-        stack<pair<int,long long>>s;
+        stack<pair<int , long long>>st;
         long long ans=0;
-        for( int i : a){
+        for(auto& i:a){
             long long cnt=1;
-            while( !(int)s.empty() && s.top().first<i){
-                s.pop();
+            while(!st.empty()&&st.top().first<i){
+                st.pop();
             }
-            if( !(int)s.empty() && s.top().first==i){
-                cnt = s.top().second+1;
+            if(!st.empty()&&st.top().first==i){
+                cnt = st.top().second+1;
                 ans+=cnt-1;
-                s.pop();
-
+                st.pop();
             }
-            s.push({i,cnt});
-
+            st.push({i,cnt});
         }
-        return ans+a.size();
+        return a.size()+ans;
     }
 };
