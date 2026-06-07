@@ -1,17 +1,30 @@
 class Solution {
 public:
+
     bool consecutiveSetBits(int n) {
-        int c=0 , p=0;
-        int cnt=0;
+
+        string bin="";
+
         while(n){
-            c = n&1;
-            if( c==1 && p == 1){
+
+            bin += ((n%2)+'0');
+
+            n/=2;
+        }
+
+        reverse(bin.begin(),bin.end());
+
+        int cnt=0;
+
+        for(int i=1;i<bin.size();i++){
+
+            if(bin[i]=='1' &&
+               bin[i-1]=='1'){
+
                 cnt++;
             }
-            p = c;
-            n >>=1;
-            
-        } 
-        return cnt ==1;
+        }
+
+        return cnt==1;
     }
 };
