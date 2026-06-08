@@ -1,15 +1,10 @@
 class Solution {
 public:
     int sumOfGoodIntegers(int n, int k) {
-        long long ans = 0;
-        int L = max(1, n - k);
-        int R = n + k;
-        for (int x = L; x <= R; x++) {
-            if ((n & x) == 0) {
-                ans += x;
-            }
+        int i,cnt=0;
+        for(i=max(1,n-k);i<=n+k;i++){
+            if((n&i)==0) cnt+=i;
         }
-
-        return ans;
+        return cnt;
     }
 };
