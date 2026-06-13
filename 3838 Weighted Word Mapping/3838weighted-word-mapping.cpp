@@ -1,14 +1,15 @@
 class Solution {
 public:
-    string mapWordWeights(vector<string>& words, vector<int>& weights) {
-        string ans;
-        for( auto i:words ){
-            int sum=0;
-            for( char j:i){
-                sum+= weights[j-'a'];
+    string mapWordWeights(vector<string>& a, vector<int>& b) {
+        string sum;
+        for(int i=0;i<a.size();i++){
+            int cnt=0;
+            for(int j=0;j<a[i].size();j++){
+                cnt+=(b[a[i][j]-'a']);
             }
-            ans+='a'+(26-(sum%26)-1);
+            sum.push_back(25 - (cnt%26) + 'a');
         }
-        return ans;
+       // for(auto& i:sum) cout<<i<<" ";
+        return sum;
     }
 };
