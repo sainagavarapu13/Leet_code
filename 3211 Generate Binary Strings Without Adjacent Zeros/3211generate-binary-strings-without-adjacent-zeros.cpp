@@ -1,25 +1,35 @@
 class Solution {
 public:
-vector<string>a;
-    void check( string t , int n){
-        if( t.size() == n){
-            a.push_back( t);
-            return ;
+vector<string>ans;
+// bool valid(string a){
+//     for(int i=1;i<a.size();i++){
+//         if(a[i]=='0'&&a[i-1]=='0') return false;
+//     }
+//     return true;
+// }
+    void check(string temp,int len){
+        if(temp.size()==len){
+                ans.push_back(temp);
+            return;
         }
-        if( t !=""){
-            if( t.back()!='0'){
-                check( t+'1', n);
-                check( t+'0',n);
-            }else check( t+'1', n);
-        }else{
-            check(t+'1', n);
-            check( t+'0',n);
-            
+        if(temp!=""){
+            if(temp.back()=='1'){
+                check(temp+'1',len);
+                check(temp+'0',len);
+            }
+            else{
+                check(temp+'1',len);
+            }
         }
+        else{
+            check(temp+'1',len);
+            check(temp+'0',len);
+        }
+        
     }
-    vector<string> validStrings(int n) {
-        check("", n);
-       return a;
-
+    vector<string> validStrings(int n){
+        ans.clear();
+        check("",n);
+        return ans;
     }
 };
