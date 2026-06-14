@@ -1,13 +1,14 @@
 class Solution {
 public:
     bool checkGoodInteger(int n) {
-        int s=0,p=0;
-        while(n){
-            int k=n%10;
-            s+=k;
-            p+=(k*k);
-            n/=10;
+        long long b = 0,d = 0;
+        while(n>0){
+            long long c = n%10;
+            b += c;
+            d += c*c;
+            n /=10;
         }
-        return (p-s)>=50;
+        if((d-b)>=50) return true;
+        return false;
     }
 };
