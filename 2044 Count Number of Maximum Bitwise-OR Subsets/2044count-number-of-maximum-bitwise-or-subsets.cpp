@@ -1,20 +1,23 @@
 class Solution {
 public:
-      int ans=0;
-    void check(int ind, int maxi , int pres,vector<int>& a){
-            if( ind == a.size()){
-                if( maxi == pres) ans++;
-                return ;
-            }
-            check( ind+1, maxi, pres|a[ind],a);
-            check( ind+1,  maxi , pres, a);
+int ans=0;
+    void check(int idx,vector<int>&a , int maxi , int pre){
+        if(idx==a.size()){
+            if(maxi==pre) ans++;
+            return;
+        }
+        
+        check(idx+1,a,maxi,pre|a[idx]);
+        check(idx+1,a,maxi,pre);
     }
     int countMaxOrSubsets(vector<int>& a) {
-        int maxi =0;
-        for( int i : a){
-            maxi|=i;
+        int maxi=0;
+        for(int i=0;i<a.size();i++){
+            maxi=maxi|a[i];
         }
-        check( 0 , maxi , 0,a);
+        ans=0;
+        cout<<maxi;
+        check(0,a,maxi,0);
         return ans;
     }
 };
