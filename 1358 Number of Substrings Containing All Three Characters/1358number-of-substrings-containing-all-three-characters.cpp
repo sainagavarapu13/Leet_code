@@ -1,18 +1,16 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        map<char,int>m;
-        int n=s.size();
-        int start=0,end=0,cnt=0;
-        while(end<s.size()){
-            m[s[end]]++;
-            while(m['a']>0&&m['b']>0&&m['c']>0){
-                cnt+=n-end;
-                m[s[start]]--;
-                start++;
+        int a = -1,b = -1,c = -1;
+        int res = 0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='a') a = i;
+            if(s[i]=='b') b = i;
+            if(s[i]=='c') c = i;
+            if(a>=0 && b>=0 && c>=0){
+                res += min({a,b,c})+1;
             }
-            end++;
         }
-        return cnt;
+        return res;
     }
 };
