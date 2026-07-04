@@ -1,39 +1,33 @@
 class Solution {
 public:
     int minOperations(string s1, string s2) {
-        int ans=0;
-        int i;
-        int n=s1.size();
-        if(n==1&&s1=="0"&&s2=="1") return 1;
-        if(s1==s2) return 0;
-        if(n==1) return -1;
-        for( i=0;i<s1.size()-1;i++){
+        int res = 0,n = s1.size();
+        for(int i=0;i<s1.length();i++){
             if(s1[i]==s2[i]) continue;
-            else if(s1[i]=='0'&&s2[i]=='1'){
-                ans++;
-                s1[i]='1';
+            else if(s1[i]=='0'){
+                 res++;
+                s1[i] = '1';
             }
-            else if(s1[i]=='1'&&s2[i]=='0'){
-                if(s1[i+1]=='1'){
-                    ans++;
-                }
-                else{
-                    ans+=2;
-                }
-                s1[i]='0';
-                s1[i+1]='0';
+            else if(i+1<n && s1[i]=='1' && s1[i+1]=='1'){
+                res++;
+                s1[i+1] = '0';
             }
-
+            else if(i+1<n && s1[i]=='1' && s1[i+1]=='0'){
+                res++;
+                res++;
+            }
+            else if(i>0 && s1[i-1]=='1'){
+                res++;
+                res++;
+            }
+            else if(i>0 && s1[i-1]=='0'){
+                res++;
+                res++;
+            }
+            else{
+                return -1;
+            }
         }
-          if(s1[i]!=s2[i]){
-            if(s1[i]=='0'&&s2[i]=='1') {ans++;
-            s1[i]='1';}
-            else {ans+=2;
-            s1[i]='0';
-            }
-           }
-           
-        if(s1!=s2) return -1;
-        return ans;
+        return res;
     }
 };
