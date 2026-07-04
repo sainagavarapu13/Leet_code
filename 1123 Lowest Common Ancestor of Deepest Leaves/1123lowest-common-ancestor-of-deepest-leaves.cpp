@@ -11,31 +11,21 @@
  */
 class Solution {
 public:
+    int height(TreeNode* root){
+        if(!root) return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        queue<pair<TreeNode*, TreeNode*>>a;
-        a.push({root, NULL});
-        vector<TreeNode*>last;
-        map<TreeNode*, TreeNode*>p;
-
-        while( !a.empty()){
-            int n = a.size();
-            last.clear();
-            for( int i=0;i<n;i++){
-                 auto [x,y]=a.front();
-                 a.pop();
-                 last.push_back(x);
-                 p[x]=y;
-                 if( x->left) a.push({x->left, x});
-                 if( x->right) a.push({x->right, x});
-            }
+        if(!root) return NULL;
+        int left = height(root->left);
+        int right = height(root->right);
+        if(left==right) return root;
+        if(left>right){
+           return lcaDeepestLeaves(root->left);
         }
-        while( last.size()>1){
-            unordered_set<TreeNode*>s;
-            for( auto x : last){
-                s.insert(p[x]);
-            }
-            last.assign(s.begin(), s.end());
+        else{
+           return lcaDeepestLeaves(root->right);
         }
-        return last[0];
+        return NULL;
     }
 };
