@@ -11,34 +11,21 @@
  */
 class Solution {
 public:
+    int height(TreeNode* root){
+        if(!root) return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
     TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-        vector<TreeNode*>vis;
-        queue<pair<TreeNode* , TreeNode*>>q;
-        q.push({root, NULL});
-        map<TreeNode*, TreeNode*> m;
-        while( !q.empty()){
-           
-            vis.clear();
-            int n = q.size();
-            for( int i=0;i<n;i++){
-                 auto [x,y] = q.front();
-            q.pop();
-            m[x]=y;
-            vis.push_back(x);
-            if( x->left){
-                q.push({x->left, x});
-            }
-            if( x->right) q.push({x->right, x});
-            }
+          if(!root) return NULL;
+        int left = height(root->left);
+        int right = height(root->right);
+        if(left==right) return root;
+        if(left>right){
+           return subtreeWithAllDeepest(root->left);
         }
-        if( vis.size()==1) return vis[0];
-        while( vis.size()>1){
-            set<TreeNode*>s;
-            for( auto i : vis){
-                s.insert(m[i]);
-            }
-            vis.assign(s.begin(), s.end());
+        else{
+           return subtreeWithAllDeepest(root->right);
         }
-        return vis[0];
+       // return NULL;
     }
 };
