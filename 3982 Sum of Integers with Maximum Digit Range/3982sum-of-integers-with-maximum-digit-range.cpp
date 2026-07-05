@@ -1,26 +1,30 @@
 class Solution {
 public:
-    int digitRange(int x){
-        int mn=9,mx=0;
-        while(x>0){
-            int d=x%10;
-            mn=min(mn,d);
-            mx=max(mx,d);
-            x/=10;
+    int maxDigitRange(vector<int>& a) {
+        int maxi=0;
+        vector<pair<int,int>>m;
+        for(int i=0;i<a.size();i++){
+            int k=a[i];
+            int d_maxi=0,d_mini=9;
+            int sum=0;
+            if(k==0){
+                d_mini=0;
+                d_maxi=0;
+            }
+            while(k){
+                d_maxi=max(d_maxi,(k%10));
+                 d_mini=min(d_mini,(k%10));
+                k/=10;
+            }
+            sum=d_maxi-d_mini;
+           m.push_back({a[i],sum});
+            maxi=max(maxi,sum);
         }
-        return mx-mn;
-    }
-    int maxDigitRange(vector<int>& nums){
-        int maxRange=-1,ans=0;
-        vector<int>ranges;
-        for(int x:nums){
-            int r=digitRange(x);
-            ranges.push_back(r);
-            maxRange=max(maxRange,r);
-        }
-        for(int i=0;i<nums.size();i++){
-            if(ranges[i]==maxRange)
-                ans+=nums[i];
+        int ans=0;
+        for(auto& [n,c]:m){
+            if(c==maxi){
+                ans+=n;
+            }
         }
         return ans;
     }
