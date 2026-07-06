@@ -1,18 +1,15 @@
 class Solution {
 public:
     string getSmallestString(string s) {
-        int n = s.size();
-
-        for (int i = 0; i < n - 1; i++) {
-            int a = s[i] - '0';
-            int b = s[i + 1] - '0';
-
-            if ((a % 2 == b % 2) && s[i] > s[i + 1]) {
-                swap(s[i], s[i + 1]);
+        for(int i=1;i<s.size();i++){
+            int l=s[i]-'0';
+            int m=s[i-1]-'0';
+            if(((l%2)==(m%2))&&l<m){
+                swap(s[i],s[i-1]);
                 break;
             }
         }
-
         return s;
-    }
+    }  
+
 };
