@@ -1,35 +1,33 @@
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& a) {
-        if(a.size()<n-1) return -1;
-        vector<vector<int>>g(n);
-        for(int i=0;i<a.size();i++){
-            g[a[i][0]].push_back(a[i][1]);
-            g[a[i][1]].push_back(a[i][0]);
+        vector<vector<int>>adj(n);
+        int sz = a.size();
+        if(sz<n-1) return -1;
+        for(auto& i:a){
+            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
         }
-        vector<int>vis(n,0);
         queue<int>q;
-        int comp=0;
-        for(int i=0;i<n;i++){
-            if(!vis[i]){
-                comp++;
-                vis[i]=1;
-                q.push(i);
-
-                while(!q.empty()){
-                    int node=q.front();
-                    q.pop();
-
-                    for(int nei:g[node]){
-                        if(!vis[nei]){
-                            vis[nei]=1;
-                            q.push(nei);
-                        }
-                    }
+        vector<int>vis(n,0);
+        int cnt=0;
+        for(int j=0;j<vis.size();j++){
+            if(vis[j]==1) continue;
+            q.push(j);
+            vis[j]=1;
+             while(!q.empty()){
+            int p = q.front();
+            q.pop();
+            for(auto& i:adj[p]){
+                if(vis[i]==0){
+                    vis[i]=1;
+                    q.push(i);
                 }
             }
+            }
+        cnt++;
         }
-
-        return comp-1;
+       
+       return cnt-1;
     }
 };
