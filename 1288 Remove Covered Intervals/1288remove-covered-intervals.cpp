@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int removeCoveredIntervals(vector<vector<int>>& a) {
-        sort(a.begin(),a.end(),[](auto& x,auto& y){
-            if(x[0]==y[0]){
-                return x[1]>y[1];
+    int removeCoveredIntervals(vector<vector<int>>& in) {
+        sort(in.begin(),in.end(),[](vector<int> a,vector<int> b){
+            if(a[0]==b[0]){
+                return a[1]>b[1];
             }
-            return x[0]<y[0];
+            return a[0]<b[0];
         });
-       // for(auto& i:a) cout<<i[0]<<" "<<i[1]<<"\n";
-        int start = a[0][0];
-        int end = a[0][1];
-        int cnt=0;
-        for(int i=1;i<a.size();i++){
-            int st=a[i][0];
-            int en=a[i][1];
-            if(end>=st&&end>=en&&start<=st&&start<=en){
-                cnt++;
+        int res = 0,n = in.size();
+        int d = in[0][0],e = in[0][1];
+        for(int i=0;i<n;i++){
+            if(i==n-1) continue;
+            int a = in[i+1][0];
+            int b = in[i+1][1];
+            if(d<=a && e>=b){
+                res++;
             }
             else{
-            start = st;
-            end = en;
+                d = a;
+                e = b;
             }
         }
-        int n=a.size();
-        return n-cnt;
+        return n-res;
     }
 };
