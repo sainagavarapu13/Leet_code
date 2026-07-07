@@ -1,49 +1,45 @@
 class Solution {
 public:
-    long long shortestPath(int n, vector<vector<int>>& e,
-                           string labels, int k) {
-        vector<vector<pair<int,int>>> g(n);
-
-        for(auto &e : e){
-            g[e[0]].push_back({e[1], e[2]});
+    int shortestPath(int n, vector<vector<int>>& a, string st, int k) {
+        vector<vector<pair<int,int>>>adj(n);
+        for(auto& i:a){
+            adj[i[0]].push_back({i[1],i[2]});
         }
-        const long long INF = 1e18;
-        vector<vector<long long>> dist(n,
-                                       vector<long long>(k + 1, INF));
-
-        priority_queue<
-            tuple<long long,int,int>,
-            vector<tuple<long long,int,int>>,
-            greater<>
-        > pq;
-
+        vector<vector<int>>dist(n,vector<int>(k+1,INT_MAX));
+        priority_queue<tuple<int,int,int>,vector<tuple<int,int,int>>,greater<>>que;
         dist[0][1] = 0;
-        pq.push({0, 0, 1});
+        que.push({0,0,1});
+        int ans=INT_MAX;
+      
+        while(!que.empty()){
+            auto [q,p,cnt] = que.top();
+            que.pop();
+            char r = st[p];
+            if(q>dist[p][cnt]) continue;
+           
+            if(p==n-1)
+            return q;
+           for(auto &i : adj[p]){
 
-        while(!pq.empty()){
-            auto [d, u, cnt] = pq.top();
-            pq.pop();
-            if(d != dist[u][cnt]) continue;
-            for(auto &[v, w] : g[u]){
-                int ncnt;
-                if(labels[v] == labels[u])
-                    ncnt = cnt + 1;
-                else
-                    ncnt = 1;
-                if(ncnt > k) continue;
-                long long nd = d + w;
-                if(nd < dist[v][ncnt]){
-                    dist[v][ncnt] = nd;
-                    pq.push({nd, v, ncnt});
-                }
-            }
+    char R = r;
+    int s = cnt;
+
+    if(R == st[i.first]){
+        if(s + 1 > k) continue;
+        s++;
+    }
+    else{
+        s = 1;
+        R = st[i.first];
+    }
+
+    if(q + i.second < dist[i.first][s]){
+        dist[i.first][s] = q + i.second;
+        que.push({q + i.second, i.first,  s});
+    }
+}
         }
-
-        long long ans = INF;
-
-        for(int c = 1; c <= k; c++)
-            ans = min(ans, dist[n - 1][c]);
-
-        return ans == INF ? -1 : ans;
+        if(ans==INT_MAX) return -1;
+        return ans;
     }
 };
