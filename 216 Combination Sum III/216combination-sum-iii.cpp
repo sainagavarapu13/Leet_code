@@ -1,27 +1,21 @@
 class Solution {
 public:
-        set<vector<int>>ans;
-    void fun( int i , vector<int>& a , int k , int n, vector<int>& b){
-        if( b.size() == k && n==0){
-            ans.insert( b);
-            return ;
+vector<vector<int>>ans;
+    void check(int k,int n,vector<int>temp,int num,int sum){
+        if(num>10) return;
+        if(num==10&&temp.size()==k&&sum==n){
+            ans.push_back(temp);
+            return;
         }
-        if( b.size() > k || i >= a.size() || n<0) return ;
-        b.push_back(a[i]);
-        fun( i+1, a,k , n-a[i], b);
-        b.pop_back();
-        fun( i+1, a, k, n, b);
+        temp.push_back(num);
+        check(k,n,temp,num+1,sum+num);
+        temp.pop_back();
+        check(k,n,temp,num+1,sum);
     }
-
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<int>a;
-        for( int i=1;i<=9;i++) a.push_back(i);
-        vector<int>b;
-        vector<vector<int>>res;
-        fun( 0,a,k,n,b);
-        for( auto i : ans ){
-            res.push_back(i);
-        }
-        return res;
+        ans.clear();
+        vector<int>temp;
+        check(k,n,temp,1,0);
+        return ans;
     }
 };
