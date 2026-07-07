@@ -1,23 +1,20 @@
 class Solution {
 public:
     long long sumAndMultiply(int n) {
-        long long sum=0,p,num=0;
-        while(n){
-            int k=n%10;
-            if(k!=0){
-                num=num*10+k;
-            }
-            n=n/10;
+        long long  res  = 0;
+        vector<int> v;
+        while(n>0){
+            if((n%10)!=0) v.push_back(n%10);
+            n = n/10;
         }
-        cout<<num<<"\n";
-        long long m=0;
-        while(num){
-            m=m*10+(num%10);
-            sum+=(num%10);
-            num=num/10;
-            
+        long long a = 0,b = 10;
+        for(int i=v.size()-1;i>=0;i--){
+            // cout<<v[i]<<" ";
+            a = a*b+v[i];
+            res += v[i];
         }
-        return sum*m;
-        
+        // cout<<endl;
+        // cout<<a<<" "<<res<<endl;
+        return res*a;
     }
 };
