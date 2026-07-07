@@ -1,24 +1,31 @@
 class Solution {
 public:
-    int totalFruit(vector<int>& arr) {
-        int a=-1;
-        int b=-1;
-        if(arr.size()<=2) return arr.size();
-        int cur_size=2,maxx=-1,lastcount=0;
-        for(int i=0;i<arr.size();i++){
-            if(arr[i]==a||arr[i]==b) cur_size++;
+    int totalFruit(vector<int>& nums) {
+        int res = 0;
+        int n = nums.size(),i=0,j=0,b=nums[0],c,a=0,s=0,d=0;
+        while(i<n && j<n){
+            if(nums[i]==b) {
+                d = i;
+                a++;
+                i++;
+            }
+            else if(s==0 || c==nums[i]){
+                if(s==0) j = i;
+                a++;
+                c = nums[i];
+                s = 1;
+                i++;
+            }
             else{
-                cur_size=lastcount+1;
+                res = max(res,a);
+                b = nums[j];
+                s = 0;
+                a = 1;
+                i = j+1;
+                if(res>n/2) return res;
             }
-            if(arr[i]==b) lastcount++;
-            else {
-                lastcount=1;
-                a=b;
-                b=arr[i];
-            }
-
-            maxx=max(maxx,cur_size);
+            res = max(a,res);
         }
-        return maxx;
+        return res;
     }
 };
