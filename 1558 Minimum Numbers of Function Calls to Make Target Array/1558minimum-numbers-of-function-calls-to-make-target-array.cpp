@@ -1,23 +1,30 @@
 class Solution {
 public:
-        int fun(int n){
-            int power = 0;
-
-    while (n > 1) {
-        n /= 2;
-        power++;
-    }
-    return power;
-        }
     int minOperations(vector<int>& a) {
-        int m =0;
-        int total=0;
-        int increments=0;
-        for( int i : a){
-           increments += __builtin_popcount(i);
-            m = max( fun(i),m);
+        int ans=0,add=0;
+        int n=a.size(),z=0;
+        while(n!=z){
+            z=0;
+            int odd=0;
+            for(int i=0;i<a.size();i++){
+                
+                if(a[i]==0) z++;
+
+           else if(a[i]%2){
+                odd=1;
+                a[i]--;
+                ans++;
+            }
         }
-        return increments+m;
-              
+         if (z == n) break;
+        if(odd==0){
+            for (int i = 0; i < n; i++)
+                    a[i] /= 2;
+                ans++;
+        }
+        }
+        cout<<n;
+        return ans;
+
     }
 };
