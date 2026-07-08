@@ -1,15 +1,14 @@
 class Solution {
 public:
-    int maxDistance(string moves) {
-        int U = 0, D = 0, L = 0, R = 0, k = 0;
-        for(char c : moves) {
-            if(c == 'U') U++;
-            else if(c == 'D') D++;
-            else if(c == 'L') L++;
-            else if(c == 'R') R++;
-            else k++;
+    int maxDistance(string a) {
+        int h=0,v=0,cnt=0;
+        for(int i=0;i<a.size();i++){
+            if(a[i]=='L') h--;
+            if(a[i]=='R') h++;
+            if(a[i]=='U') v++;
+            if(a[i]=='D') v--;
+            if(a[i]=='_') cnt++;
         }
-
-        return abs(R - L) + abs(U - D) + k;
+        return abs(h)+abs(v)+cnt;
     }
 };
