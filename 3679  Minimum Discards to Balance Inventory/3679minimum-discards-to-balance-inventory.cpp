@@ -1,22 +1,19 @@
 class Solution {
 public:
-    int minArrivalsToDiscard(vector<int>& a, int w, int m) {
-        map<int,int>mp;
-        int i,cnt=0;
-        vector<int>keep(a.size(),0);
-        for(i=0;i<a.size();i++){
-            if(mp[a[i]]==m){
-                cnt++;
-                keep[i]=0;
+    int minArrivalsToDiscard(vector<int>& arrivals, int w, int s) {
+        int n = arrivals.size();
+        unordered_map<int,deque<int>> m;
+        int cnt =0;
+        for(int i =0 ;i<n;i++){
+            int item = arrivals[i];
+            while(!m[item].empty() && m[item].front()<=i-w){
+                m[item].pop_front();
             }
-            else {
-                mp[a[i]]++;
-                 keep[i]=1;
-                 }
-            if(i-w+1>=0){
-                if(keep[i-w+1]){
-                    mp[a[i-w+1]]--;
-                }
+            if(m[item].size()<s){
+                m[item].push_back(i);
+            }
+            else{
+                cnt++;
             }
         }
         return cnt;
