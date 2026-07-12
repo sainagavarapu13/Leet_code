@@ -1,35 +1,23 @@
 class Solution {
 public:
-    int minimumCost(vector<int>& a, int k) {
-      
-            const long long MOD = 1000000007;
-
-        long long r = k;
-        long long cost = 0;
-        long long p = 1;
-
-        for (int i = 0; i < a.size(); i++) {
-
-            if (a[i] > r) {
-
-                long long rem = a[i] - r;
-                long long add = (rem + k - 1) / k;
-
-                __int128 first = p;
-                __int128 last = p + add - 1;
-                __int128 cnt = add;
-
-                __int128 sum = (first + last) * cnt / 2;
-
-                cost = (cost + (long long)(sum % MOD)) % MOD;
-
-                p += add;
-                r += add * 1LL * k;
+    int minimumCost(vector<int>& nums, int k) {
+        long long res = 0, n = nums.size();
+            long long o = k,a=1, mod=1000000007LL,cur = k;
+        for(int i=0;i<n;i++){
+            if(nums[i]<=cur){
+                cur -= nums[i];
             }
-
-            r -= a[i];
+            else{
+                long long s = (nums[i]-cur+o-1)/o;
+                const long long inv2 = 500000004LL;
+                long long p = (s%mod)*((2LL*(a%mod)+(s%mod)-1 + mod)%mod)%mod;
+                p = (p *inv2 )%mod;
+                res = (res+p)%mod;
+                a += s;
+                cur += s * o;
+            cur -= nums[i];
+            }
         }
-
-        return cost;
+        return (int)(res%mod);
     }
 };
