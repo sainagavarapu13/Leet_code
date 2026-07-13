@@ -1,16 +1,16 @@
 class Solution {
 public:
-    int hIndex(vector<int>& a) {
-        sort(a.begin(),a.end(),greater<>());
-        int i,cnt=0;
-        for(i=0;i<a.size();i++){
-            if((i+1)<=a[i]){
-                cout<<a[i];
-                cnt=i+1;
-               // break;
+    int hIndex(vector<int>& citations) {
+        sort(citations.rbegin(),citations.rend());
+        int a = *max_element(citations.begin(),citations.end());
+        int b = 0,j=0;
+        for(int i=a;i>=0;i--){
+            while(j<citations.size() && citations[j]>=i){
+                b++;
+                j++;
             }
-            else break;
+            if(b>=i) return i;
         }
-        return cnt;
+        return 0;
     }
 };
