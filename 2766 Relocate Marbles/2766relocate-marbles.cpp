@@ -1,23 +1,20 @@
 class Solution {
 public:
-    vector<int> relocateMarbles(vector<int>& a, vector<int>& b, vector<int>& c) {
-        unordered_map<int,int>m;
-        for(int i=b.size()-1;i>=0;i--){
-            if(m.find(c[i])==m.end()){
-            m[b[i]] = c[i];}
-            else{
-                m[b[i]] = m[c[i]];
+    vector<int> relocateMarbles(vector<int>& nums, vector<int>& moveFrom, vector<int>& moveTo) {
+        map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
+        }
+        for(int j=0;j<moveFrom.size();j++){
+            m[moveFrom[j]] = 0;
+            m[moveTo[j]]++;
+        }
+        vector<int> v;
+        for(auto x:m){
+            if(x.second>0){
+                v.push_back(x.first);
             }
         }
-     
-        for(int i=0;i<a.size();i++){
-            if(m.find(a[i])!=m.end())
-            a[i] = m[a[i]];
-        }
-      
-        set<int>set(a.begin(),a.end());
-        vector<int>an(set.begin(),set.end());
-        return an;
-      
+        return v;
     }
 };
