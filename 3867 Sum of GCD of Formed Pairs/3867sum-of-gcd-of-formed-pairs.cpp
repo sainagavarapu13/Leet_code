@@ -1,22 +1,22 @@
 class Solution {
 public:
-    long long gcdSum(vector<int>& a) {
-        vector<long long>gcds ;
-        int maxi=-1;
-        for(int i=0;i<a.size();i++){
-            maxi=max(maxi,a[i]);
-       
-            gcds.push_back(gcd(maxi,a[i]));
-            
+    long long gcdSum(vector<int>& nums) {
+        if(nums.size()==0) return 0;
+        int a = nums[0];
+        vector<long long> v;
+        for(int i=0;i<nums.size();i++){
+            a = max(nums[i],a);
+            long long c = gcd(a,nums[i]);
+            v.push_back(c);
         }
-        sort(gcds.begin(),gcds.end());
-        long long ans=0;
-        int size=gcds.size()-1;
-        for(int i=0;i<gcds.size()/2;i++){
-            ans+=gcd(gcds[i],gcds[size]);
-            size--;
+        long long res = 0,i=0,j=v.size()-1;
+        sort(v.begin(),v.end());
+        while(i<j){
+            cout<<v[i]<<v[j]<<endl;
+            res += gcd(v[i],v[j]);
+            i++;
+            j--;
         }
-       // for(auto& i:gcds) cout<<i<<" ";
-        return ans;
+        return res;
     }
 };
