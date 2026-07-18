@@ -1,14 +1,25 @@
 class Solution {
 public:
     string rearrangeString(string s, char x, char y) {
-        int c =0, d=0;
-        string a;
-        for( char i : s ){
-            if( x==i) c++;
-            else if( y ==i) d++;
-           else a+=i;
-
+        map<char,int>m;
+        for(auto& i:s){
+            m[i]++;
         }
-        return string (d,y)+ a+string(c,x);
+        string ans;
+       while(m[y]>0){
+           m[y]--;
+           ans+=y;
+       }
+        if(m[x]>0){
+            m[x]--;
+            ans+=x;
+        }
+        for(auto& i:s){
+            if(m[i]>0){
+                m[i]--;
+                ans+=i;
+            }
+        }
+        return ans;
     }
 };
