@@ -12,17 +12,19 @@
 class Solution {
 public:
     int ans=0;
-    int dfs(TreeNode* root){
-        if(root==NULL) return INT_MIN;
-        int l=dfs(root->left);
-        int r=dfs(root->right);
-        int mx=max(root->val,max(l,r));
-        if(mx==root->val) ans++;
+    int check(TreeNode* root){
+        if(!root) return INT_MIN;
+        int left = check(root->left);
+        int right = check(root->right);
+        int mx = max(root->val,max(left,right));
+        if(root->val==mx){
+            ans++;
+        }
         return mx;
     }
     int countDominantNodes(TreeNode* root) {
-        TreeNode* norlavetic=root;
-        dfs(norlavetic);
+        ans=0;
+        check(root);
         return ans;
     }
 };
