@@ -1,25 +1,23 @@
 class Solution {
 public:
-    int longestDecomposition(string s) {
-        int i=0,j = s.size()-1;
-        int cnt=0;
-        string t ="";
-        string p ="";
-        while( i<j){
-            p+=s[i];
-            t+=s[j];
-            string l = t;
-            reverse(l.begin(),l.end());
-            if( p == l){
+    int longestDecomposition(string a) {
+        int start=0,end=a.size()-1,cnt=0;
+        string temp,t;
+        while(start<end){
+            temp+=a[start];
+            t+=a[end];
+            string t1 = t;
+            reverse(t1.begin(),t1.end());
+            if(t1==temp){
                 cnt+=2;
-                t="";
-                p="";
-
+               t1="";
+               t="";
+               temp="";
             }
-            i++;
-            j--;
+            start++;
+            end--;
         }
-        if( i==j||t!="") cnt++;
+        if(start==end||temp!="") cnt++;
         return cnt;
     }
 };
