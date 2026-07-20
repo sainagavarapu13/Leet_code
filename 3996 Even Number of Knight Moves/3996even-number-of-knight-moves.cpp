@@ -1,10 +1,8 @@
 class Solution {
 public:
-    bool canReach(vector<int>& a, vector<int>& b) {
-        int i=a[0];
-        int j=a[1];
-        int I=b[0];
-        int J=b[1];
-       return ((i+j)%2)==((I+J)%2);
+    bool canReach(vector<int>& start, vector<int>& target) {
+        int a = (start[0]+start[1]) % 2;
+        int b= (target[0]+target[1]) %2;
+        return a==b;
     }
 };
