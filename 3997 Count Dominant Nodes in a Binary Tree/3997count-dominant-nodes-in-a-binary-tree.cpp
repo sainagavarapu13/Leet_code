@@ -10,21 +10,18 @@
  * };
  */
 class Solution {
-public:
-    int ans=0;
+    int res = 0;
     int check(TreeNode* root){
-        if(!root) return INT_MIN;
-        int left = check(root->left);
-        int right = check(root->right);
-        int mx = max(root->val,max(left,right));
-        if(root->val==mx){
-            ans++;
-        }
-        return mx;
+        if(root==NULL) return 0;
+        long long ans1 =  max(root->val,check(root->left));
+        long long ans2 =  max(root->val,check(root->right));
+        long long a = max(ans1,ans2);
+        if(root->val == a) res++;
+        return a;
     }
+public:
     int countDominantNodes(TreeNode* root) {
-        ans=0;
-        check(root);
-        return ans;
+        int b = check(root);
+        return res;
     }
 };
