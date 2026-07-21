@@ -1,32 +1,39 @@
 class Solution {
 public:
     int maxActiveSectionsAfterTrade(string s) {
-        int one=0;
-       int cnt =1;
-        vector<pair<char, int>>a;
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='1') one++;
-            if(i==0) continue;
-            if( s[i]==s[i-1]) cnt++;
+        vector<int>cnt;
+        int z=1,o=0;
+        int k=1;
+        int i,totOnes=0;
+        if(s[0]=='1') totOnes++;
+       
+        for( i=1;i<s.size();i++){
+            if(s[i]==s[i-1]){
+                z++;
+            }
             else{
-                a.push_back({s[i-1],cnt});
-                cnt=1;
+                if(s[i-1]=='0') k=-1;
+                else k=1;
+                cnt.push_back(k*z);
+                z=1;
             }
+            if(s[i]=='1') totOnes++;
         }
-         a.push_back({s.back(),cnt});
-        //  if(s.size()==1 && s[0]=='1') return 1;
-        //  else return 0;
-        //  if( s.size()==2){
-        //     if(a.size()==2) return 1;
-        //     else return 2;
-        //  }
-         int ma =INT_MIN;
-         for( int i=1;i<a.size()-1;i++){
-            if(a[i].first =='1'){
-                ma = max( ma, a[i-1].second+a[i+1].second);
-            }
-         }
-        if(ma ==INT_MIN) return one;
-        else return ma+one;
+     if(s[i-1]=='0') k=-1;
+     else k=1;
+        cnt.push_back(k*z);
+        int maxi=totOnes;
+        int idx=-1;
+        int ones=INT_MAX;
+       vector<pair<int,int>> cand;  
+        for(int i=1;i<cnt.size()-1;i++){
+            if(cnt[i]<0) continue;
+            int x = -cnt[i-1] + cnt[i] - cnt[i+1];
+            cand.push_back({x,i});
+        }
+       for(auto& i:cand){
+        maxi=max(maxi,i.first+totOnes-cnt[i.second]);
+       }
+        return maxi;
     }
 };
