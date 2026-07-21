@@ -1,20 +1,17 @@
 class Solution {
 public:
-    int subarraySum(vector<int>& a, int k) {
-       vector<int>pre;
-       int sum=0;
-       int ans=0;
-        map<int,int>m;
-         m[sum]++;
-       for(int i=0;i<a.size();i++){
-        sum+=a[i];
-        int s = sum-k;
-            if(m[s]>0){
-                
-                ans+=m[s];
+    int subarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> v(n+1,0);
+        for(int i=0;i<n;i++){
+            v[i+1] = v[i]+nums[i];
+        }
+        int res=0;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                if((v[j+1]-v[i])==k) res++;
             }
-            m[sum]++;
-       }
-       return ans;
+        }
+        return res;
     }
 };
