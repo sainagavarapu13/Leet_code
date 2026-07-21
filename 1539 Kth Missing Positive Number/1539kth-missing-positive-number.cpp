@@ -1,26 +1,20 @@
 class Solution {
 public:
-    int findKthPositive(vector<int>& a, int k) {
-        int i;
-        priority_queue<int,vector<int>,greater<>>pq;
-        for(i=1;i<=a.back();i++){
-            if(count(a.begin(),a.end(),i)==0){
-                pq.push(i);
-            }
-            if(pq.size()==k) break;
-        }
-        int cnt=k;
-        while(!pq.empty()){
-           
-           
-            
-             if(cnt==1){
-                return pq.top();
-             }
-              cnt--;
-               pq.pop();
+    int findKthPositive(vector<int>& arr, int k) {
+        int low = 0, high = arr.size();
 
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int missing = arr[mid] - (mid + 1);
+
+            if (missing < k) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+            cout<<low<<" "<<high<<endl;
         }
-        return a[a.size()-1]+cnt;
+
+        return low + k;
     }
 };
