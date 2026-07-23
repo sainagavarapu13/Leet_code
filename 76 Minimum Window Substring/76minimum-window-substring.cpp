@@ -1,28 +1,46 @@
 class Solution {
 public:
+bool valid(map<char,int>&m,map<char,int>&mp){
+    for(auto& [n,c]:m){
+        if(mp[n]<c) return false;
+    }
+    return true;
+}
     string minWindow(string s, string t) {
         map<char,int>m;
-        for( char i :t){
+        for(auto& i:t){
             m[i]++;
         }
-        int l=0;
-        int ma = INT_MAX;
-        int cnt=0;
-        int k=0;
-        for( int r=0;r<s.size();r++){
-                if( m[s[r]]>0) cnt++;
-                m[s[r]]--;
-                while(cnt == t.size()){
-                    if( r-l+1 < ma){
-                        ma = r-l+1;
-                        k=l;
-                    }
-                    m[s[l]]++;
-                    if( m[s[l]]>0)cnt--;
-                    l++;
-                }
+        int st=-1,e=-1,ans=INT_MAX;
+        map<char,int>mp;
+        int start = 0,end=0;
+        while(end<s.size()){
+            mp[s[end]]++;
+            while(start<=end&&m[s[start]]==0){
+                mp[s[start]]--;
+                start++;
+            }
+            while(valid(m,mp)){
+            int len = end-start+1;
+            if(len<ans){
+                ans=len;
+                st=start;
+                e=end;
+            }
+            mp[s[start]]--;
+            start++;
+            while(start<=end&&m[s[start]]==0){
+                mp[s[start]]--;
+                start++;
+            }
+            }
+            end++;
         }
-        if( ma ==INT_MAX) return "";
-        return s.substr(k,ma);
+        if(st==-1) return "";
+        string res;
+        for(int i=st;i<=e;i++){
+            res+=s[i];
+        }
+        return res;
     }
 };
