@@ -1,28 +1,31 @@
 class Solution {
 public:
-    vector<vector<int>> aggregateTimeSeries(vector<vector<int>>& a, vector<vector<int>>& b) {
-        int i=0,j=0;
-        vector<vector<int>>ans;
-        while(i<a.size()&&j<b.size()){
-            if(a[i][0]<b[j][0]){
-                ans.push_back({a[i][0],a[i][1]+b[j][1]});
+    vector<vector<int>> aggregateTimeSeries(vector<vector<int>>& series1, vector<vector<int>>& series2) {
+        int n = series1.size(),m= series2.size(),i=0,j=0;
+        vector<vector<int>> res;
+        while(i<n || j<m){
+            int t;
+            if(i==n) t = series2[j][0];
+            else if (j==m) t=series1[i][0];
+            else t = min(series1[i][0],series2[j][0]);
+
+            int val1 = 0,val2 = 0;
+            if(i<n && series1[i][0]==t){
+                val1 = series1[i][1];
                 i++;
             }
-            else if(a[i][0]>b[j][0]){
-                ans.push_back({b[j][0],a[i][1]+b[j][1]});
+            else if(i<n){
+                val1 = series1[i][1];
+            }
+            if(j<m && series2[j][0] == t){
+                val2 = series2[j][1];
                 j++;
             }
-            else{
-                ans.push_back({a[i][0],a[i][1]+b[j][1]});
-                i++;
-                j++;
+            else if(j<m){
+                val2 = series2[j][1];
             }
+            res.push_back({t,val1+val2});
         }
-        while(i<a.size()){
-            ans.push_back({a[i][0],a[i][1]});
-            i++;
-        }
-        while(j<b.size()){ ans.push_back({b[j][0],b[j][1]});j++;}
-        return ans;
+        return res;
     }
 };
