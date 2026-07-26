@@ -1,15 +1,24 @@
 class Solution {
 public:
     int largestInteger(int n, int s) {
-        int num=0;
-        if(s>9*n) return -1;
-        while(n--){
-            num=num*10+min(9,s);
-            
-                s-=min(s,9);
-            
-            
+        int a = n*9,b = 0,c = 10;
+        if(s>a) return -1;
+        while(s>0){
+            if(s>=9){
+                b = b*c+9;
+                n--;
+                s -= 9;
+            }
+            else{
+                b= b*c + s;
+                n--;
+                break;
+            }
         }
-        return num;
+        while(n>0){
+            b = b*c;
+            n--;
+        }
+        return b;
     }
 };
