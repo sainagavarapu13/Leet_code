@@ -11,19 +11,19 @@
  */
 class Solution {
 public:
-    vector<int>ans;
-    void inror(TreeNode* root ){
-        if( root == NULL) return;
-        inror( root->left);
-        ans.push_back(root->val);
-        inror(root->right);
+vector<int>ele;
+    void add(TreeNode* root){
+        if(!root) return;
+        add(root->left);
+        ele.push_back(root->val);
+        add(root->right);
 
     }
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        inror(root1);
-        inror( root2);
-        sort( ans.begin(),ans.end());
-        return ans;
-
+        ele.clear();
+        add(root1);
+        add(root2);
+        sort(ele.begin(),ele.end());
+        return ele;
     }
 };
