@@ -10,15 +10,19 @@
 
 class Solution {
 public:
+    TreeNode* check(TreeNode* root, TreeNode* p, TreeNode* q){
+        if(p->val<=root->val&&root->val<=q->val) return root;
+        else if(root->val>p->val){
+           return check(root->left,p,q);
+        }
+        else return check(root->right,p,q);
+    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if( root==NULL) return NULL;
-        if(root->val < q->val && root->val >p->val ||root->val < p->val && root->val >q->val ){
-            return root;
+        if(p->val<q->val){
+            return check(root,p,q);
         }
-        if(root->val < q->val && root->val <p->val){
-           return  lowestCommonAncestor( root->right, p,q);
-        }
-        if(root->val > q->val && root->val >p->val ) return  lowestCommonAncestor( root->left, p,q);
-        return root;
+    
+            return check(root,q,p);
+        
     }
 };
