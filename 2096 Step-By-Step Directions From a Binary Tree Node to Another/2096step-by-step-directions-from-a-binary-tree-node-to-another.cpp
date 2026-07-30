@@ -11,40 +11,45 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* root, int target, string &path) {
-    if (!root) return false;
-    if (root->val == target)
-        return true;
-    path.push_back('L');
-    if (dfs(root->left, target, path))
-        return true;
-    path.pop_back();
-    path.push_back('R');
-    if (dfs(root->right, target, path))
-        return true;
-    path.pop_back();
-    return false;
-}
-    TreeNode* lowestCommonAncestor(TreeNode* root, int p, int q) {
-        if( root == NULL) return root;
-        if( root->val ==p || root->val== q){
+    TreeNode* lac(TreeNode* root, int p, int q){
+        if(!root) return nullptr;
+        if(root->val==p||root->val==q) return root;
+        TreeNode* left = lac(root->left,p,q);
+        TreeNode* right = lac(root->right,p,q);
+        if(left&&right){
             return root;
         }
-        TreeNode* low = lowestCommonAncestor(root->left , p, q);
-        TreeNode* lef = lowestCommonAncestor(root->right, p ,q);
-        if( low && lef ) return root;
-        else if( low == NULL) return lef;
-        else return low;
+       return left?left:right;
     }
-    string getDirections(TreeNode* root, int s, int d) {
-        TreeNode* lca = lowestCommonAncestor(root, s, d);
-        string start_path;
-        dfs(lca,s, start_path );
-        string end_path ;
-         dfs(lca, d, end_path);
-        for( int i=0;i<start_path.size();i++){
-            start_path[i] ='U';
+    string dfs(TreeNode* root,int p,string &temp){
+        if(!root) return "";
+        if(root->val==p){
+            return temp;
         }
-        return start_path+end_path;
+        
+            temp.push_back('L');
+            string left = dfs(root->left, p, temp);
+            temp.pop_back();
+
+            if(!left.empty())
+                return left;
+
+            temp.push_back('R');
+            string right = dfs(root->right, p, temp);
+            temp.pop_back();
+
+            return right;
+    }
+    string getDirections(TreeNode* root, int p, int q) {
+        TreeNode* l = lac(root,p,q);
+        string temp;
+        string one = dfs(l,p,temp);
+        temp.clear();
+        string two = dfs(l,q,temp);
+       
+        for(auto& i:one) {
+            i='U';
+        }
+        return one+two;
     }
 };
