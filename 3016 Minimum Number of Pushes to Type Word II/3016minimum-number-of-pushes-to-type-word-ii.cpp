@@ -1,18 +1,37 @@
+
 class Solution {
 public:
-    int minimumPushes(string w) {
-        vector<int> x(26, 0);
-        for (char c : w) {
-            x[c - 'a']++;}
-        sort(x.rbegin(), x.rend());
-        
-        int total = 0;
-        for (int i=0;i<26; i++) {
-            if (x[i] == 0) break;
-            int pos = i / 8 + 1;
-            total += x[i] * pos;
+    int minimumPushes(string s) {
+        map<char, int> m;
+
+       
+        for (char i : s) {
+            m[i]++;
         }
-        
-        return total;
+        vector<int> a;
+        for (auto& i : m) {
+            a.push_back(i.second);
+        }
+        sort(a.begin(), a.end(), greater<int>());
+      
+        int sum = 0;
+        int k = 1; 
+        int cnt = 0;  
+
+        for (int i : a) {
+           
+            sum += k * i;
+
+            cnt++;
+
+           
+            if (cnt % 8 == 0) {
+                k++;
+            }
+        }
+
+        return sum;
     }
 };
+
+
