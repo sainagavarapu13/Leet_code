@@ -1,37 +1,20 @@
-
 class Solution {
 public:
-    int minimumPushes(string s) {
-        map<char, int> m;
-
-       
-        for (char i : s) {
-            m[i]++;
+    int minimumPushes(string word) {
+        map<char,int>m;
+        for(int i=0;i<word.size();i++){
+            m[word[i]]++;
         }
-        vector<int> a;
-        for (auto& i : m) {
-            a.push_back(i.second);
+        vector<int> v;
+        for(auto x:m){
+            v.push_back(x.second);
         }
-        sort(a.begin(), a.end(), greater<int>());
-      
-        int sum = 0;
-        int k = 1; 
-        int cnt = 0;  
-
-        for (int i : a) {
-           
-            sum += k * i;
-
-            cnt++;
-
-           
-            if (cnt % 8 == 0) {
-                k++;
-            }
+        sort(v.begin(),v.end(),[](int a,int b){return a>b;});
+        int b = 0;
+        for(int i=0;i<v.size();i++){
+            int c = (i/8)+1;
+            b += c * v[i];
         }
-
-        return sum;
+        return b;
     }
 };
-
-
