@@ -1,35 +1,54 @@
 class Solution {
 public:
-    string findReplaceString(string s, vector<int>& ind, vector<string>& from, vector<string>& to) {
-        int k=ind.size();
-        int n=s.size();
-        vector<pair<string,int>>temp(n,{"&",0});
-        for(int i=0;i<k;i++){
-            int start_id = ind[i];
-            string t=s.substr(start_id,(int)from[i].size());
-            if(t==from[i]){
-                temp[start_id] = {to[i],from[i].size()};
+    string findReplaceString(string s, vector<int>& indices,
+                             vector<string>& source,
+                             vector<string>& targets) {
+
+        vector<int> c(s.size(), 0);
+
+        for(int i = 0; i < indices.size(); i++){
+
+            if(indices[i] + source[i].size() > s.size()){
+                indices[i] = -1;
+                continue;
             }
-           
-        }
-        string ans;
-       
-        int i=0;
-        while(i<s.size()){
-            int cnt;
-            if(temp[i].first=="&"){
-                ans+=s[i];
-                cnt=1;
-            }
-            else {
-                string st=temp[i].first;
-                cnt=temp[i].second;
-                for(auto& u:st){
-                   ans+=u;
+
+            bool ok = true;
+
+            for(int k = 0; k < source[i].size(); k++){
+                if(s[indices[i] + k] != source[i][k]){
+                    ok = false;
+                    break;
                 }
             }
-            i+=cnt;
+
+            if(!ok){
+                indices[i] = -1;
+                continue;
+            }
+
+            for(int k = 0; k < source[i].size(); k++)
+                c[indices[i] + k] = 1;
         }
-        return ans;
+
+        vector<string> v(s.size());
+
+        for(int i = 0; i < indices.size(); i++){
+            if(indices[i] == -1) continue;
+
+            v[indices[i]] = targets[i];
+            c[indices[i]] = 2;
+        }
+
+        string t = "";
+
+        for(int i = 0; i < s.size(); i++){
+            if(c[i] == 2)
+                t += v[i];
+            else if(c[i] == 0)
+                t += s[i];
+        }
+
+        return t;
     }
 };
