@@ -1,19 +1,21 @@
 class Solution {
 public:
-    bool check(vector<int>& a , int start ,int end , int s_a ,int s_b,int turn){
-        if(start>end){
-            return s_a>=s_b;
+    int test = 0;
+    bool recursion(vector<int>&nums,int i,int j,long long a,long long b,bool check){
+        if(i>j){
+            if(a>=b){
+                return true;
+            }
+            return false;
         }
-        if(turn == 0){
-          return  check(a,start+1,end,s_a+a[start] , s_b , 1)||
-                 check(a,start,end-1 , s_a+a[end] , s_b , 1);
+        if(check){
+            return recursion(nums,i+1,j,a+nums[i],b,false) || recursion(nums,i,j-1,a+nums[j],b,false);
         }
         else{
-            return  check(a,start+1,end,s_a , s_b+a[start] , 0)&&
-                   check(a,start,end-1 , s_a , s_b+a[end] , 0);
+            return recursion(nums,i+1,j,a,b+nums[i],true) && recursion(nums,i,j-1,a,b+nums[j],true);
         }
     }
-    bool predictTheWinner(vector<int>& a) {
-        return check(a,0,a.size()-1 , 0,0 ,0);
+    bool predictTheWinner(vector<int>& nums) {
+        return recursion(nums,0,nums.size()-1,0,0,true);
     }
 };
