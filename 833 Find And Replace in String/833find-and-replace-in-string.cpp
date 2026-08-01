@@ -1,18 +1,35 @@
 class Solution {
 public:
-    string findReplaceString(string s, vector<int>& in, vector<string>& sy, vector<string>& t) {
-        vector<pair<int,int>> a;
-        for( int i=0;i<in.size();i++){
-            a.push_back({in[i],i});
-        }
-        sort(a.rbegin(), a.rend());
-        string res = s;
-        for( int i=0;i<a.size();i++){
-            int idx = a[i].second;
-            if(s.substr(in[idx], sy[idx].size()) == sy[idx]){
-                res.replace(in[idx], sy[idx].size(), t[idx]);
+    string findReplaceString(string s, vector<int>& ind, vector<string>& from, vector<string>& to) {
+        int k=ind.size();
+        int n=s.size();
+        vector<pair<string,int>>temp(n,{"&",0});
+        for(int i=0;i<k;i++){
+            int start_id = ind[i];
+            string t=s.substr(start_id,(int)from[i].size());
+            if(t==from[i]){
+                temp[start_id] = {to[i],from[i].size()};
             }
+           
         }
-        return res;
+        string ans;
+       
+        int i=0;
+        while(i<s.size()){
+            int cnt;
+            if(temp[i].first=="&"){
+                ans+=s[i];
+                cnt=1;
+            }
+            else {
+                string st=temp[i].first;
+                cnt=temp[i].second;
+                for(auto& u:st){
+                   ans+=u;
+                }
+            }
+            i+=cnt;
+        }
+        return ans;
     }
 };
