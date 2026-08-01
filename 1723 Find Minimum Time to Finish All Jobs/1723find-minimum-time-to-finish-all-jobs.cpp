@@ -1,38 +1,37 @@
 class Solution {
 public:
-   
-    bool dfs(int ind,vector<int>& g, int k,int limit,  vector<int>& w){
-        if( ind== g.size()) return true;
-        for( int i=0;i<k;i++){
-            if(i>0 && w[i]==w[i-1]) continue;
-            if(w[i]+g[ind]<=limit){
-                w[i]+=g[ind];
-               if( dfs(ind+1,g,k,limit,w)) return 1;
-               w[i]-=g[ind];
-
-            }
-            if( w[i]==0) break;
+    bool fun(int i,int m,vector<int>& a, int k,vector<int>&temp){
+        if(i==a.size()){
+            return true;
+        }
+        for(int worker = 0; worker < k; worker++){
+            if(temp[worker]+a[i]<=m){
+            temp[worker]+=a[i];
+           if(fun(i+1,m,a,k,temp)) return true;
+           temp[worker]-=a[i];
+        }
+        if(temp[worker]==0)
+        break;
+        while(worker+1<temp.size()&&temp[worker]==temp[worker+1]) worker++;
         }
         return false;
     }
-   
-    int minimumTimeRequired(vector<int>& g, int k) {
-        int low = *max_element(g.begin(), g.end());
-        sort( g.rbegin(), g.rend());
-        int sum=0;
-        for( int i : g){
-            sum+=i;
+    int minimumTimeRequired(vector<int>& a, int k) {
+        int start=INT_MIN,end=0;
+         sort(a.rbegin(),a.rend());
+        for(int i=0;i<a.size();i++){
+            start=max(start,a[i]);
+            end+=a[i];
         }
-       int high = sum;
-       int ans= 0;
-       while( low<=high){
-        int mid = (high+low)/2;
-        vector<int>w(k,0);
-        if( dfs(0,g,k,mid,w)){
-            ans = mid;
-            high = mid-1;
-        }else low = mid+1;
-       }
-       return ans;
+       
+        while(start<end){
+            int m = (start+end)/2;
+             vector<int>temp(k,0);
+            if(fun(0,m,a,k,temp)){
+                end=m;
+            }
+            else start=m+1;
+        }
+        return start;
     }
 };
