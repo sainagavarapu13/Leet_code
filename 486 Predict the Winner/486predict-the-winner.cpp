@@ -1,22 +1,19 @@
 class Solution {
 public:
-    bool fun(vector<int>& n, int i, int j, int a, int b, bool turn) {
-        
-        if(i > j) {
-            return a >= b;
+    bool check(vector<int>& a , int start ,int end , int s_a ,int s_b,int turn){
+        if(start>end){
+            return s_a>=s_b;
         }
-        
-        if(turn == false) {  
-            return fun(n, i+1, j, a + n[i], b, true) ||
-                   fun(n, i, j-1, a + n[j], b, true);
-        } 
-        else {  
-            return fun(n, i+1, j, a, b + n[i], false) &&
-                   fun(n, i, j-1, a, b + n[j], false);
+        if(turn == 0){
+          return  check(a,start+1,end,s_a+a[start] , s_b , 1)||
+                 check(a,start,end-1 , s_a+a[end] , s_b , 1);
+        }
+        else{
+            return  check(a,start+1,end,s_a , s_b+a[start] , 0)&&
+                   check(a,start,end-1 , s_a , s_b+a[end] , 0);
         }
     }
-    
-    bool predictTheWinner(vector<int>& nums) {
-        return fun(nums, 0, nums.size()-1, 0, 0, false);
+    bool predictTheWinner(vector<int>& a) {
+        return check(a,0,a.size()-1 , 0,0 ,0);
     }
 };
