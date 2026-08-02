@@ -1,25 +1,25 @@
 class Solution {
 public:
-    vector<int> countTasks(vector<int>& t, vector<int>& s) {
-        vector<long long>p(t.size(),0);
-        p[0]=t[0];
-        for( int i=1;i<t.size();i++){
-            p[i]= p[i-1]+t[i];
+    vector<int> countTasks(vector<int>& tasks, vector<int>& shifts) {
+        int n = tasks.size(),m= shifts.size();
+        int k=0;
+        vector<long long> v(n+1,0);
+        for(int i=0;i<n;i++){
+            v[i+1] = v[i]+tasks[i];
         }
-        vector<int>a;
-        long long m = p.back(), d=0;
-        for( int i=0;i<s.size();i++){
-            d+=s[i];
-            if( d>=m){
-                a.push_back(0);
-                d=0;
+        long long  t = v[n],d=0;
+        vector<int> ans;
+        for(int i=0;i<m;i++){
+            d += shifts[i];
+            if(d >= t){
+                ans.push_back(0);
+                d = 0;
                 continue;
+            }
+            auto it = upper_bound(v.begin(),v.end(),d);
+            int b = it - v.begin()-1;
+            ans.push_back(n-b);
         }
-        auto it = upper_bound(p.begin(), p.end(), d);
-        int ind = it-p.begin()-1;
-        a.push_back(t.size()-ind-1);
-        }
-        
-        return a;
+        return ans;
     }
 };
