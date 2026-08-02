@@ -1,33 +1,23 @@
 class Solution {
 public:
-    int maximumWidth(vector<int>& p) {
-        map<long long, long long>m;
-        int sum=0;
-        for( int i : p){
-            m[i]++;
+    int maximumWidth(vector<int>& planks) {
+        unordered_map<int,int> m,f;
+        int n= planks.size();
+        for(int i=0;i<n;i++){
+            f[planks[i]]++;
         }
-        vector<pair<long long,long long>> a;
-         for(auto x : m)
-             a.push_back(x);   
-        //  map<int, int>n;
-         for(int i=0;i<a.size();i++){
-            if(a[i].second >= 2)
-             m[1ll*2*a[i].first] += a[i].second/2;
-
-            for(int j=i+1;j<a.size();j++){
-                 m[a[i].first + a[j].first] += min(a[i].second, a[j].second);
-             }
+        vector<pair<long long,int>> v(f.begin(),f.end());
+        for(auto it : v) m[it.first] = it.second;
+        int g = v.size();
+        for(int i=0;i<g;i++){
+            for(int j = i;j<g;j++){
+                long long value = v[i].first+v[j].first;
+                if(i==j) m[value] += v[i].second / 2;
+                else m[value] += min(v[i].second,v[j].second);
+            }
         }
-       
-       long long ans =0;
-    //    for( auto [x,y]:n){
-    //   //  cout<< x << " " << y <<endl;
-    //     ans = max(ans, y+m[x]);
-    //    }
-        for( auto [x,y]:m){
-       // cout<< x << " " << y <<endl;
-        ans = max(ans, y);
-       }
-       return ans;
+        int ans = 1;
+        for(auto it:m) ans = max(ans,it.second);
+        return ans;
     }
 };
