@@ -1,50 +1,31 @@
 class Solution {
 public:
     vector<int> remainingMethods(int n, int k, vector<vector<int>>& a) {
-        sort( a.begin(), a.end());
-        vector<vector<int>>g(n);
-        vector<int>v(n,0);
-       // vector<int>sus(n,0);
-       unordered_map<int, int>m;
-        for( int i=0;i<a.size();i++){
-            m[a[i][1]]=a[i][0];
-           g[a[i][0]].push_back(a[i][1]);
+        vector<vector<int>>adj(n);
+        for(auto & i:a){
+            adj[i[0]].push_back(i[1]);
         }
+        vector<bool>is_sus(n,false);
         queue<int>q;
         q.push(k);
         while(!q.empty()){
-            int u = q.front();
-             q.pop();
-             if(v[u]) continue;
-             //sus[u]=1;
-            v[u]=1;
-           
-            for( auto i :g[u]){
+            int x = q.front();
+            is_sus[x]=1;
+            q.pop();
+            for(auto& i:adj[x]){
+                if(is_sus[i]==0)
                 q.push(i);
             }
         }
-        vector<int>ans;
-        int f=0;
-        for( auto i : a){
-            int x= i[0] , y = i[1];
-            if( !v[x] && v[y]){
-                f=1;
-                break;
-            }
+        vector<int>ans(n);
+        iota(ans.begin(),ans.end(),0);
+       for(auto& i:a){
+        if(is_sus[i[0]]==0&&is_sus[i[1]]) return ans;
+       }
+        ans.clear();
+        for(int i=0;i<n;i++){
+            if(is_sus[i]==0) ans.push_back(i);
         }
-         vector<int>res;
-        if( f){
-            for( int i=0;i<v.size();i++){
-                res.push_back(i);
-            }
-        }else{
-            
-            for( int i=0;i<v.size();i++){
-               if(!v[i]) res.push_back(i);
-            }
-        }
-      
-        
-        return res;
+        return ans;
     }
 };
