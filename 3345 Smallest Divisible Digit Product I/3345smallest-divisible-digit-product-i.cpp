@@ -1,19 +1,17 @@
 class Solution {
 public:
-    int pro(int n){
-         int p=1;
-        while(n){
-            p=p*(n%10);
-            n/=10;
-        }
-        return p;
-    }
     int smallestNumber(int n, int t) {
-       
-        while(1){
-            if(pro(n)%t==0) return n;
+        int curr = n;
+        while(true){
+            int res = 1;
+            while(curr){
+                res *= (curr%10);
+                curr /= 10;
+            }
+            if(res%t==0) return n;
             n++;
+            curr= n;
         }
-        return 1;
+        return 0;
     }
 };
