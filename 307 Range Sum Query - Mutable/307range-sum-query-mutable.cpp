@@ -1,52 +1,60 @@
 class NumArray {
 public:
-    vector<int>t;
-    int n;
-    NumArray(vector<int>& nums) {
-        t.resize(4*nums.size());
-        n = nums.size();
-        build(1,nums,0,nums.size()-1);
+    vector<int>temp,val;
+
+    void build(int node,int start,int end){
+        if(start==end){
+            temp[node] = val[start];
+            return ;
+        }
+        int mid = (start+end)/2;
+        build(2*node,start,mid);
+        build(2*node+1,mid+1,end);
+        temp[node] = temp[2*node]+temp[2*node+1]; 
+        return ;
+    }
+    NumArray(vector<int>& a) {
+        int n=a.size();
+        temp.clear();
+        val.clear();
+        temp.resize(4*n);
+        val.resize(n);
+        val=a;
+        build(1,0,n-1);
+    }
+    void Update(int node, int start, int end, int idx, int val){
+            if(start == end)
+            {
+                temp[node] = val;
+                return;
+            }
+            int mid = (start + end) / 2;
+            if(idx <= mid)
+                Update(2*node, start, mid, idx, val);
+            else
+                Update(2*node+1, mid+1, end, idx, val);
+
+            temp[node] = temp[2*node] + temp[2*node+1];
+            return;
+    }
+    void update(int idx, int v) {
+        Update(1,0,val.size()-1,idx,v);
+    }
+    int get(int l,int r,int s,int e , int node){
+        if(r<s||e<l){
+           return 0;
+        }
+        else if(s<=l&&r<=e){
+           return temp[node];
+        }
+        int mid = (l + r) / 2;
+
+        return get(l, mid, s, e, 2*node)
+         + get(mid+1, r, s, e, 2*node+1);
 
     }
-    void build(int node, vector<int>& nums, int start, int end){
-        if( start == end){
-            t[node] = nums[start];
-            return;
-        }
-        int mid = (start+end)/2;
-        build(2*node, nums, start, mid);
-        build(2*node+1, nums, mid+1, end);
-        t[node] = t[2*node]+t[2*node+1];
-    }
-    void update(int index, int val) {
-       update_ind(1, 0, n-1, index, val);
-    }
-    void update_ind(int node, int start, int end, int index, int val){
-         if(  start == end){
-            t[node] = val;
-            return;
-        }
-        int mid = (start+end)/2;
-       if(index <= mid){
-            update_ind(2*node, start, mid, index, val);
-        }else{
-             update_ind(2*node+1, mid+1, end, index, val);
-        }
-        t[node]= t[2*node] + t[2*node+1];
-    }
-    
-    int sumRange(int left, int right) {
-        return sum_range(1,0,n-1,left, right);
-    }
-    int sum_range(int node, int start, int end, int l, int r){
-        if( l>end || r<start) return 0;
-        if( l<=start && end<=r){
-            return t[node];
-        }
-        int mid = (start+end)/2;
-        int left = sum_range(2*node,start, mid, l, r);
-        int right = sum_range(2*node+1, mid+1, end, l, r);
-        return left+right;
+    int sumRange(int l, int r) {
+        return get(0,val.size()-1,l,r,1);
     }
 };
 
