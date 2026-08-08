@@ -1,34 +1,30 @@
 class Solution {
 public:
     bool isItPossible(string a, string b) {
-        map<char, int>m,n;
-        for( char i : a){
-            m[i]++;
-        }
-        for( char i :b ){
-            n[i]++;
-        }
-       // if( m.size() == n.size()) return 1;
-        for( int i=0;i<26;i++){
-            for( int j =0;j<26;j++){
-                 if (m[i+'a'] == 0 || n[j+'a'] == 0)
-                    continue;
-                m[i+'a']--;
-                n[j+'a']--;
-                 m[j+'a']++;
-                n[i+'a']++;
-                int a=0,b=0;
-                for( char k ='a';k<='z';k++){
-                    if(m[k]>0) a++;
-                    if( n[k]>0) b++;
-                }
-                if(a == b) return 1;
-                 m[j+'a']--;
-                n[i+'a']--;
-                m[i+'a']++;
-                n[j+'a']++;
+        map<char, int> m1, m2;
+        for(auto& i : a) m1[i]++;
+        for(auto& i : b) m2[i]++;
+        for(auto& [c1, n1] : m1) {
+            for(auto& [c2, n2] : m2) {
+                if(m1[c1]==0||m2[c2]==0) continue;
+                m1[c1]--;
+                m2[c2]--;
+                m1[c2]++;
+                m2[c1]++;
+                int s1=0,s2=0;
+                for(auto& [x, cnt] : m1)
+                    if(cnt > 0) s1++;
+                for(auto& [x, cnt] : m2)
+                    if(cnt > 0) s2++;
+                if(s1 == s2)
+                    return true;
+                m1[c2]--;
+                m2[c1]--;
+                m1[c1]++;
+                m2[c2]++;
             }
         }
-        return 0;
+
+        return false;
     }
 };
