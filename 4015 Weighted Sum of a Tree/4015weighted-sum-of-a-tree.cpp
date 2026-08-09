@@ -1,33 +1,33 @@
 class Solution {
 public:
-    
-    long long weightedSum(vector<int>& p, vector<int>& nums) {
-        queue<pair<int,int>>q;
-        q.push({0,1});
-        int n = p.size();
-        vector<vector<int>>childs(n);
-        for(int i=1;i<p.size();i++){
-            childs[p[i]].push_back(i);
-        }
-        int h=1;
-        while(!q.empty()){
-            auto [x,y] = q.front();
-            q.pop();
-            h = max(h,y);
-            for(auto& i:childs[x]){
-                q.push({i,y+1});
+    long long weightedSum(vector<int>& parent, vector<int>& nums) {
+        int n = parent.size();
+        vector<int> dep(n,0);
+        vector<vector<int>> children(n);
+        int root = -1;
+        int hei = 0;
+        for(int i=0;i<n;i++){
+            if(parent[i]==-1) root = i;
+            else{
+                children[parent[i]].push_back(i);
             }
         }
-       q.push({0,1});
-        long long sum =0;
+        queue<int> q;
+        q.push(root);
+        dep[root] = 1;
         while(!q.empty()){
-            auto [x,y] = q.front();
+            int curr = q.front();
             q.pop();
-            sum+=(1LL*nums[x]*(h-y+1));
-            for(auto& i:childs[x]){
-                q.push({i,y+1});
+            hei = max(hei,dep[curr]);
+            for(int c:children[curr]){
+                dep[c] = dep[curr]+1;
+                q.push(c);
             }
         }
-        return sum;
+        long long ans = 0;
+        for(int i=0;i<n;i++){
+            ans += 1LL * nums[i] * (hei-dep[i]+1);
+        }
+        return ans;
     }
 };
