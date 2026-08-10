@@ -1,33 +1,19 @@
 class Solution {
 public:
-    vector<vector<int>> shiftGrid(vector<vector<int>>& a, int k) {
-        int n=a.size();
-        int m = a[0].size();
-        int ele = n*m;
-        int sh = k%ele;
-        if(sh==0) return a;
-        // vector<vector<int>>res(n,vector<int>(m));
-        vector<int>temp;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                temp.push_back(a[i][j]);
+    vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
+        int m = grid.size(),n=grid[0].size();
+        vector<vector<int>> mat(m,vector<int>(n));
+        int total = m*n;
+        k %=total;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                int a = i*n + j;
+                int b = (a+k)%total;
+                int c = b/n;
+                int d = b%n;
+                mat[c][d] = grid[i][j];
             }
         }
-        vector<int>ans;
-        int start = ele-sh;
-        for(int i=start;i<ele;i++){
-            ans.push_back(temp[i]);
-        }
-        for(int i=0;i<start;i++){
-             ans.push_back(temp[i]);
-        }
-       // for(auto & i:ans) cout<<i<<" ";
-        int idx=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                a[i][j] = ans[idx++];
-            }
-        }
-        return a;
+        return mat;
     }
 };
