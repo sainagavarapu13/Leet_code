@@ -1,17 +1,12 @@
 class Solution {
 public:
-    int ans=0;
-    void check(int idx , vector<int>&a,int x){
-        if(idx==a.size()){
-            ans+=x;
-            return;
+    int subsetXORSum(vector<int>& nums) {
+        int target =0;
+        for(int i=0;i<nums.size();i++){
+            target |= nums[i];
         }
-        check(idx+1,a,x^a[idx]);
-        check(idx+1,a,x);
-    }
-    int subsetXORSum(vector<int>& a) {
-        ans=0;
-        check(0,a,0);
-        return ans;
+        cout<<target<<endl;
+        target = target <<(nums.size()-1);
+        return target;
     }
 };
