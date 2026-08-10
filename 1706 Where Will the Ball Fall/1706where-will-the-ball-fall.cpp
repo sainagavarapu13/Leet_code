@@ -1,39 +1,41 @@
 class Solution {
 public:
-    vector<int> findBall(vector<vector<int>>& a) {
-        int n=a.size();
-        int m=a[0].size();
-        vector<int>ans;
-        int p=0;
-        for(int k=0;k<m;k++){
-            int i=0;
-            int j=k;
-            int f=1;
-            while(i<n&&j>=0&&j<m){
-            if(a[i][j]==1){
-                if(j==m-1||a[i][j+1]==-1){
-                    ans.push_back(-1);
-                    f=0;
+    vector<int> findBall(vector<vector<int>>& grid) {
+        vector<int> v;
+        for(int i=0;i<grid[0].size();i++){
+            int j = 0,k=i;
+            if(i==0 && grid[0][0]==-1){
+                v.push_back(-1);
+                continue;
+            }
+            if(i==grid[0].size()-1 && grid[0][grid[0].size()-1]==1){
+                v.push_back(-1);
+                continue;
+            }
+            while(j<grid.size()){
+               if(grid[j][k]==1){
+                if(k<grid[0].size()-1 && grid[j][k]==grid[j][k+1]){
+                    j++;
+                    k++;
+                }
+                else{
+                    k=-1;
                     break;
                 }
-
-                i++;
-                j++;
-            }
-            else{
-                if(j==0||a[i][j-1]==1){
-                    ans.push_back(-1);
-                    f=0;
+               }
+               else{
+                if(k>0 && grid[j][k]==grid[j][k-1]){
+                    j++;
+                    k--;
+                }
+                else{
+                    k=-1;
                     break;
                 }
-                i++;
-                j--;
+               }
             }
-            }
-            if(f==1)
-            ans.push_back(j);
-           
+            v.push_back(k);
         }
-        return ans;
+        return v;   
     }
 };
