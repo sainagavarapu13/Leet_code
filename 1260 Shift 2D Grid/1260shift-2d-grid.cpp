@@ -1,23 +1,33 @@
 class Solution {
 public:
-    vector<vector<int>> shiftGrid(vector<vector<int>>& g, int k){
-        vector<vector<int>>b = g;
-        int len = g[0].size()*g.size();
-        k = k%len;
-        while(k--){
-            vector<vector<int>>r = b;
-            for( int i=0;i<g.size();i++){
-                for( int j=0;j<g[0].size();j++ ){
-                    if( j ==g[0].size()-1){
-                        if( i==g.size()-1) r[0][0]=b[i][j];
-                        else r[i+1][0]=b[i][j];
-                    }else{
-                        r[i][j+1]=b[i][j];
-                    }
-                }
+    vector<vector<int>> shiftGrid(vector<vector<int>>& a, int k) {
+        int n=a.size();
+        int m = a[0].size();
+        int ele = n*m;
+        int sh = k%ele;
+        if(sh==0) return a;
+        // vector<vector<int>>res(n,vector<int>(m));
+        vector<int>temp;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                temp.push_back(a[i][j]);
             }
-            b = r;
         }
-        return b;
+        vector<int>ans;
+        int start = ele-sh;
+        for(int i=start;i<ele;i++){
+            ans.push_back(temp[i]);
+        }
+        for(int i=0;i<start;i++){
+             ans.push_back(temp[i]);
+        }
+       // for(auto & i:ans) cout<<i<<" ";
+        int idx=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                a[i][j] = ans[idx++];
+            }
+        }
+        return a;
     }
 };
