@@ -1,23 +1,30 @@
 class Solution {
 public:
-    vector<int> findDiagonalOrder(vector<vector<int>>& a) {
-        map<int,vector<int>>m;
-        for(int i=0;i<a.size();i++){
-            for(int j=0;j<a[0].size();j++){
-                m[i+j].push_back(a[i][j]);
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        map<int,vector<int>> p;
+        int n = mat.size(),m= mat[0].size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                p[i+j].push_back(mat[i][j]);
             }
         }
-        int i;
-        vector<int>ans;
-        for(i=0;i<m.size();i++){
-            vector<int>c=m[i];
-            if(i%2==0){
-                for(int j=c.size()-1;j>=0;j--) ans.push_back(c[j]);
+        int flag = 1;
+        vector<int> v;
+        for(auto x:p){
+            if(flag){
+                reverse(x.second.begin(),x.second.end());
+                for(int i=0;i<x.second.size();i++){
+                    v.push_back(x.second[i]);
+                }
+                flag = 0;
             }
             else{
-                for(int j=0;j<c.size();j++) ans.push_back(c[j]);
+                for(int i=0;i<x.second.size();i++){
+                    v.push_back(x.second[i]);
+                }
+                flag = 1;
             }
         }
-        return ans;
+        return v;
     }
 };
