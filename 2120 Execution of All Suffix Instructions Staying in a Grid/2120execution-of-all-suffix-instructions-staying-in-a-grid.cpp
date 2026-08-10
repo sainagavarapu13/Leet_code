@@ -1,44 +1,60 @@
 class Solution {
 public:
-    vector<int> executeInstructions(int n, vector<int>& a, string s) {
-        vector<int>ans;
+    vector<int> executeInstructions(int n, vector<int>& st, string s) {
+        vector<vector<int>> v(n,vector<int> (n,0));
+        vector<int> p;
         for(int i=0;i<s.size();i++){
-            int x = a[0];
-            int y = a[1];
-            int cnt=0;
-            for(int j = i;j<s.size();j++){
-                if(s[j]=='L'){
-                    if(y==0){
-                        //ans.push_back(y-x);
+            int j = st[0],k=st[1],l=0,m=0;
+            for(int q=i;q<s.size();q++){
+                if(s[q]=='R'){
+                    if(k<n-1){
+                        k++;
+                        l++;
+                    }
+                    else{
+                        m = 1;
+                        p.push_back(l);
                         break;
                     }
-                    y--;
                 }
-                if(s[j]=='R'){
-                    if(y==n-1){
-                        //ans.push_back(y-x);
+                else if(s[q]=='L'){
+                    if(k>=1){
+                        k--;
+                        l++;
+                    }
+                    else{
+                        m = 1;
+                        p.push_back(l);
                         break;
                     }
-                    y++;
                 }
-                if(s[j]=='U'){
-                    if(x==0){
-                        //ans.push_back(y-x);
+                else if(s[q]=='D'){
+                    if(j<n-1){
+                        j++;
+                        l++;
+                    }
+                    else{
+                        m = 1;
+                        p.push_back(l);
                         break;
                     }
-                    x--;
                 }
-                if(s[j]=='D'){
-                    if(x==n-1){
-                        //ans.push_back(y-x);
+                else if(s[q]=='U'){
+                    if(j>=1){
+                        j--;
+                        l++;
+                    }
+                    else{
+                        m = 1;
+                        p.push_back(l);
                         break;
                     }
-                    x++;
                 }
-               cnt++;
             }
-            ans.push_back(cnt);
+            if(m==0){
+                p.push_back(l);
+            }
         }
-        return ans;
+        return p;
     }
 };
