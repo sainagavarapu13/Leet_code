@@ -1,35 +1,27 @@
 class Solution {
 public:
-    string convert(string a, int r) {
-        if( r==1) return a;
-        string b;
-        int jump = (2*r)-2;
-        int f= jump;
-        int s =0;
-        for( int j =0;j<r;j++){
-           int i=j;
-           if( j==0 || j==r-1){
-            while( i < a.size()){
-                    b+=a[i];
-                    i+=max( f,s);
-                }
-           }else{
-             bool flage =false;
-              while( i < a.size()){
-                    if(!flage){
-                         b+=a[i];
-                        i+=f;
-                        flage = true;
-                    }else{
-                        b+=a[i];
-                        i+=s;
-                        flage = false;
-                     }
-                }
-           }
-           f-=2;
-           s+=2;
-        } 
-        return b;
+    string convert(string s, int n) {
+        string ans;
+        if(n==1) return s;
+        int st = (n-1)*2;
+        int k=st;
+        for(int i=0;i<n;i++){
+            int d1=st;
+            int d2=k-st;
+            int f=1;
+            for(int j=i;j<s.size();){
+                ans.push_back(s[j]);
+               if(i==0||i==n-1){
+                j+=k;
+               }
+               else{
+                if(f) j+=d1;
+                else j+=d2;
+               }
+               f=!f;
+            }
+            st-=2;
+        }
+        return ans;
     }
 };
