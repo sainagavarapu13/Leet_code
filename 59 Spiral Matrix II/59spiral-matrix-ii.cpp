@@ -1,37 +1,38 @@
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        vector<int>a;
-        for( int i=0;i<n*n;i++){
-            a.push_back(i+1);
+        int top=0,bottom=n-1,left=0,right=n-1;
+       vector<vector<int>>ans(n,vector<int>(n));
+        int i,j,k,l;
+        int num=1;
+        while(top<=bottom&&left<=right){
+            for(j=left;j<=right;j++){
+                ans[top][j]=num;
+                num++;
+            }
+            top++;
+            for(i=top;i<=bottom;i++){
+                 ans[i][right]=num;
+                num++;
+            }
+           
+            right--;
+            if(top<=bottom){
+                for(k=right;k>=left;k--){
+                ans[bottom][k]=num;
+                num++;
+            }
+            bottom--;
+            }
+            
+            if(left<=right){
+            for(l=bottom;l>=top;l--){
+                ans[l][left]=num;
+                num++;
+            }
+            left++;
+            }
         }
-        vector<vector<int>>res(n, vector<int>(n));
-        int t=0,b=n-1,r=n-1,l=0;
-        int k=0;
-        while( t<=b && l <=r){
-            for( int i=l;i<=r;i++){
-                res[t][i]=a[k++];
-            }
-            t++;
-            for(int i=t;i<=b;i++){
-                res[i][r]=a[k++];
-            }
-            r--;
-            if( t<=b){
-                for( int i =r;i>=l;i--){
-                    res[b][i]=a[k++];
-                }
-                b--;
-            }
-            if( l<=r){
-                for( int i =b ;i>=t;i--){
-                    res[i][l]=a[k++];
-                }
-                l++;
-            }
-
-        }
-        return res;
-        
+       return ans;
     }
 };
