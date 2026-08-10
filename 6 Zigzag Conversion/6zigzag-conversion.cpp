@@ -1,27 +1,26 @@
 class Solution {
 public:
     string convert(string s, int n) {
-        string ans;
         if(n==1) return s;
-        int st = (n-1)*2;
-        int k=st;
+        vector<string> v(n);
+        int a = s.length(),k=0;
         for(int i=0;i<n;i++){
-            int d1=st;
-            int d2=k-st;
-            int f=1;
-            for(int j=i;j<s.size();){
-                ans.push_back(s[j]);
-               if(i==0||i==n-1){
-                j+=k;
-               }
-               else{
-                if(f) j+=d1;
-                else j+=d2;
-               }
-               f=!f;
+            if(k==a) break;
+            v[i].push_back(s[k++]);
+            if(i==(n-1)){
+                for( i=i-1;i>=0;i--){
+                    if(k==a) break;
+                    v[i].push_back(s[k++]);
+                }
+                i=0;
             }
-            st-=2;
         }
-        return ans;
+        string r;
+        for(int i=0;i<v.size();i++){
+            for(int j=0;j<v[i].size();j++){
+                r +=v[i][j];
+            }
+        }
+        return r;
     }
 };
