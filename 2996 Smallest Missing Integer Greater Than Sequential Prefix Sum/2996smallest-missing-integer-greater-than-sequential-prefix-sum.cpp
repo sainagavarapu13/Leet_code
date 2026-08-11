@@ -1,21 +1,20 @@
 class Solution {
 public:
-    int missingInteger(vector<int>& a) {
-        int i,key,sum=a[0];
-        for(i=1;i<a.size();i++){
-            if(a[i]!=a[i-1]+1){
-                break;
-            }
-            else{
-                sum+=a[i];
-            }
+    int missingInteger(vector<int>& nums) {
+        set<int>m;
+        for(int i=0;i<nums.size();i++){
+            m.insert(nums[i]);
         }
-        key=sum;
-        for(i=0;i<a.size();i++){
-            while(find(a.begin(),a.end(),key)!=a.end()){
-                key++;
-            }
+        int b=nums[0];
+        for(int i=1;i<nums.size();i++){
+           if(nums[i]==(nums[i-1]+1)){
+            b+=nums[i];
+           }
+           else break;
         }
-        return key;
+        while(m.count(b)){
+            b++;
+        }
+        return b;
     }
 };
