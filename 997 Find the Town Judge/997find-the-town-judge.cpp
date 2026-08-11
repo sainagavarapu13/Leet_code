@@ -1,24 +1,16 @@
 class Solution {
 public:
-    int findJudge(int n, vector<vector<int>>& a) {
-        vector<int>mem;
-        int i;
-        for(i=0;i<a.size();i++){
-            mem.push_back(a[i][0]);
+    int findJudge(int n, vector<vector<int>>& trust) {
+        if(n<=1) return 1;
+        vector<vector<int>> v(n+1),u(n+1);
+        for(int i=0;i<trust.size();i++){
+            v[trust[i][0]].push_back(trust[i][1]);
+            u[trust[i][1]].push_back(trust[i][0]);
         }
-        int temp,cnt=0;
-        for(i=1;i<=n;i++){
-            if(count(mem.begin(),mem.end(),i)==0){
-                cnt++;
-               if(cnt==2) return -1;
-               temp=i;
-            }
+        for(int i=0;i<v.size();i++){
+            if(v[i].size()==0 && u[i].size()==n-1) return i;
+            // cout<<v[i].size()<<" "<<u[i].size()<<endl;
         }
-        cnt=0;
-        for(i=0;i<a.size();i++){
-            if(a[i][1]==temp) cnt++;
-        }
-        if(cnt==n-1) return temp;
-        else return -1;
+        return -1;
     }
 };
