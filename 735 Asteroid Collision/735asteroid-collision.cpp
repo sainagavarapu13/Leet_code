@@ -1,41 +1,53 @@
 class Solution {
 public:
-    vector<int> asteroidCollision(vector<int>& a) {
-        stack<int> st;
-        int i = 0;
-
-        while (i < a.size()) {
-            int num = a[i];
-
-            while (!st.empty() && st.top() > 0 && num < 0) {
-                if (abs(st.top()) == abs(num)) {
-                    st.pop();
-                    num = 0;
-                }
-                else if (abs(st.top()) < abs(num)) {
-                    st.pop();
-                }
-                else {
-                    num = 0;
-                }
-            }
-
-            if (num != 0) {
-                st.push(num);
-            }
-
+    vector<int> asteroidCollision(vector<int>& ast) {
+        vector<int> v;
+        int i=0;
+        while(i<ast.size() && ast[i]<0){
+            v.push_back(ast[i]);
             i++;
         }
-
-        vector<int> ans;
-
-        while (!st.empty()) {
-            ans.push_back(st.top());
-            st.pop();
+        stack<int> q;
+        for(;i<ast.size();i++){
+            if(ast[i]<0 && q.empty()){
+                v.push_back(ast[i]);
+                continue;
+            }
+            if(ast[i]<0){
+                int b = q.top();
+                if(abs(b)>abs(ast[i])){
+                    continue;
+                }
+                else if(abs(b)==abs(ast[i])){
+                    q.pop();
+                }
+                else{
+                    int b = 1;
+                    while(!q.empty() && abs(b)<=abs(ast[i])){
+                        q.pop();
+                        if(abs(b)==abs(ast[i])) break;
+                        if(q.empty()){
+                            b= 0;
+                            v.push_back(ast[i]);
+                            break;
+                        }
+                        b = q.top();
+                    }
+                }
+            }
+            else{
+                q.push(ast[i]);
+            }
+            
         }
-
-        reverse(ans.begin(), ans.end());
-
-        return ans;
+        vector<int> temp;
+        while(!q.empty()){
+            temp.push_back(q.top());
+            q.pop();
+        }
+        for(int j=temp.size()-1;j>=0;j--){
+            v.push_back(temp[j]);
+        }
+        return v;
     }
 };
