@@ -1,42 +1,26 @@
 class Solution {
 public:
-    void gameOfLife(vector<vector<int>>& a) {
-        int m = a.size();
-        int n = a[0].size();
-
-        vector<vector<int>> old = a;
-
-        int dx[] = {1, -1, 0, 0, 1, 1, -1, -1};
-        int dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-
-                int live = 0;
-
-                // Count live neighbors from OLD board
-                for (int k = 0; k < 8; k++) {
-                    int x = i + dx[k];
-                    int y = j + dy[k];
-
-                    if (x >= 0 && x < m && y >= 0 && y < n) {
-                        if (old[x][y] == 1)
-                            live++;
-                    }
-                }
-                if (old[i][j] == 1) {
-                    if (live < 2 || live > 3)
-                        a[i][j] = 0;
-                    else
-                        a[i][j] = 1;
-                } 
-                else {
-                    if (live == 3)
-                        a[i][j] = 1;
-                    else
-                        a[i][j] = 0;
-                }
-            }
+    void gameOfLife(vector<vector<int>>& board) {
+        vector<pair<int,int>> z,o;
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                    int b = 0;
+                    if(j>0 && board[i][j-1] == 1) b++;
+                    if(j+1<board[i].size() && board[i][j+1] == 1) b++;
+                    if(j-1>=0 && i+1<board.size() && board[i+1][j-1] == 1) b++;
+                    if(j+1<board[i].size() && i<board.size()-1 && board[i+1][j+1] == 1) b++;
+                    if(i<board.size()-1 && board[i+1][j]==1) b++;
+                    if(i>0 && board[i-1][j]==1) b++;
+                    if(i>0 && j>0 && board[i-1][j-1]==1) b++;
+                    if(i>0 && j+1<board[i].size() && board[i-1][j+1]==1) b++;
+                    if(b==3 && board[i][j]==0) o.push_back({i,j});
+                    if(b<2 && board[i][j]==1) z.push_back({i,j});
+                    if(b>=2 && b<=3 && board[i][j]==1) o.push_back({i,j});
+                    if(b>3 && board[i][j]==1) z.push_back({i,j});
+                    // cout<<b<<endl;
+            }            
         }
+        for(int i=0;i<o.size();i++) board[o[i].first][o[i].second]= 1;
+        for(int i=0;i<z.size();i++) board[z[i].first][z[i].second]= 0;
     }
 };
