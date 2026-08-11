@@ -1,23 +1,21 @@
 class Solution {
 public:
-    int missingInteger(vector<int>& n) {
-        int sum=n[0];
-        for( int i=1;i<n.size();i++){
-            if( n[i]==n[i-1]+1) sum+=n[i];
-            else{
+    int missingInteger(vector<int>& a) {
+        int i,key,sum=a[0];
+        for(i=1;i<a.size();i++){
+            if(a[i]!=a[i-1]+1){
                 break;
             }
-        }
-        auto it = max_element(n.begin(),n.end());
-        int m = *it;
-        if( find(n.begin(),n.end(),sum) != n.end()){
-            for( int i=sum+1 ; i<=m;i++){
-                if( find(n.begin(),n.end(),i) == n.end()){
-                    return i;
-                }
+            else{
+                sum+=a[i];
             }
-            return m+1;
         }
-        else return sum;
+        key=sum;
+        for(i=0;i<a.size();i++){
+            while(find(a.begin(),a.end(),key)!=a.end()){
+                key++;
+            }
+        }
+        return key;
     }
 };
