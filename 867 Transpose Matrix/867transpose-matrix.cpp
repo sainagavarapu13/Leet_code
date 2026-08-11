@@ -1,12 +1,15 @@
 class Solution {
 public:
     vector<vector<int>> transpose(vector<vector<int>>& a) {
-        vector<vector<int>>b(a[0].size(),vector<int>(a.size()));
-        for( int i=0;i<a.size();i++){
-            for( int j =0;j<a[0].size();j++){
-               b[j][i]= a[i][j];
+        int i,j;
+        vector<vector<int>>ans(a[0].size(),vector<int>(a.size(),0));
+        vector<int>temp;
+        for(i=0;i<a.size();i++){
+            for(j=0;j<a[0].size();j++){
+                ans[j][i]=a[i][j];
             }
+
         }
-       return b; 
+        return ans;
     }
 };
