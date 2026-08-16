@@ -1,19 +1,16 @@
 class Solution {
 public:
-    int nearestDrone(vector<vector<int>>& d, vector<int>& t) {
-        int mini = INT_MAX;
-        int ind =-1;
-        int k=0;
-        for( auto i : d){
-            int dis = abs(abs(i[0]-t[0])+abs(i[1]-t[1]));
-            if( dis <=i[2]){
-                if( mini >dis){
-                    mini = dis;
-                    ind =k;
-                }
+    int nearestDrone(vector<vector<int>>& drones, vector<int>& target) {
+        int a = INT_MAX,b = -1,n= drones.size();
+        for(int i=0;i<n;i++){
+            int c = abs(drones[i][0]-target[0]) +  abs(drones[i][1]-target[1]);
+            // cout<<c<<" "<<drones[i][2];
+            if(c>drones[i][2]) continue;
+            if(a>c){
+                a = c;
+                b = i;
             }
-            k++;
         }
-        return ind;
+        return b;
     }
 };
