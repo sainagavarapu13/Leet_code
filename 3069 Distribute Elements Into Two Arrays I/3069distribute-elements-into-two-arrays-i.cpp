@@ -1,17 +1,27 @@
 class Solution {
 public:
-    vector<int> resultArray(vector<int>& n) {
-        vector<int>a,b;
-        a.push_back(n[0]);
-        b.push_back(n[1]);
-        for( int i=2;i<n.size();i++){
-            auto& x = a.back();
-            auto& y = b.back();
-            if( x>y)a.push_back(n[i]);
-            else b.push_back(n[i]);
+    vector<int> resultArray(vector<int>& a) {
+        vector<int>arr1;
+        vector<int>arr2;
+        for(int i=0;i<a.size();i++){
+           if(i==0) arr1.push_back(a[i]);
+           else if(i==1) arr2.push_back(a[i]);
+           else{
+                if(arr1.back()>arr2.back()){
+                    arr1.push_back(a[i]);
+                }
+                else{
+                    arr2.push_back(a[i]);
+                }
+           }
         }
-        a.insert(a.end(),b.begin(),b.end());
-        return a;
-        
+        vector<int>ans;
+        for(auto& i:arr1){
+            ans.push_back(i);
+        }
+        for(auto& i:arr2){
+            ans.push_back(i);
+        }
+        return ans;
     }
 };
