@@ -1,25 +1,20 @@
 class Solution {
 public:
-    const long long MOD = 1e9 + 7;
-
-    // Fast modular exponentiation
-    long long modPow(long long base, long long exp) {
-        long long result = 1;
-        base %= MOD;
-        while (exp > 0) {
-            if (exp & 1)
-                result = (result * base) % MOD;
-            base = (base * base) % MOD;
-            exp >>= 1;
+        long long pow_(long long a,long long b){
+            long long res=1;
+            while(b>0){
+                if(b%2!=0){
+                    res=(res*a)%1000000007;
+                }
+                a=(a*a)%1000000007;
+                b=b/2;
+            }
+            return res;
         }
-        return result;
-    }
-
     int countGoodNumbers(long long n) {
-        long long even = (n + 1) / 2; 
-        long long odd  = n / 2;       
-
-        long long ans = (modPow(5, even) * modPow(4, odd)) % MOD;
-        return (int)ans;
+        long long eve=(n/2);
+        long long odd=(n/2)+(n%2);
+        long long k= ( pow_(5,odd)*pow_(4,eve))%1000000007;
+        return (int)k;
     }
 };
