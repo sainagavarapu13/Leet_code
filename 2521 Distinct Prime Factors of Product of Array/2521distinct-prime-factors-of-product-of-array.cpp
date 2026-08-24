@@ -1,25 +1,29 @@
 class Solution {
 public:
-    vector<int>sev;
-    void fun(){
-        sev.resize(10001);
-        for(int i=0;i<sev.size();i++) sev[i] = i;
-        for(int i=2;i<sev.size();i++){
-            if(sev[i]!=i) continue;
-            for(int j=i*i;j<sev.size();j+=i){
-                sev[j] = i;
+    void lower_sire(vector<int>& spf,vector<int>& pri){
+        int n = spf.size();
+        for(int i=2;i<n;i++){
+            if(spf[i]==0){
+                spf[i] = i;
+                pri.push_back(i);
+            }
+            for(int j=0;j<pri.size() && pri[j]*i<n;j++){
+                spf[pri[j]*i] = pri[j];
             }
         }
     }
-    int distinctPrimeFactors(vector<int>& a) {
-        fun();
-        set<int>set;
-        for(int i=0;i<a.size();i++){
-            while(a[i]!=1){
-                set.insert(sev[a[i]]);
-                a[i]/=sev[a[i]];
+    int distinctPrimeFactors(vector<int>& nums) {
+        int m = *max_element(nums.begin(),nums.end());
+        vector<int> spf(m+1,0);
+        vector<int> pri;
+        lower_sire(spf,pri);
+        int res = 0;
+        set<int> s;
+        for(int i=0;i<nums.size();i++){
+            for(int j = 0;j<pri.size() && nums[i]>=pri[j];j++){
+                if(nums[i]%pri[j]==0) s.insert(pri[j]);
             }
         }
-        return set.size();
+        return s.size();
     }
 };
