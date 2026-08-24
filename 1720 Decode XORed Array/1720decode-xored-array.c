@@ -1,14 +1,13 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* decode(int* a, int x, int f, int* rs) {
-    *rs = x+1;
-    int * res = (int*)malloc((x+1)*sizeof(int));
-    int k=1;
-    res[0]=f;
-    for( int i=0;i<x;i++){
-        res[k++] = res[k-1]^a[i];
-    }
-    return res;
-    
+int* decode(int* a, int n, int first, int* returnSize) {
+     int *res=(int*)malloc((n+1)*sizeof(int));
+     *returnSize=n+1;
+     res[0]=first;
+     int k=1;
+     for(int i=0;i<n;i++){
+        res[k++]=res[i]^a[i];
+     }
+     return res;
 }
