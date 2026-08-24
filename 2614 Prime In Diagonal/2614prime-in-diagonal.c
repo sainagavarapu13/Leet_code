@@ -1,34 +1,25 @@
-int isp(int x) {
-    if (x <= 1) return 0;  
-    if (x == 2) return 1;  
-    if (x % 2 == 0) return 0; 
-    
-    for (int i = 3; i * i <= x; i += 2) {
-        if (x % i == 0) return 0;
+int ispri(int n){
+    int i;
+    if(n<=1) return 0;
+    for(i=2;i*i<=n;i++){
+        if(n%i==0) return 0;
     }
     return 1;
 }
-
-int diagonalPrime(int** m, int x, int* y) {
-    int max = 0;
-    
-    for (int i = 0; i < x; i++) {
-     
-        if (i < y[i]) {  
-            int num = m[i][i];
-            if (isp(num) && num > max) {
-                max = num;
+int diagonalPrime(int** a, int n, int* m) {
+    int i,j;
+ 
+    int max=0;
+    for(i=0;i<n;i++){
+        for(j=0;j<m[i];j++){
+            if(i<m[i]){
+                if(i==j||i+j==n-1){
+            if(ispri(a[i][j])&&a[i][j]>max){
+                max=a[i][j];
             }
-        }
-        
-        int j = x - 1 - i;
-        if (j >= 0 && j < y[i]) {  
-            int num = m[i][j];
-            if (isp(num) && num > max) {
-                max = num;
-            }
-        }
+        }}
     }
-    
-    return max;
+   
+}
+ return max;
 }
