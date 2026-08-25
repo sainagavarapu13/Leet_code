@@ -1,14 +1,14 @@
 class Solution {
 public:
-    int missingMultiple(vector<int>& a, int k) {
-        int i,p=0;
-        while(1){
-                p+=k;
-            if(find(a.begin(),a.end(),p)==a.end()){
-                return p;
-            }
-        
+    int missingMultiple(vector<int>& nums, int k) {
+        vector<int> v(101,0);
+        for(int i=0;i<nums.size();i++){
+            v[nums[i]] = 1;
         }
-        return p;
+        int i;
+        for(i=k;i<101;i+=k){
+            if(v[i]==0) return i;
+        }
+        return i;
     }
 };
