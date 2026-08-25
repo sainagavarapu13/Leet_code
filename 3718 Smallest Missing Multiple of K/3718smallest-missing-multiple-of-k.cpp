@@ -1,14 +1,14 @@
 class Solution {
 public:
     int missingMultiple(vector<int>& a, int k) {
-        int i=1;
-       while (true) {
-            // Check if k*i is not in the array
-            if (find(a.begin(), a.end(), k * i) == a.end())
-                return k * i;
-            i++;
-        }
-        return k*i;
+        int i,p=0;
+        while(1){
+                p+=k;
+            if(find(a.begin(),a.end(),p)==a.end()){
+                return p;
+            }
         
+        }
+        return p;
     }
 };
