@@ -1,34 +1,29 @@
 class Solution {
 public:
-    bool check(vector<int>a ,int d ,int k){
-        int sum =0,cnt=1;
-        for(int i=0;i<a.size();i++){
-            if(sum+a[i]<=k)  sum+=a[i];
-            else{
-                sum =a[i];
-                cnt++;
+    int search(vector<int> & weights,int v){
+        int d = 0,sum = 0;
+        for(int i=0;i<weights.size();i++){
+            if(sum+weights[i]>v){
+                d++;
+                sum = 0;
             }
-            if(cnt>d) return false;
+            sum += weights[i];
         }
-        
-        if(cnt<=d) return true;
-        return false;
-
+        if(sum!=0) d++;
+        return d;
     }
-    int shipWithinDays(vector<int>& a, int d) {
-        int start=0,end,sum=0;
-        for(int i=0;i<a.size();i++){
-            start =max(start,a[i]);
-            sum+=a[i];
-        }
-        end = sum;
-        while(start<end){
-            int mid = (start+end)/2;
-            if(check(a,d,mid)){
-                end = mid;
+    int shipWithinDays(vector<int>& weights, int days) {
+        int high = accumulate(weights.begin(),weights.end(),0);
+        int low = *max_element(weights.begin(),weights.end());
+        while(low<high){
+            int mid = low +(high-low)/2;
+            if(search(weights,mid)>days){
+                low =mid+1;
             }
-            else start = mid+1;
+            else{
+                high = mid;
+            }
         }
-        return start;
+        return low;
     }
 };
