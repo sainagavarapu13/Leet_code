@@ -1,61 +1,42 @@
 class Solution {
 public:
-vector<int>ans;
-    void mergeSort( vector<pair<int,int>>&a ,int start ,int mid,int end){
-        int s1 = start;
-        int i=s1;
-
-        int cnt=0;
-        int e1 = mid;
-        int s2 = mid+1;
-        int j=s2;
-        int e2 = end;
-        vector<pair<int,int>>b(end-start+1);
-        int k =0;
-        while(s1 <= mid && s2<=e2){
-            if(a[s1].first>a[s2].first){
-                b[k++] = a[s2++];
-                cnt++;
-                
+    void merge(vector<int>& nums,vector<int>& indices,vector<int> &counts,int left,int right){
+        if(left>=right) return;
+        int mid = (left+right)/2;
+        merge(nums,indices,counts,left,mid);
+        merge(nums,indices,counts,mid+1,right);
+        int i = left,j = mid+1,rightcount = 0;
+        vector<int> temp;
+        while(i<=mid && j<=right){
+            if(nums[indices[j]]< nums[indices[i]]){
+                temp.push_back(indices[j]);
+                rightcount++;
+                j++;
             }
             else{
-                     ans[a[s1].second]+=cnt;
-                b[k++] =a[s1++];
-           
-            }     
+                counts[indices[i]]+=rightcount;
+                temp.push_back(indices[i]);
+                i++;
+            }
         }
-    while (s1 <= mid){
-         
-         ans[a[s1].second]+=cnt;
-         b[k++] = a[s1++];
-    }
-while (s2 <= e2){
-    b[k++] = a[s2++];
-   
-      }
-        k=0;
-        for(int p=i;p<=end;p++){
-            a[p]=b[k++];
+        while(i<=mid){
+            counts[indices[i]] += rightcount;
+            temp.push_back(indices[i]);
+            i++;
         }
-      
+        while(j<=right){
+            temp.push_back(indices[j]);
+            j++;
+        }
+        for(int k = 0;k<temp.size();k++){
+            indices[left+k] = temp[k];
+        }
     }
-    void merge( vector<pair<int,int>>&a , int start , int end){
-        if(start>=end) return;
-      
-            int mid = (start+end)/2;
-            merge(a,start , mid);
-            merge(a,mid+1 , end);
-            mergeSort(a,start,mid,end);
-        
-    }
-    vector<int> countSmaller(vector<int>& a) {
-        int n=a.size();
-        ans.assign(n,0);
-        vector<pair<int,int>>p(n);
-        for(int i=0;i<n;i++)
-            p[i] = {a[i], i};
-        merge(p,0,n-1);
-        
-        return ans;
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> counts(n,0),indices(n);
+        iota(indices.begin(),indices.end(),0);
+        merge(nums,indices,counts,0,n-1);
+        return counts;
     }
 };
