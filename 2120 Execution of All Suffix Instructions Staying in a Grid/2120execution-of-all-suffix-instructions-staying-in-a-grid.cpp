@@ -1,24 +1,44 @@
 class Solution {
 public:
-    vector<int> executeInstructions(int n, vector<int>& st, string s) {
+    vector<int> executeInstructions(int n, vector<int>& a, string s) {
         vector<int>ans;
-       int r,c;
-       for(int i=0;i<s.size();i++){
-            r=st[0];
-            c=st[1];
+        for(int i=0;i<s.size();i++){
+            int x = a[0];
+            int y = a[1];
             int cnt=0;
-            int j =i;
-            while(r>=0&&c>=0&&r<n&&c<n && j<s.size()){
-                if(s[j]=='R') c++;
-                else if( s[j]=='L') c--;
-                else if( s[j]=='D') r++;
-                else r--;
-                if(r>=0&&c>=0&&r<n&&c<n && j<s.size())
-                cnt++;
-                j++;
+            for(int j = i;j<s.size();j++){
+                if(s[j]=='L'){
+                    if(y==0){
+                        //ans.push_back(y-x);
+                        break;
+                    }
+                    y--;
+                }
+                if(s[j]=='R'){
+                    if(y==n-1){
+                        //ans.push_back(y-x);
+                        break;
+                    }
+                    y++;
+                }
+                if(s[j]=='U'){
+                    if(x==0){
+                        //ans.push_back(y-x);
+                        break;
+                    }
+                    x--;
+                }
+                if(s[j]=='D'){
+                    if(x==n-1){
+                        //ans.push_back(y-x);
+                        break;
+                    }
+                    x++;
+                }
+               cnt++;
             }
             ans.push_back(cnt);
-       }
-       return ans;
+        }
+        return ans;
     }
 };
