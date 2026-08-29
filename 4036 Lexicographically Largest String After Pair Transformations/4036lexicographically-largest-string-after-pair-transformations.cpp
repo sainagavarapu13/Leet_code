@@ -1,25 +1,21 @@
 class Solution {
 public:
-    vector<string> largestString(vector<int>& a) {
-        vector<string>ans;
-        for(int i=0;i<a.size();i++){
-            int k = a[i];
-            string temp;
-            int ch=0;
-            while(k){
-                if((k&1)==1){
-                    if(ch==26){
-                        temp.push_back('z');
-                        temp.push_back('z');
-                    }
-                else temp.push_back(ch+'a');
-                }
-                k>>=1;
-                ch++;
+    vector<string> largestString(vector<int>& nums) {
+        vector<string> res;
+        for(long long x : nums){
+            string s ="";
+            while(x>=(1LL<<25)){
+                s += 'z';
+                x -= (1LL<<25);
             }
-            reverse(temp.begin(),temp.end());
-            ans.push_back(temp);
+            for(int p = 24;p>=0;p--){
+                if(x>=(1LL<<p)){
+                    s += ('a'+p);
+                    x -= (1LL<<p);
+                }
+            }
+            res.push_back(s);
         }
-        return ans;
+        return res;
     }
 };
