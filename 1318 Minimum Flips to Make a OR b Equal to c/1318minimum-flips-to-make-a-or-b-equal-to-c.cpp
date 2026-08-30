@@ -1,21 +1,20 @@
 class Solution {
 public:
     int minFlips(int a, int b, int c) {
-        int ans = 0;
-
-        for (int i= 0;i<31;i++) {
-            int mask = 1 << i;
-            int bitA = (a & mask) ? 1 : 0;
-            int bitB = (b & mask) ? 1 : 0;
-            int bitC = (c & mask) ? 1 : 0;
-            if (bitC== 0) {
-                ans += bitA+bitB;
-            } else {
-                if ((bitA| bitB) == 0)
-                    ans++;
+        int cnt = 0;
+        while(a||b||c){
+            if((a&1)==0&&(b&1)==0&&(c&1)==1){
+                cnt++;
             }
+            else if(((a&1)==1||(b&1)==1)&&(c&1)==0){
+                if((a&1)==1) cnt++;
+                if((b&1)==1) cnt++;
+            }
+            a>>=1;
+            b>>=1;
+            c>>=1;
         }
-
-        return ans;
+        
+        return cnt;
     }
 };
