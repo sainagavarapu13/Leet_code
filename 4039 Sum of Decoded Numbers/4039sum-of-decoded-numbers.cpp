@@ -1,28 +1,26 @@
 class Solution {
 public:
-    int power( long long x , long long y){
-        long long mod = 1e9+7;
-        long long p=1;
-        while( y>0){
-            if( y%2==1){
-                p=(p*x)%mod;
-            }
-            x = (x*x)%mod;
+    int power(long long x,long long y){
+        int mod = 1e9+7;
+        long long res = 1;
+        while(y>0){
+            if((y&1)) res=((res%mod)*(x%mod))%mod;
+            x=((x%mod)*(x%mod))%mod;
             y/=2;
         }
-        return p;
+        return res;
     }
     int sumDecoded(vector<long long>& a) {
-        long long ans=0;
-        long long mod = 1e9+7;
-        for( long long i : a){
-            int w = i%10;
-            long long d = i/10;
-            string s= to_string(d);
-            long long x = stoll(s.substr(0,w));
-            long long y = stoll(s.substr(w));
-            ans = (ans+(power(x,y)))%mod;
+        int mod = 1e9+7;
+        int sum =0 ;
+        
+        for(int i=0;i<a.size();i++){
+            int sz = (a[i]%10);
+            string s = to_string(a[i]/10);
+            long long x = stoll(s.substr(0,sz));
+            long long y = stoll(s.substr(sz));
+            sum = ((sum%mod)+(power(x,y)%mod))%mod;
         }
-        return (int)ans;
+        return sum;
     }
 };
