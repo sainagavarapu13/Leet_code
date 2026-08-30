@@ -1,21 +1,25 @@
 class Solution {
 public:
     int countSpecialIntegers(vector<int>& a) {
-        int ans=0;
-        unordered_set<int>s;
-        for( int i =0;i<a.size();i++){
-            if(s.count(a[i])) continue;
-            s.insert(a[i]);
-            int j =i;
-            while( j<a.size() && a[i]==a[j]) j++;
-            int sp= 1;
-            for( int k =j;k<a.size();k++){
-                if( a[k]==a[i]){
-                    sp=0;
-                    break;
-                }
+        int i=0;
+        stack<int>st;
+        while(i<a.size()){
+            if(st.empty()){
+                st.push(a[i]);
             }
-            if( sp) ans++;
+            else if(st.top()!=a[i]){
+                st.push(a[i]);
+            }
+            i++;
+        }
+        map<int,int>m;
+        while(!st.empty()){
+            m[st.top()]++;
+            st.pop();
+        }
+        int ans=0;
+        for(auto& [n,c]:m){
+            if(c==1) ans++;
         }
         return ans;
     }
