@@ -1,21 +1,20 @@
 class Solution {
 public:
     vector<int> xorQueries(vector<int>& a, vector<vector<int>>& q) {
-        vector<int>pre(a.size());
-        vector<int>ans;
-        pre[0]=a[0];
-        for( int i=1;i<a.size();i++){
-            pre[i] = pre[i-1]^a[i];
+        vector<int>pre,ans;
+        int x = 0;
+        for(int i=0;i<a.size();i++){
+            x^=a[i];
+            pre.push_back(x);
         }
-        for( auto i : q){
-           int left = i[0];
-            int right = i[1];
-            if (left == 0)
-                ans.push_back(pre[right]);
-            else
-                ans.push_back(pre[left-1]^pre[right]);
+        for(int i=0;i<q.size();i++){
+            int l = q[i][0];
+            int r = q[i][1];
+            if(l==0){
+                ans.push_back(pre[r]);
+            }
+            else ans.push_back(pre[r]^pre[l-1]);
         }
         return ans;
-
     }
 };
