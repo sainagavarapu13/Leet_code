@@ -15,11 +15,11 @@ public:
             for(int j=i+1;j<n;j++){
                 g=gcd(g,a[j]);
                 if(g==1){
-                    mini=min(mini,j-i+1);
+                    mini=min(mini,j-i);
                     break;
                 }
             }
         }
-        return mini+n-2;
+        return mini+n-1;
     }
 };
