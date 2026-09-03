@@ -1,26 +1,15 @@
 class Solution {
 public:
-    vector<int> countOppositeParity(vector<int>& a) {
-        vector<int>ans;
-        int eve=0,odd=0;
-        for(int i=0;i<a.size();i++){
-            if(a[i]%2==0){
-                eve++;
+    vector<int> countOppositeParity(vector<int>& nums) {
+        vector<int> v;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            int a = 0;
+            for(int j=i+1;j<n;j++){
+                if((nums[i]&1) != (nums[j]&1)) a++;
             }
-            else{
-                odd++;
-            }
+            v.push_back(a);
         }
-        for(int i=0;i<a.size();i++){
-            if(a[i]%2==0){
-                ans.push_back(odd);
-                eve--;
-            }
-            else{
-                ans.push_back(eve);
-                odd--;
-            }
-        }
-        return ans;
+        return v;
     }
 };
