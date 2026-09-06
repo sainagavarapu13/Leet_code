@@ -1,20 +1,22 @@
 class Solution {
 public:
-    int countGoodRotations(vector<int>& a) {
-        long long t=0;
-        for( int i : a){
-            t+=i;
+    int countGoodRotations(vector<int>& nums) {
+        long long sum1=0,sum2=0,n = nums.size(),k = 0;
+        long long j = n/2;
+        int res = 0;
+        for(int i=0;i<n;i++){
+            if(i<j) sum1+= nums[i];
+            else sum2 += nums[i];
         }
-        int h = a.size()/2;
-        long long f=0;
-        for( int i=0;i<h;i++) f+=a[i];
-        int n = a.size();
-        int ans=0;
-        for( int i=0;i<a.size();i++){
-            if(2*f > t) ans++;
-            f-=a[i];
-            f+=a[(i+h)%n];
+        for(int i=0;i<n;i++){
+            if(sum1>sum2) res++;
+            sum1 -= nums[k%n];
+            sum1 += nums[j%n];
+            sum2 -= nums[j%n];
+            sum2 += nums[k%n];
+            k++;
+            j++;
         }
-        return ans;
+        return res;
     }
 };
