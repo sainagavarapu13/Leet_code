@@ -1,43 +1,39 @@
 class Solution {
 public:
-    int isprime(int n){
-        if(n==0||n==1) return 0;
-        if(n==2) return 1;
-        else if(n%2==0) return 0;
-        for(int i=3;i*i<=n;i+=2){
-            if(n%i==0) return 0;
-        }
-        return 1;
-    }
     vector<int> closestPrimes(int left, int right) {
-     vector<int>res;
-        if(left==right) {
-            res.push_back(-1);
-        res.push_back(-1);
-        return res;
+        int n = right+1;
+        if (n <= 2)
+            return {-1,-1};
+        vector<bool> isPrime(n, true);
+        isPrime[0] = false;
+        isPrime[1] = false;
+        for (int i = 4; i < n; i += 2) {
+            isPrime[i] = false;
         }
-        vector<int>pri;
-        for(int i=left;i<=right;i++){
-            if(isprime(i)){
-                pri.push_back(i);
+        for (int i = 3; i * i < n; i += 2) {
+            if (isPrime[i]) {
+                for (int j = i * i; j < n; j += 2 * i) {
+                    isPrime[j] = false;
+                }
             }
         }
-       if (pri.size() < 2) {
-            return {-1, -1};
+        vector<int> prime;
+        prime.push_back(2);
+        int count = 1;
+        for (int i = 3; i < n; i += 2) {
+            if (isPrime[i]) {
+                prime.push_back(i);
+            }
         }
-      int m=INT_MAX,n1=-1,n2=-1;
-        for(int i=0;i<pri.size()-1;i++){
-           if(pri[i+1]-pri[i]<m){
-            m=pri[i+1]-pri[i];
-            n1=pri[i];
-            n2=pri[i+1];
-           }
+        int a = -1,b = -1,res = INT_MAX;
+        for(int i=0;i<prime.size()-1;i++){
+            // cout<<prime[i]<<" "<<prime[i+1]<<endl;
+            if((prime[i]>=left && prime[i]<=right) && (prime[i+1]>=left && prime[i+1]<=right) && (res>(prime[i+1]-prime[i]))){
+                res = prime[i+1]-prime[i];
+                a=prime[i];
+                b =prime[i+1];
+            }
         }
-        
-        
-            res.push_back(n1);
-            res.push_back(n2);
-        
-        return res;
+        return {a,b};
     }
 };
