@@ -1,25 +1,25 @@
 class Solution {
 public:
-    int minOperations(vector<int>& a) {
-        int n=a.size();
-        int one=0,g=a[0];
-        for(int i=0;i<n;i++){
-            if(a[i]==1) one++;
-            g=gcd(g,a[i]);
+    int minOperations(vector<int>& nums) {
+        int a = 0,n = nums.size();
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==1) a++;
         }
-        if(g!=1) return -1;
-        if(one>0) return n-one;
-        int mini=INT_MAX;
-        for(int i=0;i<n;i++){
-             g=a[i];
+        if(a>0){
+            return n-a;
+        }
+        int b = 1e7;
+        for(int i=0;i<nums.size();i++){
+            int c = nums[i];
             for(int j=i+1;j<n;j++){
-                g=gcd(g,a[j]);
-                if(g==1){
-                    mini=min(mini,j-i);
+                c = gcd(c,nums[j]);
+                if(c==1){
+                    b = min(b,j-i+n-1);
                     break;
                 }
             }
         }
-        return mini+n-1;
+        if(b!=1e7) return b;
+        return -1;
     }
 };
