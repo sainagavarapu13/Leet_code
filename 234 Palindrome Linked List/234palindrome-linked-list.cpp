@@ -10,19 +10,15 @@
  */
 class Solution {
 public:
+    bool check(ListNode* right, ListNode*& left){
+        if(right==NULL) return true;
+        bool ispal = check(right->next,left);
+        if(!ispal) return false;
+        if(right->val != left->val) return false;
+        left = left->next;
+        return true;
+    }
     bool isPalindrome(ListNode* head) {
-        stack<int>s;
-        ListNode* c = head;
-        while( c){
-            s.push(c->val);
-            c = c->next;
-        }
-        c= head;
-        while( c && c->val == s.top()){
-            c = c->next;
-            s.pop();
-        }
-        return c==nullptr;
-        
+        return check(head,head);
     }
 };
