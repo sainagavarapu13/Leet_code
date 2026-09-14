@@ -1,23 +1,20 @@
 class Solution {
 public:
- vector<vector<int>>ans;
- void fun(int n,vector<int>&temp,int idx,int k){
-    if(temp.size()==k){
-        ans.push_back(temp);
-        return;
+    vector<vector<int>> res;
+    void check(vector<int> r,int n,int k ,int j){
+        if(r.size()==k){
+            res.push_back(r);
+            return ;
+        }
+        for(int i=j;i<=n;i++){
+        r.push_back(i);
+        check(r,n,k,i+1);
+        r.pop_back();
+        }
     }
-    if(idx>n){
-        return;
-    }
-    temp.push_back(idx);
-    fun(n,temp,idx+1,k);
-    temp.pop_back();
-    fun(n,temp,idx+1,k);
- }
     vector<vector<int>> combine(int n, int k) {
-        vector<int>temp;
-        ans.clear();
-        fun(n,temp,1,k);
-        return ans;
+        vector<int> r;
+        check(r,n,k,1);
+        return res;
     }
 };
