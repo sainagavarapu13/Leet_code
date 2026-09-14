@@ -1,14 +1,26 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        int i,j;
-        if(s.size()!=t.size()) return false;
-        for(i=0;i<s.size();i++){
-            for(j=i+1;j<s.size();j++){
-                if(s[i]!=s[j]&&t[i]==t[j]) return 0;
-                if(s[i]==s[j]&&t[i]!=t[j]) return 0;
+        map<char,char> m;
+        for(int i=0;i<s.length();i++){
+            if((m[s[i]]=='\u0000') || (m[s[i]]==t[i])){
+                // m[s[i]] = t[i];
+                m[s[i]] =t[i];
+            }
+            else{
+                return false;
             }
         }
-        return 1;
+        map<char,char> n;
+        for(int i=0;i<s.length();i++){
+            if((n[t[i]]=='\u0000') || (n[t[i]]==s[i])){
+                // m[s[i]] = t[i];
+                n[t[i]] =s[i];
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
     }
 };
