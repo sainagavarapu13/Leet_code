@@ -1,27 +1,19 @@
 class Solution {
 public:
-set<int>set;
-void check(vector<int>& a , int idx , vector<int>& vis,long long  ls){
-    if(ls>999) return;
-    if(ls>=100&&ls<=999){
-        if(ls%2==0){
-            set.insert(ls);
-            
+    int totalNumbers(vector<int>& digits) {
+        set<int> uniquedigits;
+        int a = digits.size();
+        for(int i=0;i<a;i++){
+            if(digits[i]==0) continue;
+            for(int j=0;j<a;j++){
+                if(j==i) continue;
+                for(int k=0;k<a;k++){
+                    if(k==i || k==j || digits[k]%2!=0) continue;
+                    int num = digits[i]*100 + digits[j]*10+digits[k];
+                    uniquedigits.insert(num);
+                }
+            }
         }
-        return ;
-    }
-    for(int i = 0;i<a.size();i++){
-        if(vis[i]==1) continue;
-        vis[i] = 1;
-        check(a,idx+1,vis,ls*10+a[i]);
-        vis[i] = 0;
-    }
-}
-    int totalNumbers(vector<int>& a) {
-        int n = a.size();
-        set.clear();
-        vector<int>vis(n,0);
-        check(a,0,vis,0);
-        return set.size();
+        return uniquedigits.size();
     }
 };
