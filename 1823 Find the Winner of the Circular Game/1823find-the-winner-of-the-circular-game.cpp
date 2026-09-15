@@ -1,20 +1,10 @@
 class Solution {
 public:
+    int f(int n,int k){
+        if(n==1) return 0;
+        return (f(n-1,k)+k)%n;
+    }
     int findTheWinner(int n, int k) {
-        vector<int> a;
-        for (int i = 1; i <= n; i++) {
-            a.push_back(i);
-        }
-
-        int idx = 0;
-
-        while (a.size() > 1) {
-            int rem = (idx + k - 1) % a.size();
-            a.erase(a.begin() + rem);
-
-            idx = rem;
-        }
-
-        return a[0];
+        return f(n,k)+1;
     }
 };
