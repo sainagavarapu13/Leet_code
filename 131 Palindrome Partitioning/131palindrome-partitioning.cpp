@@ -1,40 +1,32 @@
 class Solution {
 public:
-vector<vector<string>>ans;
-vector<string>t1;
-    bool ispalin(string &s){
-        int i=0,j=s.size()-1;
-        while(i<j){
-            if(s[i]!=s[j]) return false;
+    bool ispl(string s){
+        int t = s.size()-1,i = 0;
+        while(i<t){
+            if(s[i]!=s[t]) return false;
             i++;
-            j--;
+            t--;
         }
         return true;
     }
-    void fun(string &s,int idx,string temp){
-         if(idx==s.size()){
-            if(temp =="")ans.push_back(t1);
-           
+    void solve(string s,string t, int i,vector<vector<string>>& res,vector<string> v){
+        if(i==s.size() && t.size()==0){
+            res.push_back(v);
             return;
         }
-        temp.push_back(s[idx]);
-       // if(!ispalin(temp)) return ; 
-        if(ispalin(temp)&&temp!=""){
-            t1.push_back(temp);
-           fun(s,idx+1,"");
-           t1.pop_back();
-            //   fun(s,idx+1,temp);
+        if(i==s.size()) return;
+        if(ispl(t+s[i])){
+            v.push_back(t+s[i]);
+            solve(s,"",i+1,res,v);
+            v.pop_back();
         }
-       
-       
-       fun(s,idx+1,temp);
-    //   & temp.pop_back();
-       
+        solve(s,t+s[i],i+1,res,v);
     }
     vector<vector<string>> partition(string s) {
-        ans.clear();
-        string temp ="";
-        fun(s,0,temp);
-        return ans;
+        vector<vector<string>> res;
+        vector<string> v;
+        string t;
+        solve(s,t,0,res,v);
+        return res;
     }
 };
