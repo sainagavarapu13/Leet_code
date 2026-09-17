@@ -1,40 +1,24 @@
 class Solution {
 public:
     int minSumOfLengths(vector<int>& arr, int target) {
-        int n = arr.size(), i = 0, sum = 0;
-
-        vector<int>left(n) , right(n);
-        int len = INT_MAX;
-        for(int j=0; j<n; j++){
-            sum += arr[j];
-            while(sum > target){
-                sum -= arr[i];
-                i++;
-            }
-            if(sum == target){
-                len = min(len,j-i+1);
-            }
-            left[j] = len;
+        int n = arr.size();
+        vector<int> v(n,INT_MAX);
+        int j = 0,sum = 0,ans = INT_MAX,best = INT_MAX;
+        for(int i=0;i<arr.size();i++){
+               sum += arr[i];
+               while(sum>target){
+                sum -= arr[j];
+                j++;
+               }
+               if(sum==target){
+                int a = i-j+1;
+                if(j>0 && v[j-1]!=INT_MAX){
+                    ans = min(ans,a+v[j-1]);
+                }
+                best = min(best,a);
+               }
+               v[i] = best;
         }
-
-        i = n-1; sum = 0; len = INT_MAX;
-
-        for(int j=n-1; j>=0; j--){
-            sum += arr[j];
-            while(sum > target){
-                sum -= arr[i];
-                i--;
-            }
-            if(sum == target){
-                len = min(len,i-j+1);
-            }
-            right[j] = len;
-        }
-
-        int ans = INT_MAX;
-        for(int j=1; j<n; j++){
-            if(left[j-1] != INT_MAX && right[j] != INT_MAX) ans = min(ans,left[j-1] + right[j]);
-        }
-        return ans == INT_MAX ? -1 : ans;
+        return ans!=INT_MAX ? ans : -1;
     }
 };
