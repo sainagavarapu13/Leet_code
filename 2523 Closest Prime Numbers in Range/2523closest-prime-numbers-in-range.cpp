@@ -1,35 +1,43 @@
 class Solution {
-    public:
-        int is_prime( int x){
-            if( x==1 || x==0  ) return 0;
-            if( x==2  )return 1;
-            else if ( x%2 ==0) return 0;
-            for( int i=3;i*i<=x;i+=2){
-                if( x%i ==0) return 0;
-            }
-            return 1;
-        }
 public:
-    vector<int> closestPrimes(int l, int r) {
-        vector<int>a;
-        int s= l,e=r;
-        for( int i=l;i<=r;i++){
-            if(is_prime(i) ) a.push_back(i);
+    int isprime(int n){
+        if(n==0||n==1) return 0;
+        if(n==2) return 1;
+        else if(n%2==0) return 0;
+        for(int i=3;i*i<=n;i+=2){
+            if(n%i==0) return 0;
         }
-        vector<int>res(2);
-        res[0]=-1;
-        res[1]=-1;
-        int mins = INT_MAX;
-        for( int i=1;i<a.size();i++){
-            int dif = abs(a[i-1]-a[i]);
-            if( dif < mins){
-                mins = dif;
-                res[0]=a[i-1];
-                res[1]=a[i];
+        return 1;
+    }
+    vector<int> closestPrimes(int left, int right) {
+     vector<int>res;
+        if(left==right) {
+            res.push_back(-1);
+        res.push_back(-1);
+        return res;
+        }
+        vector<int>pri;
+        for(int i=left;i<=right;i++){
+            if(isprime(i)){
+                pri.push_back(i);
             }
-            
         }
-    return res;
-
+       if (pri.size() < 2) {
+            return {-1, -1};
+        }
+      int m=INT_MAX,n1=-1,n2=-1;
+        for(int i=0;i<pri.size()-1;i++){
+           if(pri[i+1]-pri[i]<m){
+            m=pri[i+1]-pri[i];
+            n1=pri[i];
+            n2=pri[i+1];
+           }
+        }
+        
+        
+            res.push_back(n1);
+            res.push_back(n2);
+        
+        return res;
     }
 };
