@@ -1,31 +1,23 @@
 class Solution {
 public:
-    bool wordPattern(string a, string s) {
-       
-        int i,j;
-        vector<string>temp;
-        string t;
-        for(i=0;i<s.size();i++){
-            if(s[i]==' ') continue;
-            t.push_back(s[i]);
-           if(i!=s.size()-1) {
-            if(s[i+1]==' ') {
-                temp.push_back(t);
-                t.clear();
-            }
-           }
+    bool wordPattern(string pattern, string s) {
+        vector<string> v;
+        stringstream ss(s);
+        string word;
+        while(ss>>word){
+            v.push_back(word);
         }
-        temp.push_back(t);
-         if(a.size()!=temp.size()) return false;
-        //for(auto& i:temp) cout<<i<<" ";
-        for(i=0;i<a.size();i++){
-            for(j=i+1;j<a.size();j++){
-                if(a[i]!=a[j]&&temp[i]==temp[j]) return 0;
-                if(a[i]==a[j]){
-                    if(temp[i]!=temp[j]) return 0;
-                }
-            }
+        if(v.size()!=pattern.size()) return false;
+        map<char,string> m;
+        for(int i=0;i<pattern.size();i++){
+            auto it = m.find(pattern[i]);
+            if(it == m.end() || it->second == v[i]) m[pattern[i]] = v[i];
+            else return false;
         }
-        return 1;
+        map<string,char> n;
+        for(auto x:m){
+            n[x.second] = x.first;
+        }
+        return m.size()==n.size();
     }
 };
