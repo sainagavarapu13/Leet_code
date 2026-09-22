@@ -1,15 +1,22 @@
 class Solution {
 public:
-    char kthCharacter(int k) {
-        string ans="a";
-        int len=1;
-        while(len<k){
-            for(int i=0;i<len;i++){
-                ans.push_back(ans[i]+1);
+    char solve(string s,int k){
+        int n = s.size();
+        for(int i=0;i<n;i++){
+            if(s.size()>=k){
+            return s[k-1];
             }
-           
-            len=ans.size();
+            if(s[i]=='z'){
+                s += 'a';
+            }
+            else{
+                s += s[i]+1;
+            }
         }
-        return ans[k-1];
+        return solve(s,k);
+    }
+    char kthCharacter(int k) {
+        string s = "a";
+        return solve(s,k);
     }
 };
