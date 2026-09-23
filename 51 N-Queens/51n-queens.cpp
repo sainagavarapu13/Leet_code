@@ -1,36 +1,34 @@
 class Solution {
 public:
- vector<vector<string>>ans;
- vector<string>temp;
- void fun(int i,int n , vector<int>&a,vector<int>&b,vector<int>&c){
-        if(i==n+1){
-            ans.push_back(temp);
-            return ;
+vector<vector<string>>ans;
+    bool issafe(vector<string> v,int a,int b,int n){
+        for(int i=a-1;i>=0;i--){
+            if(v[i][b]=='Q') return false;
         }
-        for(int j=1;j<=n;j++){
-            if(a[j]==1 || b[i-j+n]==1 || c[i+j]==1) continue;
-            a[j]=1;
-            b[i-j+n]=1;
-            c[i+j]=1;
-            string t;
-            for(int k=1;k<=n;k++){
-                if(j==k) t+='Q';
-                else t+='.';
+        for(int i=a-1,j=b-1;i>=0 && j>=0;i--,j--){
+            if(v[i][j]=='Q') return false;
+        }
+        for(int i=a-1,j=b+1;i>=0 && j<n;i--,j++){
+            if(v[i][j]=='Q') return false;
+        }
+        return true;
+    }
+    void solve(int row,int n, vector<string> v){
+        if(row==n) {
+            ans.push_back(v);
+            return;
+        }
+        for(int col=0;col<n;col++){
+            if(issafe(v,row,col,n)){
+                v[row][col] =  'Q';
+                solve(row+1,n,v);
+                v[row][col] = '.';
             }
-            temp.push_back(t);
-            fun(i+1,n,a,b,c);
-             a[j]=0;
-            b[i-j+n]=0;
-            c[i+j]=0;
-            t.clear();
-            temp.pop_back();
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        ans.clear();
-        temp.clear();
-        vector<int>a(n+1,0),b(2*n+1,0),c(2*n+1,0);
-        fun(1,n,a,b,c);
+        vector<string> v(n,string(n,'.'));
+        solve(0,n,v);
         return ans;
     }
 };
