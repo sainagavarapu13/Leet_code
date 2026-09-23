@@ -1,34 +1,16 @@
 class Solution {
 public:
-vector<vector<int>>dp;
-    bool check( int i , int j , string &s ,string &p){
-        if(i==s.size() && j == p.size()) return 1;
-        if( i ==s.size()){
-            if( j+1 < p.size() && p[j+1]=='*'){
-                    return dp[i][j]=check(i,j+2, s, p);
-            }
-            return 0;
+    bool solve(int i,int j,string& s,string& p,vector<vector<int>>& v){
+        if(j==p.size()) return i==s.size();
+        if(v[i][j]!=-1) return v[i][j];
+        bool st = (i<s.size() && (s[i]==p[j] || p[j]=='.'));
+        if(j+1<p.size() && p[j+1]=='*'){
+            return v[i][j] =  solve(i,j+2,s,p,v) || (st && solve(i+1,j,s,p,v));
         }
-        if( j == p.size()) return 0;
-        if( dp[i][j]!=-1) return dp[i][j];
-        if( j+1 < p.size() && p[j+1]=='*'){
-            
-          if(s[i]==p[j] || p[j]=='.'){
-             bool ans = check(i+1, j, s, p);
-            ans|=check(i, j+2, s, p);
-            return dp[i][j]=ans;
-        }
-        return dp[i][j]=check(i, j+2, s, p);
-
-        }
-        if(s[i]==p[j] || p[j]=='.'){
-            return dp[i][j]=check(i+1, j+1, s, p);
-        }
-        return dp[i][j]=0;
-
+        return v[i][j] = st && solve(i+1,j+1,s,p,v);
     }
     bool isMatch(string s, string p) {
-        dp.assign(s.size()+1, vector<int>(p.size()+1, -1));
-        return check(0,0,s,p);
+        vector<vector<int>> v(s.size()+1,vector<int>(p.size()+1,-1));
+        return solve(0,0,s,p,v);
     }
 };
