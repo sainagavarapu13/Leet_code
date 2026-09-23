@@ -1,27 +1,34 @@
 class Solution {
 public:
-int cnt=0;
-    void fun(int i,int n , vector<int>&a,vector<int>&b,vector<int>&c){
-        if(i==n+1){
-            cnt++;
-            return ;
+    bool valid(int a,int b,int n,vector<string> res){
+        for(int i = a-1;i>=0;i--){
+            if(res[i][b]=='Q') return false;
         }
-        for(int j=1;j<=n;j++){
-            if(a[j]==1 || b[i-j+n]==1 || c[i+j]==1) continue;
-            a[j]=1;
-            b[i-j+n]=1;
-            c[i+j]=1;
-            fun(i+1,n,a,b,c);
-             a[j]=0;
-            b[i-j+n]=0;
-            c[i+j]=0;
+        for(int i=a-1,j=b-1;i>=0 && j>=0;i--,j--){
+            if(res[i][j]=='Q') return false;
         }
-
+        for(int i=a-1,j=b+1;i>=0 && j<n;j++,i--){
+            if(res[i][j]=='Q') return false;
+        }
+        return true;
+    }
+    void solve(int n,int j,vector<vector<string>>& res,vector<string> v){
+        if(j==n){
+            res.push_back(v);
+            return;
+        }
+        for(int col = 0;col<n;col++){
+            if(valid(j,col,n,v)){
+                v[j][col] = 'Q';
+                solve(n,j+1,res,v);
+                v[j][col] = '.';
+            }
+        }
     }
     int totalNQueens(int n) {
-        cnt=0;
-        vector<int>a(n+1,0),b(2*n+1,0),c(2*n+1,0);
-        fun(1,n,a,b,c);
-        return cnt;
+        vector<vector<string>> res;
+        vector<string> v(n,string(n,'.'));
+        solve(n,0,res,v);
+        return res.size();
     }
 };
