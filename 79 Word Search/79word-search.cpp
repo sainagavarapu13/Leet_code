@@ -1,37 +1,26 @@
 class Solution {
 public:
-    bool fun(vector<vector<char>>& a, string word,int i,int j,string temp){
-        if(temp==word) return true;
-        if(i>=a.size()||j>=a[0].size()||i<0||j<0){
+    bool solve(vector<vector<char>>& board, string& word, int i, int j, int k, vector<vector<bool>>& use) {
+        if (k == word.size())
+            return true;
+        if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || use[i][j] || board[i][j] != word[k]) 
+        {
             return false;
         }
-         if(a[i][j] == '#')
-            return false;
-                temp.push_back(a[i][j]);
-        if(word[temp.size()-1]!=temp.back())
-            return false;
-            char ch=a[i][j];
-         
-            a[i][j]='#';
-       
-        bool ans=fun(a,word,i+1,j,temp)||
-        fun(a,word,i-1,j,temp)||
-        fun(a,word,i,j-1,temp)||
-        fun(a,word,i,j+1,temp);
-        a[i][j]=ch;
-    return ans;
+        use[i][j] = true;
+        bool found = solve(board, word, i + 1, j, k + 1, use) || solve(board, word, i - 1, j, k + 1, use) || solve(board, word, i, j + 1, k + 1, use) || solve(board, word, i, j - 1, k + 1, use);
+        use[i][j] = false;
+        return found;
     }
-    bool exist(vector<vector<char>>& a, string word) {
-        string temp;
-        for(int i=0;i<a.size();i++){
 
-            for(int j=0;j<a[0].size();j++){
-
-                if(fun(a,word,i,j,temp))
+    bool exist(vector<vector<char>>& board, string word) {
+        vector<vector<bool>> use(board.size(),vector<bool>(board[0].size(), false));
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
+                if (solve(board, word, i, j, 0, use))
                     return true;
             }
         }
-
         return false;
     }
 };
