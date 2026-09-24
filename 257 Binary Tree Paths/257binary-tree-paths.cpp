@@ -11,20 +11,21 @@
  */
 class Solution {
 public:
-vector<string>ans;
-    void check(TreeNode* root,string temp){
+    void solve(TreeNode* root,vector<string>& res,string s){
         if(root==NULL) return;
-        if(root->left==NULL&&root->right==NULL){
-           
-            ans.push_back(temp+to_string(root->val));
+        if(root->left==NULL && root->right==NULL){
+            s += to_string(root->val);
+            res.push_back(s);
+            s = "";
             return;
         }
-        check(root->left,temp+to_string(root->val)+"->");
-        check(root->right,temp+to_string(root->val)+"->");
+        solve(root->left,res,s+to_string(root->val)+"->");
+        solve(root->right,res,s+to_string(root->val)+"->");
     }
     vector<string> binaryTreePaths(TreeNode* root) {
-        ans.clear();
-        check(root,"");
-        return ans;
+        vector<string> res;
+        string s;
+        solve(root,res,s);
+        return res;
     }
 };
