@@ -1,17 +1,26 @@
 class Solution {
 public:
-    bool check( int val , int i){
-        int sum=0;
-        while( val){
-            sum+=val%10;
-            val/=10;
-        }
-        return sum==i;
-    }
-    int smallestIndex(vector<int>& a) {
-        for( int i=0;i<a.size();i++){
-            if( check(a[i],i)==1) return i;
+    int smallestIndex(vector<int>& nums) {
+        int a = 1005,b=-1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<10){
+                if(nums[i]==i){
+                    return i;
+                }
+            }
+            else{
+                int m  = nums[i];
+                int s = 0;
+                while(m){
+                    s += m%10;
+                    m /=10;
+                }
+                if(s==i){
+                    return i;
+                }
+            }
         }
         return -1;
     }
+    
 };
