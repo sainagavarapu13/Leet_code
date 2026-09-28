@@ -1,22 +1,20 @@
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-
-        vector<vector<int>> ans;
-        int n = nums.size();
-
-        for (int mask = 0; mask < (1 << n); mask++) {
-
-            vector<int> temp;
-
-           for (int i = 0; i < n; i++) {
-                 if (mask&(1<<i)) {
-                  temp.push_back(nums[i]);
-            }
-}
-            ans.push_back(temp);
+    set<vector<int>> s;
+    void dfs(vector<int> &nums,int i,vector<int> temp,int n){
+        if(i==n){
+            s.insert(temp);
+            return;
         }
-
-        return ans;
+        temp.push_back(nums[i]);
+        dfs(nums,i+1,temp,n);
+        temp.pop_back();
+        dfs(nums,i+1,temp,n);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> temp;
+        dfs(nums,0,temp,nums.size());
+        vector<vector<int>> v(s.begin(),s.end());
+        return v;
     }
 };
