@@ -1,37 +1,51 @@
 class Solution {
 public:
-vector<string>ans;
-    string mapped(char ch){
-        if(ch=='2') return "abc";
-        if(ch=='3') return "def";
-        if(ch=='4') return "ghi";
-        if(ch=='5') return "jkl";
-        if(ch=='6') return "mno";
-        if(ch=='7') return "pqrs";
-        if(ch=='8') return "tuv";
-        else return "wxyz";
-    }
-    void fun(vector<string>&values,string temp,int idx){
-        if(idx==values.size()&&temp.size()==values.size()){
-            ans.push_back(temp);
-            return;
+    vector<string> letterCombinations(string digits) {
+        int n = digits.size();
+        vector<vector<char>> a(n);
+        for(int i=0;i<digits.size();i++){
+            vector<char> v;
+            for(int j=0;j<3;j++){
+                int d = digits[i]-'2',a = 0;
+                if(d>=6) a= 1;
+                char e = 'a'+3*d+j+a;
+                v.push_back(e);
+            }
+            if(digits[i]=='7') v.push_back('s');
+            if(digits[i]=='9') v.push_back('z');
+            a[i] = v;
         }
-        for(int j=0;j<values[idx].size();j++){
-             temp.push_back(values[idx][j]);
-             fun(values,temp,idx+1);
-             temp.pop_back();
-            
-        }
-       
-    }
-    vector<string> letterCombinations(string a) {
-     vector<string>values;
-     ans.clear();
-     for(int i=0;i<a.size();i++){
-        values.push_back(mapped(a[i]));
-     }
-     string temp;
-     fun(values,temp,0);
-    return ans;
+        vector<string> res;
+        if(n==1){
+            for(int i=0;i<a[0].size();i++){
+                string s = "";
+                s+=a[0][i];
+                res.push_back(s);
+            }}
+        if(n==2){
+        for(int i=0;i<a[0].size();i++){
+            string s = "";
+            s+=a[0][i];
+            for(int j=0;j<a[1].size();j++){
+                res.push_back(s+a[1][j]);
+            }}}
+        if(n==3){
+            for(int i=0;i<a[0].size();i++){
+            string s = "";
+            s+=a[0][i];
+            for(int j=0;j<a[1].size();j++){
+                for(int k = 0;k<a[2].size();k++){
+                res.push_back(s+a[1][j]+a[2][k]);
+                }}}}
+        if(n==4){
+            for(int i=0;i<a[0].size();i++){
+            string s = "";
+            s+=a[0][i];
+            for(int j=0;j<a[1].size();j++){
+                for(int k = 0;k<a[2].size();k++){
+                    for(int l=0;l<a[3].size();l++){
+                res.push_back(s+a[1][j]+a[2][k]+a[3][l]);
+                    }}}}}
+        return res;
     }
 };
