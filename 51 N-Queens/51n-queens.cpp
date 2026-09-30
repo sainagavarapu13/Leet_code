@@ -1,35 +1,36 @@
 class Solution {
 public:
-vector<vector<string>>ans;
-    void fun( int i,int n,vector<int>& c, vector<int>& a,vector<int>& b,vector<string>& r){
-        if( i==n) {
-            ans.push_back(r);
-            return;
+ vector<vector<string>>ans;
+ vector<string>temp;
+ void fun(int i,int n , vector<int>&a,vector<int>&b,vector<int>&c){
+        if(i==n+1){
+            ans.push_back(temp);
+            return ;
         }
-        for( int j=0;j<n;j++){
-            if( c[j]||a[i-j+n]||b[i+j]){
-                 continue;}
-            c[j]=1;
-            a[i-j+n]=1;
-            b[i+j]=1;
-            string s;
-            for( int k=0;k<n;k++){
-                if( k==j) s.push_back('Q');
-                else s.push_back('.');
+        for(int j=1;j<=n;j++){
+            if(a[j]==1 || b[i-j+n]==1 || c[i+j]==1) continue;
+            a[j]=1;
+            b[i-j+n]=1;
+            c[i+j]=1;
+            string t;
+            for(int k=1;k<=n;k++){
+                if(j==k) t+='Q';
+                else t+='.';
             }
-            r.push_back(s);
-            fun( i+1,n,c, a, b,r);
-            r.pop_back();
-            c[j]=0;
-            a[i-j+n]=0;
-            b[i+j]=0;
-
+            temp.push_back(t);
+            fun(i+1,n,a,b,c);
+             a[j]=0;
+            b[i-j+n]=0;
+            c[i+j]=0;
+            t.clear();
+            temp.pop_back();
         }
     }
-   vector<vector<string>> solveNQueens(int n) {
-        vector<int>a(2*n,0),b(2*n,0),c(n,0);
-        vector<string>r;
-        fun( 0,n,c,a,b,r);
+    vector<vector<string>> solveNQueens(int n) {
+        ans.clear();
+        temp.clear();
+        vector<int>a(n+1,0),b(2*n+1,0),c(2*n+1,0);
+        fun(1,n,a,b,c);
         return ans;
     }
 };
