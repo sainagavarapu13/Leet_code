@@ -1,25 +1,25 @@
 class Solution {
 public:
-    void p(int n,int left,int right,vector<string>&ans,string &temp){
-        if(left+right==2*n){
-            ans.push_back(temp);
-            return;
+vector<string>ans;
+    void fun(int n,string s, int open , int clo){
+        if((int)s.size() == 2*n){
+            ans.push_back(s);
+            return ;
         }
-        if(left<n){
-            temp.push_back('(');
-            p(n,left+1,right,ans,temp);
-            temp.pop_back();
+    if(open < n){
+    fun(n ,s+'(' ,open+1,clo);
+   // if(!s.empty()) s.pop_back();
+     }
+        if(clo < open){
+            fun(n,s+')',open,clo+1);
+          // if(!s.empty())  s.pop_back();
         }
-        if(right<left){
-            temp.push_back(')');
-            p(n,left,right+1,ans,temp);
-            temp.pop_back();
-        }
+       
     }
     vector<string> generateParenthesis(int n) {
-        vector<string>ans;
-        string temp;
-        p(n,0,0,ans,temp);
+        ans.clear();
+        string s="";
+        fun(n,s,0,0);
         return ans;
     }
 };
