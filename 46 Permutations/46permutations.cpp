@@ -1,28 +1,27 @@
 class Solution {
 public:
-    void gen(int n ,map<int, int>& m, vector<vector<int>>& res , vector<int>& a){
-        if( a.size() == n){
-            res.push_back(a);
+ vector<vector<int>>res;
+    void per(vector<int>& a,vector<int>&ans,int idx,vector<int>& vis){
+        if(idx==a.size()){
+            res.push_back(ans);
             return;
         }
-        for( auto[x,y]:m){
-            if( y ==0) continue;
-            a.push_back(x);
-            m[x]--;
-            gen( n, m, res,a);
-            a.pop_back();
-            m[x]++;
+        for(int i=0;i<a.size();i++){
+            if(vis[i]==0){
+            ans[idx] = a[i];
+            vis[i]=1;
+            
+            per(a,ans,idx+1,vis);
+            vis[i]=0;
+            }
         }
+       
     }
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<int>a;
-        map<int , int>m;
-        for( int i : nums){
-            m[i]++;
-        }
-        vector<vector<int>>res;
-        gen(nums.size(), m , res,a);
+    vector<vector<int>> permute(vector<int>& a) {
+        res.clear();
+        vector<int>vis(a.size(),0);
+        vector<int>ans(a.begin(),a.end());
+        per(a,ans,0,vis);
         return res;
-        
     }
 };
