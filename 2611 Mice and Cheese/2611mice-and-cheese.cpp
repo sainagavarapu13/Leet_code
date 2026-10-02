@@ -1,19 +1,25 @@
 class Solution {
 public:
-    int miceAndCheese(vector<int>& a, vector<int>& b, int k) {
-        vector<pair<int , pair<int , int>>>p;
-        for( int i=0;i<a.size();i++){
-            p.push_back({(a[i]-b[i]),{a[i],b[i]}});
-            
+    int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {
+        vector<pair<int,int>> v;
+        for(int i=0;i<reward1.size();i++){
+            v.push_back({reward1[i]-reward2[i],i});
         }
-        sort( p.rbegin() , p.rend());
-        int ans=0;
-        for( int i=0;i<k;i++){
-            ans+=p[i].second.first;
+        sort(v.rbegin(),v.rend(),[](auto& a,auto& b){
+            if(a.first==b.first){
+                return a.second > b.second;
+            }
+            return a.first<b.first;
+        });
+        long long res = 0;
+        for(int i=0;i<reward1.size();i++){
+            if(i<k){
+                res += reward1[v[i].second];
+            }
+            else{
+                res += reward2[v[i].second];
+            }
         }
-         for( int i=k;i<p.size();i++){
-            ans+=p[i].second.second;
-        }
-        return ans;
+        return res;
     }
 };
