@@ -1,34 +1,35 @@
 class Solution {
 public:
-    bool lemonadeChange(vector<int>& a) {
-        int i,five=0;
-        int ten=0,tw=0;
-        for(i=0;i<a.size();i++){
-            if(a[i]==5) five++;
-            if(a[i]==10) ten++;
-            if(a[i]==20) tw++;
-            if(a[i]!=5){
-                if(i==a.size()-1){
-                    cout<<five<<" "<<ten<<" "<<tw<<" ";
+    bool lemonadeChange(vector<int>& bill) {
+        long long  a = 0,b =0, c = 0;
+        if(bill[0]!=5) return false;
+        for(int i=0;i<bill.size();i++){
+            if(bill[i]==5) a++;
+            else if(bill[i]==10) b++;
+            else c++;
+            cout<<i<<endl;
+            long long r = bill[i] - 5;
+            if(r==15){
+                if((b>=1 && a>=1)){
+                    b--;
+                    a--;
                 }
-                int rem=(a[i]-5);
-                 if(i==a.size()-1){
-                    cout<<rem;
+                else if(a>=3){
+                    a -= 3;
                 }
-                 while(rem>=10&&ten>=(rem/10)){
-                    int req=rem/10;
-                    rem=rem-(10*req);
-                    ten=ten-req;
-                 }
-                   while(rem>=5&&five>=(rem/5)){
-                    int req=rem/5;
-                    rem=rem-(5*req);
-                    five=five-req;
-                 }
-                 if(rem!=0) return 0;
+                else {
+                    return false;
+                }
             }
-           
+            else if(r==5){
+                if(a>0){
+                    a--;
+                }
+                else{
+                    return false;
+                }
+            }
         }
-         return 1;
+        return true;
     }
 };
